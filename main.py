@@ -1,12 +1,12 @@
 import sys
 
-from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication
 
 from main_window import BlenderLauncher
 
 
 def main():
-    app = QtWidgets.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     window = BlenderLauncher()
     window.show()
     app.exec_()
