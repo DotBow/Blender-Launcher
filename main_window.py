@@ -11,6 +11,7 @@ from scraper import Scraper
 from library_widget import LibraryWidget
 from settings import *
 from settings_window import SettingsWindow
+from pathlib import Path
 
 
 class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
@@ -40,8 +41,8 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
         self.thread.start()
 
         # Draw Library
-        library_folder = get_library_folder()
-        dirs = next(os.walk(library_folder))[1]
+        library_folder = Path(get_library_folder())
+        dirs = library_folder.iterdir()
 
         if get_platform() == 'Windows':
             blender_exe = "blender.exe"
@@ -49,7 +50,9 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
             blender_exe = "blender"
 
         for dir in dirs:
-            if os.path.isfile(os.path.join(library_folder, dir, blender_exe)):
+            path = library_folder / dir / blender_exe
+
+            if path.is_file():
                 self.draw_to_library(dir)
 
     def draw_to_downloads(self, link):

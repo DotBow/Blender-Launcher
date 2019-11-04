@@ -10,6 +10,7 @@ from _platform import get_platform
 import os
 from settings import *
 from pathlib import Path
+import zipfile
 
 
 class Downloader(QThread):
@@ -32,8 +33,8 @@ class Downloader(QThread):
         temp_folder = library_folder / ".temp"
 
         # Create temp directory
-        if not os.path.isdir(temp_folder):
-            os.makedirs(temp_folder)
+        if not temp_folder.is_dir():
+            temp_folder.mkdir()
 
         temp_folder = temp_folder / self.link.split('/', -1)[-1]
 
@@ -66,13 +67,13 @@ class Downloader(QThread):
                 self.progress_changed.emit(
                     progress, progress * 0.5 + 0.5, "Extracting: %p%")
 
-                if not self.is_running:
-                    zf.close()
-                    shutil.rmtree(os.path.join(library_folder, version))
-                    if os.path.isdir(temp_folder):
-                        shutil.rmtree(temp_folder)
-                    self.finished.emit(None)
-                    return
+                # if not self.is_running:
+                #     zf.close()
+                #     shutil.rmtree(os.path.join(library_folder, version))
+                #     if os.path.isdir(temp_folder):
+                #         shutil.rmtree(temp_folder)
+                #     self.finished.emit(None)
+                #     return
 
             zf.close()
         elif self.platform == 'Linux':
@@ -88,12 +89,12 @@ class Downloader(QThread):
                 self.progress_changed.emit(
                     progress, progress * 0.5 + 0.5, "Extracting: %p%")
 
-                if not self.is_running:
-                    tar.close()
-                    shutil.rmtree(os.path.join(library_folder, version))
-                    if os.path.isdir(temp_folder):
-                        shutil.rmtree(temp_folder)
-                    self.finished.emit(None)
-                    return
+                # if not self.is_running:
+                #     tar.close()
+                #     shutil.rmtree(os.path.join(library_folder, version))
+                #     if os.path.isdir(temp_folder):
+                #         shutil.rmtree(temp_folder)
+                #     self.finished.emit(None)
+                #     return
 
             tar.close()
