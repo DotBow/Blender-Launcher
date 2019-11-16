@@ -35,8 +35,14 @@ class LibraryWidget(QtWidgets.QWidget):
 
         # Context menu
         self.setContextMenuPolicy(Qt.ActionsContextMenu)
+
         deleteAction = QAction("Delete From Drive", self)
         deleteAction.triggered.connect(self.delete_from_drive)
+
+        setAsFavoriteAction = QAction("Set As Favorite", self)
+        setAsFavoriteAction.triggered.connect(lambda: print("Set As Favorite"))
+
+        self.addAction(setAsFavoriteAction)
         self.addAction(deleteAction)
 
     def mouseDoubleClickEvent(self, event):
