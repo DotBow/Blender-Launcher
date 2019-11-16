@@ -16,6 +16,7 @@ import zipfile
 class Downloader(QThread):
     progress_changed = pyqtSignal(
         'PyQt_PyObject', 'PyQt_PyObject', 'PyQt_PyObject')
+    finished = pyqtSignal('PyQt_PyObject')
 
     def __init__(self, parent, link):
         QThread.__init__(self)
@@ -98,3 +99,5 @@ class Downloader(QThread):
                 #     return
 
             tar.close()
+
+        self.finished.emit(0)

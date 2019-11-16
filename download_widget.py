@@ -6,8 +6,10 @@ from downloader import Downloader
 
 
 class DownloadWidget(QtWidgets.QWidget):
-    def __init__(self, link):
+    def __init__(self, parent, item, link):
         super(DownloadWidget, self).__init__(None)
+        self.parent = parent
+        self.item = item
         self.link = link
 
         self.progressBar = QtWidgets.QProgressBar()
@@ -32,6 +34,7 @@ class DownloadWidget(QtWidgets.QWidget):
         self.progressBar.show()
         self.widgetButton.setDisabled(True)
         self.thread.start()
+        self.thread.finished.connect(self.destroy)
 
     def set_progress_bar(self, progress_bar_val, taskbar_val, format):
         self.progressBar.setFormat(format)
@@ -39,3 +42,10 @@ class DownloadWidget(QtWidgets.QWidget):
 
         # if self.taskbar_progress:
         #     self.taskbar_progress.setValue(taskbar_val * 100)
+
+    def destroy(self, status):
+        if status == 0:
+            row = self.parent.DownloadsListWidget.row(self.item)
+            self.parent.DownloadsListWidget.takeItem(row)
+        else:
+            pass

@@ -57,7 +57,7 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
 
     def draw_to_downloads(self, link):
         item = QtWidgets.QListWidgetItem()
-        widget = DownloadWidget(link)
+        widget = DownloadWidget(self, item, link)
         item.setSizeHint(widget.sizeHint())
         self.DownloadsListWidget.addItem(item)
         self.DownloadsListWidget.setItemWidget(item, widget)
