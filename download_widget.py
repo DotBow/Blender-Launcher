@@ -3,6 +3,7 @@ import os
 from PyQt5 import QtCore, QtWidgets
 
 from downloader import Downloader
+from settings import *
 
 
 class DownloadWidget(QtWidgets.QWidget):
@@ -45,6 +46,8 @@ class DownloadWidget(QtWidgets.QWidget):
 
     def destroy(self, status):
         if status == 0:
+            self.parent.draw_to_library(
+                get_library_folder() / Path(self.link).stem)
             row = self.parent.DownloadsListWidget.row(self.item)
             self.parent.DownloadsListWidget.takeItem(row)
         else:
