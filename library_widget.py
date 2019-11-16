@@ -3,6 +3,8 @@ from pathlib import Path
 from subprocess import Popen
 
 from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QAction
 
 from _platform import *
 from settings import *
@@ -15,6 +17,7 @@ class LibraryWidget(QtWidgets.QWidget):
     def __init__(self, link):
         super(LibraryWidget, self).__init__(None)
         self.link = link
+
         widgetText = QtWidgets.QLabel(os.path.basename(link))
         self.widgetButton = QtWidgets.QPushButton("Launch")
         self.widgetButton.clicked.connect(self.launch)
@@ -26,6 +29,15 @@ class LibraryWidget(QtWidgets.QWidget):
 
         widgetLayout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
         self.setLayout(widgetLayout)
+
+        # Context menu
+        self.setContextMenuPolicy(Qt.ActionsContextMenu)
+        deleteAction = QAction("Delete From Drive", self)
+        deleteAction.triggered.connect(lambda: print("Delete"))
+        self.addAction(deleteAction)
+
+    def mouseDoubleClickEvent(self, event):
+        self.launch()
 
     def launch(self):
         platform = get_platform()
