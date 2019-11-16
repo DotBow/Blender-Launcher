@@ -1,6 +1,7 @@
 import os
 
 from PyQt5.QtCore import QSettings
+from pathlib import Path
 
 
 def get_library_folder():
@@ -11,7 +12,7 @@ def get_library_folder():
         app_folder = os.path.dirname(sys.executable)
         self.settings.setValue('library_folder', app_folder)
 
-    return library_folder
+    return Path(library_folder)
 
 
 def set_library_folder(new_library_folder):

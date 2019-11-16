@@ -29,7 +29,7 @@ class LibraryWidget(QtWidgets.QWidget):
 
     def launch(self):
         platform = get_platform()
-        library_folder = Path(get_library_folder())
+        library_folder = get_library_folder()
 
         if platform == 'Windows':
             DETACHED_PROCESS = 0x00000008

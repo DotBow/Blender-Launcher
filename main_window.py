@@ -41,7 +41,7 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
         self.thread.start()
 
         # Draw Library
-        library_folder = Path(get_library_folder())
+        library_folder = get_library_folder()
         dirs = library_folder.iterdir()
 
         if get_platform() == 'Windows':
