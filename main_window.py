@@ -64,7 +64,7 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
 
     def draw_to_library(self, dir):
         item = QtWidgets.QListWidgetItem()
-        widget = LibraryWidget(dir)
+        widget = LibraryWidget(self, item, dir)
         item.setSizeHint(widget.sizeHint())
         self.LibraryListWidget.addItem(item)
         self.LibraryListWidget.setItemWidget(item, widget)

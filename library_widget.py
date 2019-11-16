@@ -1,5 +1,6 @@
 import subprocess
 from pathlib import Path
+from shutil import rmtree
 from subprocess import Popen
 
 from PyQt5 import QtCore, QtWidgets
@@ -14,8 +15,10 @@ if get_platform() == 'Windows':
 
 
 class LibraryWidget(QtWidgets.QWidget):
-    def __init__(self, link):
+    def __init__(self, parent, item, link):
         super(LibraryWidget, self).__init__(None)
+        self.parent = parent
+        self.item = item
         self.link = link
 
         widgetText = QtWidgets.QLabel(os.path.basename(link))
@@ -33,7 +36,7 @@ class LibraryWidget(QtWidgets.QWidget):
         # Context menu
         self.setContextMenuPolicy(Qt.ActionsContextMenu)
         deleteAction = QAction("Delete From Drive", self)
-        deleteAction.triggered.connect(lambda: print("Delete"))
+        deleteAction.triggered.connect(self.delete_from_drive)
         self.addAction(deleteAction)
 
     def mouseDoubleClickEvent(self, event):
@@ -52,3 +55,8 @@ class LibraryWidget(QtWidgets.QWidget):
             b3d_exe = library_folder / self.link / "blender"
             proc = Popen('nohup "' + b3d_exe + '"', shell=True, stdout=None,
                          stderr=None, close_fds=True, preexec_fn=os.setpgrp)
+
+    def delete_from_drive(self):
+        rmtree((get_library_folder() / self.link).as_posix())
+        row = self.parent.LibraryListWidget.row(self.item)
+        self.parent.LibraryListWidget.takeItem(row)
