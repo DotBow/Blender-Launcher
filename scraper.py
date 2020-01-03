@@ -28,8 +28,10 @@ class Scraper(QThread):
         links = []
 
         # Stable Build
-        links.extend(self.scrap_download_links(
-            "https://www.blender.org/download", _limit=1))
+        stable = self.scrap_download_links(
+            "https://www.blender.org/download", _limit=1)
+        links.append(stable[0].replace(
+            "https://www.blender.org/download", "https://ftp.nluug.nl/pub/graphics/blender/release"))
 
         # Daily Builds
         links.extend(self.scrap_download_links(
