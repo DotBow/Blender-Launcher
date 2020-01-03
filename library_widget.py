@@ -25,9 +25,9 @@ class LibraryWidget(QtWidgets.QWidget):
         self.widgetButton = QtWidgets.QPushButton("Launch")
         self.widgetButton.clicked.connect(self.launch)
         widgetLayout = QtWidgets.QHBoxLayout()
-        widgetLayout.addWidget(widgetText)
         widgetLayout.addWidget(
             self.widgetButton, alignment=QtCore.Qt.AlignRight)
+        widgetLayout.addWidget(widgetText)
         widgetLayout.addStretch()
 
         widgetLayout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)

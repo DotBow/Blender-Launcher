@@ -20,10 +20,10 @@ class DownloadWidget(QtWidgets.QWidget):
         self.widgetButton = QtWidgets.QPushButton("Download")
         self.widgetButton.clicked.connect(self.init_download)
         widgetLayout = QtWidgets.QHBoxLayout()
-        widgetLayout.addWidget(widgetText)
-        widgetLayout.addWidget(self.progressBar)
         widgetLayout.addWidget(
             self.widgetButton, alignment=QtCore.Qt.AlignRight)
+        widgetLayout.addWidget(widgetText)
+        widgetLayout.addWidget(self.progressBar)
         widgetLayout.addStretch()
 
         widgetLayout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
