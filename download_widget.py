@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtWidgets
 
 from downloader import Downloader
 from settings import *
+import re
 
 
 class DownloadWidget(QtWidgets.QWidget):
@@ -16,7 +17,20 @@ class DownloadWidget(QtWidgets.QWidget):
         self.progressBar = QtWidgets.QProgressBar()
         self.progressBar.setAlignment(QtCore.Qt.AlignHCenter)
         self.progressBar.hide()
-        widgetText = QtWidgets.QLabel(os.path.basename(link))
+
+        label = os.path.basename(link)
+        label = label.replace("blender-", "")
+        label = label.replace("-windows64.zip", "")
+        label_parts = label.rsplit('-', 2)
+
+        if len(label_parts) > 2:
+            label = label_parts[1] + ' ' + label_parts[0] + ' ' + label_parts[2]
+        elif len(label_parts) > 1:
+            label = label_parts[0] + " Experimental " + label_parts[1]
+        else:
+            label = label_parts[0] + " Release"
+
+        widgetText = QtWidgets.QLabel(label)
         self.widgetButton = QtWidgets.QPushButton("Download")
         self.widgetButton.clicked.connect(self.init_download)
         widgetLayout = QtWidgets.QHBoxLayout()
