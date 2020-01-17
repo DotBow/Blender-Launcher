@@ -1,18 +1,19 @@
 import os
 import sys
+import threading
+from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QSettings, QThread, pyqtSignal
+from PyQt5.QtWidgets import QStyle, QSystemTrayIcon
 
 import main_window_design
 from _platform import get_platform
 from download_widget import DownloadWidget
-from scraper import Scraper
 from library_widget import LibraryWidget
+from scraper import Scraper
 from settings import *
 from settings_window import SettingsWindow
-from pathlib import Path
-import threading
 
 
 class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
@@ -30,16 +31,10 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
         self.settings.setValue('version', [0, 1, 0])
 
         library_folder = self.settings.value('library_folder')
+
         if (not library_folder) or (not os.path.isdir(library_folder)):
             exe_path = os.path.dirname(sys.executable)
             self.settings.setValue('library_folder', exe_path)
-
-        print(os.path.dirname(sys.executable))
-
-        # Draw downloads
-        # self.thread = Scraper(self)
-        # self.thread.download_row.connect(self.draw_to_downloads)
-        # self.thread.start()
 
         # Draw Library
         library_folder = get_library_folder()
@@ -58,21 +53,41 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
 
         self.work()
 
+        self.tray_icon = QSystemTrayIcon(self)
+        self.tray_icon.setIcon(
+            self.style().standardIcon(QStyle.SP_TitleBarMenuButton))
+        self.tray_icon.activated.connect(self.show)
+        self.tray_icon.show()
+
     def work(self):
+        print("Updating...")
         threading.Timer(60.0, self.work).start()
         self.thread = Scraper(self)
-        self.thread.download_row.connect(self.draw_to_downloads)
+        self.thread.download_row.connect(self.test)
         self.thread.start()
 
+    def test(self, links):
+        old_links = []
+        new_links = []
+
         for i in range(self.LibraryListWidget.count()):
-            print(self.LibraryListWidget.itemWidget(self.LibraryListWidget.item(i)).link)
+            link = self.LibraryListWidget.itemWidget(
+                self.LibraryListWidget.item(i)).link
+            name = Path(link).name
+            old_links.append(name)
 
         for i in range(self.DownloadsListWidget.count()):
-            print(self.DownloadsListWidget.itemWidget(self.DownloadsListWidget.item(i)).link)
+            link = self.DownloadsListWidget.itemWidget(
+                self.DownloadsListWidget.item(i)).link
+            name = Path(link).stem
+            old_links.append(name)
 
-    def iterAllItems(self):
-        for i in range(self.count()):
-            yield self.item(i)
+        for link in links:
+            if Path(link).stem not in old_links:
+                new_links.append(link)
+
+        for link in new_links:
+            self.draw_to_downloads(link)
 
     def draw_to_downloads(self, link):
         item = QtWidgets.QListWidgetItem()
@@ -90,3 +105,7 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
 
     def show_settings_window(self):
         self.settings_window = SettingsWindow()
+
+    def closeEvent(self, event):
+        event.ignore()
+        self.hide()

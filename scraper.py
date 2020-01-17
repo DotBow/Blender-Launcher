@@ -9,7 +9,7 @@ from urllib.parse import urljoin
 
 
 class Scraper(QThread):
-    download_row = pyqtSignal('PyQt_PyObject')
+    links = pyqtSignal('PyQt_PyObject')
 
     def __init__(self, parent):
         QThread.__init__(self)
@@ -19,12 +19,9 @@ class Scraper(QThread):
         self.wait()
 
     def run(self):
-        links = self.get_download_url()
+        self.links.emit(self.get_download_links())
 
-        for link in links:
-            self.download_row.emit(link)
-
-    def get_download_url(self):
+    def get_download_links(self):
         links = []
 
         # Stable Build

@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
 
@@ -18,9 +19,9 @@ class DownloadWidget(QtWidgets.QWidget):
         self.progressBar.setAlignment(QtCore.Qt.AlignHCenter)
         self.progressBar.hide()
 
-        label = os.path.basename(link)
+        label = Path(link).stem
         label = label.replace("blender-", "")
-        label = label.replace("-windows64.zip", "")
+        label = label.replace("-windows64", "")
         label_parts = label.rsplit('-', 2)
 
         if len(label_parts) > 2:
