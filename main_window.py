@@ -12,6 +12,7 @@ from library_widget import LibraryWidget
 from settings import *
 from settings_window import SettingsWindow
 from pathlib import Path
+import threading
 
 
 class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
@@ -36,9 +37,9 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
         print(os.path.dirname(sys.executable))
 
         # Draw downloads
-        self.thread = Scraper(self)
-        self.thread.download_row.connect(self.draw_to_downloads)
-        self.thread.start()
+        # self.thread = Scraper(self)
+        # self.thread.download_row.connect(self.draw_to_downloads)
+        # self.thread.start()
 
         # Draw Library
         library_folder = get_library_folder()
@@ -54,6 +55,24 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
 
             if path.is_file():
                 self.draw_to_library(dir)
+
+        self.work()
+
+    def work(self):
+        threading.Timer(60.0, self.work).start()
+        self.thread = Scraper(self)
+        self.thread.download_row.connect(self.draw_to_downloads)
+        self.thread.start()
+
+        for i in range(self.LibraryListWidget.count()):
+            print(self.LibraryListWidget.itemWidget(self.LibraryListWidget.item(i)).link)
+
+        for i in range(self.DownloadsListWidget.count()):
+            print(self.DownloadsListWidget.itemWidget(self.DownloadsListWidget.item(i)).link)
+
+    def iterAllItems(self):
+        for i in range(self.count()):
+            yield self.item(i)
 
     def draw_to_downloads(self, link):
         item = QtWidgets.QListWidgetItem()
