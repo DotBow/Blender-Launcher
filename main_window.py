@@ -4,7 +4,7 @@ import threading
 from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import QSettings, QThread, pyqtSignal
+from PyQt5.QtCore import QSettings, QThread, pyqtSignal, QEvent, Qt
 from PyQt5.QtWidgets import QStyle, QSystemTrayIcon
 
 import main_window_design
@@ -63,7 +63,7 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
         print("Updating...")
         threading.Timer(60.0, self.work).start()
         self.thread = Scraper(self)
-        self.thread.download_row.connect(self.test)
+        self.thread.links.connect(self.test)
         self.thread.start()
 
     def test(self, links):
@@ -100,7 +100,7 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
         item = QtWidgets.QListWidgetItem()
         widget = LibraryWidget(self, item, dir)
         item.setSizeHint(widget.sizeHint())
-        self.LibraryListWidget.addItem(item)
+        self.LibraryListWidget.insertItem(0, item)
         self.LibraryListWidget.setItemWidget(item, widget)
 
     def show_settings_window(self):

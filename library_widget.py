@@ -20,18 +20,40 @@ class LibraryWidget(QtWidgets.QWidget):
         self.parent = parent
         self.item = item
         self.link = link
+        self.is_favorite = False
 
-        widgetText = QtWidgets.QLabel(os.path.basename(link))
+        layout = QtWidgets.QHBoxLayout()
+        self.widgetFavorite = QtWidgets.QLabel("★")
+
+        if not self.is_favorite:
+            self.widgetFavorite.hide()
+
+        layout.addWidget(self.widgetFavorite)
+
+        label = Path(link).name
+        label = label.replace("blender-", "")
+        label = label.replace("-windows64", "")
+        label_parts = label.rsplit('-', 2)
+
+        if len(label_parts) > 2:
+            label = label_parts[1] + ' ' + \
+                label_parts[0] + " [" + label_parts[2] + "]"
+        elif len(label_parts) > 1:
+            label = label_parts[0] + " Experimental [" + label_parts[1] + "]"
+        else:
+            label = label_parts[0] + " Release"
+
+        widgetText = QtWidgets.QLabel(label)
+
         self.widgetButton = QtWidgets.QPushButton("Launch")
         self.widgetButton.clicked.connect(self.launch)
-        widgetLayout = QtWidgets.QHBoxLayout()
-        widgetLayout.addWidget(
+        layout.addWidget(
             self.widgetButton, alignment=QtCore.Qt.AlignRight)
-        widgetLayout.addWidget(widgetText)
-        widgetLayout.addStretch()
+        layout.addWidget(widgetText)
+        layout.addStretch()
 
-        widgetLayout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
-        self.setLayout(widgetLayout)
+        layout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
+        self.setLayout(layout)
 
         # Context menu
         self.setContextMenuPolicy(Qt.ActionsContextMenu)
@@ -39,10 +61,10 @@ class LibraryWidget(QtWidgets.QWidget):
         deleteAction = QAction("Delete From Drive", self)
         deleteAction.triggered.connect(self.delete_from_drive)
 
-        setAsFavoriteAction = QAction("Set As Favorite", self)
-        setAsFavoriteAction.triggered.connect(lambda: print("Set As Favorite"))
+        self.setAsFavoriteAction = QAction("Set As Favorite", self)
+        self.setAsFavoriteAction.triggered.connect(self.set_favorite)
 
-        self.addAction(setAsFavoriteAction)
+        self.addAction(self.setAsFavoriteAction)
         self.addAction(deleteAction)
 
     def mouseDoubleClickEvent(self, event):
@@ -66,3 +88,11 @@ class LibraryWidget(QtWidgets.QWidget):
         rmtree((get_library_folder() / self.link).as_posix())
         row = self.parent.LibraryListWidget.row(self.item)
         self.parent.LibraryListWidget.takeItem(row)
+
+    def set_favorite(self):
+        for i in range(self.parent.LibraryListWidget.count()):
+            item = self.parent.LibraryListWidget.itemWidget(
+                self.parent.LibraryListWidget.item(i))
+            item.widgetFavorite.hide()
+
+        self.widgetFavorite.show()

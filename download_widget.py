@@ -25,9 +25,10 @@ class DownloadWidget(QtWidgets.QWidget):
         label_parts = label.rsplit('-', 2)
 
         if len(label_parts) > 2:
-            label = label_parts[1] + ' ' + label_parts[0] + ' ' + label_parts[2]
+            label = label_parts[1] + ' ' + \
+                label_parts[0] + " [" + label_parts[2] + "]"
         elif len(label_parts) > 1:
-            label = label_parts[0] + " Experimental " + label_parts[1]
+            label = label_parts[0] + " Experimental [" + label_parts[1] + "]"
         else:
             label = label_parts[0] + " Release"
 
@@ -55,9 +56,6 @@ class DownloadWidget(QtWidgets.QWidget):
     def set_progress_bar(self, progress_bar_val, taskbar_val, format):
         self.progressBar.setFormat(format)
         self.progressBar.setValue(progress_bar_val * 100)
-
-        # if self.taskbar_progress:
-        #     self.taskbar_progress.setValue(taskbar_val * 100)
 
     def destroy(self, status):
         if status == 0:
