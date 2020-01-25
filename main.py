@@ -7,7 +7,7 @@ from main_window import BlenderLauncher
 
 def main():
     app = QApplication(sys.argv)
-    window = BlenderLauncher()
+    window = BlenderLauncher(app)
     app.exec_()
 
 

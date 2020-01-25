@@ -5,7 +5,7 @@ from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QSettings, QThread, pyqtSignal, QEvent, Qt
-from PyQt5.QtWidgets import QStyle, QSystemTrayIcon
+from PyQt5.QtWidgets import QStyle, QSystemTrayIcon, QMenu, QAction
 
 import main_window_design
 from _platform import get_platform
@@ -17,10 +17,11 @@ from settings_window import SettingsWindow
 
 
 class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
-    def __init__(self):
+    def __init__(self, app):
         super().__init__()
         self.setupUi(self)
         self.show()
+        self.app = app
 
         # Connect buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
@@ -57,11 +58,24 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
         self.tray_icon.setIcon(
             self.style().standardIcon(QStyle.SP_TitleBarMenuButton))
         self.tray_icon.activated.connect(self.show)
+
+        quit_action = QAction("Quit", self)
+        quit_action.triggered.connect(self.quit)
+        self.tray_menu = QMenu()
+        self.tray_menu.addAction(quit_action)
+        self.tray_icon.setContextMenu(self.tray_menu)
+
         self.tray_icon.show()
+
+    def quit(self):
+        self.timer.cancel()
+        self.tray_icon.hide()
+        self.app.quit()
 
     def work(self):
         print("Updating...")
-        threading.Timer(60.0, self.work).start()
+        self.timer = threading.Timer(60.0, self.work)
+        self.timer.start()
         self.thread = Scraper(self)
         self.thread.links.connect(self.test)
         self.thread.start()
