@@ -4,8 +4,9 @@ import threading
 from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import QSettings, QThread, pyqtSignal, QEvent, Qt
-from PyQt5.QtWidgets import QStyle, QSystemTrayIcon, QMenu, QAction
+from PyQt5.QtCore import QEvent, QSettings, Qt, QThread, QTimer, pyqtSignal
+from PyQt5.QtWidgets import (QAction, QApplication, QMenu, QStyle,
+                             QSystemTrayIcon)
 
 import main_window_design
 from _platform import get_platform
@@ -52,12 +53,14 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
             if path.is_file():
                 self.draw_to_library(dir)
 
-        self.work()
+        self.update()
 
+        # Tray icon
         self.tray_icon = QSystemTrayIcon(self)
         self.tray_icon.setIcon(
             self.style().standardIcon(QStyle.SP_TitleBarMenuButton))
-        self.tray_icon.activated.connect(self.show)
+        self.tray_icon.setToolTip("Blender Version Manager")
+        self.tray_icon.activated.connect(self.tray_icon_activated)
 
         quit_action = QAction("Quit", self)
         quit_action.triggered.connect(self.quit)
@@ -67,14 +70,31 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
 
         self.tray_icon.show()
 
+        self.tray_icon_trigger = QTimer(self)
+        self.tray_icon_trigger.setSingleShot(True)
+        self.tray_icon_trigger.timeout.connect(self._show)
+
+    def _show(self):
+        self.show()
+
+    def launch_favorite(self):
+        print("Launch Favorite")
+
+    def tray_icon_activated(self, reason):
+        if reason == QSystemTrayIcon.Trigger:
+            self.tray_icon_trigger.start(QApplication.doubleClickInterval())
+        elif reason == QSystemTrayIcon.DoubleClick:
+            self.tray_icon_trigger.stop()
+            self.launch_favorite()
+
     def quit(self):
         self.timer.cancel()
         self.tray_icon.hide()
         self.app.quit()
 
-    def work(self):
+    def update(self):
         print("Updating...")
-        self.timer = threading.Timer(60.0, self.work)
+        self.timer = threading.Timer(60.0, self.update)
         self.timer.start()
         self.thread = Scraper(self)
         self.thread.links.connect(self.test)
