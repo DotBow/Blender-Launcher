@@ -21,8 +21,9 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
     def __init__(self, app):
         super().__init__()
         self.setupUi(self)
-        self.show()
         self.app = app
+
+        self.favorite = None
 
         # Connect buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
@@ -68,17 +69,19 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
         self.tray_menu.addAction(quit_action)
         self.tray_icon.setContextMenu(self.tray_menu)
 
-        self.tray_icon.show()
-
         self.tray_icon_trigger = QTimer(self)
         self.tray_icon_trigger.setSingleShot(True)
         self.tray_icon_trigger.timeout.connect(self._show)
+
+        self.show()
+        self.tray_icon.show()
 
     def _show(self):
         self.show()
 
     def launch_favorite(self):
-        print("Launch Favorite")
+        if self.favorite is not None:
+            self.favorite.launch()
 
     def tray_icon_activated(self, reason):
         if reason == QSystemTrayIcon.Trigger:
@@ -94,7 +97,7 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
 
     def update(self):
         print("Updating...")
-        self.timer = threading.Timer(60.0, self.update)
+        self.timer = threading.Timer(600.0, self.update)
         self.timer.start()
         self.thread = Scraper(self)
         self.thread.links.connect(self.test)

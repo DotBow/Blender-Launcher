@@ -90,9 +90,8 @@ class LibraryWidget(QtWidgets.QWidget):
         self.parent.LibraryListWidget.takeItem(row)
 
     def set_favorite(self):
-        for i in range(self.parent.LibraryListWidget.count()):
-            item = self.parent.LibraryListWidget.itemWidget(
-                self.parent.LibraryListWidget.item(i))
-            item.widgetFavorite.hide()
+        if self.parent.favorite is not None:
+            self.parent.favorite.widgetFavorite.hide()
 
+        self.parent.favorite = self
         self.widgetFavorite.show()
