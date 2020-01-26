@@ -20,6 +20,7 @@ class Scraper(QThread):
 
     def run(self):
         self.links.emit(self.get_download_links())
+        return
 
     def get_download_links(self):
         links = []
