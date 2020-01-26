@@ -60,7 +60,7 @@ class DownloadWidget(QtWidgets.QWidget):
     def destroy(self, status):
         if status == 0:
             self.parent.draw_to_library(
-                get_library_folder() / Path(self.link).stem)
+                Path(get_library_folder()) / Path(self.link).stem)
             row = self.parent.DownloadsListWidget.row(self.item)
             self.parent.DownloadsListWidget.takeItem(row)
         else:

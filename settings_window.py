@@ -11,12 +11,12 @@ class SettingsWindow(QtWidgets.QDialog, settings_window_design.Ui_Dialog):
         self.setupUi(self)
         self.show()
 
-        self.LibraryFolderLineEdit.setText(get_library_folder().as_posix())
+        self.LibraryFolderLineEdit.setText(str(get_library_folder()))
         self.LibraryFolderLineEdit.setCursorPosition(0)
         self.SetLibraryFolderButton.clicked.connect(self.set_library_folder)
 
     def set_library_folder(self):
-        library_folder = get_library_folder().as_posix()
+        library_folder = str(get_library_folder())
         new_library_folder = QFileDialog.getExistingDirectory(
             self, "Select Library Folder", library_folder)
 

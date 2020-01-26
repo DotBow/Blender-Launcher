@@ -72,7 +72,7 @@ class LibraryWidget(QtWidgets.QWidget):
 
     def launch(self):
         platform = get_platform()
-        library_folder = get_library_folder()
+        library_folder = Path(get_library_folder())
 
         if platform == 'Windows':
             DETACHED_PROCESS = 0x00000008
@@ -85,7 +85,7 @@ class LibraryWidget(QtWidgets.QWidget):
                          stderr=None, close_fds=True, preexec_fn=os.setpgrp)
 
     def delete_from_drive(self):
-        rmtree((get_library_folder() / self.link).as_posix())
+        rmtree((Path(get_library_folder()) / self.link).as_posix())
         row = self.parent.LibraryListWidget.row(self.item)
         self.parent.LibraryListWidget.takeItem(row)
 

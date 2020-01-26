@@ -1,4 +1,3 @@
-import os
 import sys
 import threading
 from pathlib import Path
@@ -22,25 +21,13 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.app = app
-
         self.favorite = None
 
-        # Connect buttons
+        # Connect Buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
 
-        # Read settings
-        self.settings = QSettings('blender_launcher', 'settings')
-
-        self.settings.setValue('version', [0, 1, 0])
-
-        library_folder = self.settings.value('library_folder')
-
-        if (not library_folder) or (not os.path.isdir(library_folder)):
-            exe_path = os.path.dirname(sys.executable)
-            self.settings.setValue('library_folder', exe_path)
-
         # Draw Library
-        library_folder = get_library_folder()
+        library_folder = Path(get_library_folder())
         dirs = library_folder.iterdir()
 
         if get_platform() == 'Windows':
@@ -56,7 +43,7 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
 
         self.update()
 
-        # Tray icon
+        # Draw Tray Icon
         self.tray_icon = QSystemTrayIcon(self)
         self.tray_icon.setIcon(
             self.style().standardIcon(QStyle.SP_TitleBarMenuButton))
@@ -77,6 +64,7 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
         self.tray_icon.show()
 
     def _show(self):
+        self.activateWindow()
         self.show()
 
     def launch_favorite(self):
@@ -99,9 +87,9 @@ class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
         print("Updating...")
         self.timer = threading.Timer(600.0, self.update)
         self.timer.start()
-        self.thread = Scraper(self)
-        self.thread.links.connect(self.test)
-        self.thread.start()
+        self.scraper = Scraper(self)
+        self.scraper.links.connect(self.test)
+        self.scraper.start()
 
     def test(self, links):
         old_links = []

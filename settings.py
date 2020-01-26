@@ -1,22 +1,21 @@
-import os
+from pathlib import Path
 
 from PyQt5.QtCore import QSettings
-from pathlib import Path
 
 
 def get_library_folder():
     settings = QSettings('blender_launcher', 'settings')
     library_folder = settings.value('library_folder')
 
-    if (not library_folder) or (not os.path.isdir(library_folder)):
-        app_folder = os.path.dirname(sys.executable)
-        self.settings.setValue('library_folder', app_folder)
+    if not Path(library_folder).exists():
+        library_folder = Path.cwd()
+        settings.setValue('library_folder', library_folder)
 
-    return Path(library_folder)
+    return library_folder
 
 
 def set_library_folder(new_library_folder):
     settings = QSettings('blender_launcher', 'settings')
 
-    if os.path.isdir(new_library_folder):
+    if Path(new_library_folder).exists():
         settings.setValue('library_folder', new_library_folder)
