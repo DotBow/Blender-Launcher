@@ -5,7 +5,7 @@ from ui.settings_window_design import Ui_Dialog
 from settings import *
 
 
-class SettingsWindow(Ui_Dialog):
+class SettingsWindow(QDialog, Ui_Dialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
