@@ -21,12 +21,13 @@ class LibraryWidget(QWidget):
         self.parent = parent
         self.item = item
         self.link = link
-        self.is_favorite = False
 
         layout = QtWidgets.QHBoxLayout()
         self.widgetFavorite = QtWidgets.QLabel("★")
 
-        if not self.is_favorite:
+        if get_favorite_path() == link:
+            self.set_favorite()
+        else:
             self.widgetFavorite.hide()
 
         layout.addWidget(self.widgetFavorite)
@@ -82,6 +83,8 @@ class LibraryWidget(QWidget):
         self.parent.LibraryListWidget.takeItem(row)
 
     def set_favorite(self):
+        set_favorite_path(self.link)
+
         if self.parent.favorite is not None:
             self.parent.favorite.widgetFavorite.hide()
 
