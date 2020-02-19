@@ -24,6 +24,11 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         self.app = app
         self.favorite = None
 
+        self.setWindowTitle("Blender Launcher")
+
+        with open(r"ui\stylesheet.css", "r") as file:
+            self.setStyleSheet(file.read())
+
         # Connect Buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
 
@@ -48,7 +53,7 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         self.tray_icon = QSystemTrayIcon(self)
         self.tray_icon.setIcon(
             self.style().standardIcon(QStyle.SP_TitleBarMenuButton))
-        self.tray_icon.setToolTip("Blender Version Manager")
+        self.tray_icon.setToolTip("Blender Launcher")
         self.tray_icon.activated.connect(self.tray_icon_activated)
 
         quit_action = QAction("Quit", self)
