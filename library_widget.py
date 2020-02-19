@@ -8,6 +8,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QAction
 
 from _platform import *
+from blender_version import *
 from settings import *
 
 if get_platform() == 'Windows':
@@ -30,18 +31,9 @@ class LibraryWidget(QtWidgets.QWidget):
 
         layout.addWidget(self.widgetFavorite)
 
-        label = Path(link).name
-        label = label.replace("blender-", "")
-        label = label.replace("-windows64", "")
-        label_parts = label.rsplit('-', 2)
-
-        if len(label_parts) > 2:
-            label = label_parts[1] + ' ' + \
-                label_parts[0] + " [" + label_parts[2] + "]"
-        elif len(label_parts) > 1:
-            label = label_parts[0] + " Experimental [" + label_parts[1] + "]"
-        else:
-            label = label_parts[0] + " Release"
+        info = read_blender_version(Path(link).name)
+        label = info['subversion'] + ' ' + \
+            info['branch'] + ' ' + info['commit_time']
 
         widgetText = QtWidgets.QLabel(label)
 
