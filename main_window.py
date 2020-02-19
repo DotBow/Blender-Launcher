@@ -6,6 +6,7 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QEvent, QSettings, Qt, QThread, QTimer, pyqtSignal
 from PyQt5.QtWidgets import (
     QAction, QApplication, QMainWindow, QMenu, QStyle, QSystemTrayIcon)
+from PyQt5.QtGui import QFontDatabase, QFont
 
 from _platform import get_platform
 from download_widget import DownloadWidget
@@ -26,8 +27,14 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
 
         self.setWindowTitle("Blender Launcher")
 
+        # Setup Style
         with open(r"ui\stylesheet.css", "r") as file:
-            self.setStyleSheet(file.read())
+            QFontDatabase.addApplicationFont(
+                ':/resources/fonts/Roboto-Regular.ttf')
+            font = QFont("Roboto", 10)
+            font.setHintingPreference(QFont.PreferNoHinting)
+            self.app.setFont(font)
+            self.app.setStyleSheet(file.read())
 
         # Connect Buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
