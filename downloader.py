@@ -1,16 +1,14 @@
-import re
+import json
+import os
+import zipfile
+from pathlib import Path
 from urllib.request import urlopen
 
-from bs4 import BeautifulSoup
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal
 
-import main_window_design
 from _platform import get_platform
-import os
 from settings import *
-from pathlib import Path
-import zipfile
 
 
 class Downloader(QThread):
@@ -68,14 +66,6 @@ class Downloader(QThread):
                 self.progress_changed.emit(
                     progress, progress * 0.5 + 0.5, "Extracting: %p%")
 
-                # if not self.is_running:
-                #     zf.close()
-                #     shutil.rmtree(os.path.join(library_folder, version))
-                #     if os.path.isdir(temp_folder):
-                #         shutil.rmtree(temp_folder)
-                #     self.finished.emit(None)
-                #     return
-
             zf.close()
         elif self.platform == 'Linux':
             tar = tarfile.open(temp_folder)
@@ -89,14 +79,6 @@ class Downloader(QThread):
                 progress = extracted_size / uncompress_size
                 self.progress_changed.emit(
                     progress, progress * 0.5 + 0.5, "Extracting: %p%")
-
-                # if not self.is_running:
-                #     tar.close()
-                #     shutil.rmtree(os.path.join(library_folder, version))
-                #     if os.path.isdir(temp_folder):
-                #         shutil.rmtree(temp_folder)
-                #     self.finished.emit(None)
-                #     return
 
             tar.close()
 
