@@ -4,10 +4,9 @@ from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QEvent, QSettings, Qt, QThread, QTimer, pyqtSignal
-from PyQt5.QtWidgets import (QAction, QApplication, QMenu, QStyle,
-                             QSystemTrayIcon)
+from PyQt5.QtWidgets import (
+    QAction, QApplication, QMainWindow, QMenu, QStyle, QSystemTrayIcon)
 
-import main_window_design
 from _platform import get_platform
 from download_widget import DownloadWidget
 from library_widget import LibraryWidget
@@ -15,8 +14,10 @@ from scraper import Scraper
 from settings import *
 from settings_window import SettingsWindow
 
+from ui.main_window_design import Ui_MainWindow
 
-class BlenderLauncher(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow):
+
+class BlenderLauncher(QMainWindow, Ui_MainWindow):
     def __init__(self, app):
         super().__init__()
         self.setupUi(self)

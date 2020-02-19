@@ -5,7 +5,7 @@ from subprocess import Popen
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QAction
+from PyQt5.QtWidgets import QAction, QWidget
 
 from _platform import *
 from blender_version import *
@@ -15,7 +15,7 @@ if get_platform() == 'Windows':
     from subprocess import CREATE_NO_WINDOW
 
 
-class LibraryWidget(QtWidgets.QWidget):
+class LibraryWidget(QWidget):
     def __init__(self, parent, item, link):
         super(LibraryWidget, self).__init__(None)
         self.parent = parent
