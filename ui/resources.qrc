@@ -1,5 +1,5 @@
 <RCC>
   <qresource prefix="resources">
-    <file>fonts/Roboto-Regular.ttf</file>
+    <file>fonts/Inter-Regular.otf</file>
   </qresource>
 </RCC>

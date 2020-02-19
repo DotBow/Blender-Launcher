@@ -30,9 +30,10 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         # Setup Style
         with open(r"ui\stylesheet.css", "r") as file:
             QFontDatabase.addApplicationFont(
-                ':/resources/fonts/Roboto-Regular.ttf')
-            font = QFont("Roboto", 10)
+                ':/resources/fonts/Inter-Regular.otf')
+            font = QFont("Inter", 10)
             font.setHintingPreference(QFont.PreferNoHinting)
+            font.setStyleStrategy(QFont.NoAntialias)
             self.app.setFont(font)
             self.app.setStyleSheet(file.read())
 
