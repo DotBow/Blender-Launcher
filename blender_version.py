@@ -60,7 +60,7 @@ def write_blender_version(folder):
     # Write Version Information
     data = {}
     data['blinfo'] = []
-    data.append({
+    data['blinfo'].append({
         'branch': branch,
         'subversion': subversion,
         'build_hash': build_hash,
