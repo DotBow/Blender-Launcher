@@ -1,6 +1,5 @@
 import subprocess
 from pathlib import Path
-from shutil import rmtree
 from subprocess import Popen
 
 from PyQt5 import QtCore, QtWidgets
@@ -9,6 +8,7 @@ from PyQt5.QtWidgets import QAction, QWidget
 
 from _platform import *
 from blender_version import *
+from remover import Remover
 from settings import *
 
 if get_platform() == 'Windows':
@@ -38,10 +38,10 @@ class LibraryWidget(QWidget):
 
         widgetText = QtWidgets.QLabel(label)
 
-        self.widgetButton = QtWidgets.QPushButton("Launch")
-        self.widgetButton.clicked.connect(self.launch)
+        self.launchButton = QtWidgets.QPushButton("Launch")
+        self.launchButton.clicked.connect(self.launch)
         layout.addWidget(
-            self.widgetButton, alignment=QtCore.Qt.AlignRight)
+            self.launchButton, alignment=QtCore.Qt.AlignRight)
         layout.addWidget(widgetText)
         layout.addStretch()
 
@@ -52,7 +52,7 @@ class LibraryWidget(QWidget):
         self.setContextMenuPolicy(Qt.ActionsContextMenu)
 
         deleteAction = QAction("Delete From Drive", self)
-        deleteAction.triggered.connect(self.delete_from_drive)
+        deleteAction.triggered.connect(self.remove_from_drive)
 
         self.setAsFavoriteAction = QAction("Set As Favorite", self)
         self.setAsFavoriteAction.triggered.connect(self.set_favorite)
@@ -63,6 +63,7 @@ class LibraryWidget(QWidget):
     def mouseDoubleClickEvent(self, event):
         self.launch()
 
+    @QtCore.pyqtSlot()
     def launch(self):
         platform = get_platform()
         library_folder = Path(get_library_folder())
@@ -77,11 +78,19 @@ class LibraryWidget(QWidget):
             proc = Popen('nohup "' + b3d_exe + '"', shell=True, stdout=None,
                          stderr=None, close_fds=True, preexec_fn=os.setpgrp)
 
-    def delete_from_drive(self):
-        rmtree((Path(get_library_folder()) / self.link).as_posix())
+    @QtCore.pyqtSlot()
+    def remove_from_drive(self):
+        path = Path(get_library_folder()) / self.link
+        self.remover = Remover(path)
+        self.remover.finished.connect(self.remover_finished)
+        self.remover.start()
+
+    @QtCore.pyqtSlot()
+    def remover_finished(self):
         row = self.parent.LibraryListWidget.row(self.item)
         self.parent.LibraryListWidget.takeItem(row)
 
+    @QtCore.pyqtSlot()
     def set_favorite(self):
         set_favorite_path(self.link)
 
