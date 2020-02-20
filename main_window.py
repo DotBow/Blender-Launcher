@@ -33,7 +33,6 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
                 ':/resources/fonts/Inter-Regular.otf')
             font = QFont("Inter", 10)
             font.setHintingPreference(QFont.PreferNoHinting)
-            font.setStyleStrategy(QFont.NoAntialias)
             self.app.setFont(font)
             self.app.setStyleSheet(file.read())
 

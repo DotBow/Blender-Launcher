@@ -83,3 +83,4 @@ class Downloader(QThread):
             tar.close()
 
         self.finished.emit(0)
+        return

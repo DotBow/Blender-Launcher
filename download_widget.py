@@ -50,8 +50,8 @@ class DownloadWidget(QtWidgets.QWidget):
         self.thread.progress_changed.connect(self.set_progress_bar)
         self.progressBar.show()
         self.widgetButton.setDisabled(True)
-        self.thread.start()
         self.thread.finished.connect(self.destroy)
+        self.thread.start()
 
     def set_progress_bar(self, progress_bar_val, taskbar_val, format):
         self.progressBar.setFormat(format)
