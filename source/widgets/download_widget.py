@@ -1,11 +1,11 @@
 import os
+import re
 from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
 
-from downloader import Downloader
-from settings import *
-import re
+from modules.settings import *
+from threads.downloader import Downloader
 
 
 class DownloadWidget(QtWidgets.QWidget):

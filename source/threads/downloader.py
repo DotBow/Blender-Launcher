@@ -7,8 +7,8 @@ from urllib.request import urlopen
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from _platform import get_platform
-from settings import *
+from modules._platform import get_platform
+from modules.settings import *
 
 
 class Downloader(QThread):

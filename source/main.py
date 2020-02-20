@@ -2,7 +2,7 @@ import sys
 
 from PyQt5.QtWidgets import QApplication
 
-from main_window import BlenderLauncher
+from windows.main_window import BlenderLauncher
 
 
 def main():

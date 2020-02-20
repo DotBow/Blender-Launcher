@@ -4,18 +4,17 @@ from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QEvent, QSettings, Qt, QThread, QTimer, pyqtSignal
+from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import (
     QAction, QApplication, QMainWindow, QMenu, QStyle, QSystemTrayIcon)
-from PyQt5.QtGui import QFontDatabase, QFont
 
-from _platform import get_platform
-from download_widget import DownloadWidget
-from library_widget import LibraryWidget
-from scraper import Scraper
-from settings import *
-from settings_window import SettingsWindow
-
+from modules._platform import get_platform
+from modules.settings import *
+from threads.scraper import Scraper
 from ui.main_window_design import Ui_MainWindow
+from widgets.download_widget import DownloadWidget
+from widgets.library_widget import LibraryWidget
+from windows.settings_window import SettingsWindow
 
 
 class BlenderLauncher(QMainWindow, Ui_MainWindow):
@@ -28,7 +27,7 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         self.setWindowTitle("Blender Launcher")
 
         # Setup Style
-        with open(r"ui\stylesheet.css", "r") as file:
+        with open(r"resources\styles\global.qss", "r") as file:
             QFontDatabase.addApplicationFont(
                 ':/resources/fonts/Inter-Regular.otf')
             font = QFont("Inter", 10)

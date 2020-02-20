@@ -6,8 +6,8 @@ import time
 from pathlib import Path
 from subprocess import DEVNULL
 
-from _platform import get_platform
-from settings import *
+from modules._platform import get_platform
+from modules.settings import *
 
 if get_platform() == 'Windows':
     from subprocess import CREATE_NO_WINDOW

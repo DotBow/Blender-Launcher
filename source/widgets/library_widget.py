@@ -6,10 +6,10 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QAction, QWidget
 
-from _platform import *
-from blender_version import *
-from remover import Remover
-from settings import *
+from modules._platform import *
+from modules.blender_version import *
+from modules.settings import *
+from threads.remover import Remover
 
 if get_platform() == 'Windows':
     from subprocess import CREATE_NO_WINDOW

@@ -1,11 +1,11 @@
 import re
+from urllib.parse import urljoin
 from urllib.request import urlopen
 
 from bs4 import BeautifulSoup
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from _platform import get_platform
-from urllib.parse import urljoin
+from modules._platform import get_platform
 
 
 class Scraper(QThread):

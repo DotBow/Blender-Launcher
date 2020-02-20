@@ -1,8 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QFileDialog, QDialog
+from PyQt5.QtWidgets import QDialog, QFileDialog
 
+from modules.settings import *
 from ui.settings_window_design import Ui_Dialog
-from settings import *
 
 
 class SettingsWindow(QDialog, Ui_Dialog):
