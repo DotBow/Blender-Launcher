@@ -61,4 +61,4 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.LibraryTab), _translate("MainWindow", "Library"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.DownloadsTab), _translate("MainWindow", "Downloads"))
 
-import resources.resources_rc
+import resources_rc
