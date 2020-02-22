@@ -51,11 +51,11 @@ def write_blender_version(folder):
         if len(folder_parts) > 2:
             branch = folder_parts[0]
         elif len(folder_parts) > 1:
-            branch = "Experimental"
+            branch = "daily"
         else:
-            branch = "Release"
+            branch = "stable"
     except e:
-        branch = "None"
+        branch = "none"
 
     # Write Version Information
     data = {}
