@@ -25,19 +25,20 @@ class Scraper(QThread):
     def get_download_links(self):
         links = []
 
-        # Stable Build
-        stable = self.scrap_download_links(
-            "https://www.blender.org/download", _limit=1)
-        links.append(stable[0].replace(
-            "https://www.blender.org/download", "https://ftp.nluug.nl/pub/graphics/blender/release"))
+        # Stable Builds
+        links.extend(self.scrap_stable_releases())
 
         # Daily Builds
-        links.extend(self.scrap_download_links(
-            "https://builder.blender.org/download"))
+        daily_builds = self.scrap_download_links(
+            "https://builder.blender.org/download")
+        for link in daily_builds:
+            links.append(('daily', link))
 
         # Experimental Branches
-        links.extend(self.scrap_download_links(
-            "https://builder.blender.org/download/branches"))
+        experimental = self.scrap_download_links(
+            "https://builder.blender.org/download/branches")
+        for link in experimental:
+            links.append(('experimental', link))
 
         return links
 
@@ -55,3 +56,25 @@ class Scraper(QThread):
                 links.append(urljoin(url, link['href']).rstrip('/'))
 
         return links
+
+    def scrap_stable_releases(self):
+        releases = []
+        url = "https://ftp.nluug.nl/pub/graphics/blender/release/"
+        content = urlopen(url).read()
+        soup = BeautifulSoup(content, 'html.parser')
+
+        for release in soup.find_all(href=re.compile(r'Blender\d+.+')):
+            releases.append(urljoin(url, release['href']))
+
+        releases = releases[-4:]
+        releases.reverse()
+        stable_links = []
+
+        for release in releases:
+            links = self.scrap_download_links(release)
+            links.reverse()
+
+            for link in links:
+                stable_links.append(('stable', link))
+
+        return stable_links
