@@ -19,6 +19,7 @@ class LibraryWidget(QWidget):
     def __init__(self, parent, item, link):
         super(LibraryWidget, self).__init__(None)
         self.parent = parent
+        self.list_widget = None
         self.item = item
         self.link = link
 
@@ -35,6 +36,8 @@ class LibraryWidget(QWidget):
         info = read_blender_version(Path(link).name)
         label = info['subversion'] + ' ' + \
             info['branch'] + ' ' + info['commit_time']
+
+        self.branch = info['branch']
 
         widgetText = QtWidgets.QLabel(label)
 
@@ -87,8 +90,8 @@ class LibraryWidget(QWidget):
 
     @QtCore.pyqtSlot()
     def remover_finished(self):
-        row = self.parent.LibraryListWidget.row(self.item)
-        self.parent.LibraryListWidget.takeItem(row)
+        row = self.list_widget.row(self.item)
+        self.list_widget.takeItem(row)
 
     @QtCore.pyqtSlot()
     def set_favorite(self):

@@ -9,9 +9,10 @@ from threads.downloader import Downloader
 
 
 class DownloadWidget(QtWidgets.QWidget):
-    def __init__(self, parent, item, link):
+    def __init__(self, parent, list_widget, item, link):
         super(DownloadWidget, self).__init__(None)
         self.parent = parent
+        self.list_widget = list_widget
         self.item = item
         self.link = link
 
@@ -61,7 +62,7 @@ class DownloadWidget(QtWidgets.QWidget):
         if status == 0:
             self.parent.draw_to_library(
                 Path(get_library_folder()) / Path(self.link).stem)
-            row = self.parent.DownloadsListWidget.row(self.item)
-            self.parent.DownloadsListWidget.takeItem(row)
+            row = self.list_widget.row(self.item)
+            self.list_widget.takeItem(row)
         else:
             pass

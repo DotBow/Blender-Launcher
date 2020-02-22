@@ -107,38 +107,73 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         old_links = []
         new_links = []
 
-        for i in range(self.LibraryListWidget.count()):
-            link = self.LibraryListWidget.itemWidget(
-                self.LibraryListWidget.item(i)).link
-            name = Path(link).name
-            old_links.append(name)
+        old_links.extend(self.get_list_widget_items(
+            self.LibraryStableListWidget, 'path'))
+        old_links.extend(self.get_list_widget_items(
+            self.LibraryDailyListWidget, 'path'))
+        old_links.extend(self.get_list_widget_items(
+            self.LibraryExperimentalListWidget, 'path'))
 
-        for i in range(self.DownloadsListWidget.count()):
-            link = self.DownloadsListWidget.itemWidget(
-                self.DownloadsListWidget.item(i)).link
-            name = Path(link).stem
-            old_links.append(name)
+        old_links.extend(self.get_list_widget_items(
+            self.DownloadsStableListWidget, 'link'))
+        old_links.extend(self.get_list_widget_items(
+            self.DownloadsDailyListWidget, 'link'))
+        old_links.extend(self.get_list_widget_items(
+            self.DownloadsExperimentalListWidget, 'link'))
 
         for link in links:
-            if Path(link).stem not in old_links:
+            if Path(link[1]).stem not in old_links:
                 new_links.append(link)
 
         for link in new_links:
             self.draw_to_downloads(link)
 
+    def get_list_widget_items(self, list_widget, type):
+        items = []
+
+        for i in range(list_widget.count()):
+            link = list_widget.itemWidget(list_widget.item(i)).link
+
+            if type == 'link':
+                name = Path(link).stem
+            elif type == 'path':
+                name = Path(link).name
+
+            items.append(name)
+
+        return items
+
     def draw_to_downloads(self, link):
+        branch = link[0]
+
+        if branch == 'stable':
+            list_widget = self.DownloadsStableListWidget
+        elif branch == 'daily':
+            list_widget = self.DownloadsDailyListWidget
+        else:
+            list_widget = self.DownloadsExperimentalListWidget
+
         item = QtWidgets.QListWidgetItem()
-        widget = DownloadWidget(self, item, link)
+        widget = DownloadWidget(self, list_widget, item, link[1])
         item.setSizeHint(widget.sizeHint())
-        self.DownloadsListWidget.addItem(item)
-        self.DownloadsListWidget.setItemWidget(item, widget)
+        list_widget.addItem(item)
+        list_widget.setItemWidget(item, widget)
 
     def draw_to_library(self, dir):
         item = QtWidgets.QListWidgetItem()
         widget = LibraryWidget(self, item, dir)
         item.setSizeHint(widget.sizeHint())
-        self.LibraryListWidget.insertItem(0, item)
-        self.LibraryListWidget.setItemWidget(item, widget)
+
+        if widget.branch == 'stable':
+            list_widget = self.LibraryStableListWidget
+        elif widget.branch == 'daily':
+            list_widget = self.LibraryDailyListWidget
+        else:
+            list_widget = self.LibraryExperimentalListWidget
+
+        widget.list_widget = list_widget
+        list_widget.insertItem(0, item)
+        list_widget.setItemWidget(item, widget)
 
     def show_settings_window(self):
         self.settings_window = SettingsWindow()

@@ -37,7 +37,65 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QListWidget" name="LibraryListWidget"/>
+         <widget class="QToolBox" name="LibraryToolBox">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="LibrarySablePage">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>758</width>
+             <height>385</height>
+            </rect>
+           </property>
+           <attribute name="label">
+            <string>Stable Releases</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QListWidget" name="LibraryStableListWidget"/>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="LibraryDailyPage">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>98</width>
+             <height>91</height>
+            </rect>
+           </property>
+           <attribute name="label">
+            <string>Daily Builds</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QListWidget" name="LibraryDailyListWidget"/>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="LibraryExperimentalPage">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>98</width>
+             <height>91</height>
+            </rect>
+           </property>
+           <attribute name="label">
+            <string>Experimental Branches</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_8">
+            <item>
+             <widget class="QListWidget" name="LibraryExperimentalListWidget"/>
+            </item>
+           </layout>
+          </widget>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -47,7 +105,65 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QListWidget" name="DownloadsListWidget"/>
+         <widget class="QToolBox" name="DownloadsToolBox">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="DownloadsStablePage">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>98</width>
+             <height>91</height>
+            </rect>
+           </property>
+           <attribute name="label">
+            <string>Stable Releases</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QListWidget" name="DownloadsStableListWidget"/>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="DownloadsDailyPage">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>98</width>
+             <height>91</height>
+            </rect>
+           </property>
+           <attribute name="label">
+            <string>Daily Builds</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QListWidget" name="DownloadsDailyListWidget"/>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="DownloadsExperimentalPage">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>98</width>
+             <height>91</height>
+            </rect>
+           </property>
+           <attribute name="label">
+            <string>Experimental Branches</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QListWidget" name="DownloadsExperimentalListWidget"/>
+            </item>
+           </layout>
+          </widget>
+         </widget>
         </item>
        </layout>
       </widget>
