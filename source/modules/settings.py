@@ -31,3 +31,21 @@ def get_favorite_path():
 
 def set_favorite_path(path):
     get_settings().setValue('favorite_path', path)
+
+
+def get_launch_when_system_starts():
+    return get_settings().value('launch_when_system_starts', type=bool)
+
+
+def set_launch_when_system_starts(is_checked):
+    settings = get_settings()
+    settings.setValue('launch_when_system_starts', is_checked)
+
+
+def get_launch_minimized_to_tray():
+    return get_settings().value('launch_minimized_to_tray', type=bool)
+
+
+def set_launch_minimized_to_tray(is_checked):
+    settings = get_settings()
+    settings.setValue('launch_minimized_to_tray', is_checked)

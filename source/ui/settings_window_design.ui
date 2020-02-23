@@ -47,14 +47,14 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="LaunchWhenSystemStartsCheckBox">
         <property name="text">
          <string>Launch When System Starts</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_2">
+       <widget class="QCheckBox" name="LaunchMinimizedToTrayCheckBox">
         <property name="text">
          <string>Launch Minimized to Tray</string>
         </property>
