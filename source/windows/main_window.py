@@ -3,8 +3,8 @@ import threading
 from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import (QEvent, QPoint, QSettings, Qt, QThread, QTimer,
-                          pyqtSignal)
+from PyQt5.QtCore import (QEvent, QFile, QPoint, QSettings, Qt, QTextStream,
+                          QThread, QTimer, pyqtSignal)
 from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import (
     QAction, QApplication, QMainWindow, QMenu, QStyle, QSystemTrayIcon)
@@ -33,14 +33,18 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         self.setWindowTitle("Blender Launcher")
         self.setWindowFlags(Qt.FramelessWindowHint)
 
+        # Setup Font
+        QFontDatabase.addApplicationFont(
+            ":/resources/fonts/Inter-Regular.otf")
+        font = QFont("Inter", 10)
+        font.setHintingPreference(QFont.PreferNoHinting)
+        self.app.setFont(font)
+
         # Setup Style
-        with open(r"resources\styles\global.qss", "r") as file:
-            QFontDatabase.addApplicationFont(
-                ':/resources/fonts/Inter-Regular.otf')
-            font = QFont("Inter", 10)
-            font.setHintingPreference(QFont.PreferNoHinting)
-            self.app.setFont(font)
-            self.app.setStyleSheet(file.read())
+        file = QFile(":/resources/styles/global.qss")
+        file.open(QFile.ReadOnly | QFile.Text)
+        stream = QTextStream(file)
+        self.app.setStyleSheet(stream.readAll())
 
         # Connect Buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
