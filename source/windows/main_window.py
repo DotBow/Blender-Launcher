@@ -3,7 +3,8 @@ import threading
 from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import QEvent, QSettings, Qt, QThread, QTimer, pyqtSignal
+from PyQt5.QtCore import (QEvent, QPoint, QSettings, Qt, QThread, QTimer,
+                          pyqtSignal)
 from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import (
     QAction, QApplication, QMainWindow, QMenu, QStyle, QSystemTrayIcon)
@@ -21,10 +22,16 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
     def __init__(self, app):
         super().__init__()
         self.setupUi(self)
+
+        # Global Scope
         self.app = app
         self.favorite = None
+        self.pos = self.pos()
+        self.pressed = False
 
+        # Setup Window
         self.setWindowTitle("Blender Launcher")
+        self.setWindowFlags(Qt.FramelessWindowHint)
 
         # Setup Style
         with open(r"resources\styles\global.qss", "r") as file:
@@ -37,6 +44,8 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
 
         # Connect Buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
+        self.MinimizeButton.clicked.connect(self.showMinimized)
+        self.CloseButton.clicked.connect(self.close)
 
         # Draw Library
         library_folder = Path(get_library_folder())
@@ -181,3 +190,16 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
     def closeEvent(self, event):
         event.ignore()
         self.hide()
+
+    def mousePressEvent(self, event):
+        self.pos = event.globalPos()
+        self.pressing = True
+
+    def mouseMoveEvent(self, event):
+        if self.pressing:
+            delta = QPoint(event.globalPos() - self.pos)
+            self.move(self.x() + delta.x(), self.y() + delta.y())
+            self.pos = event.globalPos()
+
+    def mouseReleaseEvent(self, QMouseEvent):
+        self.pressing = False
