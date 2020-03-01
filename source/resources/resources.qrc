@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="resources">
+    <file>icons/close.svg</file>
+    <file>icons/minimize.svg</file>
+    <file>icons/settings.svg</file>
     <file>styles/global.qss</file>
     <file>fonts/Inter-Regular.otf</file>
   </qresource>
