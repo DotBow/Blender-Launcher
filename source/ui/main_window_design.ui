@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>640</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,8 +15,23 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="HeaderLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item alignment="Qt::AlignLeft">
        <widget class="QPushButton" name="SettingsButton">
         <property name="text">
@@ -74,7 +89,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="TabWidget">
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -83,9 +98,27 @@
         <string>Library</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QToolBox" name="LibraryToolBox">
           <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <property name="tabSpacing">
            <number>0</number>
           </property>
           <widget class="QWidget" name="LibrarySablePage">
@@ -93,14 +126,26 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>758</width>
-             <height>385</height>
+             <width>634</width>
+             <height>319</height>
             </rect>
            </property>
            <attribute name="label">
             <string>Stable Releases</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_7">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QListWidget" name="LibraryStableListWidget"/>
             </item>
@@ -111,14 +156,26 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>758</width>
-             <height>385</height>
+             <width>634</width>
+             <height>319</height>
             </rect>
            </property>
            <attribute name="label">
             <string>Daily Builds</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_9">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QListWidget" name="LibraryDailyListWidget"/>
             </item>
@@ -129,14 +186,26 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>758</width>
-             <height>385</height>
+             <width>634</width>
+             <height>319</height>
             </rect>
            </property>
            <attribute name="label">
             <string>Experimental Branches</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_8">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QListWidget" name="LibraryExperimentalListWidget"/>
             </item>
@@ -151,9 +220,27 @@
         <string>Downloads</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QToolBox" name="DownloadsToolBox">
           <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <property name="tabSpacing">
            <number>0</number>
           </property>
           <widget class="QWidget" name="DownloadsStablePage">
@@ -161,14 +248,26 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>758</width>
-             <height>385</height>
+             <width>634</width>
+             <height>319</height>
             </rect>
            </property>
            <attribute name="label">
             <string>Stable Releases</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_4">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QListWidget" name="DownloadsStableListWidget"/>
             </item>
@@ -179,14 +278,26 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>91</height>
+             <width>634</width>
+             <height>319</height>
             </rect>
            </property>
            <attribute name="label">
             <string>Daily Builds</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_5">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QListWidget" name="DownloadsDailyListWidget"/>
             </item>
@@ -197,14 +308,26 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>91</height>
+             <width>634</width>
+             <height>319</height>
             </rect>
            </property>
            <attribute name="label">
             <string>Experimental Branches</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_6">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QListWidget" name="DownloadsExperimentalListWidget"/>
             </item>
@@ -223,7 +346,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>640</width>
      <height>21</height>
     </rect>
    </property>
