@@ -34,8 +34,16 @@
       </property>
       <item alignment="Qt::AlignLeft">
        <widget class="QPushButton" name="SettingsButton">
-        <property name="text">
-         <string>Settings</string>
+        <property name="icon">
+         <iconset>
+          <normalon>:/resources/icons/settings.svg</normalon>
+         </iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -74,15 +82,31 @@
       </item>
       <item>
        <widget class="QPushButton" name="MinimizeButton">
-        <property name="text">
-         <string>_</string>
+        <property name="icon">
+         <iconset>
+          <normalon>:/resources/icons/minimize.svg</normalon>
+         </iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="CloseButton">
-        <property name="text">
-         <string>X</string>
+        <property name="icon">
+         <iconset>
+          <normalon>:/resources/icons/close.svg</normalon>
+         </iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -121,13 +145,13 @@
           <property name="tabSpacing">
            <number>0</number>
           </property>
-          <widget class="QWidget" name="LibrarySablePage">
+          <widget class="QWidget" name="LibraryStablePage">
            <property name="geometry">
             <rect>
              <x>0</x>
              <y>0</y>
              <width>634</width>
-             <height>319</height>
+             <height>302</height>
             </rect>
            </property>
            <attribute name="label">
@@ -147,7 +171,11 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QListWidget" name="LibraryStableListWidget"/>
+             <widget class="QListWidget" name="LibraryStableListWidget">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -157,7 +185,7 @@
              <x>0</x>
              <y>0</y>
              <width>634</width>
-             <height>319</height>
+             <height>294</height>
             </rect>
            </property>
            <attribute name="label">
@@ -177,7 +205,11 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QListWidget" name="LibraryDailyListWidget"/>
+             <widget class="QListWidget" name="LibraryDailyListWidget">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -187,7 +219,7 @@
              <x>0</x>
              <y>0</y>
              <width>634</width>
-             <height>319</height>
+             <height>294</height>
             </rect>
            </property>
            <attribute name="label">
@@ -207,7 +239,11 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QListWidget" name="LibraryExperimentalListWidget"/>
+             <widget class="QListWidget" name="LibraryExperimentalListWidget">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -249,7 +285,7 @@
              <x>0</x>
              <y>0</y>
              <width>634</width>
-             <height>319</height>
+             <height>294</height>
             </rect>
            </property>
            <attribute name="label">
@@ -269,7 +305,11 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QListWidget" name="DownloadsStableListWidget"/>
+             <widget class="QListWidget" name="DownloadsStableListWidget">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -278,8 +318,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>634</width>
-             <height>319</height>
+             <width>98</width>
+             <height>69</height>
             </rect>
            </property>
            <attribute name="label">
@@ -299,7 +339,11 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QListWidget" name="DownloadsDailyListWidget"/>
+             <widget class="QListWidget" name="DownloadsDailyListWidget">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -308,8 +352,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>634</width>
-             <height>319</height>
+             <width>98</width>
+             <height>69</height>
             </rect>
            </property>
            <attribute name="label">
@@ -329,7 +373,11 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QListWidget" name="DownloadsExperimentalListWidget"/>
+             <widget class="QListWidget" name="DownloadsExperimentalListWidget">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>

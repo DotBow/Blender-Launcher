@@ -1,4 +1,4 @@
-QMainWindow {
+QMainWindow, QDialog {
 	background-color:#232323;
 }
 
@@ -19,12 +19,39 @@ QTabBar::tab {
 	color: #989898;
 }
 
+QTabBar::tab:hover {
+	background-color: #343434;
+}
+
 QTabBar::tab::selected {
 	background-color: #424242;
 	color: #FFFFFF;
 }
 
 QToolBox::tab {
-	background-color: #373737;
+	background-color: #424242;
 	color: #FFFFFF;
+}
+
+QListWidget {
+	background-color: #2a2a2a;
+}
+
+QListWidget::item {
+	background-color: transparent;
+}
+
+QPushButton[HeaderButton=true] {
+	background-color: #232323;
+	border: none;
+}
+
+QPushButton[HeaderButton=true]:hover {
+	background-color: #343434;
+	border: none;
+}
+
+QPushButton[CloseButton=true]:hover {
+	background-color: #f01020;
+	border: none;
 }

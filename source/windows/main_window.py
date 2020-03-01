@@ -46,6 +46,11 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         stream = QTextStream(file)
         self.app.setStyleSheet(stream.readAll())
 
+        self.SettingsButton.setProperty("HeaderButton", True)
+        self.MinimizeButton.setProperty("HeaderButton", True)
+        self.CloseButton.setProperty("HeaderButton", True)
+        self.CloseButton.setProperty("CloseButton", True)
+
         # Connect Buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
         self.MinimizeButton.clicked.connect(self.showMinimized)
