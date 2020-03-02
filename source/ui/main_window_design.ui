@@ -151,9 +151,14 @@
              <x>0</x>
              <y>0</y>
              <width>634</width>
-             <height>302</height>
+             <height>293</height>
             </rect>
            </property>
+           <attribute name="icon">
+            <iconset>
+             <normalon>:/resources/icons/page_opened.svg</normalon>
+            </iconset>
+           </attribute>
            <attribute name="label">
             <string>Stable Releases</string>
            </attribute>
@@ -185,9 +190,14 @@
              <x>0</x>
              <y>0</y>
              <width>634</width>
-             <height>294</height>
+             <height>293</height>
             </rect>
            </property>
+           <attribute name="icon">
+            <iconset>
+             <normalon>:/resources/icons/page_closed.svg</normalon>
+            </iconset>
+           </attribute>
            <attribute name="label">
             <string>Daily Builds</string>
            </attribute>
@@ -219,9 +229,14 @@
              <x>0</x>
              <y>0</y>
              <width>634</width>
-             <height>294</height>
+             <height>293</height>
             </rect>
            </property>
+           <attribute name="icon">
+            <iconset>
+             <normalon>:/resources/icons/page_closed.svg</normalon>
+            </iconset>
+           </attribute>
            <attribute name="label">
             <string>Experimental Branches</string>
            </attribute>
@@ -285,9 +300,14 @@
              <x>0</x>
              <y>0</y>
              <width>634</width>
-             <height>294</height>
+             <height>293</height>
             </rect>
            </property>
+           <attribute name="icon">
+            <iconset>
+             <normalon>:/resources/icons/page_opened.svg</normalon>
+            </iconset>
+           </attribute>
            <attribute name="label">
             <string>Stable Releases</string>
            </attribute>
@@ -318,10 +338,15 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>69</height>
+             <width>634</width>
+             <height>296</height>
             </rect>
            </property>
+           <attribute name="icon">
+            <iconset>
+             <normalon>:/resources/icons/page_closed.svg</normalon>
+            </iconset>
+           </attribute>
            <attribute name="label">
             <string>Daily Builds</string>
            </attribute>
@@ -352,10 +377,15 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>69</height>
+             <width>634</width>
+             <height>293</height>
             </rect>
            </property>
+           <attribute name="icon">
+            <iconset>
+             <normalon>:/resources/icons/page_closed.svg</normalon>
+            </iconset>
+           </attribute>
            <attribute name="label">
             <string>Experimental Branches</string>
            </attribute>

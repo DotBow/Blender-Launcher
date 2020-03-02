@@ -33,12 +33,34 @@ QToolBox::tab {
 	color: #FFFFFF;
 }
 
+QToolBox::tab:hover {
+	background-color: #4f4f4f;
+	color: #FFFFFF;
+}
+
+QToolBox::tab:selected:hover {
+	background-color: #424242;
+	color: #FFFFFF;
+}
+
 QListWidget {
-	background-color: #2a2a2a;
+	background-color:#232323;
 }
 
 QListWidget::item {
 	background-color: transparent;
+}
+
+QListWidget::item:hover {
+	background-color: #444444;
+}
+
+QListWidget::item:selected {
+	background-color: #3b5689;
+}
+
+QPushButton {
+	color: #FFFFFF;
 }
 
 QPushButton[HeaderButton=true] {
@@ -52,6 +74,18 @@ QPushButton[HeaderButton=true]:hover {
 }
 
 QPushButton[CloseButton=true]:hover {
-	background-color: #f01020;
+	background-color: #DB2512;
 	border: none;
 }
+
+QPushButton[LaunchButton=true] {
+	background-color: #585858;
+	border: none;
+	padding: 9px;
+}
+
+QPushButton[LaunchButton=true]:hover {
+	background-color: #6a6a6a;
+	border: none;
+}
+

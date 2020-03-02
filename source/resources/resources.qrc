@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="resources">
+    <file>icons/page_closed.svg</file>
+    <file>icons/page_opened.svg</file>
     <file>icons/close.svg</file>
     <file>icons/minimize.svg</file>
     <file>icons/settings.svg</file>

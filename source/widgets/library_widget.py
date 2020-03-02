@@ -31,8 +31,6 @@ class LibraryWidget(QWidget):
         else:
             self.widgetFavorite.hide()
 
-        layout.addWidget(self.widgetFavorite)
-
         info = read_blender_version(Path(link).name)
         label = info['subversion'] + ' ' + \
             info['branch'] + ' ' + info['commit_time']
@@ -43,12 +41,15 @@ class LibraryWidget(QWidget):
 
         self.launchButton = QtWidgets.QPushButton("Launch")
         self.launchButton.clicked.connect(self.launch)
+        self.launchButton.setProperty("LaunchButton", True)
         layout.addWidget(
             self.launchButton, alignment=QtCore.Qt.AlignRight)
         layout.addWidget(widgetText)
         layout.addStretch()
+        layout.addWidget(self.widgetFavorite)
 
         layout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
+        layout.setContentsMargins(3, 3, 3, 3)
         self.setLayout(layout)
 
         # Context menu

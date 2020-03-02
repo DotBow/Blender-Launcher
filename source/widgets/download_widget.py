@@ -35,6 +35,7 @@ class DownloadWidget(QtWidgets.QWidget):
 
         widgetText = QtWidgets.QLabel(label)
         self.widgetButton = QtWidgets.QPushButton("Download")
+        self.widgetButton.setProperty("LaunchButton", True)
         self.widgetButton.clicked.connect(self.init_download)
         widgetLayout = QtWidgets.QHBoxLayout()
         widgetLayout.addWidget(
