@@ -5,7 +5,7 @@ from pathlib import Path
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import (QEvent, QFile, QPoint, QSettings, Qt, QTextStream,
                           QThread, QTimer, pyqtSignal)
-from PyQt5.QtGui import QFont, QFontDatabase
+from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 from PyQt5.QtWidgets import (
     QAction, QApplication, QMainWindow, QMenu, QStyle, QSystemTrayIcon)
 
@@ -56,6 +56,9 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         self.MinimizeButton.clicked.connect(self.showMinimized)
         self.CloseButton.clicked.connect(self.close)
 
+        self.LibraryToolBox.currentChanged.connect(self.page_changed)
+        self.DownloadsToolBox.currentChanged.connect(self.page_changed)
+
         # Draw Library
         library_folder = Path(get_library_folder())
         dirs = library_folder.iterdir()
@@ -96,6 +99,17 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
     def _show(self):
         self.activateWindow()
         self.show()
+
+    def page_changed(self, index):
+        tool_box = self.sender()
+        icon_page_opened = QIcon(":resources/icons/page_opened.svg")
+        icon_page_closed = QIcon(":resources/icons/page_closed.svg")
+
+        for i in range(tool_box.count()):
+            if i != index:
+                tool_box.setItemIcon(i, icon_page_closed)
+
+        tool_box.setItemIcon(index, icon_page_opened)
 
     def launch_favorite(self):
         if self.favorite is not None:
