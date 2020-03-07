@@ -49,7 +49,7 @@ class LibraryWidget(QWidget):
         layout.addWidget(self.widgetFavorite)
 
         layout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
-        layout.setContentsMargins(3, 3, 3, 3)
+        layout.setContentsMargins(2, 2, 2, 2)
         self.setLayout(layout)
 
         # Context menu

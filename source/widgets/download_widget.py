@@ -45,6 +45,7 @@ class DownloadWidget(QtWidgets.QWidget):
         widgetLayout.addStretch()
 
         widgetLayout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
+        widgetLayout.setContentsMargins(2, 2, 2, 2)
         self.setLayout(widgetLayout)
 
     def init_download(self):
