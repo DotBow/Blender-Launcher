@@ -98,3 +98,16 @@ QPushButton[LaunchButton=true]:hover {
 	border: none;
 }
 
+QPushButton[Icon=true] {
+	background-color: transparent;
+	border: none;
+}
+
+QLineEdit {
+	background-color:#232323;
+	color: #FFFFFF;
+}
+
+QLineEdit[text=\"\"] {
+	color: #FFFFFF;
+}

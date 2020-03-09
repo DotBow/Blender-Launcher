@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="resources">
+    <file>icons/fake.svg</file>
+    <file>icons/favorite.svg</file>
     <file>icons/page_closed.svg</file>
     <file>icons/page_opened.svg</file>
     <file>icons/close.svg</file>
