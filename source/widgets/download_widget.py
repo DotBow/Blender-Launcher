@@ -27,11 +27,12 @@ class DownloadWidget(QtWidgets.QWidget):
 
         if len(label_parts) > 2:
             label = label_parts[1] + ' ' + \
-                label_parts[0] + " [" + label_parts[2] + "]"
+                label_parts[0].replace('-', ' ').title() + \
+                " [" + label_parts[2] + "]"
         elif len(label_parts) > 1:
             label = label_parts[0] + " Experimental [" + label_parts[1] + "]"
         else:
-            label = label_parts[0] + " Release"
+            label = label_parts[0] + " Stable"
 
         widgetText = QtWidgets.QLabel(label)
         self.widgetButton = QtWidgets.QPushButton("Download")

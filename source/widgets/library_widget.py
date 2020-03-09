@@ -4,7 +4,8 @@ from subprocess import Popen
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QAction, QWidget
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QAction, QWidget, QSizePolicy, QLabel
 
 from modules._platform import *
 from modules.blender_version import *
@@ -24,32 +25,36 @@ class LibraryWidget(QWidget):
         self.link = link
 
         layout = QtWidgets.QHBoxLayout()
-        self.widgetFavorite = QtWidgets.QLabel("★")
+        layout.setContentsMargins(2, 2, 2, 2)
+        self.icon_favorite = QIcon(":resources/icons/favorite.svg")
+        self.icon_fake = QIcon(":resources/icons/fake.svg")
+        self.widgetFavorite = QtWidgets.QPushButton()
+        self.widgetFavorite.setIcon(self.icon_favorite)
+        self.widgetFavorite.setProperty("Icon", True)
 
         if get_favorite_path() == link:
             self.set_favorite()
         else:
-            self.widgetFavorite.hide()
+            self.widgetFavorite.setIcon(self.icon_fake)
 
         info = read_blender_version(Path(link).name)
-        label = info['subversion'] + ' ' + \
-            info['branch'] + ' ' + info['commit_time']
-
         self.branch = info['branch']
 
-        widgetText = QtWidgets.QLabel(label)
+        branch = self.branch.replace('-', ' ').title()
+        label = info['subversion'] + ' ' + branch + ' ' + \
+            info['commit_time'] + ' [' + info['build_hash'] + ']'
+
+        widgetText = QLabel(label)
+        widgetText.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
 
         self.launchButton = QtWidgets.QPushButton("Launch")
         self.launchButton.clicked.connect(self.launch)
         self.launchButton.setProperty("LaunchButton", True)
+
         layout.addWidget(
             self.launchButton, alignment=QtCore.Qt.AlignRight)
-        layout.addWidget(widgetText)
-        layout.addStretch()
+        layout.addWidget(widgetText, stretch=1)
         layout.addWidget(self.widgetFavorite)
-
-        layout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
-        layout.setContentsMargins(2, 2, 2, 2)
         self.setLayout(layout)
 
         # Context menu
@@ -99,7 +104,7 @@ class LibraryWidget(QWidget):
         set_favorite_path(self.link)
 
         if self.parent.favorite is not None:
-            self.parent.favorite.widgetFavorite.hide()
+            self.parent.favorite.widgetFavorite.setIcon(self.icon_fake)
 
         self.parent.favorite = self
-        self.widgetFavorite.show()
+        self.widgetFavorite.setIcon(self.icon_favorite)
