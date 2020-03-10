@@ -11,6 +11,7 @@ from modules._platform import *
 from modules.blender_version import *
 from modules.settings import *
 from threads.remover import Remover
+from threads.observer import Observer
 
 if get_platform() == 'Windows':
     from subprocess import CREATE_NO_WINDOW
@@ -23,6 +24,7 @@ class LibraryWidget(QWidget):
         self.list_widget = None
         self.item = item
         self.link = link
+        self.observer = None
 
         layout = QtWidgets.QHBoxLayout()
         layout.setContentsMargins(2, 2, 2, 2)
@@ -47,6 +49,8 @@ class LibraryWidget(QWidget):
         widgetText = QLabel(label)
         widgetText.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
 
+        self.countButton = QtWidgets.QPushButton("0")
+
         self.launchButton = QtWidgets.QPushButton("Launch")
         self.launchButton.clicked.connect(self.launch)
         self.launchButton.setProperty("LaunchButton", True)
@@ -55,6 +59,7 @@ class LibraryWidget(QWidget):
             self.launchButton, alignment=QtCore.Qt.AlignRight)
         layout.addWidget(widgetText, stretch=1)
         layout.addWidget(self.widgetFavorite)
+        layout.addWidget(self.countButton)
         self.setLayout(layout)
 
         # Context menu
@@ -86,6 +91,17 @@ class LibraryWidget(QWidget):
             b3d_exe = library_folder / self.link / "blender"
             proc = Popen('nohup "' + b3d_exe + '"', shell=True, stdout=None,
                          stderr=None, close_fds=True, preexec_fn=os.setpgrp)
+
+        if self.observer is None:
+            self.observer = Observer(self)
+            self.observer.append_proc(proc)
+            self.observer.count_changed.connect(self.proc_count_changed)
+            self.observer.start()
+        else:
+            self.observer.append_proc(proc)
+
+    def proc_count_changed(self, count):
+        self.countButton.setText(str(count))
 
     @QtCore.pyqtSlot()
     def remove_from_drive(self):
