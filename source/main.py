@@ -26,7 +26,7 @@ sys.excepthook = handle_exception
 
 def main():
     app = QApplication(sys.argv)
-    window = BlenderLauncher(app)
+    BlenderLauncher(app)
     app.exec_()
 
 
