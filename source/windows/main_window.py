@@ -27,7 +27,7 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         self.app = app
         self.favorite = None
         self.pos = self.pos()
-        self.pressed = False
+        self.pressing = False
 
         # Setup Window
         self.setWindowTitle("Blender Launcher")
@@ -217,6 +217,7 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
     def mousePressEvent(self, event):
         self.pos = event.globalPos()
         self.pressing = True
+        self.setCursor(Qt.ClosedHandCursor)
 
     def mouseMoveEvent(self, event):
         if self.pressing:
@@ -226,3 +227,4 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
 
     def mouseReleaseEvent(self, QMouseEvent):
         self.pressing = False
+        self.setCursor(Qt.ArrowCursor)
