@@ -1,5 +1,5 @@
 QMainWindow, QDialog {
-	background-color:#232323;
+	background-color: #232323;
 }
 
 QLabel {
@@ -101,6 +101,7 @@ QPushButton[LaunchButton=true]:hover {
 QPushButton[Icon=true] {
 	background-color: transparent;
 	border: none;
+	padding: 9px;
 }
 
 QLineEdit {
@@ -110,4 +111,58 @@ QLineEdit {
 
 QLineEdit[text=\"\"] {
 	color: #FFFFFF;
+}
+
+QScrollBar:vertical
+{
+	background-color: #232323;
+	width: 4px;
+}
+
+QScrollBar::handle:vertical:hover
+{
+	background-color: #B3B3B3;
+	width: 4px;
+}
+
+QScrollBar::handle:vertical
+{
+	background-color: #676767;
+}
+
+QScrollBar::sub-page:vertical
+{
+	background: none;
+}
+
+QScrollBar::add-page:vertical
+{
+	background-color: #232323;
+}
+
+QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical
+{
+	border: none;
+	background: none;
+}
+
+QMenu
+{
+	background-color: #232323;
+	color: #FFFFFF;
+}
+
+QMenu::item
+{
+	padding: 4px 8px 7px 28px;
+}
+
+QMenu::item::selected
+{
+	background-color: #343434;
+}
+
+QMenu::icon
+{
+	margin: 6px;
 }
