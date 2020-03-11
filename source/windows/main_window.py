@@ -76,6 +76,23 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
 
         self.update()
 
+        # Setup Tray Icon Context Menu
+        quit_action = QAction("Quit", self)
+        quit_action.triggered.connect(self.quit)
+        hide_action = QAction("Hide", self)
+        hide_action.triggered.connect(self.hide)
+        show_action = QAction("Show", self)
+        show_action.triggered.connect(self._show)
+        launch_favorite_action = QAction(
+            QIcon(":resources/icons/favorite.svg"), "Blender", self)
+        launch_favorite_action.triggered.connect(self.launch_favorite)
+
+        tray_menu = QMenu()
+        tray_menu.addAction(launch_favorite_action)
+        tray_menu.addAction(show_action)
+        tray_menu.addAction(hide_action)
+        tray_menu.addAction(quit_action)
+
         # Draw Tray Icon
         self.tray_icon = QSystemTrayIcon(self)
         self.tray_icon.setIcon(
@@ -83,12 +100,7 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         self.tray_icon.setToolTip("Blender Launcher")
         self.tray_icon.activated.connect(self.tray_icon_activated)
 
-        quit_action = QAction("Quit", self)
-        quit_action.triggered.connect(self.quit)
-        self.tray_menu = QMenu()
-        self.tray_menu.addAction(quit_action)
-        self.tray_icon.setContextMenu(self.tray_menu)
-
+        self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon_trigger = QTimer(self)
         self.tray_icon_trigger.setSingleShot(True)
         self.tray_icon_trigger.timeout.connect(self._show)
