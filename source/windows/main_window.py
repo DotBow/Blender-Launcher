@@ -166,7 +166,9 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
             self.DownloadsExperimentalListWidget, 'link'))
 
         for link in links:
-            if Path(link[1]).stem not in old_links:
+            print(link.link)
+
+            if Path(link.link).stem not in old_links:
                 new_links.append(link)
 
         for link in new_links:
@@ -188,7 +190,7 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         return items
 
     def draw_to_downloads(self, link):
-        branch = link[0]
+        branch = link.branch
 
         if branch == 'stable':
             list_widget = self.DownloadsStableListWidget
@@ -198,7 +200,7 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
             list_widget = self.DownloadsExperimentalListWidget
 
         item = QtWidgets.QListWidgetItem()
-        widget = DownloadWidget(self, list_widget, item, link[1])
+        widget = DownloadWidget(self, list_widget, item, link.link)
         item.setSizeHint(widget.sizeHint())
         list_widget.addItem(item)
         list_widget.setItemWidget(item, widget)

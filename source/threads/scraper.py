@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from PyQt5.QtCore import QThread, pyqtSignal
 
 from modules._platform import get_platform
+from classes.blender_build import BlenderBuild
 
 
 class Scraper(QThread):
@@ -32,13 +33,17 @@ class Scraper(QThread):
         daily_builds = self.scrap_download_links(
             "https://builder.blender.org/download")
         for link in daily_builds:
-            links.append(('daily', link))
+            # links.append(('daily', link))
+            link.branch = 'daily'
+            links.append(link)
 
         # Experimental Branches
         experimental = self.scrap_download_links(
             "https://builder.blender.org/download/branches")
         for link in experimental:
-            links.append(('experimental', link))
+            # links.append(('experimental', link))
+            link.branch = 'experimental'
+            links.append(link)
 
         return links
 
@@ -49,13 +54,30 @@ class Scraper(QThread):
         links = []
 
         if platform == 'Windows':
-            for link in soup.find_all(limit=_limit, href=re.compile(r'blender-.+win.+64.+zip')):
-                links.append(urljoin(url, link['href']).rstrip('/'))
+            for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+win.+64.+zip')):
+                links.append(self.new_blender_build(tag, url))
         elif platform == 'Linux':
-            for link in soup.find_all(limit=_limit, href=re.compile(r'blender-.+linux.+64.+tar')):
-                links.append(urljoin(url, link['href']).rstrip('/'))
+            for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+linux.+64.+tar')):
+                links.append(self.new_blender_build(tag, url))
 
         return links
+
+    def new_blender_build(self, tag, url):
+        link = urljoin(url, tag['href']).rstrip('/')
+
+        info = urlopen(link).info()
+        size = str(int(info['content-length']) // 1048576)
+
+        date = None
+        _hash = None
+        small = tag.find('small')
+
+        if small is not None:
+            small_parts = small.text.split('-')
+            date = small_parts[0]
+            _hash = small_parts[1]
+
+        return BlenderBuild(link, date, _hash, size)
 
     def scrap_stable_releases(self):
         releases = []
@@ -75,6 +97,8 @@ class Scraper(QThread):
             links.reverse()
 
             for link in links:
-                stable_links.append(('stable', link))
+                link.branch = 'stable'
+                stable_links.append(link)
+                # stable_links.append(('stable', link))
 
         return stable_links
