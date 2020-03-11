@@ -54,7 +54,7 @@ def write_blender_version(folder):
             branch = "daily"
         else:
             branch = "stable"
-    except Exception:
+    except Exception as e:
         branch = "none"
 
     # Write Version Information
