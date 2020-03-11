@@ -17,18 +17,18 @@ class Observer(QThread):
         while self.parent:
             for proc in self.processes:
                 if proc.poll() is not None:
-                    self.processes.remove(proc)
-
-                proc_count = len(self.processes)
-
-                if proc_count > 0:
-                    self.count_changed.emit(proc_count)
-                else:
                     proc.kill()
-                    self.finished.emit()
-                    return
+                    self.processes.remove(proc)
+                    proc_count = len(self.processes)
+
+                    if proc_count > 0:
+                        self.count_changed.emit(proc_count)
+                    else:
+                        self.finished.emit()
+                        return
 
             QThread.sleep(1)
 
     def append_proc(self, proc):
         self.processes.append(proc)
+        self.count_changed.emit(len(self.processes))

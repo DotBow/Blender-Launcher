@@ -50,6 +50,8 @@ class LibraryWidget(QWidget):
         widgetText.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
 
         self.countButton = QtWidgets.QPushButton("0")
+        self.countButton.setProperty("Icon", True)
+        self.countButton.hide()
 
         self.launchButton = QtWidgets.QPushButton("Launch")
         self.launchButton.clicked.connect(self.launch)
@@ -58,8 +60,8 @@ class LibraryWidget(QWidget):
         layout.addWidget(
             self.launchButton, alignment=QtCore.Qt.AlignRight)
         layout.addWidget(widgetText, stretch=1)
-        layout.addWidget(self.widgetFavorite)
         layout.addWidget(self.countButton)
+        layout.addWidget(self.widgetFavorite)
         self.setLayout(layout)
 
         # Context menu
@@ -92,13 +94,14 @@ class LibraryWidget(QWidget):
             proc = Popen('nohup "' + b3d_exe + '"', shell=True, stdout=None,
                          stderr=None, close_fds=True, preexec_fn=os.setpgrp)
 
-        if self.observer is None:
+        if (self.observer is None) or (self.observer.destroyed):
             self.observer = Observer(self)
-            self.observer.append_proc(proc)
             self.observer.count_changed.connect(self.proc_count_changed)
+            self.observer.finished.connect(self.countButton.hide)
+            self.observer.started.connect(self.countButton.show)
             self.observer.start()
-        else:
-            self.observer.append_proc(proc)
+
+        self.observer.append_proc(proc)
 
     def proc_count_changed(self, count):
         self.countButton.setText(str(count))
