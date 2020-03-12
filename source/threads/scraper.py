@@ -1,12 +1,15 @@
+import locale
 import re
+import time
+from pathlib import Path
 from urllib.parse import urljoin
 from urllib.request import urlopen
 
 from bs4 import BeautifulSoup
 from PyQt5.QtCore import QThread, pyqtSignal
 
+from modules.blender_version import BuildInfo
 from modules._platform import get_platform
-from classes.blender_build import BlenderBuild
 
 
 class Scraper(QThread):
@@ -33,16 +36,12 @@ class Scraper(QThread):
         daily_builds = self.scrap_download_links(
             "https://builder.blender.org/download")
         for link in daily_builds:
-            # links.append(('daily', link))
-            link.branch = 'daily'
             links.append(link)
 
         # Experimental Branches
         experimental = self.scrap_download_links(
             "https://builder.blender.org/download/branches")
         for link in experimental:
-            # links.append(('experimental', link))
-            link.branch = 'experimental'
             links.append(link)
 
         return links
@@ -68,16 +67,29 @@ class Scraper(QThread):
         info = urlopen(link).info()
         size = str(int(info['content-length']) // 1048576)
 
-        date = None
-        _hash = None
-        small = tag.find('small')
+        commit_time = None
+        build_hash = None
 
-        if small is not None:
-            small_parts = small.text.split('-')
-            date = small_parts[0]
-            _hash = small_parts[1]
+        label = Path(link).stem
+        label = label.replace("blender-", "")
+        label = label.replace("-windows64", "")
+        label_parts = label.rsplit('-', 2)
 
-        return BlenderBuild(link, date, _hash, size)
+        if len(label_parts) > 2:
+            subversion = label_parts[1]
+            branch = label_parts[0]
+            build_hash = label_parts[2]
+            commit_time = self.get_commit_time(build_hash)
+        elif len(label_parts) > 1:
+            subversion = label_parts[0]
+            branch = 'daily'
+            build_hash = label_parts[1]
+            commit_time = self.get_commit_time(build_hash)
+        else:
+            subversion = label_parts[0]
+            branch = 'stable'
+
+        return BuildInfo(link, subversion, build_hash, commit_time, branch, size)
 
     def scrap_stable_releases(self):
         releases = []
@@ -97,8 +109,26 @@ class Scraper(QThread):
             links.reverse()
 
             for link in links:
-                link.branch = 'stable'
                 stable_links.append(link)
-                # stable_links.append(('stable', link))
 
         return stable_links
+
+    def get_commit_time(self, commit):
+        try:
+            commit_url = "https://git.blender.org/gitweb/gitweb.cgi/blender.git/commit/"
+            content = urlopen(commit_url + commit).read()
+            soup = BeautifulSoup(content, 'html.parser')
+            datetime = soup.find_all("span", {"class": "datetime"})[1].text
+            platform = get_platform()
+
+            if platform == 'Windows':
+                locale.setlocale(locale.LC_ALL, 'eng_usa')
+            elif platform == 'Linux':
+                locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+
+            self.strptime = time.strptime(
+                datetime, '%a, %d %b %Y %H:%M:%S %z')
+            commit_time = time.strftime("%d-%b-%H:%M", self.strptime)
+            return commit_time
+        except Exception as e:
+            return None

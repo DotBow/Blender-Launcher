@@ -159,15 +159,13 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
             self.LibraryExperimentalListWidget, 'path'))
 
         old_links.extend(self.get_list_widget_items(
-            self.DownloadsStableListWidget, 'link'))
+            self.DownloadsStableListWidget, 'build_info'))
         old_links.extend(self.get_list_widget_items(
-            self.DownloadsDailyListWidget, 'link'))
+            self.DownloadsDailyListWidget, 'build_info'))
         old_links.extend(self.get_list_widget_items(
-            self.DownloadsExperimentalListWidget, 'link'))
+            self.DownloadsExperimentalListWidget, 'build_info'))
 
         for link in links:
-            print(link.link)
-
             if Path(link.link).stem not in old_links:
                 new_links.append(link)
 
@@ -189,8 +187,8 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
 
         return items
 
-    def draw_to_downloads(self, link):
-        branch = link.branch
+    def draw_to_downloads(self, build_info):
+        branch = build_info.branch
 
         if branch == 'stable':
             list_widget = self.DownloadsStableListWidget
@@ -200,7 +198,7 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
             list_widget = self.DownloadsExperimentalListWidget
 
         item = QtWidgets.QListWidgetItem()
-        widget = DownloadWidget(self, list_widget, item, link.link)
+        widget = DownloadWidget(self, list_widget, item, build_info)
         item.setSizeHint(widget.sizeHint())
         list_widget.addItem(item)
         list_widget.setItemWidget(item, widget)

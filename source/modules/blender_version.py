@@ -13,6 +13,16 @@ if get_platform() == 'Windows':
     from subprocess import CREATE_NO_WINDOW
 
 
+class BuildInfo:
+    def __init__(self, link, subversion, build_hash, commit_time, branch, size=None):
+        self.link = link
+        self.subversion = subversion
+        self.build_hash = build_hash
+        self.commit_time = commit_time
+        self.branch = branch
+        self.size = size
+
+
 def write_blender_version(folder):
     # Read Blender Version
     platform = get_platform()

@@ -9,31 +9,18 @@ from threads.downloader import Downloader
 
 
 class DownloadWidget(QtWidgets.QWidget):
-    def __init__(self, parent, list_widget, item, link):
+    def __init__(self, parent, list_widget, item, build_info):
         super(DownloadWidget, self).__init__(None)
         self.parent = parent
         self.list_widget = list_widget
         self.item = item
-        self.link = link
+        self.build_info = build_info
 
         self.progressBar = QtWidgets.QProgressBar()
         self.progressBar.setAlignment(QtCore.Qt.AlignHCenter)
         self.progressBar.hide()
 
-        label = Path(link).stem
-        label = label.replace("blender-", "")
-        label = label.replace("-windows64", "")
-        label_parts = label.rsplit('-', 2)
-
-        if len(label_parts) > 2:
-            label = label_parts[1] + ' ' + \
-                label_parts[0].replace('-', ' ').title() + \
-                " [" + label_parts[2] + "]"
-        elif len(label_parts) > 1:
-            label = label_parts[0] + " Experimental [" + label_parts[1] + "]"
-        else:
-            label = label_parts[0] + " Stable"
-
+        label = build_info.subversion + ' ' + build_info.branch.replace('-', ' ').title() + ' ' + str(build_info.commit_time) + ' ' + str(build_info.build_hash)
         widgetText = QtWidgets.QLabel(label)
         self.widgetButton = QtWidgets.QPushButton("Download")
         self.widgetButton.setProperty("LaunchButton", True)
@@ -50,7 +37,7 @@ class DownloadWidget(QtWidgets.QWidget):
         self.setLayout(widgetLayout)
 
     def init_download(self):
-        self.thread = Downloader(self, self.link)
+        self.thread = Downloader(self, self.build_info.link)
         self.thread.progress_changed.connect(self.set_progress_bar)
         self.progressBar.show()
         self.widgetButton.setDisabled(True)
@@ -64,7 +51,7 @@ class DownloadWidget(QtWidgets.QWidget):
     def destroy(self, status):
         if status == 0:
             self.parent.draw_to_library(
-                Path(get_library_folder()) / Path(self.link).stem)
+                Path(get_library_folder()) / Path(self.build_info.link).stem)
             row = self.list_widget.row(self.item)
             self.list_widget.takeItem(row)
         else:
