@@ -64,6 +64,8 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         library_drawer = LibraryDrawer(self)
         library_drawer.build_found.connect(self.draw_to_library)
         library_drawer.start()
+
+        # Draw Downloads
         self.update()
 
         # Setup Tray Icon Context Menu
@@ -149,11 +151,11 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
             self.LibraryExperimentalListWidget, 'path'))
 
         old_links.extend(self.get_list_widget_items(
-            self.DownloadsStableListWidget, 'build_info'))
+            self.DownloadsStableListWidget, 'link'))
         old_links.extend(self.get_list_widget_items(
-            self.DownloadsDailyListWidget, 'build_info'))
+            self.DownloadsDailyListWidget, 'link'))
         old_links.extend(self.get_list_widget_items(
-            self.DownloadsExperimentalListWidget, 'build_info'))
+            self.DownloadsExperimentalListWidget, 'link'))
 
         for link in links:
             if Path(link.link).stem not in old_links:
