@@ -23,7 +23,7 @@ class BuildInfo:
         self.size = size
 
 
-def write_blender_version(folder):
+def write_build_info(folder):
     # Read Blender Version
     platform = get_platform()
 
@@ -83,11 +83,11 @@ def write_blender_version(folder):
         json.dump(data, file)
 
 
-def read_blender_version(folder):
+def read_build_info(folder):
     path = Path(get_library_folder()) / folder / '.blinfo'
 
     if not path.is_file():
-        write_blender_version(folder)
+        write_build_info(folder)
 
     with open(path) as file:
         data = json.load(file)
