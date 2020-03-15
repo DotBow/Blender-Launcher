@@ -11,6 +11,7 @@ from PyQt5.QtWidgets import (
 
 from modules._platform import get_platform
 from modules.settings import *
+from threads.library_drawer import LibraryDrawer
 from threads.scraper import Scraper
 from ui.main_window_design import Ui_MainWindow
 from widgets.download_widget import DownloadWidget
@@ -60,20 +61,9 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         self.DownloadsToolBox.currentChanged.connect(self.page_changed)
 
         # Draw Library
-        library_folder = Path(get_library_folder())
-        dirs = library_folder.iterdir()
-
-        if get_platform() == 'Windows':
-            blender_exe = "blender.exe"
-        elif get_platform() == 'Linux':
-            blender_exe = "blender"
-
-        for dir in dirs:
-            path = library_folder / dir / blender_exe
-
-            if path.is_file():
-                self.draw_to_library(dir)
-
+        library_drawer = LibraryDrawer(self)
+        library_drawer.build_found.connect(self.draw_to_library)
+        library_drawer.start()
         self.update()
 
         # Setup Tray Icon Context Menu
