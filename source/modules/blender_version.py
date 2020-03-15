@@ -91,4 +91,15 @@ def read_blender_version(folder):
 
     with open(path) as file:
         data = json.load(file)
-        return data['blinfo'][0]
+        blinfo = data['blinfo'][0]
+        link = Path(get_library_folder()) / folder
+
+        build_info = BuildInfo(
+            link,
+            blinfo['subversion'],
+            blinfo['build_hash'],
+            blinfo['commit_time'],
+            blinfo['branch']
+        )
+
+        return build_info
