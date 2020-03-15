@@ -8,7 +8,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QWidget, QSizePolicy, QLabel
 
 from modules._platform import *
-from modules.blender_version import *
+from modules.build_info import *
 from modules.settings import *
 from threads.remover import Remover
 from threads.observer import Observer
@@ -39,7 +39,7 @@ class LibraryWidget(QWidget):
         else:
             self.widgetFavorite.setIcon(self.icon_fake)
 
-        build_info = read_blender_version(Path(link).name)
+        build_info = read_build_info(Path(link).name)
         self.branch = build_info.branch
 
         branch = self.branch.replace('-', ' ').title()

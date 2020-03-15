@@ -8,7 +8,7 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from modules.blender_version import BuildInfo
+from modules.build_info import BuildInfo
 from modules._platform import get_platform
 
 
