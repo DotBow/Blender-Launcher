@@ -16,10 +16,11 @@ from threads.scraper import Scraper
 from ui.main_window_design import Ui_MainWindow
 from widgets.download_widget import DownloadWidget
 from widgets.library_widget import LibraryWidget
+from windows.base_window import BaseWindow
 from windows.settings_window import SettingsWindow
 
 
-class BlenderLauncher(QMainWindow, Ui_MainWindow):
+class BlenderLauncher(BaseWindow, Ui_MainWindow):
     def __init__(self, app):
         super().__init__()
         self.setupUi(self)
@@ -27,12 +28,9 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
         # Global Scope
         self.app = app
         self.favorite = None
-        self.pos = self.pos()
-        self.pressing = False
 
         # Setup Window
         self.setWindowTitle("Blender Launcher")
-        self.setWindowFlags(Qt.FramelessWindowHint)
 
         # Setup Font
         QFontDatabase.addApplicationFont(
@@ -217,18 +215,3 @@ class BlenderLauncher(QMainWindow, Ui_MainWindow):
     def closeEvent(self, event):
         event.ignore()
         self.hide()
-
-    def mousePressEvent(self, event):
-        self.pos = event.globalPos()
-        self.pressing = True
-        self.setCursor(Qt.ClosedHandCursor)
-
-    def mouseMoveEvent(self, event):
-        if self.pressing:
-            delta = QPoint(event.globalPos() - self.pos)
-            self.move(self.x() + delta.x(), self.y() + delta.y())
-            self.pos = event.globalPos()
-
-    def mouseReleaseEvent(self, QMouseEvent):
-        self.pressing = False
-        self.setCursor(Qt.ArrowCursor)
