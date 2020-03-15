@@ -39,12 +39,12 @@ class LibraryWidget(QWidget):
         else:
             self.widgetFavorite.setIcon(self.icon_fake)
 
-        info = read_blender_version(Path(link).name)
-        self.branch = info['branch']
+        build_info = read_blender_version(Path(link).name)
+        self.branch = build_info.branch
 
         branch = self.branch.replace('-', ' ').title()
-        label = info['subversion'] + ' ' + branch + ' ' + \
-            info['commit_time'] + ' [' + info['build_hash'] + ']'
+        label = build_info.subversion + ' ' + branch + ' ' + \
+            build_info.commit_time + ' [' + build_info.build_hash + ']'
 
         widgetText = QLabel(label)
         widgetText.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
