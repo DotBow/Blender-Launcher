@@ -2,10 +2,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog, QFileDialog
 
 from modules.settings import *
-from ui.settings_window_design import Ui_Dialog
+from ui.settings_window_design import Ui_Form
+from windows.base_window import BaseWindow
 
 
-class SettingsWindow(QDialog, Ui_Dialog):
+class SettingsWindow(BaseWindow, Ui_Form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)

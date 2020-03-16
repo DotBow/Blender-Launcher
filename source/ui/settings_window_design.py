@@ -2,61 +2,47 @@
 
 # Form implementation generated from reading ui file 'settings_window_design.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.13.2
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.setWindowModality(QtCore.Qt.ApplicationModal)
-        Dialog.resize(400, 300)
-        self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
+
+class Ui_Form(object):
+    def setupUi(self, Form):
+        Form.setObjectName("Form")
+        Form.setWindowModality(QtCore.Qt.ApplicationModal)
+        Form.resize(400, 300)
+        self.verticalLayout = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.groupBox = QtWidgets.QGroupBox(Dialog)
-        self.groupBox.setObjectName("groupBox")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.groupBox)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.LibraryFolderLineEdit = QtWidgets.QLineEdit(self.groupBox)
+        self.LibraryFolderLineEdit = QtWidgets.QLineEdit(Form)
+        self.LibraryFolderLineEdit.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         self.LibraryFolderLineEdit.setReadOnly(True)
         self.LibraryFolderLineEdit.setObjectName("LibraryFolderLineEdit")
         self.horizontalLayout.addWidget(self.LibraryFolderLineEdit)
-        self.SetLibraryFolderButton = QtWidgets.QPushButton(self.groupBox)
+        self.SetLibraryFolderButton = QtWidgets.QPushButton(Form)
         self.SetLibraryFolderButton.setObjectName("SetLibraryFolderButton")
         self.horizontalLayout.addWidget(self.SetLibraryFolderButton)
-        self.verticalLayout.addWidget(self.groupBox)
-        self.groupBox_2 = QtWidgets.QGroupBox(Dialog)
-        self.groupBox_2.setObjectName("groupBox_2")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.groupBox_2)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.LaunchWhenSystemStartsCheckBox = QtWidgets.QCheckBox(self.groupBox_2)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.LaunchWhenSystemStartsCheckBox = QtWidgets.QCheckBox(Form)
         self.LaunchWhenSystemStartsCheckBox.setObjectName("LaunchWhenSystemStartsCheckBox")
-        self.verticalLayout_2.addWidget(self.LaunchWhenSystemStartsCheckBox)
-        self.LaunchMinimizedToTrayCheckBox = QtWidgets.QCheckBox(self.groupBox_2)
+        self.verticalLayout.addWidget(self.LaunchWhenSystemStartsCheckBox)
+        self.LaunchMinimizedToTrayCheckBox = QtWidgets.QCheckBox(Form)
         self.LaunchMinimizedToTrayCheckBox.setObjectName("LaunchMinimizedToTrayCheckBox")
-        self.verticalLayout_2.addWidget(self.LaunchMinimizedToTrayCheckBox)
-        self.verticalLayout.addWidget(self.groupBox_2)
+        self.verticalLayout.addWidget(self.LaunchMinimizedToTrayCheckBox)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
-        self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
-        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
-        self.verticalLayout.addWidget(self.buttonBox)
 
-        self.retranslateUi(Dialog)
-        self.buttonBox.accepted.connect(Dialog.accept)
-        self.buttonBox.rejected.connect(Dialog.reject)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Settings"))
-        self.groupBox.setTitle(_translate("Dialog", "Library Folder"))
-        self.SetLibraryFolderButton.setText(_translate("Dialog", "PushButton"))
-        self.groupBox_2.setTitle(_translate("Dialog", "System"))
-        self.LaunchWhenSystemStartsCheckBox.setText(_translate("Dialog", "Launch When System Starts"))
-        self.LaunchMinimizedToTrayCheckBox.setText(_translate("Dialog", "Launch Minimized to Tray"))
-
+        Form.setWindowTitle(_translate("Form", "Form"))
+        self.SetLibraryFolderButton.setText(_translate("Form", "PushButton"))
+        self.LaunchWhenSystemStartsCheckBox.setText(_translate("Form", "Launch When System Starts"))
+        self.LaunchMinimizedToTrayCheckBox.setText(_translate("Form", "Launch Minimized To Tray"))
