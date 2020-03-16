@@ -150,11 +150,12 @@ QMenu
 {
 	background-color: #232323;
 	color: #FFFFFF;
+	padding: 0px;
 }
 
 QMenu::item
 {
-	padding: 4px 8px 7px 28px;
+	padding: 6px 24px 6px 6px;
 }
 
 QMenu::item::selected
