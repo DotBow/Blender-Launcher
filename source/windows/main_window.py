@@ -20,7 +20,7 @@ from windows.base_window import BaseWindow
 from windows.settings_window import SettingsWindow
 
 
-class BlenderLauncher(BaseWindow, Ui_MainWindow):
+class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def __init__(self, app):
         super().__init__()
         self.setupUi(self)

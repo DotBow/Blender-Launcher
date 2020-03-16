@@ -1,10 +1,10 @@
 from PyQt5.QtCore import QPoint, Qt
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QWidget
 
 
-class BaseWindow(QMainWindow):
+class BaseWindow(QWidget):
     def __init__(self):
-        super(QMainWindow, self).__init__()
+        super().__init__()
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.pos = self.pos()
         self.pressing = False
