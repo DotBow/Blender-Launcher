@@ -1,5 +1,6 @@
-QMainWindow, QDialog {
+QMainWindow {
 	background-color: #232323;
+	border: 1px solid #323232;
 }
 
 QLabel {

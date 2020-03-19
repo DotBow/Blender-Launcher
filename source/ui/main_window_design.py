@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'main_window_design.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.13.2
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -16,7 +18,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.centralwidget)
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_2.setContentsMargins(1, 1, 1, 1)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.HeaderLayout = QtWidgets.QHBoxLayout()
         self.HeaderLayout.setSpacing(0)
@@ -61,7 +63,7 @@ class Ui_MainWindow(object):
         self.LibraryToolBox = QtWidgets.QToolBox(self.LibraryTab)
         self.LibraryToolBox.setObjectName("LibraryToolBox")
         self.LibraryStablePage = QtWidgets.QWidget()
-        self.LibraryStablePage.setGeometry(QtCore.QRect(0, 0, 634, 293))
+        self.LibraryStablePage.setGeometry(QtCore.QRect(0, 0, 632, 291))
         self.LibraryStablePage.setObjectName("LibraryStablePage")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.LibraryStablePage)
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
@@ -74,7 +76,7 @@ class Ui_MainWindow(object):
         icon3.addPixmap(QtGui.QPixmap(":/resources/icons/page_opened.svg"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.LibraryToolBox.addItem(self.LibraryStablePage, icon3, "")
         self.LibraryDailyPage = QtWidgets.QWidget()
-        self.LibraryDailyPage.setGeometry(QtCore.QRect(0, 0, 634, 293))
+        self.LibraryDailyPage.setGeometry(QtCore.QRect(0, 0, 98, 69))
         self.LibraryDailyPage.setObjectName("LibraryDailyPage")
         self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.LibraryDailyPage)
         self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
@@ -87,7 +89,7 @@ class Ui_MainWindow(object):
         icon4.addPixmap(QtGui.QPixmap(":/resources/icons/page_closed.svg"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.LibraryToolBox.addItem(self.LibraryDailyPage, icon4, "")
         self.LibraryExperimentalPage = QtWidgets.QWidget()
-        self.LibraryExperimentalPage.setGeometry(QtCore.QRect(0, 0, 634, 293))
+        self.LibraryExperimentalPage.setGeometry(QtCore.QRect(0, 0, 98, 69))
         self.LibraryExperimentalPage.setObjectName("LibraryExperimentalPage")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.LibraryExperimentalPage)
         self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
@@ -108,7 +110,7 @@ class Ui_MainWindow(object):
         self.DownloadsToolBox = QtWidgets.QToolBox(self.DownloadsTab)
         self.DownloadsToolBox.setObjectName("DownloadsToolBox")
         self.DownloadsStablePage = QtWidgets.QWidget()
-        self.DownloadsStablePage.setGeometry(QtCore.QRect(0, 0, 634, 293))
+        self.DownloadsStablePage.setGeometry(QtCore.QRect(0, 0, 98, 69))
         self.DownloadsStablePage.setObjectName("DownloadsStablePage")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.DownloadsStablePage)
         self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
@@ -172,5 +174,4 @@ class Ui_MainWindow(object):
         self.DownloadsToolBox.setItemText(self.DownloadsToolBox.indexOf(self.DownloadsDailyPage), _translate("MainWindow", "Daily Builds"))
         self.DownloadsToolBox.setItemText(self.DownloadsToolBox.indexOf(self.DownloadsExperimentalPage), _translate("MainWindow", "Experimental Branches"))
         self.TabWidget.setTabText(self.TabWidget.indexOf(self.DownloadsTab), _translate("MainWindow", "Downloads"))
-
 import resources.resources_rc

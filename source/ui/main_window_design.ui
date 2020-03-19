@@ -22,16 +22,16 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="leftMargin">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="topMargin">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="rightMargin">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="bottomMargin">
-     <number>0</number>
+     <number>1</number>
     </property>
     <item>
      <layout class="QHBoxLayout" name="HeaderLayout">
@@ -156,8 +156,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>634</width>
-             <height>293</height>
+             <width>632</width>
+             <height>291</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -195,8 +195,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>634</width>
-             <height>293</height>
+             <width>98</width>
+             <height>69</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -234,8 +234,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>634</width>
-             <height>293</height>
+             <width>98</width>
+             <height>69</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -305,8 +305,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>634</width>
-             <height>293</height>
+             <width>98</width>
+             <height>69</height>
             </rect>
            </property>
            <attribute name="icon">
