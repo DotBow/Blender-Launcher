@@ -166,7 +166,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         items = []
 
         for i in range(list_widget.count()):
-            link = list_widget.itemWidget(list_widget.item(i)).link
+            link = list_widget.itemWidget(list_widget.item(i)).build_info.link
 
             if type == 'link':
                 name = Path(link).stem
