@@ -1,17 +1,17 @@
 import subprocess
 from pathlib import Path
-from subprocess import Popen
+from subprocess import DEVNULL, PIPE, STDOUT, Popen
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QAction, QWidget, QSizePolicy, QLabel
+from PyQt5.QtWidgets import QAction, QLabel, QSizePolicy, QWidget
 
 from modules._platform import *
 from modules.build_info import *
 from modules.settings import *
-from threads.remover import Remover
 from threads.observer import Observer
+from threads.remover import Remover
 
 if get_platform() == 'Windows':
     from subprocess import CREATE_NO_WINDOW
@@ -73,6 +73,7 @@ class LibraryWidget(QWidget):
         self.setAsFavoriteAction.triggered.connect(self.set_favorite)
 
         self.registerExtentionAction = QAction("Register Extension")
+        self.registerExtentionAction.triggered.connect(self.register_extension)
 
         self.addAction(self.setAsFavoriteAction)
         self.addAction(self.registerExtentionAction)
@@ -136,3 +137,15 @@ class LibraryWidget(QWidget):
         self.parent.favorite = self
         self.widgetFavorite.setIcon(self.icon_favorite)
         self.setAsFavoriteAction.setVisible(False)
+
+    @QtCore.pyqtSlot()
+    def register_extension(self):
+        platform = get_platform()
+
+        if platform == 'Windows':
+            b3d_exe = Path(self.link) / "blender.exe"
+            subprocess.call([str(b3d_exe), "-r"], creationflags=CREATE_NO_WINDOW,
+                            shell=True, stdout=PIPE, stderr=STDOUT, stdin=DEVNULL)
+        elif platform == 'Linux':
+            b3d_exe = Path(self.link) / "blender"
+            pass
