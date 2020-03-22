@@ -100,7 +100,12 @@
       <item>
        <widget class="QPushButton" name="SetLibraryFolderButton">
         <property name="text">
-         <string>PushButton</string>
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normalon>:/resources/icons/folder.svg</normalon>
+         </iconset>
         </property>
        </widget>
       </item>

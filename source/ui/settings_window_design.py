@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'settings_window_design.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.2
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -46,6 +46,10 @@ class Ui_SettingsWindow(object):
         self.LibraryFolderLineEdit.setObjectName("LibraryFolderLineEdit")
         self.horizontalLayout.addWidget(self.LibraryFolderLineEdit)
         self.SetLibraryFolderButton = QtWidgets.QPushButton(self.centralwidget)
+        self.SetLibraryFolderButton.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/resources/icons/folder.svg"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.SetLibraryFolderButton.setIcon(icon1)
         self.SetLibraryFolderButton.setObjectName("SetLibraryFolderButton")
         self.horizontalLayout.addWidget(self.SetLibraryFolderButton)
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -73,7 +77,6 @@ class Ui_SettingsWindow(object):
         _translate = QtCore.QCoreApplication.translate
         SettingsWindow.setWindowTitle(_translate("SettingsWindow", "MainWindow"))
         self.TitleLabel.setText(_translate("SettingsWindow", "Settings"))
-        self.SetLibraryFolderButton.setText(_translate("SettingsWindow", "PushButton"))
         self.LaunchWhenSystemStartsCheckBox.setText(_translate("SettingsWindow", "Launch When System Starts"))
         self.LaunchMinimizedToTrayCheckBox.setText(_translate("SettingsWindow", "Launch Minimized To Tray"))
 import resources.resources_rc
