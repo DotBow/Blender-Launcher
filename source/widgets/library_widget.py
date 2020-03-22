@@ -30,21 +30,18 @@ class LibraryWidget(QWidget):
         layout.setContentsMargins(2, 2, 2, 2)
         self.icon_favorite = QIcon(":resources/icons/favorite.svg")
         self.icon_fake = QIcon(":resources/icons/fake.svg")
+        self.icon_delete = QIcon(":resources/icons/delete.svg")
         self.widgetFavorite = QtWidgets.QPushButton()
         self.widgetFavorite.setIcon(self.icon_favorite)
         self.widgetFavorite.setProperty("Icon", True)
-
-        if get_favorite_path() == link:
-            self.set_favorite()
-        else:
-            self.widgetFavorite.setIcon(self.icon_fake)
 
         self.build_info = read_build_info(Path(link).name)
         self.branch = self.build_info.branch
 
         branch = self.branch.replace('-', ' ').title()
         label = self.build_info.subversion + ' ' + branch + ' ' + \
-            self.build_info.commit_time + ' [' + self.build_info.build_hash + ']'
+            self.build_info.commit_time + \
+            ' [' + self.build_info.build_hash + ']'
 
         widgetText = QLabel(label)
         widgetText.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
@@ -67,14 +64,24 @@ class LibraryWidget(QWidget):
         # Context menu
         self.setContextMenuPolicy(Qt.ActionsContextMenu)
 
-        deleteAction = QAction("Delete From Drive", self)
-        deleteAction.triggered.connect(self.remove_from_drive)
+        self.deleteAction = QAction("Delete From Drive", self)
+        self.deleteAction.setIcon(self.icon_delete)
+        self.deleteAction.triggered.connect(self.remove_from_drive)
 
         self.setAsFavoriteAction = QAction("Set As Favorite", self)
+        self.setAsFavoriteAction.setIcon(self.icon_favorite)
         self.setAsFavoriteAction.triggered.connect(self.set_favorite)
 
+        self.registerExtentionAction = QAction("Register Extension")
+
         self.addAction(self.setAsFavoriteAction)
-        self.addAction(deleteAction)
+        self.addAction(self.registerExtentionAction)
+        self.addAction(self.deleteAction)
+
+        if get_favorite_path() == link:
+            self.set_favorite()
+        else:
+            self.widgetFavorite.setIcon(self.icon_fake)
 
     def mouseDoubleClickEvent(self, event):
         self.launch()
@@ -124,6 +131,8 @@ class LibraryWidget(QWidget):
 
         if self.parent.favorite is not None:
             self.parent.favorite.widgetFavorite.setIcon(self.icon_fake)
+            self.parent.favorite.setAsFavoriteAction.setVisible(True)
 
         self.parent.favorite = self
         self.widgetFavorite.setIcon(self.icon_favorite)
+        self.setAsFavoriteAction.setVisible(False)
