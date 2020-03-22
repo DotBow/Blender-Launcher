@@ -156,7 +156,7 @@ QMenu
 
 QMenu::item
 {
-	padding: 6px 24px 6px 6px;
+	padding: 6px 6px 6px 24px;
 }
 
 QMenu::item::selected
@@ -167,4 +167,16 @@ QMenu::item::selected
 QMenu::icon
 {
 	margin: 6px;
+}
+
+QCheckBox {
+	color: #FFFFFF
+}
+
+QCheckBox::indicator:checked {
+	image: url(:resources/icons/box_checked.svg);
+}
+
+QCheckBox::indicator:unchecked {
+	image: url(:resources/icons/box_unchecked.svg);
 }
