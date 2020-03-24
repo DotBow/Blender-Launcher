@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="resources">
+    <file>icons/bl_tray.ico</file>
+    <file>icons/bl_desktop.ico</file>
     <file>icons/delete.svg</file>
     <file>icons/folder.svg</file>
     <file>icons/box_checked.svg</file>
