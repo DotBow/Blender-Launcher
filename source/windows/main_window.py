@@ -31,6 +31,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         # Setup Window
         self.setWindowTitle("Blender Launcher")
+        self.app.setWindowIcon(QIcon(":resources/icons/bl_desktop.ico"))
 
         # Setup Font
         QFontDatabase.addApplicationFont(
@@ -85,8 +86,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         # Draw Tray Icon
         self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(
-            self.style().standardIcon(QStyle.SP_TitleBarMenuButton))
+        self.tray_icon.setIcon(QIcon(":resources/icons/bl_tray.ico"))
         self.tray_icon.setToolTip("Blender Launcher")
         self.tray_icon.activated.connect(self.tray_icon_activated)
 
