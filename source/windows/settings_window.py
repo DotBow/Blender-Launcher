@@ -11,6 +11,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         super().__init__()
         self.setupUi(self)
 
+        self.setWindowTitle("Settings")
+
         self.CloseButton.setProperty("HeaderButton", True)
         self.CloseButton.setProperty("CloseButton", True)
         self.CloseButton.clicked.connect(self.close)
