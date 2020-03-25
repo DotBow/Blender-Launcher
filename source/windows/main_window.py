@@ -31,7 +31,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         # Setup Window
         self.setWindowTitle("Blender Launcher")
-        self.app.setWindowIcon(QIcon(":resources/icons/bl_desktop.ico"))
+        self.app.setWindowIcon(QIcon(":resources/icons/bl_tray.ico"))
 
         # Setup Font
         QFontDatabase.addApplicationFont(
