@@ -6,6 +6,7 @@ from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 from PyQt5.QtWidgets import (QAction, QApplication, QListWidgetItem,
                              QMainWindow, QMenu, QSystemTrayIcon)
 
+from items.base_list_widget_item import BaseListWidgetItem
 from modules.settings import *
 from threads.library_drawer import LibraryDrawer
 from threads.scraper import Scraper
@@ -190,8 +191,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         list_widget.setItemWidget(item, widget)
 
     def draw_to_library(self, dir):
-        item = QListWidgetItem()
+        item = BaseListWidgetItem()
         widget = LibraryWidget(self, item, dir)
+        item.date = widget.build_info.commit_time
         item.setSizeHint(widget.sizeHint())
 
         if widget.branch == 'stable':
