@@ -12,6 +12,7 @@ from modules.build_info import *
 from modules.settings import *
 from threads.observer import Observer
 from threads.remover import Remover
+from threads.register import Register
 
 if get_platform() == 'Windows':
     from subprocess import CREATE_NO_WINDOW
@@ -140,12 +141,6 @@ class LibraryWidget(QWidget):
 
     @QtCore.pyqtSlot()
     def register_extension(self):
-        platform = get_platform()
-
-        if platform == 'Windows':
-            b3d_exe = Path(self.link) / "blender.exe"
-            subprocess.call([str(b3d_exe), "-r"], creationflags=CREATE_NO_WINDOW,
-                            shell=True, stdout=PIPE, stderr=STDOUT, stdin=DEVNULL)
-        elif platform == 'Linux':
-            b3d_exe = Path(self.link) / "blender"
-            pass
+        path = Path(get_library_folder()) / self.link
+        self.register = Register(path)
+        self.register.start()
