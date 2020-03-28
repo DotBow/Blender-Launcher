@@ -18,6 +18,7 @@ class DownloadWidget(QWidget):
 
         self.progressBar = QProgressBar()
         self.progressBar.setAlignment(Qt.AlignCenter)
+        self.progressBar.setMinimumWidth(135)
         self.progressBar.hide()
 
         label = build_info.subversion + ' ' + build_info.branch.replace('-', ' ').title(
@@ -25,9 +26,11 @@ class DownloadWidget(QWidget):
         widgetText = QLabel(label)
         widgetText.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
         self.downloadButton = QPushButton("Download")
+        self.downloadButton.setMinimumWidth(80)
         self.downloadButton.setProperty("LaunchButton", True)
         self.downloadButton.clicked.connect(self.init_download)
         self.cancelButton = QPushButton("Cancel")
+        self.cancelButton.setMinimumWidth(80)
         self.cancelButton.setProperty("CancelButton", True)
         self.cancelButton.clicked.connect(self.download_cancelled)
         self.cancelButton.hide()
