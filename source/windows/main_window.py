@@ -1,15 +1,11 @@
-import sys
 import threading
 from pathlib import Path
 
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import (QEvent, QFile, QPoint, QSettings, Qt, QTextStream,
-                          QThread, QTimer, pyqtSignal)
+from PyQt5.QtCore import QFile, QTextStream, QTimer
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
-from PyQt5.QtWidgets import (
-    QAction, QApplication, QMainWindow, QMenu, QStyle, QSystemTrayIcon)
+from PyQt5.QtWidgets import (QAction, QApplication, QListWidgetItem,
+                             QMainWindow, QMenu, QSystemTrayIcon)
 
-from modules._platform import get_platform
 from modules.settings import *
 from threads.library_drawer import LibraryDrawer
 from threads.scraper import Scraper
@@ -187,14 +183,14 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         else:
             list_widget = self.DownloadsExperimentalListWidget
 
-        item = QtWidgets.QListWidgetItem()
+        item = QListWidgetItem()
         widget = DownloadWidget(self, list_widget, item, build_info)
         item.setSizeHint(widget.sizeHint())
         list_widget.addItem(item)
         list_widget.setItemWidget(item, widget)
 
     def draw_to_library(self, dir):
-        item = QtWidgets.QListWidgetItem()
+        item = QListWidgetItem()
         widget = LibraryWidget(self, item, dir)
         item.setSizeHint(widget.sizeHint())
 
