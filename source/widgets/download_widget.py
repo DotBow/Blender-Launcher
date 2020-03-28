@@ -1,15 +1,14 @@
-import os
-import re
 from pathlib import Path
 
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QAction, QLabel, QSizePolicy, QWidget
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QPushButton,
+                             QSizePolicy, QWidget)
 
 from modules.settings import *
 from threads.downloader import Downloader
 
 
-class DownloadWidget(QtWidgets.QWidget):
+class DownloadWidget(QWidget):
     def __init__(self, parent, list_widget, item, build_info):
         super(DownloadWidget, self).__init__(None)
         self.parent = parent
@@ -17,33 +16,31 @@ class DownloadWidget(QtWidgets.QWidget):
         self.item = item
         self.build_info = build_info
 
-        self.progressBar = QtWidgets.QProgressBar()
-        self.progressBar.setAlignment(QtCore.Qt.AlignCenter)
+        self.progressBar = QProgressBar()
+        self.progressBar.setAlignment(Qt.AlignCenter)
         self.progressBar.hide()
 
         label = build_info.subversion + ' ' + build_info.branch.replace('-', ' ').title(
         ) + ' ' + str(build_info.commit_time) + ' ' + str(build_info.build_hash)
-        widgetText = QtWidgets.QLabel(label)
+        widgetText = QLabel(label)
         widgetText.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
-        self.widgetButton = QtWidgets.QPushButton("Download")
-        self.widgetButton.setProperty("LaunchButton", True)
-        self.widgetButton.clicked.connect(self.init_download)
-        self.cancelButton = QtWidgets.QPushButton("Cancel")
+        self.downloadButton = QPushButton("Download")
+        self.downloadButton.setProperty("LaunchButton", True)
+        self.downloadButton.clicked.connect(self.init_download)
+        self.cancelButton = QPushButton("Cancel")
         self.cancelButton.setProperty("CancelButton", True)
         self.cancelButton.clicked.connect(self.download_cancelled)
         self.cancelButton.hide()
-        widgetLayout = QtWidgets.QHBoxLayout()
-        widgetLayout.addWidget(
-            self.widgetButton, alignment=QtCore.Qt.AlignRight)
-        widgetLayout.addWidget(
-            self.cancelButton, alignment=QtCore.Qt.AlignRight)
-        widgetLayout.addWidget(widgetText, stretch=1)
-        widgetLayout.addWidget(self.progressBar)
-        # widgetLayout.addStretch()
+        layout = QHBoxLayout()
+        layout.setContentsMargins(2, 2, 2, 2)
+        layout.addWidget(
+            self.downloadButton, alignment=Qt.AlignRight)
+        layout.addWidget(
+            self.cancelButton, alignment=Qt.AlignRight)
+        layout.addWidget(widgetText, stretch=1)
+        layout.addWidget(self.progressBar)
 
-        # widgetLayout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
-        widgetLayout.setContentsMargins(2, 2, 2, 2)
-        self.setLayout(widgetLayout)
+        self.setLayout(layout)
 
     def init_download(self):
         print("init_download")
@@ -56,7 +53,7 @@ class DownloadWidget(QtWidgets.QWidget):
     def download_started(self):
         self.progressBar.show()
         self.cancelButton.show()
-        self.widgetButton.hide()
+        self.downloadButton.hide()
 
     def download_cancelled(self):
         print("download_cancelled")
@@ -64,7 +61,7 @@ class DownloadWidget(QtWidgets.QWidget):
         self.cancelButton.hide()
         self.thread.terminate()
         self.thread.wait()
-        self.widgetButton.show()
+        self.downloadButton.show()
 
     def set_progress_bar(self, progress_bar_val, taskbar_val, format):
         self.progressBar.setFormat(format)
