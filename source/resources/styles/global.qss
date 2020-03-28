@@ -35,7 +35,7 @@ QToolBox::tab {
 }
 
 QToolBox::tab:hover {
-	background-color: #4f4f4f;
+	background-color: #4F4F4F;
 	color: #FFFFFF;
 }
 
@@ -54,11 +54,11 @@ QListWidget::item {
 }
 
 QListWidget::item:hover {
-	background-color: #4f4f4f;
+	background-color: #4F4F4F;
 }
 
 QListWidget::item:selected {
-	background-color: #3b5689;
+	background-color: #3B5689;
 }
 
 QPushButton {
@@ -95,7 +95,7 @@ QPushButton[LaunchButton=true] {
 }
 
 QPushButton[LaunchButton=true]:hover {
-	background-color: #60C040;
+	background-color: #4EA13A;
 	border: none;
 }
 
@@ -106,7 +106,7 @@ QPushButton[CancelButton=true] {
 }
 
 QPushButton[CancelButton=true]:hover {
-	background-color: #FF613D;
+	background-color: #FF5225;
 	border: none;
 }
 
@@ -195,11 +195,12 @@ QCheckBox::indicator:unchecked {
 QProgressBar
 {
 	color: #FFFFFF;
-	background-color: rgb(51, 51, 51);
-	border-color: rgb(51, 51, 51);
+	background-color: #2C2C2C;
+	border: none;
+	height: 100%;
 }
 
 QProgressBar::chunk
 {
-    background: #5680C2;
+	background: #5680C2;
 }
