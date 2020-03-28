@@ -12,6 +12,7 @@ from modules.settings import *
 
 
 class Downloader(QThread):
+    started = pyqtSignal()
     progress_changed = pyqtSignal(
         'PyQt_PyObject', 'PyQt_PyObject', 'PyQt_PyObject')
     finished = pyqtSignal('PyQt_PyObject')
@@ -25,6 +26,7 @@ class Downloader(QThread):
         self.wait()
 
     def run(self):
+        self.started.emit()
         blender_zip = urlopen(self.link)
         size = blender_zip.info()['Content-Length']
 
@@ -49,6 +51,8 @@ class Downloader(QThread):
                 progress = os.stat(temp_folder).st_size / int(size)
                 self.progress_changed.emit(
                     progress, progress * 0.5, "Downloading: %p%")
+
+                print("Downloading")
 
         self.platform = get_platform()
 
