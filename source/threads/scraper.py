@@ -89,6 +89,18 @@ class Scraper(QThread):
             subversion = label_parts[0]
             branch = 'stable'
 
+        if commit_time is None:
+            platform = get_platform()
+
+            if platform == 'Windows':
+                locale.setlocale(locale.LC_ALL, 'eng_usa')
+            elif platform == 'Linux':
+                locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+
+            self.strptime = time.strptime(
+                info['last-modified'], '%a, %d %b %Y %H:%M:%S %Z')
+            commit_time = time.strftime("%d-%b-%y-%H:%M", self.strptime)
+
         return BuildInfo(link, subversion, build_hash, commit_time, branch, size)
 
     def scrap_stable_releases(self):
@@ -101,12 +113,10 @@ class Scraper(QThread):
             releases.append(urljoin(url, release['href']))
 
         releases = releases[-4:]
-        releases.reverse()
         stable_links = []
 
         for release in releases:
             links = self.scrap_download_links(release)
-            links.reverse()
 
             for link in links:
                 stable_links.append(link)
@@ -128,7 +138,7 @@ class Scraper(QThread):
 
             self.strptime = time.strptime(
                 datetime, '%a, %d %b %Y %H:%M:%S %z')
-            commit_time = time.strftime("%d-%b-%H:%M", self.strptime)
+            commit_time = time.strftime("%d-%b-%y-%H:%M", self.strptime)
             return commit_time
         except Exception as e:
             return None
