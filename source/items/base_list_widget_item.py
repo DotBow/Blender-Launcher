@@ -9,6 +9,6 @@ class BaseListWidgetItem(QListWidgetItem):
         self.date = date
 
     def __lt__(self, other):
-        a = strptime(self.date, "%d-%b-%H:%M")
-        b = strptime(other.date, "%d-%b-%H:%M")
+        a = strptime(self.date, "%d-%b-%y-%H:%M")
+        b = strptime(other.date, "%d-%b-%y-%H:%M")
         return a > b

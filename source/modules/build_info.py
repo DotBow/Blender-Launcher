@@ -50,7 +50,7 @@ def write_build_info(folder):
     ctime = re.search("build commit time: " + "(.*)", info)[1].rstrip()
     cdate = re.search("build commit date: " + "(.*)", info)[1].rstrip()
     strptime = time.strptime(cdate + ' ' + ctime, "%Y-%m-%d %H:%M")
-    commit_time = time.strftime("%d-%b-%H:%M", strptime)
+    commit_time = time.strftime("%d-%b-%y-%H:%M", strptime)
     build_hash = re.search("build hash: " + "(.*)", info)[1].rstrip()
     subversion = re.search("Blender " + "(.*)", info)[1].rstrip()
 
