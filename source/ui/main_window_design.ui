@@ -198,8 +198,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>632</width>
-             <height>291</height>
+             <width>98</width>
+             <height>69</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -240,8 +240,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>632</width>
-             <height>291</height>
+             <width>98</width>
+             <height>69</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -314,8 +314,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>69</height>
+             <width>632</width>
+             <height>291</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -344,6 +344,9 @@
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
+              <property name="sortingEnabled">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -353,8 +356,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>69</height>
+             <width>632</width>
+             <height>291</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -383,6 +386,9 @@
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
+              <property name="sortingEnabled">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -392,8 +398,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>69</height>
+             <width>632</width>
+             <height>291</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -421,6 +427,9 @@
              <widget class="QListWidget" name="DownloadsExperimentalListWidget">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="sortingEnabled">
+               <bool>true</bool>
               </property>
              </widget>
             </item>

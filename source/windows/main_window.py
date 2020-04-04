@@ -184,7 +184,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         else:
             list_widget = self.DownloadsExperimentalListWidget
 
-        item = QListWidgetItem()
+        item = BaseListWidgetItem(build_info.commit_time)
         widget = DownloadWidget(self, list_widget, item, build_info)
         item.setSizeHint(widget.sizeHint())
         list_widget.addItem(item)
