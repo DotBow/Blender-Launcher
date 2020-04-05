@@ -117,8 +117,9 @@ QPushButton[Icon=true] {
 }
 
 QLineEdit {
-	background-color:#232323;
+	background-color:#1F1F1F;
 	color: #FFFFFF;
+	border: 1px solid #444444;
 }
 
 QLineEdit[text=\"\"] {
