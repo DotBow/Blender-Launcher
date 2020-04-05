@@ -14,13 +14,26 @@ if get_platform() == 'Windows':
 
 
 class BuildInfo:
-    def __init__(self, link, subversion, build_hash, commit_time, branch, size=None):
+    def __init__(self, type, link, subversion, build_hash, commit_time, branch, size=None):
+        self.type = type
         self.link = link
         self.subversion = subversion
         self.build_hash = build_hash
         self.commit_time = commit_time
         self.branch = branch
         self.size = size
+
+    def __eq__(self, other):
+        if (self.build_hash is not None) and (other.build_hash is not None):
+            return self.build_hash == other.build_hash
+        else:
+            return self.get_name() == other.get_name()
+
+    def get_name(self):
+        if self.type == 'link':
+            return Path(self.link).stem
+        elif self.type == 'path':
+            return Path(self.link).name
 
 
 def write_build_info(folder):
@@ -65,7 +78,7 @@ def write_build_info(folder):
         else:
             branch = "stable"
     except Exception as e:
-        branch = "none"
+        branch = None
 
     # Write Version Information
     data = {}
@@ -95,6 +108,7 @@ def read_build_info(folder):
         link = Path(get_library_folder()) / folder
 
         build_info = BuildInfo(
+            'path',
             link,
             blinfo['subversion'],
             blinfo['build_hash'],
