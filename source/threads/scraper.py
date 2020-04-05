@@ -101,7 +101,7 @@ class Scraper(QThread):
                 info['last-modified'], '%a, %d %b %Y %H:%M:%S %Z')
             commit_time = time.strftime("%d-%b-%y-%H:%M", self.strptime)
 
-        return BuildInfo(link, subversion, build_hash, commit_time, branch, size)
+        return BuildInfo('link', link, subversion, build_hash, commit_time, branch, size)
 
     def scrap_stable_releases(self):
         releases = []

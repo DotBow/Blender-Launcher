@@ -134,43 +134,43 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.scraper.links.connect(self.test)
         self.scraper.start()
 
-    def test(self, links):
-        old_links = []
-        new_links = []
+    def test(self, builds):
+        library_widgets = []
+        download_widgets = []
 
-        old_links.extend(self.get_list_widget_items(
+        library_widgets.extend(self.get_list_widget_items(
             self.LibraryStableListWidget, 'path'))
-        old_links.extend(self.get_list_widget_items(
+        library_widgets.extend(self.get_list_widget_items(
             self.LibraryDailyListWidget, 'path'))
-        old_links.extend(self.get_list_widget_items(
+        library_widgets.extend(self.get_list_widget_items(
             self.LibraryExperimentalListWidget, 'path'))
 
-        old_links.extend(self.get_list_widget_items(
+        download_widgets.extend(self.get_list_widget_items(
             self.DownloadsStableListWidget, 'link'))
-        old_links.extend(self.get_list_widget_items(
+        download_widgets.extend(self.get_list_widget_items(
             self.DownloadsDailyListWidget, 'link'))
-        old_links.extend(self.get_list_widget_items(
+        download_widgets.extend(self.get_list_widget_items(
             self.DownloadsExperimentalListWidget, 'link'))
 
-        for link in links:
-            if Path(link.link).stem not in old_links:
-                new_links.append(link)
+        for widget in download_widgets:
+            if widget.build_info in builds:
+                builds.remove(widget.build_info)
+            else:
+                widget.destroy(0)
 
-        for link in new_links:
-            self.draw_to_downloads(link)
+        for widget in library_widgets:
+            if widget.build_info in builds:
+                builds.remove(widget.build_info)
+
+        for build_info in builds:
+            self.draw_to_downloads(build_info)
 
     def get_list_widget_items(self, list_widget, type):
         items = []
 
         for i in range(list_widget.count()):
-            link = list_widget.itemWidget(list_widget.item(i)).build_info.link
-
-            if type == 'link':
-                name = Path(link).stem
-            elif type == 'path':
-                name = Path(link).name
-
-            items.append(name)
+            item = list_widget.itemWidget(list_widget.item(i))
+            items.append(item)
 
         return items
 
