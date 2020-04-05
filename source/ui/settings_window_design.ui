@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>320</height>
+    <width>320</width>
+    <height>240</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -86,44 +86,77 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="leftMargin">
+       <number>9</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>9</number>
+      </property>
+      <property name="bottomMargin">
+       <number>9</number>
+      </property>
       <item>
-       <widget class="QLineEdit" name="LibraryFolderLineEdit">
-        <property name="contextMenuPolicy">
-         <enum>Qt::NoContextMenu</enum>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Library Folder</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="SetLibraryFolderButton">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLineEdit" name="LibraryFolderLineEdit">
+          <property name="contextMenuPolicy">
+           <enum>Qt::NoContextMenu</enum>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="SetLibraryFolderButton">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normalon>:/resources/icons/folder.svg</normalon>
+           </iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
         <property name="text">
-         <string/>
+         <string>System</string>
         </property>
-        <property name="icon">
-         <iconset>
-          <normalon>:/resources/icons/folder.svg</normalon>
-         </iconset>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="LaunchWhenSystemStartsCheckBox">
+        <property name="text">
+         <string>Launch When System Starts</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="LaunchMinimizedToTrayCheckBox">
+        <property name="text">
+         <string>Launch Minimized To Tray</string>
         </property>
        </widget>
       </item>
      </layout>
-    </item>
-    <item>
-     <widget class="QCheckBox" name="LaunchWhenSystemStartsCheckBox">
-      <property name="text">
-       <string>Launch When System Starts</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QCheckBox" name="LaunchMinimizedToTrayCheckBox">
-      <property name="text">
-       <string>Launch Minimized To Tray</string>
-      </property>
-     </widget>
     </item>
     <item>
      <spacer name="verticalSpacer">
@@ -145,12 +178,16 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>480</width>
+     <width>320</width>
      <height>21</height>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="sizeGripEnabled">
+    <bool>false</bool>
+   </property>
+  </widget>
  </widget>
  <resources>
   <include location="../resources/resources.qrc"/>
