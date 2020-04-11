@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="resources">
+    <file>icons/wiki.svg</file>
     <file>icons/bl_tray.ico</file>
     <file>icons/bl_desktop.ico</file>
     <file>icons/delete.svg</file>

@@ -129,7 +129,6 @@ QPushButton[CancelButton=true]:hover {
 QPushButton[Icon=true] {
 	background-color: transparent;
 	border: none;
-	padding: 9px;
 }
 
 QLineEdit {

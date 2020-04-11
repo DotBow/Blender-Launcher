@@ -54,6 +54,24 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="WikiButton">
+        <property name="icon">
+         <iconset>
+          <normalon>:/resources/icons/wiki.svg</normalon>
+         </iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="shortcut">
+         <string>F1</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -198,8 +216,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>69</height>
+             <width>632</width>
+             <height>291</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -240,8 +258,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>69</height>
+             <width>632</width>
+             <height>291</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -356,8 +374,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>632</width>
-             <height>291</height>
+             <width>98</width>
+             <height>69</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -398,8 +416,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>632</width>
-             <height>291</height>
+             <width>98</width>
+             <height>69</height>
             </rect>
            </property>
            <attribute name="icon">

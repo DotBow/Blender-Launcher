@@ -1,4 +1,5 @@
 import threading
+import webbrowser
 from pathlib import Path
 
 from PyQt5.QtCore import QFile, QTextStream, QTimer
@@ -44,12 +45,15 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app.setStyleSheet(stream.readAll())
 
         self.SettingsButton.setProperty("HeaderButton", True)
+        self.WikiButton.setProperty("HeaderButton", True)
         self.MinimizeButton.setProperty("HeaderButton", True)
         self.CloseButton.setProperty("HeaderButton", True)
         self.CloseButton.setProperty("CloseButton", True)
 
         # Connect Buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
+        self.WikiButton.clicked.connect(lambda: webbrowser.open(
+            "https://github.com/DotBow/Blender-Launcher/wiki"))
         self.MinimizeButton.clicked.connect(self.showMinimized)
         self.CloseButton.clicked.connect(self.close)
 
