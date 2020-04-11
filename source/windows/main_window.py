@@ -111,8 +111,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         tool_box.setItemIcon(index, icon_page_opened)
 
     def launch_favorite(self):
-        if self.favorite is not None:
+        try:
             self.favorite.launch()
+        except Exception as e:
+            return
 
     def tray_icon_activated(self, reason):
         if reason == QSystemTrayIcon.Trigger:
