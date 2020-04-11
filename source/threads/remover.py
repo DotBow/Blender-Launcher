@@ -14,6 +14,10 @@ class Remover(QThread):
         self.wait()
 
     def run(self):
-        rmtree(self.path.as_posix())
-        self.finished.emit(0)
+        try:
+            rmtree(self.path.as_posix())
+            self.finished.emit(0)
+        except OSError as e:
+            self.finished.emit(1)
+
         return
