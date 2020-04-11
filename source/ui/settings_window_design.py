@@ -46,6 +46,7 @@ class Ui_SettingsWindow(object):
         self.label.setObjectName("label")
         self.verticalLayout_2.addWidget(self.label)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.LibraryFolderLineEdit = QtWidgets.QLineEdit(self.centralwidget)
         self.LibraryFolderLineEdit.setContextMenuPolicy(QtCore.Qt.NoContextMenu)

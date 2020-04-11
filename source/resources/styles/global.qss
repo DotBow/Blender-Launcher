@@ -65,6 +65,7 @@ QPushButton {
 	color: #FFFFFF;
 	background-color: #232323;
 	border: none;
+	padding: 4px;
 }
 
 QPushButton:hover {
@@ -76,16 +77,19 @@ QPushButton:hover {
 QPushButton[HeaderButton=true] {
 	background-color: #232323;
 	border: none;
+	padding: 0px;
 }
 
 QPushButton[HeaderButton=true]:hover {
 	background-color: #343434;
 	border: none;
+	padding: 0px;
 }
 
 QPushButton[CloseButton=true]:hover {
 	background-color: #DB2512;
 	border: none;
+	padding: 0px;
 }
 
 QPushButton[LaunchButton=true] {
@@ -97,11 +101,13 @@ QPushButton[LaunchButton=true] {
 QPushButton[LaunchButton=true]:hover {
 	background-color: #4EA13A;
 	border: none;
+	padding: 9px;
 }
 
 QPushButton[LaunchButton=true]:disabled {
 	background-color: #6E6E6E;
 	border: none;
+	padding: 9px;
 }
 
 QLabel:disabled {
@@ -117,6 +123,7 @@ QPushButton[CancelButton=true] {
 QPushButton[CancelButton=true]:hover {
 	background-color: #FF5225;
 	border: none;
+	padding: 9px;
 }
 
 QPushButton[Icon=true] {
@@ -129,6 +136,7 @@ QLineEdit {
 	background-color:#1F1F1F;
 	color: #FFFFFF;
 	border: 1px solid #444444;
+	padding: 2px;
 }
 
 QLineEdit[text=\"\"] {
