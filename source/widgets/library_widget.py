@@ -52,6 +52,7 @@ class LibraryWidget(QWidget):
         self.countButton.hide()
 
         self.launchButton = QtWidgets.QPushButton("Launch")
+        self.launchButton.setMinimumWidth(70)
         self.launchButton.clicked.connect(self.launch)
         self.launchButton.setProperty("LaunchButton", True)
 
@@ -117,6 +118,8 @@ class LibraryWidget(QWidget):
 
     @QtCore.pyqtSlot()
     def remove_from_drive(self):
+        self.launchButton.setText("Deleting")
+        self.setEnabled(False)
         path = Path(get_library_folder()) / self.link
         self.remover = Remover(path)
         self.remover.finished.connect(self.remover_finished)

@@ -99,6 +99,15 @@ QPushButton[LaunchButton=true]:hover {
 	border: none;
 }
 
+QPushButton[LaunchButton=true]:disabled {
+	background-color: #6E6E6E;
+	border: none;
+}
+
+QLabel:disabled {
+	color: #828282;
+}
+
 QPushButton[CancelButton=true] {
 	background-color: #FF613D;
 	border: none;
