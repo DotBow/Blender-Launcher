@@ -145,18 +145,18 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         download_widgets = []
 
         library_widgets.extend(self.get_list_widget_items(
-            self.LibraryStableListWidget, 'path'))
+            self.LibraryStableListWidget))
         library_widgets.extend(self.get_list_widget_items(
-            self.LibraryDailyListWidget, 'path'))
+            self.LibraryDailyListWidget))
         library_widgets.extend(self.get_list_widget_items(
-            self.LibraryExperimentalListWidget, 'path'))
+            self.LibraryExperimentalListWidget))
 
         download_widgets.extend(self.get_list_widget_items(
-            self.DownloadsStableListWidget, 'link'))
+            self.DownloadsStableListWidget))
         download_widgets.extend(self.get_list_widget_items(
-            self.DownloadsDailyListWidget, 'link'))
+            self.DownloadsDailyListWidget))
         download_widgets.extend(self.get_list_widget_items(
-            self.DownloadsExperimentalListWidget, 'link'))
+            self.DownloadsExperimentalListWidget))
 
         for widget in download_widgets:
             if widget.build_info in builds:
@@ -171,7 +171,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         for build_info in builds:
             self.draw_to_downloads(build_info)
 
-    def get_list_widget_items(self, list_widget, type):
+    def get_list_widget_items(self, list_widget):
         items = []
 
         for i in range(list_widget.count()):
