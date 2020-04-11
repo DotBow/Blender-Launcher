@@ -125,10 +125,14 @@ class LibraryWidget(QWidget):
         self.remover.finished.connect(self.remover_finished)
         self.remover.start()
 
-    @QtCore.pyqtSlot()
-    def remover_finished(self):
-        row = self.list_widget.row(self.item)
-        self.list_widget.takeItem(row)
+    def remover_finished(self, code):
+        if code == 0:
+            row = self.list_widget.row(self.item)
+            self.list_widget.takeItem(row)
+        else:
+            self.launchButton.setText("Launch")
+            self.setEnabled(True)
+            return
 
     @QtCore.pyqtSlot()
     def set_favorite(self):
