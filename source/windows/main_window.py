@@ -12,7 +12,7 @@ from modules.settings import *
 from threads.library_drawer import LibraryDrawer
 from threads.scraper import Scraper
 from ui.main_window_design import Ui_MainWindow
-from widgets.download_widget import DownloadWidget
+from widgets.download_widget import DownloadWidget, DownloadState
 from widgets.library_widget import LibraryWidget
 from windows.base_window import BaseWindow
 from windows.settings_window import SettingsWindow
@@ -161,7 +161,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         for widget in download_widgets:
             if widget.build_info in builds:
                 builds.remove(widget.build_info)
-            else:
+            elif widget.state != DownloadState.DOWNLOADING:
                 widget.destroy(0)
 
         for widget in library_widgets:

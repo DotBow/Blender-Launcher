@@ -9,7 +9,7 @@ from modules.settings import *
 from threads.downloader import Downloader
 
 
-class State(Enum):
+class DownloadState(Enum):
     WAITING = 1
     DOWNLOADING = 2
 
@@ -21,7 +21,7 @@ class DownloadWidget(QWidget):
         self.list_widget = list_widget
         self.item = item
         self.build_info = build_info
-        self.state = State.WAITING
+        self.state = DownloadState.WAITING
 
         self.progressBar = QProgressBar()
         self.progressBar.setAlignment(Qt.AlignCenter)
@@ -53,7 +53,7 @@ class DownloadWidget(QWidget):
         self.setLayout(layout)
 
     def init_download(self):
-        self.state = State.DOWNLOADING
+        self.state = DownloadState.DOWNLOADING
         self.thread = Downloader(self, self.build_info.link)
         self.thread.started.connect(self.download_started)
         self.thread.progress_changed.connect(self.set_progress_bar)
@@ -66,7 +66,7 @@ class DownloadWidget(QWidget):
         self.downloadButton.hide()
 
     def download_cancelled(self):
-        self.state = State.WAITING
+        self.state = DownloadState.WAITING
         self.progressBar.hide()
         self.cancelButton.hide()
         self.thread.terminate()
@@ -78,9 +78,6 @@ class DownloadWidget(QWidget):
         self.progressBar.setValue(progress_bar_val * 100)
 
     def destroy(self, status):
-        if self.state == State.DOWNLOADING:
-            return
-
         if status == 0:
             self.parent.draw_to_library(
                 Path(get_library_folder()) / Path(self.build_info.link).stem)
