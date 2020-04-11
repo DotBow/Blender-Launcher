@@ -215,6 +215,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def show_settings_window(self):
         self.settings_window = SettingsWindow()
+        x = self.x() + (self.width() - self.settings_window.width()) * 0.5
+        y = self.y() + (self.height() - self.settings_window.height()) * 0.5
+        self.settings_window.move(x, y)
 
     def closeEvent(self, event):
         event.ignore()
