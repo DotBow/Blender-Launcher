@@ -6,6 +6,8 @@ import time
 from pathlib import Path
 from subprocess import DEVNULL
 
+from PyQt5.QtCore import QThread, pyqtSignal
+
 from modules._platform import get_platform
 from modules.settings import *
 
@@ -36,84 +38,95 @@ class BuildInfo:
             return Path(self.link).name
 
 
-def write_build_info(folder):
-    # Read Blender Version
-    platform = get_platform()
+class BuildInfoReader(QThread):
+    finished = pyqtSignal('PyQt_PyObject')
 
-    if platform == 'Windows':
-        blender_exe = "blender.exe"
-    elif platform == 'Linux':
-        blender_exe = "blender"
+    def __init__(self, path):
+        QThread.__init__(self)
+        self.path = path
 
-    exe_path = Path(get_library_folder()) / folder / blender_exe
+    def run(self):
+        build_info = self.read_build_info(self.path)
+        self.finished.emit(build_info)
+        return
 
-    if platform == 'Windows':
-        info = subprocess.check_output(
-            [exe_path.as_posix(), "-v"],
-            creationflags=CREATE_NO_WINDOW,
-            shell=True,
-            stderr=DEVNULL, stdin=DEVNULL)
-    elif platform == 'Linux':
-        info = subprocess.check_output(
-            [exe_path.as_posix(), "-v"], shell=False,
-            stderr=DEVNULL, stdin=DEVNULL)
+    def write_build_info(self, folder):
+        # Read Blender Version
+        platform = get_platform()
 
-    info = info.decode('UTF-8')
+        if platform == 'Windows':
+            blender_exe = "blender.exe"
+        elif platform == 'Linux':
+            blender_exe = "blender"
 
-    ctime = re.search("build commit time: " + "(.*)", info)[1].rstrip()
-    cdate = re.search("build commit date: " + "(.*)", info)[1].rstrip()
-    strptime = time.strptime(cdate + ' ' + ctime, "%Y-%m-%d %H:%M")
-    commit_time = time.strftime("%d-%b-%y-%H:%M", strptime)
-    build_hash = re.search("build hash: " + "(.*)", info)[1].rstrip()
-    subversion = re.search("Blender " + "(.*)", info)[1].rstrip()
+        exe_path = Path(get_library_folder()) / folder / blender_exe
 
-    try:
-        folder_parts = folder.name.replace(
-            "blender-", "").replace("-windows64", "").rsplit('-', 2)
+        if platform == 'Windows':
+            info = subprocess.check_output(
+                [exe_path.as_posix(), "-v"],
+                creationflags=CREATE_NO_WINDOW,
+                shell=True,
+                stderr=DEVNULL, stdin=DEVNULL)
+        elif platform == 'Linux':
+            info = subprocess.check_output(
+                [exe_path.as_posix(), "-v"], shell=False,
+                stderr=DEVNULL, stdin=DEVNULL)
 
-        if len(folder_parts) > 2:
-            branch = folder_parts[0]
-        elif len(folder_parts) > 1:
-            branch = "daily"
-        else:
-            branch = "stable"
-    except Exception as e:
-        branch = None
+        info = info.decode('UTF-8')
 
-    # Write Version Information
-    data = {}
-    data['blinfo'] = []
-    data['blinfo'].append({
-        'branch': branch,
-        'subversion': subversion,
-        'build_hash': build_hash,
-        'commit_time': commit_time,
-    })
+        ctime = re.search("build commit time: " + "(.*)", info)[1].rstrip()
+        cdate = re.search("build commit date: " + "(.*)", info)[1].rstrip()
+        strptime = time.strptime(cdate + ' ' + ctime, "%Y-%m-%d %H:%M")
+        commit_time = time.strftime("%d-%b-%y-%H:%M", strptime)
+        build_hash = re.search("build hash: " + "(.*)", info)[1].rstrip()
+        subversion = re.search("Blender " + "(.*)", info)[1].rstrip()
 
-    path = Path(get_library_folder()) / folder / '.blinfo'
+        try:
+            folder_parts = folder.name.replace(
+                "blender-", "").replace("-windows64", "").rsplit('-', 2)
 
-    with open(path, 'w') as file:
-        json.dump(data, file)
+            if len(folder_parts) > 2:
+                branch = folder_parts[0]
+            elif len(folder_parts) > 1:
+                branch = "daily"
+            else:
+                branch = "stable"
+        except Exception as e:
+            branch = None
 
+        # Write Version Information
+        data = {}
+        data['blinfo'] = []
+        data['blinfo'].append({
+            'branch': branch,
+            'subversion': subversion,
+            'build_hash': build_hash,
+            'commit_time': commit_time,
+        })
 
-def read_build_info(folder):
-    path = Path(get_library_folder()) / folder / '.blinfo'
+        path = Path(get_library_folder()) / folder / '.blinfo'
 
-    if not path.is_file():
-        write_build_info(folder)
+        with open(path, 'w') as file:
+            json.dump(data, file)
 
-    with open(path) as file:
-        data = json.load(file)
-        blinfo = data['blinfo'][0]
-        link = Path(get_library_folder()) / folder
+    def read_build_info(self, folder):
+        path = Path(get_library_folder()) / folder / '.blinfo'
 
-        build_info = BuildInfo(
-            'path',
-            link,
-            blinfo['subversion'],
-            blinfo['build_hash'],
-            blinfo['commit_time'],
-            blinfo['branch']
-        )
+        if not path.is_file():
+            self.write_build_info(folder)
 
-        return build_info
+        with open(path) as file:
+            data = json.load(file)
+            blinfo = data['blinfo'][0]
+            link = Path(get_library_folder()) / folder
+
+            build_info = BuildInfo(
+                'path',
+                link,
+                blinfo['subversion'],
+                blinfo['build_hash'],
+                blinfo['commit_time'],
+                blinfo['branch']
+            )
+
+            return build_info
