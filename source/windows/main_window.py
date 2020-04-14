@@ -34,9 +34,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         # Setup Font
         QFontDatabase.addApplicationFont(
             ":/resources/fonts/Inter-Regular.otf")
-        font = QFont("Inter", 10)
-        font.setHintingPreference(QFont.PreferNoHinting)
-        self.app.setFont(font)
+        self.font = QFont("Inter", 10)
+        self.font.setHintingPreference(QFont.PreferNoHinting)
+        self.app.setFont(self.font)
 
         # Setup Style
         file = QFile(":/resources/styles/global.qss")

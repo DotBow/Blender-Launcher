@@ -4,15 +4,16 @@ from subprocess import DEVNULL, PIPE, STDOUT, Popen
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QAction, QLabel, QSizePolicy, QWidget, QHBoxLayout, QPushButton
+from PyQt5.QtGui import QCursor, QIcon
+from PyQt5.QtWidgets import (QAction, QHBoxLayout, QLabel, QMenu, QPushButton,
+                             QSizePolicy, QWidget)
 
 from modules._platform import *
 from modules.build_info import *
 from modules.settings import *
 from threads.observer import Observer
-from threads.remover import Remover
 from threads.register import Register
+from threads.remover import Remover
 
 if get_platform() == 'Windows':
     from subprocess import CREATE_NO_WINDOW
@@ -78,8 +79,10 @@ class LibraryWidget(QWidget):
         self.layout.addWidget(self.widgetFavorite)
 
         # Context menu
-        self.setContextMenuPolicy(Qt.ActionsContextMenu)
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.context_menu)
 
+        self.menu = QMenu()
         self.deleteAction = QAction("Delete From Drive", self)
         self.deleteAction.setIcon(self.icon_delete)
         self.deleteAction.triggered.connect(self.remove_from_drive)
@@ -91,9 +94,10 @@ class LibraryWidget(QWidget):
         self.registerExtentionAction = QAction("Register Extension")
         self.registerExtentionAction.triggered.connect(self.register_extension)
 
-        self.addAction(self.setAsFavoriteAction)
-        self.addAction(self.registerExtentionAction)
-        self.addAction(self.deleteAction)
+        self.menu.addAction(self.setAsFavoriteAction)
+        self.menu.addAction(self.registerExtentionAction)
+        self.menu.addAction(self.deleteAction)
+        self.menu.setFont(self.parent.font)
 
         if get_favorite_path() == self.link:
             self.set_favorite()
@@ -102,6 +106,9 @@ class LibraryWidget(QWidget):
 
         self.setEnabled(True)
         self.list_widget.sortItems()
+
+    def context_menu(self):
+        self.menu.exec_(QCursor.pos())
 
     def mouseDoubleClickEvent(self, event):
         self.launch()
