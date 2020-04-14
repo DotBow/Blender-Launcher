@@ -68,7 +68,7 @@ def write_build_info(folder):
     subversion = re.search("Blender " + "(.*)", info)[1].rstrip()
 
     try:
-        folder_parts = folder.replace(
+        folder_parts = folder.name.replace(
             "blender-", "").replace("-windows64", "").rsplit('-', 2)
 
         if len(folder_parts) > 2:

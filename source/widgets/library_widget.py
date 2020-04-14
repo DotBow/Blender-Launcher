@@ -36,7 +36,7 @@ class LibraryWidget(QWidget):
         self.widgetFavorite.setIcon(self.icon_favorite)
         self.widgetFavorite.setProperty("Icon", True)
 
-        self.build_info = read_build_info(Path(link).name)
+        self.build_info = read_build_info(link)
         self.branch = self.build_info.branch
 
         branch = self.branch.replace('-', ' ').title()

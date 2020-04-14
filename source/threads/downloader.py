@@ -15,19 +15,19 @@ class Downloader(QThread):
     started = pyqtSignal()
     progress_changed = pyqtSignal(
         'PyQt_PyObject', 'PyQt_PyObject', 'PyQt_PyObject')
-    finished = pyqtSignal('PyQt_PyObject')
+    finished = pyqtSignal('PyQt_PyObject', 'PyQt_PyObject')
 
-    def __init__(self, parent, link):
+    def __init__(self, parent, build_info):
         QThread.__init__(self)
         self.parent = parent
-        self.link = link
+        self.build_info = build_info
 
     def __del__(self):
         self.wait()
 
     def run(self):
         self.started.emit()
-        blender_zip = urlopen(self.link)
+        blender_zip = urlopen(self.build_info.link)
         size = blender_zip.info()['Content-Length']
 
         library_folder = Path(get_library_folder())
@@ -37,7 +37,7 @@ class Downloader(QThread):
         if not temp_folder.is_dir():
             temp_folder.mkdir()
 
-        temp_folder = temp_folder / self.link.split('/', -1)[-1]
+        temp_folder = temp_folder / Path(self.build_info.link).name
 
         # Download
         with open(temp_folder, 'wb') as file:
@@ -52,9 +52,14 @@ class Downloader(QThread):
                 self.progress_changed.emit(
                     progress, progress * 0.5, "Downloading: %p%")
 
-                print("Downloading")
-
         self.platform = get_platform()
+
+        if self.build_info.branch == 'stable':
+            dist = library_folder / 'stable'
+        elif self.build_info.branch == 'daily':
+            dist = library_folder / 'daily'
+        else:
+            dist = library_folder / 'experimental'
 
         # Extract
         if self.platform == 'Windows':
@@ -64,7 +69,7 @@ class Downloader(QThread):
             extracted_size = 0
 
             for file in zf.infolist():
-                zf.extract(file, library_folder)
+                zf.extract(file, dist)
                 extracted_size += file.file_size
                 progress = extracted_size / uncompress_size
                 self.progress_changed.emit(
@@ -78,7 +83,7 @@ class Downloader(QThread):
             extracted_size = 0
 
             for member in tar.getmembers():
-                tar.extract(member, path=library_folder)
+                tar.extract(member, path=dist)
                 extracted_size += member.size
                 progress = extracted_size / uncompress_size
                 self.progress_changed.emit(
@@ -86,5 +91,5 @@ class Downloader(QThread):
 
             tar.close()
 
-        self.finished.emit(0)
+        self.finished.emit(0, dist / Path(self.build_info.link).stem)
         return

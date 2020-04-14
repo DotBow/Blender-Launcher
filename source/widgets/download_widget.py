@@ -54,7 +54,7 @@ class DownloadWidget(QWidget):
 
     def init_download(self):
         self.state = DownloadState.DOWNLOADING
-        self.thread = Downloader(self, self.build_info.link)
+        self.thread = Downloader(self, self.build_info)
         self.thread.started.connect(self.download_started)
         self.thread.progress_changed.connect(self.set_progress_bar)
         self.thread.finished.connect(self.destroy)
@@ -77,10 +77,9 @@ class DownloadWidget(QWidget):
         self.progressBar.setFormat(format)
         self.progressBar.setValue(progress_bar_val * 100)
 
-    def destroy(self, status):
+    def destroy(self, status, dist):
         if status == 0:
-            self.parent.draw_to_library(
-                Path(get_library_folder()) / Path(self.build_info.link).stem)
+            self.parent.draw_to_library(dist)
             row = self.list_widget.row(self.item)
             self.list_widget.takeItem(row)
         else:
