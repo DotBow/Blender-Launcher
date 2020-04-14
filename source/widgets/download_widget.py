@@ -79,7 +79,7 @@ class DownloadWidget(QWidget):
 
     def destroy(self, status, dist):
         if status == 0:
-            self.parent.draw_to_library(dist)
+            self.parent.draw_to_library(dist, self.build_info.branch)
             row = self.list_widget.row(self.item)
             self.list_widget.takeItem(row)
         else:

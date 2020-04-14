@@ -5,7 +5,7 @@ from subprocess import DEVNULL, PIPE, STDOUT, Popen
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QAction, QLabel, QSizePolicy, QWidget
+from PyQt5.QtWidgets import QAction, QLabel, QSizePolicy, QWidget, QHBoxLayout, QPushButton
 
 from modules._platform import *
 from modules.build_info import *
@@ -19,24 +19,49 @@ if get_platform() == 'Windows':
 
 
 class LibraryWidget(QWidget):
-    def __init__(self, parent, item, link):
+    def __init__(self, parent, item, link, list_widget):
         super(LibraryWidget, self).__init__(None)
+
         self.parent = parent
-        self.list_widget = None
         self.item = item
         self.link = link
+        self.list_widget = list_widget
         self.observer = None
 
-        layout = QtWidgets.QHBoxLayout()
-        layout.setContentsMargins(2, 2, 2, 2)
+        self.setEnabled(False)
+
+        self.layout = QHBoxLayout()
+        self.layout.setContentsMargins(2, 2, 2, 2)
+        self.setLayout(self.layout)
+
+        self.launchButton = QPushButton("Launch")
+        self.launchButton.setMinimumWidth(70)
+        self.launchButton.clicked.connect(self.launch)
+        self.launchButton.setProperty("LaunchButton", True)
+
+        self.widgetText = QLabel("Loading Build From Disk...")
+        self.widgetText.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
+
+        self.layout.addWidget(
+            self.launchButton, alignment=QtCore.Qt.AlignRight)
+        self.layout.addWidget(self.widgetText, stretch=1)
+
+        self.thread = BuildInfoReader(link)
+        self.thread.finished.connect(self.draw)
+        self.thread.start()
+
+        self.item.setSizeHint(self.sizeHint())
+
+    def draw(self, build_info):
+        self.item.date = build_info.commit_time
         self.icon_favorite = QIcon(":resources/icons/favorite.svg")
         self.icon_fake = QIcon(":resources/icons/fake.svg")
         self.icon_delete = QIcon(":resources/icons/delete.svg")
-        self.widgetFavorite = QtWidgets.QPushButton()
+        self.widgetFavorite = QPushButton()
         self.widgetFavorite.setIcon(self.icon_favorite)
         self.widgetFavorite.setProperty("Icon", True)
 
-        self.build_info = read_build_info(link)
+        self.build_info = build_info
         self.branch = self.build_info.branch
 
         branch = self.branch.replace('-', ' ').title()
@@ -44,24 +69,13 @@ class LibraryWidget(QWidget):
             self.build_info.commit_time + \
             ' [' + self.build_info.build_hash + ']'
 
-        widgetText = QLabel(label)
-        widgetText.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
+        self.widgetText.setText(label)
 
-        self.countButton = QtWidgets.QPushButton("0")
+        self.countButton = QPushButton("0")
         self.countButton.setProperty("Icon", True)
         self.countButton.hide()
-
-        self.launchButton = QtWidgets.QPushButton("Launch")
-        self.launchButton.setMinimumWidth(70)
-        self.launchButton.clicked.connect(self.launch)
-        self.launchButton.setProperty("LaunchButton", True)
-
-        layout.addWidget(
-            self.launchButton, alignment=QtCore.Qt.AlignRight)
-        layout.addWidget(widgetText, stretch=1)
-        layout.addWidget(self.countButton)
-        layout.addWidget(self.widgetFavorite)
-        self.setLayout(layout)
+        self.layout.addWidget(self.countButton)
+        self.layout.addWidget(self.widgetFavorite)
 
         # Context menu
         self.setContextMenuPolicy(Qt.ActionsContextMenu)
@@ -81,10 +95,13 @@ class LibraryWidget(QWidget):
         self.addAction(self.registerExtentionAction)
         self.addAction(self.deleteAction)
 
-        if get_favorite_path() == link:
+        if get_favorite_path() == self.link:
             self.set_favorite()
         else:
             self.widgetFavorite.setIcon(self.icon_fake)
+
+        self.setEnabled(True)
+        self.list_widget.sortItems()
 
     def mouseDoubleClickEvent(self, event):
         self.launch()

@@ -7,7 +7,7 @@ from modules.settings import *
 
 
 class LibraryDrawer(QThread):
-    build_found = pyqtSignal('PyQt_PyObject')
+    build_found = pyqtSignal('PyQt_PyObject', 'PyQt_PyObject')
 
     def __init__(self, parent):
         QThread.__init__(self)
@@ -26,6 +26,6 @@ class LibraryDrawer(QThread):
                 path = library_folder / dir / build / blender_exe
 
                 if path.is_file():
-                    self.build_found.emit(dir / build)
+                    self.build_found.emit(dir / build, dir.name)
 
         return

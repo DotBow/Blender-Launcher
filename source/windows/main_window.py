@@ -196,20 +196,16 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         list_widget.addItem(item)
         list_widget.setItemWidget(item, widget)
 
-    def draw_to_library(self, dir):
-        item = BaseListWidgetItem()
-        widget = LibraryWidget(self, item, dir)
-        item.date = widget.build_info.commit_time
-        item.setSizeHint(widget.sizeHint())
-
-        if widget.branch == 'stable':
+    def draw_to_library(self, dir, branch):
+        if branch == 'stable':
             list_widget = self.LibraryStableListWidget
-        elif widget.branch == 'daily':
+        elif branch == 'daily':
             list_widget = self.LibraryDailyListWidget
         else:
             list_widget = self.LibraryExperimentalListWidget
 
-        widget.list_widget = list_widget
+        item = BaseListWidgetItem()
+        widget = LibraryWidget(self, item, dir, list_widget)
         list_widget.insertItem(0, item)
         list_widget.setItemWidget(item, widget)
 
