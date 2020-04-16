@@ -33,8 +33,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         # Setup Font
         QFontDatabase.addApplicationFont(
-            ":/resources/fonts/Inter-Regular.otf")
-        self.font = QFont("Inter", 10)
+            ":/resources/fonts/OpenSans-SemiBold.ttf")
+        self.font = QFont("Open Sans SemiBold", 10)
         self.font.setHintingPreference(QFont.PreferNoHinting)
         self.app.setFont(self.font)
 
@@ -80,6 +80,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         launch_favorite_action.triggered.connect(self.launch_favorite)
 
         tray_menu = QMenu()
+        tray_menu.setFont(self.font)
         tray_menu.addAction(launch_favorite_action)
         tray_menu.addAction(show_action)
         tray_menu.addAction(hide_action)
