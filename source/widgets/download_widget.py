@@ -77,8 +77,8 @@ class DownloadWidget(QWidget):
         self.progressBar.setFormat(format)
         self.progressBar.setValue(progress_bar_val * 100)
 
-    def destroy(self, status, dist):
-        if status == 0:
+    def destroy(self, dist=None):
+        if dist is not None:
             self.parent.draw_to_library(dist, self.build_info.branch)
             row = self.list_widget.row(self.item)
             self.list_widget.takeItem(row)

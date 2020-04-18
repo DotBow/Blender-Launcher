@@ -15,7 +15,7 @@ class Downloader(QThread):
     started = pyqtSignal()
     progress_changed = pyqtSignal(
         'PyQt_PyObject', 'PyQt_PyObject', 'PyQt_PyObject')
-    finished = pyqtSignal('PyQt_PyObject', 'PyQt_PyObject')
+    finished = pyqtSignal('PyQt_PyObject')
 
     def __init__(self, parent, build_info):
         QThread.__init__(self)
@@ -91,5 +91,5 @@ class Downloader(QThread):
 
             tar.close()
 
-        self.finished.emit(0, dist / Path(self.build_info.link).stem)
+        self.finished.emit(dist / Path(self.build_info.link).stem)
         return
