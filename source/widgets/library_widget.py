@@ -128,10 +128,10 @@ class LibraryWidget(QWidget):
             proc = Popen('nohup "' + b3d_exe + '"', shell=True, stdout=None,
                          stderr=None, close_fds=True, preexec_fn=os.setpgrp)
 
-        if (self.observer is None) or (self.observer.destroyed):
+        if self.observer is None:
             self.observer = Observer(self)
             self.observer.count_changed.connect(self.proc_count_changed)
-            self.observer.finished.connect(self.countButton.hide)
+            self.observer.finished.connect(self.observer_finished)
             self.observer.started.connect(self.countButton.show)
             self.observer.start()
 
@@ -139,6 +139,10 @@ class LibraryWidget(QWidget):
 
     def proc_count_changed(self, count):
         self.countButton.setText(str(count))
+
+    def observer_finished(self):
+        self.countButton.hide()
+        self.observer = None
 
     @QtCore.pyqtSlot()
     def remove_from_drive(self):

@@ -29,6 +29,8 @@ class Observer(QThread):
 
             QThread.sleep(1)
 
+        return
+
     def append_proc(self, proc):
         self.processes.append(proc)
         self.count_changed.emit(len(self.processes))
