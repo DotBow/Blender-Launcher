@@ -147,10 +147,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.timer = threading.Timer(600.0, self.update)
         self.timer.start()
         self.scraper = Scraper(self)
-        self.scraper.links.connect(self.test)
+        self.scraper.links.connect(self.draw_new_builds)
         self.scraper.start()
 
-    def test(self, builds):
+    def draw_new_builds(self, builds):
         library_widgets = []
         download_widgets = []
 
@@ -172,7 +172,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             if widget.build_info in builds:
                 builds.remove(widget.build_info)
             elif widget.state != DownloadState.DOWNLOADING:
-                widget.destroy(0)
+                widget.destroy()
 
         for widget in library_widgets:
             if widget.build_info in builds:

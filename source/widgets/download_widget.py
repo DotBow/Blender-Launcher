@@ -57,7 +57,7 @@ class DownloadWidget(QWidget):
         self.thread = Downloader(self, self.build_info)
         self.thread.started.connect(self.download_started)
         self.thread.progress_changed.connect(self.set_progress_bar)
-        self.thread.finished.connect(self.destroy)
+        self.thread.finished.connect(self.download_finished)
         self.thread.start()
 
     def download_started(self):
@@ -77,10 +77,14 @@ class DownloadWidget(QWidget):
         self.progressBar.setFormat(format)
         self.progressBar.setValue(progress_bar_val * 100)
 
-    def destroy(self, dist=None):
+    def download_finished(self, dist=None):
+        self.state = DownloadState.WAITING
+
         if dist is not None:
             self.parent.draw_to_library(dist, self.build_info.branch)
+            self.destroy()
+
+    def destroy(self):
+        if self.state == DownloadState.WAITING:
             row = self.list_widget.row(self.item)
             self.list_widget.takeItem(row)
-        else:
-            pass
