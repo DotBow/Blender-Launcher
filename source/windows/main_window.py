@@ -29,7 +29,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         # Setup Window
         self.setWindowTitle("Blender Launcher")
-        self.app.setWindowIcon(QIcon(":resources/icons/bl_tray.ico"))
+        self.app.setWindowIcon(QIcon(":resources/icons/tray.ico"))
 
         # Setup Font
         QFontDatabase.addApplicationFont(
@@ -100,6 +100,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.show()
         self.tray_icon.show()
 
+        self.statusbar.setFont(self.font)
+
     def _show(self):
         self.activateWindow()
         self.show()
@@ -134,7 +136,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app.quit()
 
     def update(self):
-        print("Updating...")
+        self.statusbar.showMessage("Status: Checking for new builds", 0)
         self.timer = threading.Timer(600.0, self.update)
         self.timer.start()
         self.scraper = Scraper(self)
@@ -171,6 +173,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         for build_info in builds:
             self.draw_to_downloads(build_info)
+
+        self.statusbar.showMessage("Status: None", 0)
 
     def get_list_widget_items(self, list_widget):
         items = []

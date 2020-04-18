@@ -221,3 +221,7 @@ QProgressBar::chunk
 {
 	background: #5680C2;
 }
+
+QStatusBar {
+	color: #FFFFFF;
+}
