@@ -59,6 +59,8 @@ class LibraryWidget(QWidget):
         self.icon_fake = QIcon(":resources/icons/fake.svg")
         self.icon_delete = QIcon(":resources/icons/delete.svg")
         self.widgetFavorite = QPushButton()
+        self.widgetFavorite.setEnabled(False)
+        self.widgetFavorite.setFixedSize(24, 24)
         self.widgetFavorite.setIcon(self.icon_favorite)
         self.widgetFavorite.setProperty("Icon", True)
 
@@ -73,8 +75,10 @@ class LibraryWidget(QWidget):
         self.widgetText.setText(label)
 
         self.countButton = QPushButton("0")
-        self.countButton.setProperty("Icon", True)
+        self.countButton.setEnabled(False)
+        self.countButton.setProperty("Count", True)
         self.countButton.hide()
+        self.countButton.setFixedSize(24, 24)
         self.layout.addWidget(self.countButton)
         self.layout.addWidget(self.widgetFavorite)
 

@@ -131,6 +131,12 @@ QPushButton[Icon=true] {
 	border: none;
 }
 
+QPushButton[Count=true] {
+	background-color: #FF7A00;
+	border: none;
+	border-radius: 12px;
+}
+
 QLineEdit {
 	background-color:#1F1F1F;
 	color: #FFFFFF;
