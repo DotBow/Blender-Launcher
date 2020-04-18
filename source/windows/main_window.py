@@ -6,7 +6,7 @@ from time import gmtime, strftime
 from PyQt5.QtCore import QFile, QTextStream, QTimer
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 from PyQt5.QtWidgets import (QAction, QApplication, QListWidgetItem,
-                             QMainWindow, QMenu, QSystemTrayIcon)
+                             QMainWindow, QMenu, QSystemTrayIcon, QLabel)
 
 from items.base_list_widget_item import BaseListWidgetItem
 from modules.settings import *
@@ -67,6 +67,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         library_drawer.build_found.connect(self.draw_to_library)
         library_drawer.start()
 
+        self.statusbar.setFont(self.font)
+        self.statusbarLabel = QLabel()
+        self.statusbar.addPermanentWidget(self.statusbarLabel, 1)
+
         # Draw Downloads
         self.update()
 
@@ -101,8 +105,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         self._show()
         self.tray_icon.show()
-
-        self.statusbar.setFont(self.font)
 
     def _show(self):
         self.activateWindow()
@@ -222,7 +224,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         if status is not None:
             self.status = status
 
-        self.statusbar.showMessage(self.status, 0)
+        self.statusbarLabel.setText(self.status)
 
     def show_settings_window(self):
         self.settings_window = SettingsWindow()
