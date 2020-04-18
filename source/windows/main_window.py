@@ -63,16 +63,14 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.DownloadsToolBox.currentChanged.connect(self.page_changed)
 
         # Draw Library
-        library_drawer = LibraryDrawer(self)
-        library_drawer.build_found.connect(self.draw_to_library)
-        library_drawer.start()
+        self.draw_library()
 
         self.statusbar.setFont(self.font)
         self.statusbarLabel = QLabel()
         self.statusbar.addPermanentWidget(self.statusbarLabel, 1)
 
         # Draw Downloads
-        self.update()
+        self.draw_downloads()
 
         # Setup Tray Icon Context Menu
         quit_action = QAction("Quit", self)
@@ -142,9 +140,27 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.tray_icon.hide()
         self.app.quit()
 
-    def update(self):
+    def draw_library(self):
+        self.favorite = None
+
+        self.LibraryStableListWidget.clear()
+        self.LibraryDailyListWidget.clear()
+        self.LibraryExperimentalListWidget.clear()
+
+        self.library_drawer = LibraryDrawer(self)
+        self.library_drawer.build_found.connect(self.draw_to_library)
+        self.library_drawer.start()
+
+    def draw_downloads(self, clear=False):
+        if clear:
+            self.DownloadsStableListWidget.clear()
+            self.DownloadsDailyListWidget.clear()
+            self.DownloadsExperimentalListWidget.clear()
+            self.timer.cancel()
+            self.scraper.quit()
+
         self.set_status("Status: Checking for new builds")
-        self.timer = threading.Timer(600.0, self.update)
+        self.timer = threading.Timer(600.0, self.draw_downloads)
         self.timer.start()
         self.scraper = Scraper(self)
         self.scraper.links.connect(self.draw_new_builds)
@@ -229,7 +245,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.statusbarLabel.setText(self.status)
 
     def show_settings_window(self):
-        self.settings_window = SettingsWindow()
+        self.settings_window = SettingsWindow(self)
         x = self.x() + (self.width() - self.settings_window.width()) * 0.5
         y = self.y() + (self.height() - self.settings_window.height()) * 0.5
         self.settings_window.move(x, y)

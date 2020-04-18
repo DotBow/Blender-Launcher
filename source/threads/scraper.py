@@ -19,9 +19,6 @@ class Scraper(QThread):
         QThread.__init__(self)
         self.parent = parent
 
-    def __del__(self):
-        self.wait()
-
     def run(self):
         self.links.emit(self.get_download_links())
         return
