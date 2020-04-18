@@ -26,6 +26,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         # Global Scope
         self.app = app
         self.favorite = None
+        self.status = "Status: None"
 
         # Setup Window
         self.setWindowTitle("Blender Launcher")
@@ -97,7 +98,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.tray_icon_trigger.setSingleShot(True)
         self.tray_icon_trigger.timeout.connect(self._show)
 
-        self.show()
+        self._show()
         self.tray_icon.show()
 
         self.statusbar.setFont(self.font)
@@ -105,6 +106,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def _show(self):
         self.activateWindow()
         self.show()
+        self.set_status()
 
     def page_changed(self, index):
         tool_box = self.sender()
@@ -136,7 +138,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app.quit()
 
     def update(self):
-        self.statusbar.showMessage("Status: Checking for new builds", 0)
+        self.set_status("Status: Checking for new builds")
         self.timer = threading.Timer(600.0, self.update)
         self.timer.start()
         self.scraper = Scraper(self)
@@ -174,7 +176,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         for build_info in builds:
             self.draw_to_downloads(build_info)
 
-        self.statusbar.showMessage("Status: None", 0)
+        self.set_status("Status: None")
 
     def get_list_widget_items(self, list_widget):
         items = []
@@ -213,6 +215,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         widget = LibraryWidget(self, item, dir, list_widget)
         list_widget.insertItem(0, item)
         list_widget.setItemWidget(item, widget)
+
+    def set_status(self, status=None):
+        if status is not None:
+            self.status = status
+
+        self.statusbar.showMessage(self.status, 0)
 
     def show_settings_window(self):
         self.settings_window = SettingsWindow()
