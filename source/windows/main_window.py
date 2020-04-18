@@ -103,8 +103,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.tray_icon_trigger.setSingleShot(True)
         self.tray_icon_trigger.timeout.connect(self._show)
 
-        self._show()
         self.tray_icon.show()
+
+        if get_launch_minimized_to_tray() == False:
+            self._show()
 
     def _show(self):
         self.activateWindow()
