@@ -2,14 +2,15 @@ import locale
 import re
 import time
 from pathlib import Path
+from urllib import error
 from urllib.parse import urljoin
 from urllib.request import urlopen
 
 from bs4 import BeautifulSoup
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from modules.build_info import BuildInfo
 from modules._platform import get_platform
+from modules.build_info import BuildInfo
 
 
 class Scraper(QThread):
@@ -20,7 +21,11 @@ class Scraper(QThread):
         self.parent = parent
 
     def run(self):
-        self.links.emit(self.get_download_links())
+        try:
+            self.links.emit(self.get_download_links())
+        except error.URLError:
+            self.parent.set_status("Status: Connection Error")
+
         return
 
     def get_download_links(self):
