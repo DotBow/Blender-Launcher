@@ -88,7 +88,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         # Draw Tray Icon
         self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(QIcon(":resources/icons/bl_tray.ico"))
+        self.tray_icon.setIcon(QIcon(":resources/icons/tray.ico"))
         self.tray_icon.setToolTip("Blender Launcher")
         self.tray_icon.activated.connect(self.tray_icon_activated)
 

@@ -1,9 +1,9 @@
 <RCC>
   <qresource prefix="resources">
     <file>icons/wiki.svg</file>
-    <file>icons/bl_tray.ico</file>
-    <file>icons/bl_desktop.ico</file>
     <file>icons/delete.svg</file>
+    <file>icons/desktop.ico</file>
+    <file>icons/tray.ico</file>
     <file>icons/folder.svg</file>
     <file>icons/box_checked.svg</file>
     <file>icons/box_unchecked.svg</file>
