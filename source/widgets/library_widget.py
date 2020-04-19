@@ -40,7 +40,7 @@ class LibraryWidget(QWidget):
         self.launchButton.clicked.connect(self.launch)
         self.launchButton.setProperty("LaunchButton", True)
 
-        self.buildHashLabel = QLabel("Loading Build From Disk...")
+        self.buildHashLabel = QLabel("Loading Build Information...")
         self.buildHashLabel.setSizePolicy(
             QSizePolicy.Ignored, QSizePolicy.Fixed)
 
