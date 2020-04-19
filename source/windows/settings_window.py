@@ -41,8 +41,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         if new_library_folder and (library_folder != new_library_folder):
             self.LibraryFolderLineEdit.setText(new_library_folder)
             set_library_folder(new_library_folder)
-            self.parent.draw_library()
-            self.parent.draw_downloads(True)
+            self.parent.draw_library(clear=True)
 
     def toggle_launch_when_system_starts(self, is_checked):
         set_launch_when_system_starts(is_checked)
