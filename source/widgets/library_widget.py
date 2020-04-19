@@ -40,12 +40,13 @@ class LibraryWidget(QWidget):
         self.launchButton.clicked.connect(self.launch)
         self.launchButton.setProperty("LaunchButton", True)
 
-        self.widgetText = QLabel("Loading Build From Disk...")
-        self.widgetText.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
+        self.buildHashLabel = QLabel("Loading Build From Disk...")
+        self.buildHashLabel.setSizePolicy(
+            QSizePolicy.Ignored, QSizePolicy.Fixed)
 
         self.layout.addWidget(
             self.launchButton, alignment=QtCore.Qt.AlignRight)
-        self.layout.addWidget(self.widgetText, stretch=1)
+        self.layout.addWidget(self.buildHashLabel, stretch=1)
 
         self.thread = BuildInfoReader(link)
         self.thread.finished.connect(self.draw)
@@ -67,12 +68,16 @@ class LibraryWidget(QWidget):
         self.build_info = build_info
         self.branch = self.build_info.branch
 
-        branch = self.branch.replace('-', ' ').title()
-        label = self.build_info.subversion + ' ' + branch + ' ' + \
-            self.build_info.commit_time + \
-            ' [' + self.build_info.build_hash + ']'
+        self.buildHashLabel.setText(self.build_info.build_hash)
+        self.subversionLabel = QLabel(self.build_info.subversion)
+        self.branchLabel = QLabel(self.branch.replace('-', ' ').title())
+        self.commitTimeLabel = QLabel(self.build_info.commit_time)
 
-        self.widgetText.setText(label)
+        self.layout.addWidget(self.subversionLabel)
+        self.layout.addWidget(self.branchLabel)
+        self.layout.addWidget(self.commitTimeLabel)
+        self.layout.removeWidget(self.buildHashLabel)
+        self.layout.addWidget(self.buildHashLabel, stretch=1)
 
         self.countButton = QPushButton("0")
         self.countButton.setEnabled(False)
@@ -110,6 +115,8 @@ class LibraryWidget(QWidget):
 
         self.setEnabled(True)
         self.list_widget.sortItems()
+        self.parent.resize_labels(
+            self.list_widget, ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
 
     def context_menu(self):
         self.menu.exec_(QCursor.pos())

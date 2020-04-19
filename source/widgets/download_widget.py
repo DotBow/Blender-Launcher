@@ -28,29 +28,43 @@ class DownloadWidget(QWidget):
         self.progressBar.setMinimumWidth(135)
         self.progressBar.hide()
 
-        label = build_info.subversion + ' ' + build_info.branch.replace('-', ' ').title(
-        ) + ' ' + str(build_info.commit_time) + ' ' + str(build_info.build_hash)
-        widgetText = QLabel(label)
-        widgetText.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
         self.downloadButton = QPushButton("Download")
         self.downloadButton.setMinimumWidth(85)
         self.downloadButton.setProperty("LaunchButton", True)
         self.downloadButton.clicked.connect(self.init_download)
+
         self.cancelButton = QPushButton("Cancel")
         self.cancelButton.setMinimumWidth(85)
         self.cancelButton.setProperty("CancelButton", True)
         self.cancelButton.clicked.connect(self.download_cancelled)
         self.cancelButton.hide()
+
         layout = QHBoxLayout()
         layout.setContentsMargins(2, 2, 2, 2)
         layout.addWidget(
             self.downloadButton, alignment=Qt.AlignRight)
         layout.addWidget(
             self.cancelButton, alignment=Qt.AlignRight)
-        layout.addWidget(widgetText, stretch=1)
+
+        self.subversionLabel = QLabel(self.build_info.subversion)
+        self.branchLabel = QLabel(
+            self.build_info.branch.replace('-', ' ').title())
+        self.commitTimeLabel = QLabel(self.build_info.commit_time)
+        self.buildHashLabel = QLabel(self.build_info.build_hash)
+        self.buildHashLabel.setSizePolicy(
+            QSizePolicy.Ignored, QSizePolicy.Fixed)
+
+        layout.addWidget(self.subversionLabel)
+        layout.addWidget(self.branchLabel)
+        layout.addWidget(self.commitTimeLabel)
+        layout.addWidget(self.buildHashLabel, stretch=1)
         layout.addWidget(self.progressBar)
 
         self.setLayout(layout)
+
+    def showEvent(self, event):
+        self.parent.resize_labels(
+            self.list_widget, ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
 
     def init_download(self):
         self.state = DownloadState.DOWNLOADING
