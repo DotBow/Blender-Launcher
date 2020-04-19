@@ -1,7 +1,7 @@
 import threading
 import webbrowser
 from pathlib import Path
-from time import gmtime, strftime
+from time import localtime, strftime
 
 from PyQt5.QtCore import QFile, QTextStream, QTimer
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
@@ -197,7 +197,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         for build_info in builds:
             self.draw_to_downloads(build_info)
 
-        utcnow = strftime(('%H:%M:%S %d-%b-%Y'), gmtime())
+        utcnow = strftime(('%H:%M:%S %d-%b-%Y'), localtime())
         self.set_status("Status: Last check at " + utcnow)
 
     def get_list_widget_items(self, list_widget):
