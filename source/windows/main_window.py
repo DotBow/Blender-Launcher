@@ -127,7 +127,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def tray_icon_activated(self, reason):
         if reason == QSystemTrayIcon.Trigger:
-            self.tray_icon_trigger.start(QApplication.doubleClickInterval())
+            self.tray_icon_trigger.start(
+                QApplication.doubleClickInterval() * 0.5)
         elif reason == QSystemTrayIcon.DoubleClick:
             self.tray_icon_trigger.stop()
             self.launch_favorite()
