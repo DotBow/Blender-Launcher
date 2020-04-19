@@ -8,6 +8,7 @@ from modules.settings import *
 
 class LibraryDrawer(QThread):
     build_found = pyqtSignal('PyQt_PyObject', 'PyQt_PyObject')
+    finished = pyqtSignal()
 
     def __init__(self, parent):
         QThread.__init__(self)
@@ -28,4 +29,5 @@ class LibraryDrawer(QThread):
                 if path.is_file():
                     self.build_found.emit(dir / build, dir.name)
 
+        self.finished.emit()
         return
