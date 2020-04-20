@@ -17,7 +17,7 @@ def get_library_folder():
     settings = get_settings()
     library_folder = settings.value('library_folder')
 
-    if not Path(library_folder).exists():
+    if (library_folder is None) or (not Path(library_folder).exists()):
         library_folder = Path.cwd()
         settings.setValue('library_folder', library_folder)
 
