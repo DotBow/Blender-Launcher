@@ -77,6 +77,7 @@ class Downloader(QThread):
                     progress, progress * 0.5 + 0.5, "Extracting: %p%")
 
             zf.close()
+            path = Path(self.build_info.link).stem
         elif self.platform == 'Linux':
             tar = tarfile.open(temp_folder)
             version = tar.getnames()[0].split('/')[0]
@@ -91,6 +92,7 @@ class Downloader(QThread):
                     progress, progress * 0.5 + 0.5, "Extracting: %p%")
 
             tar.close()
+            path = Path(self.build_info.link).stem.replace('.tar', '')
 
-        self.finished.emit(dist / Path(self.build_info.link).stem)
+        self.finished.emit(dist / path)
         return
