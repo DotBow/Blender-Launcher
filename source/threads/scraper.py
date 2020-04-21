@@ -36,19 +36,19 @@ class Scraper(QThread):
 
         # Daily Builds
         daily_builds = self.scrap_download_links(
-            "https://builder.blender.org/download")
+            "https://builder.blender.org/download", 'daily')
         for link in daily_builds:
             links.append(link)
 
         # Experimental Branches
         experimental = self.scrap_download_links(
-            "https://builder.blender.org/download/branches")
+            "https://builder.blender.org/download/branches", 'experimental')
         for link in experimental:
             links.append(link)
 
         return links
 
-    def scrap_download_links(self, url, _limit=None):
+    def scrap_download_links(self, url, branch_type, _limit=None):
         platform = get_platform()
         content = urlopen(url).read()
         soup = BeautifulSoup(content, 'html.parser')
@@ -56,14 +56,14 @@ class Scraper(QThread):
 
         if platform == 'Windows':
             for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+win.+64.+zip')):
-                links.append(self.new_blender_build(tag, url))
+                links.append(self.new_blender_build(tag, url, branch_type))
         elif platform == 'Linux':
-            for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+linux.+64.+tar')):
-                links.append(self.new_blender_build(tag, url))
+            for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+lin.+64.+tar')):
+                links.append(self.new_blender_build(tag, url, branch_type))
 
         return links
 
-    def new_blender_build(self, tag, url):
+    def new_blender_build(self, tag, url, branch_type):
         link = urljoin(url, tag['href']).rstrip('/')
 
         info = urlopen(link).info()
@@ -72,23 +72,21 @@ class Scraper(QThread):
         commit_time = None
         build_hash = None
 
-        label = Path(link).stem
-        label = label.replace("blender-", "")
-        label = label.replace("-windows64", "")
-        label_parts = label.rsplit('-', 2)
+        stem = Path(link).stem
+        match = re.findall(r'-\w{12}-', stem)
 
-        if len(label_parts) > 2:
-            subversion = label_parts[1]
-            branch = label_parts[0]
-            build_hash = label_parts[2]
+        if match:
+            build_hash = match[-1].replace('-', '')
+
+        subversion = re.search(r'-\d.\w+-', stem).group(0).replace('-', '')
+
+        if branch_type == 'experimental':
+            branch = re.search(r'\A.+-blender', stem).group(0)[:-8]
             commit_time = self.get_commit_time(build_hash)
-        elif len(label_parts) > 1:
-            subversion = label_parts[0]
+        elif branch_type == 'daily':
             branch = 'daily'
-            build_hash = label_parts[1]
             commit_time = self.get_commit_time(build_hash)
         else:
-            subversion = label_parts[0]
             branch = 'stable'
 
         if commit_time is None:
@@ -118,7 +116,7 @@ class Scraper(QThread):
         stable_links = []
 
         for release in releases:
-            links = self.scrap_download_links(release)
+            links = self.scrap_download_links(release, 'stable')
 
             for link in links:
                 stable_links.append(link)
