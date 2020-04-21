@@ -136,7 +136,7 @@ class LibraryWidget(QWidget):
                          stderr=None, close_fds=True, creationflags=DETACHED_PROCESS)
         elif platform == 'Linux':
             b3d_exe = library_folder / self.link / "blender"
-            proc = Popen('nohup "' + b3d_exe + '"', shell=True, stdout=None,
+            proc = Popen('nohup "' + b3d_exe.as_posix() + '"', shell=True, stdout=None,
                          stderr=None, close_fds=True, preexec_fn=os.setpgrp)
 
         if self.observer is None:
