@@ -1,5 +1,6 @@
 import json
 import os
+import tarfile
 import zipfile
 from pathlib import Path
 from urllib.request import urlopen
