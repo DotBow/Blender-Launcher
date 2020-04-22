@@ -23,7 +23,7 @@ class Scraper(QThread):
         try:
             self.links.emit(self.get_download_links())
         except error.URLError:
-            self.parent.set_status("Status: Connection Error")
+            self.parent.set_status("Connection Error")
 
         return
 

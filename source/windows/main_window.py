@@ -29,7 +29,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         # Global Scope
         self.app = app
         self.favorite = None
-        self.status = "Status: None"
+        self.status = "None"
 
         # Setup Window
         self.setWindowTitle("Blender Launcher")
@@ -142,7 +142,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         try:
             self.favorite.launch()
         except Exception as e:
-            return
+            self.dlg = DialogWindow(
+                self, text="Favorite build not found!", accept_text="OK", cancel_text=None)
 
     def tray_icon_activated(self, reason):
         if reason == QSystemTrayIcon.Trigger:
@@ -158,7 +159,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app.quit()
 
     def draw_library(self, clear=False):
-        self.set_status("Status: Reading local builds")
+        self.set_status("Reading local builds")
 
         if clear:
             self.timer.cancel()
@@ -179,7 +180,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.library_drawer.start()
 
     def draw_downloads(self):
-        self.set_status("Status: Checking for new builds")
+        self.set_status("Checking for new builds")
         self.timer = threading.Timer(600.0, self.draw_downloads)
         self.timer.start()
         self.scraper = Scraper(self)
@@ -218,7 +219,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.draw_to_downloads(build_info)
 
         utcnow = strftime(('%H:%M:%S %d-%b-%Y'), localtime())
-        self.set_status("Status: Last check at " + utcnow)
+        self.set_status("Last check at " + utcnow)
 
     def get_list_widget_items(self, list_widget):
         items = []
@@ -281,7 +282,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         if status is not None:
             self.status = status
 
-        self.statusbarLabel.setText(self.status)
+        self.statusbarLabel.setText("Status: {0}".format(self.status))
 
     def show_settings_window(self):
         self.settings_window = SettingsWindow(self)
