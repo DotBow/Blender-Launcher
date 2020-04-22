@@ -5,8 +5,9 @@ from time import localtime, strftime
 
 from PyQt5.QtCore import QFile, QTextStream, QTimer
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
-from PyQt5.QtWidgets import (QAction, QApplication, QListWidgetItem,
-                             QMainWindow, QMenu, QSystemTrayIcon, QLabel)
+from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QLabel,
+                             QListWidgetItem, QMainWindow, QMenu,
+                             QSystemTrayIcon)
 
 from items.base_list_widget_item import BaseListWidgetItem
 from modules.settings import *
@@ -17,6 +18,7 @@ from widgets.download_widget import DownloadState, DownloadWidget
 from widgets.library_widget import LibraryWidget
 from windows.base_window import BaseWindow
 from windows.settings_window import SettingsWindow
+from windows.dialog_window import DialogWindow
 
 
 class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
@@ -46,6 +48,23 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         stream = QTextStream(file)
         self.app.setStyleSheet(stream.readAll())
 
+        if is_library_folder_valid() is False:
+            self.dlg = DialogWindow(
+                self, text="Select Library Folder", text1="Continue")
+            self.dlg.accepted.connect(self.change_library_folder)
+        else:
+            self.draw()
+
+    def change_library_folder(self):
+        library_folder = Path.cwd().as_posix()
+        new_library_folder = QFileDialog.getExistingDirectory(
+            self, "Select Library Folder", library_folder)
+
+        if new_library_folder:
+            set_library_folder(new_library_folder)
+            self.draw()
+
+    def draw(self):
         self.SettingsButton.setProperty("HeaderButton", True)
         self.WikiButton.setProperty("HeaderButton", True)
         self.MinimizeButton.setProperty("HeaderButton", True)
