@@ -17,11 +17,20 @@ def get_library_folder():
     settings = get_settings()
     library_folder = settings.value('library_folder')
 
-    if (library_folder is None) or (not Path(library_folder).exists()):
+    if not is_library_folder_valid():
         library_folder = Path.cwd()
         settings.setValue('library_folder', library_folder)
 
     return library_folder
+
+
+def is_library_folder_valid():
+    library_folder = get_settings().value('library_folder')
+
+    if (library_folder is not None) and Path(library_folder).exists():
+        return True
+    else:
+        return False
 
 
 def set_library_folder(new_library_folder):
