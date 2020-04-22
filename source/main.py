@@ -1,5 +1,6 @@
 import logging
 import sys
+from locale import LC_ALL, setlocale
 
 from PyQt5.QtWidgets import QApplication
 
@@ -25,6 +26,13 @@ sys.excepthook = handle_exception
 
 
 def main():
+    platform = get_platform()
+
+    if platform == 'Windows':
+        setlocale(LC_ALL, 'eng_usa')
+    elif platform == 'Linux':
+        setlocale(LC_ALL, 'en_US.UTF-8')
+
     app = QApplication(sys.argv)
     BlenderLauncher(app)
     app.exec_()

@@ -1,4 +1,3 @@
-import locale
 import re
 import time
 from pathlib import Path
@@ -90,13 +89,6 @@ class Scraper(QThread):
             branch = 'stable'
 
         if commit_time is None:
-            platform = get_platform()
-
-            if platform == 'Windows':
-                locale.setlocale(locale.LC_ALL, 'eng_usa')
-            elif platform == 'Linux':
-                locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
-
             self.strptime = time.strptime(
                 info['last-modified'], '%a, %d %b %Y %H:%M:%S %Z')
             commit_time = time.strftime("%d-%b-%y-%H:%M", self.strptime)
@@ -129,12 +121,6 @@ class Scraper(QThread):
             content = urlopen(commit_url + commit).read()
             soup = BeautifulSoup(content, 'html.parser')
             datetime = soup.find_all("span", {"class": "datetime"})[1].text
-            platform = get_platform()
-
-            if platform == 'Windows':
-                locale.setlocale(locale.LC_ALL, 'eng_usa')
-            elif platform == 'Linux':
-                locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
             self.strptime = time.strptime(
                 datetime, '%a, %d %b %Y %H:%M:%S %z')
