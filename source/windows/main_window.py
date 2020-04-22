@@ -50,12 +50,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         if is_library_folder_valid() is False:
             self.dlg = DialogWindow(
-                self, text="Select Library Folder", text1="Continue")
-            self.dlg.accepted.connect(self.change_library_folder)
+                self, text="First, choose where Blender\nbuilds will be stored", accept_text="Continue", cancel_text=None)
+            self.dlg.accepted.connect(self.set_library_folder)
         else:
             self.draw()
 
-    def change_library_folder(self):
+    def set_library_folder(self):
         library_folder = Path.cwd().as_posix()
         new_library_folder = QFileDialog.getExistingDirectory(
             self, "Select Library Folder", library_folder)
