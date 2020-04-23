@@ -26,28 +26,29 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
-        # Global Scope
+        # Global scope
         self.app = app
         self.favorite = None
         self.status = "None"
 
-        # Setup Window
+        # Setup window
         self.setWindowTitle("Blender Launcher")
         self.app.setWindowIcon(QIcon(":resources/icons/tray.ico"))
 
-        # Setup Font
+        # Setup font
         QFontDatabase.addApplicationFont(
             ":/resources/fonts/OpenSans-SemiBold.ttf")
         self.font = QFont("Open Sans SemiBold", 10)
         self.font.setHintingPreference(QFont.PreferNoHinting)
         self.app.setFont(self.font)
 
-        # Setup Style
+        # Setup style
         file = QFile(":/resources/styles/global.qss")
         file.open(QFile.ReadOnly | QFile.Text)
-        stream = QTextStream(file)
-        self.app.setStyleSheet(stream.readAll())
+        self.style_sheet = QTextStream(file).readAll()
+        self.app.setStyleSheet(self.style_sheet)
 
+        # Check library folder
         if is_library_folder_valid() is False:
             self.dlg = DialogWindow(
                 self, title="Information",
@@ -73,7 +74,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.CloseButton.setProperty("HeaderButton", True)
         self.CloseButton.setProperty("CloseButton", True)
 
-        # Connect Buttons
+        # Connect buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
         self.WikiButton.clicked.connect(lambda: webbrowser.open(
             "https://github.com/DotBow/Blender-Launcher/wiki"))
@@ -87,10 +88,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.statusbarLabel = QLabel()
         self.statusbar.addPermanentWidget(self.statusbarLabel, 1)
 
-        # Draw Library
+        # Draw library
         self.draw_library()
 
-        # Setup Tray Icon Context Menu
+        # Setup tray icon context Menu
         quit_action = QAction("Quit", self)
         quit_action.triggered.connect(self.quit)
         hide_action = QAction("Hide", self)
@@ -108,20 +109,26 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         tray_menu.addAction(hide_action)
         tray_menu.addAction(quit_action)
 
-        # Draw Tray Icon
+        # Setup tray icon
         self.tray_icon = QSystemTrayIcon(self)
         self.tray_icon.setIcon(QIcon(":resources/icons/tray.ico"))
         self.tray_icon.setToolTip("Blender Launcher")
         self.tray_icon.activated.connect(self.tray_icon_activated)
-
         self.tray_icon.setContextMenu(tray_menu)
+
+        # Setup doble click trigger for tray icon
         self.tray_icon_trigger = QTimer(self)
         self.tray_icon_trigger.setSingleShot(True)
         self.tray_icon_trigger.timeout.connect(self._show)
 
         self.tray_icon.show()
 
-        if get_launch_minimized_to_tray() == False:
+        # Forse style update
+        self.style().unpolish(self.app)
+        self.style().polish(self.app)
+
+        # Show window
+        if get_launch_minimized_to_tray() is False:
             self._show()
 
     def _show(self):
