@@ -17,8 +17,8 @@ from ui.main_window_design import Ui_MainWindow
 from widgets.download_widget import DownloadState, DownloadWidget
 from widgets.library_widget import LibraryWidget
 from windows.base_window import BaseWindow
+from windows.dialog_window import DialogIcon, DialogWindow
 from windows.settings_window import SettingsWindow
-from windows.dialog_window import DialogWindow
 
 
 class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
@@ -50,7 +50,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         if is_library_folder_valid() is False:
             self.dlg = DialogWindow(
-                self, text="First, choose where Blender\nbuilds will be stored", accept_text="Continue", cancel_text=None)
+                self, title="Information",
+                text="First, choose where Blender\nbuilds will be stored",
+                accept_text="Continue", cancel_text=None, icon=DialogIcon.INFO)
             self.dlg.accepted.connect(self.set_library_folder)
         else:
             self.draw()
