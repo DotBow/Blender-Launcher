@@ -1,6 +1,7 @@
 from enum import Enum
 
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow
 
 from modules.settings import *
@@ -17,13 +18,15 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
     accepted = pyqtSignal()
     cancelled = pyqtSignal()
 
-    def __init__(self, parent, title="Warning", text="Dialog Window", accept_text="Accept", cancel_text="Cancel", icon=DialogIcon.WARNING):
+    def __init__(self, parent, title="Warning", text="Dialog Window",
+                 accept_text="Accept", cancel_text="Cancel",
+                 icon=DialogIcon.WARNING):
         super().__init__()
         self.parent = parent
         self.setupUi(self)
 
         self.setWindowTitle(title)
-        self.InfoLabel.setText(text)
+        self.TextLabel.setText(text)
         self.IconButton.setProperty("Icon", True)
         self.AcceptButton.setText(accept_text)
 
@@ -42,6 +45,11 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
 
         self.AcceptButton.clicked.connect(self.accept)
         self.CancelButton.clicked.connect(self.cancel)
+
+        if icon == DialogIcon.WARNING:
+            self.IconButton.setIcon(QIcon(":resources/icons/exclamation.svg"))
+        elif icon == DialogIcon.INFO:
+            self.IconButton.setIcon(QIcon(":resources/icons/info.svg"))
 
         self.show()
 

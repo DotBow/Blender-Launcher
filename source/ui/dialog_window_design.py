@@ -36,22 +36,19 @@ class Ui_DialogWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.IconButton.sizePolicy().hasHeightForWidth())
         self.IconButton.setSizePolicy(sizePolicy)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/resources/icons/exclamation.svg"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        self.IconButton.setIcon(icon)
         self.IconButton.setIconSize(QtCore.QSize(48, 48))
         self.IconButton.setObjectName("IconButton")
         self.horizontalLayout_2.addWidget(self.IconButton)
         spacerItem = QtWidgets.QSpacerItem(6, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
-        self.InfoLabel = QtWidgets.QLabel(self.centralwidget)
+        self.TextLabel = QtWidgets.QLabel(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.InfoLabel.sizePolicy().hasHeightForWidth())
-        self.InfoLabel.setSizePolicy(sizePolicy)
-        self.InfoLabel.setObjectName("InfoLabel")
-        self.horizontalLayout_2.addWidget(self.InfoLabel)
+        sizePolicy.setHeightForWidth(self.TextLabel.sizePolicy().hasHeightForWidth())
+        self.TextLabel.setSizePolicy(sizePolicy)
+        self.TextLabel.setObjectName("TextLabel")
+        self.horizontalLayout_2.addWidget(self.TextLabel)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setSpacing(6)
@@ -71,9 +68,5 @@ class Ui_DialogWindow(object):
         QtCore.QMetaObject.connectSlotsByName(DialogWindow)
 
     def retranslateUi(self, DialogWindow):
-        _translate = QtCore.QCoreApplication.translate
-        DialogWindow.setWindowTitle(_translate("DialogWindow", "MainWindow"))
-        self.InfoLabel.setText(_translate("DialogWindow", "TextLabel"))
-        self.AcceptButton.setText(_translate("DialogWindow", "Yes"))
-        self.CancelButton.setText(_translate("DialogWindow", "No"))
+        pass
 import resources.resources_rc
