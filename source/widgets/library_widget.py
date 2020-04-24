@@ -15,6 +15,7 @@ from modules.settings import *
 from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
+from windows.dialog_window import DialogIcon, DialogWindow
 
 if get_platform() == 'Windows':
     from subprocess import CREATE_NO_WINDOW
@@ -95,7 +96,7 @@ class LibraryWidget(QWidget):
         self.menu = QMenu()
         self.deleteAction = QAction("Delete From Drive", self)
         self.deleteAction.setIcon(self.icon_delete)
-        self.deleteAction.triggered.connect(self.remove_from_drive)
+        self.deleteAction.triggered.connect(self.ask_remove_from_drive)
 
         self.setAsFavoriteAction = QAction("Set As Favorite", self)
         self.setAsFavoriteAction.setIcon(self.icon_favorite)
@@ -159,6 +160,14 @@ class LibraryWidget(QWidget):
     def observer_finished(self):
         self.countButton.hide()
         self.observer = None
+
+    @QtCore.pyqtSlot()
+    def ask_remove_from_drive(self):
+        self.dlg = DialogWindow(
+            self, title="Warning",
+            text="Are you sure you want to delete?",
+            accept_text="Yes", cancel_text="No", icon=DialogIcon.WARNING)
+        self.dlg.accepted.connect(self.remove_from_drive)
 
     @QtCore.pyqtSlot()
     def remove_from_drive(self):
