@@ -7,6 +7,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor, QIcon
 from PyQt5.QtWidgets import (QAction, QHBoxLayout, QLabel, QMenu, QPushButton,
                              QSizePolicy, QWidget)
+from pyshortcuts import make_shortcut
 
 from modules._platform import *
 from modules.build_info import *
@@ -103,8 +104,12 @@ class LibraryWidget(QWidget):
         self.registerExtentionAction = QAction("Register Extension")
         self.registerExtentionAction.triggered.connect(self.register_extension)
 
+        self.createShortcutAction = QAction("Create Shortcut")
+        self.createShortcutAction.triggered.connect(self.create_shortcut)
+
         self.menu.addAction(self.setAsFavoriteAction)
         self.menu.addAction(self.registerExtentionAction)
+        self.menu.addAction(self.createShortcutAction)
         self.menu.addAction(self.deleteAction)
         self.menu.setFont(self.parent.font)
 
@@ -190,3 +195,17 @@ class LibraryWidget(QWidget):
         path = Path(get_library_folder()) / self.link
         self.register = Register(path)
         self.register.start()
+
+    @QtCore.pyqtSlot()
+    def create_shortcut(self):
+        platform = get_platform()
+        library_folder = Path(get_library_folder())
+
+        if platform == 'Windows':
+            b3d_exe = library_folder / self.link / "blender.exe"
+        elif platform == 'Linux':
+            b3d_exe = library_folder / self.link / "blender"
+
+        make_shortcut(b3d_exe.as_posix(), name="Blender {0} {1}".format(
+            self.build_info.branch, self.build_info.subversion),
+            startmenu=False)
