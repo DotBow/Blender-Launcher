@@ -1,3 +1,4 @@
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -109,9 +110,13 @@ class LibraryWidget(QWidget):
         self.createShortcutAction = QAction("Create Shortcut")
         self.createShortcutAction.triggered.connect(self.create_shortcut)
 
+        self.showFolderAction = QAction("Show Folder")
+        self.showFolderAction.triggered.connect(self.show_folder)
+
         self.menu.addAction(self.setAsFavoriteAction)
         self.menu.addAction(self.registerExtentionAction)
         self.menu.addAction(self.createShortcutAction)
+        self.menu.addAction(self.showFolderAction)
         self.menu.addAction(self.deleteAction)
         self.menu.setFont(self.parent.font)
 
@@ -227,3 +232,14 @@ class LibraryWidget(QWidget):
 
         make_shortcut(b3d_exe.as_posix(), name=name,
                       startmenu=False, icon=b3d_icon)
+
+    @QtCore.pyqtSlot()
+    def show_folder(self):
+        platform = get_platform()
+        library_folder = Path(get_library_folder())
+        folder = library_folder / self.link
+
+        if platform == 'Windows':
+            os.startfile(folder.as_posix())
+        elif platform == 'Linux':
+            subprocess.call(["xdg-open", folder.as_posix()])
