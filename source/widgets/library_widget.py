@@ -1,4 +1,5 @@
 import subprocess
+import sys
 from pathlib import Path
 from subprocess import DEVNULL, PIPE, STDOUT, Popen
 
@@ -215,6 +216,14 @@ class LibraryWidget(QWidget):
         elif platform == 'Linux':
             b3d_exe = library_folder / self.link / "blender"
 
-        make_shortcut(b3d_exe.as_posix(), name="Blender {0} {1}".format(
-            self.build_info.branch, self.build_info.subversion),
-            startmenu=False)
+        if getattr(sys, 'frozen', False):
+            b3d_icon = sys._MEIPASS + "/files/winblender.ico"
+        else:
+            b3d_icon = "./resources/icons/winblender.ico"
+
+        name = "Blender {0} {1}".format(
+            self.build_info.subversion.replace('(', ' ').replace(')', ' '),
+            self.build_info.branch.replace('-', ' ').title())
+
+        make_shortcut(b3d_exe.as_posix(), name=name,
+                      startmenu=False, icon=b3d_icon)
