@@ -40,7 +40,7 @@ class LibraryWidget(QWidget):
         self.setLayout(self.layout)
 
         self.launchButton = QPushButton("Launch")
-        self.launchButton.setMinimumWidth(70)
+        self.launchButton.setMinimumWidth(75)
         self.launchButton.clicked.connect(self.launch)
         self.launchButton.setProperty("LaunchButton", True)
 
