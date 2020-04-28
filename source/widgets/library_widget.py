@@ -177,17 +177,20 @@ class LibraryWidget(QWidget):
 
     @QtCore.pyqtSlot()
     def remove_from_drive(self):
-        self.launchButton.setText("Deleting")
-        self.setEnabled(False)
-        path = Path(get_library_folder()) / self.link
-        self.remover = Remover(path)
-        self.remover.finished.connect(self.remover_finished)
-        self.remover.start()
+        # self.launchButton.setText("Deleting")
+        # self.setEnabled(False)
+        # path = Path(get_library_folder()) / self.link
+        # self.remover = Remover(path)
+        # self.remover.finished.connect(self.remover_finished)
+        # self.remover.start()
+        self.remover_finished(0)
 
     def remover_finished(self, code):
         if code == 0:
+            self.parent.draw_from_cashed(self.build_info)
             row = self.list_widget.row(self.item)
             self.list_widget.takeItem(row)
+            return
         else:
             self.launchButton.setText("Launch")
             self.setEnabled(True)
