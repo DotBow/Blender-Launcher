@@ -1,6 +1,5 @@
 import threading
 import webbrowser
-from enum import Enum
 from pathlib import Path
 from time import localtime, strftime
 
@@ -22,11 +21,6 @@ from windows.dialog_window import DialogIcon, DialogWindow
 from windows.settings_window import SettingsWindow
 
 
-class AppState(Enum):
-    IDLE = 1
-    CHECKINGBUILDS = 2
-
-
 class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def __init__(self, app):
         super().__init__()
@@ -36,8 +30,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app = app
         self.favorite = None
         self.status = "None"
-        self.app_state = AppState.IDLE
-        self.cashed_builds = []
 
         # Setup window
         self.setWindowTitle("Blender Launcher")
@@ -197,7 +189,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.library_drawer.start()
 
     def draw_downloads(self):
-        self.app_state = AppState.CHECKINGBUILDS
         self.set_status("Checking for new builds")
         self.timer = threading.Timer(600.0, self.draw_downloads)
         self.timer.start()
@@ -206,9 +197,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.scraper.start()
 
     def draw_new_builds(self, builds):
-        self.cashed_builds.clear()
-        self.cashed_builds.extend(builds)
-
         library_widgets = []
         download_widgets = []
 
@@ -241,13 +229,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         utcnow = strftime(('%H:%M:%S %d-%b-%Y'), localtime())
         self.set_status("Last check at " + utcnow)
-        self.app_state = AppState.IDLE
-
-    def draw_from_cashed(self, build_info):
-        if self.app_state == AppState.IDLE:
-            if build_info in self.cashed_builds:
-                i = self.cashed_builds.index(build_info)
-                self.draw_to_downloads(self.cashed_builds[i])
 
     def get_list_widget_items(self, list_widget):
         items = []
