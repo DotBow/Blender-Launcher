@@ -6,8 +6,8 @@ VSVersionInfo(
   ffi=FixedFileInfo(
     # filevers and prodvers should be always a tuple with four items: (1, 2, 3, 4)
     # Set not needed items to zero 0.
-    filevers=(0, 0, 1, 0),
-    prodvers=(0, 0, 1, 0),
+    filevers=(0, 1, 0, 0),
+    prodvers=(0, 1, 0, 0),
     # Contains a bitmask that specifies the valid bits 'flags'r
     mask=0x0,
     # Contains a bitmask that specifies the Boolean attributes of the file.
@@ -31,12 +31,12 @@ VSVersionInfo(
         u'04090000',
         [StringStruct(u'CompanyName', u'Oleg Stepanov'),
         StringStruct(u'FileDescription', u'Blender Launcher'),
-        StringStruct(u'FileVersion', u'0.0.1'),
+        StringStruct(u'FileVersion', u'1.0.0'),
         StringStruct(u'LegalCopyright', u'GPLv3 © 2020 Oleg Stepanov'),
         StringStruct(u'OriginalFilename', u'Blender Launcher.exe'),
         StringStruct(u'ProductName', u'Blender Launcher'),
-        StringStruct(u'ProductVersion', u'0.0.1')])
+        StringStruct(u'ProductVersion', u'1.0.0')])
       ]),
-    VarFileInfo([VarStruct(u'Translation', [0x0409, 1200])])
+    VarFileInfo([VarStruct(u'Translation', [1033, 1200])])
   ]
 )
