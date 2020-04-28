@@ -31,6 +31,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.LaunchMinimizedToTrayCheckBox.clicked.connect(
             self.toggle_launch_minimized_to_tray)
 
+        if get_platform() == 'Linux':
+            self.LaunchWhenSystemStartsCheckBox.hide()
+
         self.show()
 
     def set_library_folder(self):
