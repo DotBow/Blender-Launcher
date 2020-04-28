@@ -4,8 +4,8 @@ PYTHONOPTIMIZE=2 /home/oleg/.local/bin/pyinstaller \
 --noupx \
 --onefile \
 --windowed \
---icon="resources\icons\desktop.ico" \
+--icon="resources/icons/desktop.ico" \
 --name="Blender Launcher" \
 --version-file="version.txt" \
---add-binary "resources\icons\winblender.ico;files" \
+--add-binary="resources/icons/winblender.ico:files" \
 main.py
