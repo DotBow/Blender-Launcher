@@ -218,22 +218,30 @@ class LibraryWidget(QWidget):
         platform = get_platform()
         library_folder = Path(get_library_folder())
 
-        if platform == 'Windows':
-            b3d_exe = library_folder / self.link / "blender.exe"
-        elif platform == 'Linux':
-            b3d_exe = library_folder / self.link / "blender"
-
         if getattr(sys, 'frozen', False):
             b3d_icon = sys._MEIPASS + "/files/winblender.ico"
         else:
             b3d_icon = "./resources/icons/winblender.ico"
 
         name = "Blender {0} {1}".format(
-            self.build_info.subversion.replace('(', ' ').replace(')', ' '),
+            self.build_info.subversion.replace('(', '').replace(')', ''),
             self.build_info.branch.replace('-', ' ').title())
 
-        make_shortcut(b3d_exe.as_posix(), name=name,
-                      startmenu=False, icon=b3d_icon)
+        if platform == 'Windows':
+            b3d_exe = library_folder / self.link / "blender.exe"
+            make_shortcut(
+                b3d_exe.as_posix(),
+                name=name,
+                startmenu=False,
+                icon=b3d_icon)
+        elif platform == 'Linux':
+            b3d_exe = library_folder / self.link / "blender"
+            make_shortcut(
+                b3d_exe.as_posix().replace(' ', r'\ '),
+                name=name.replace(' ', '-'),
+                startmenu=False,
+                icon=b3d_icon,
+                executable="!/bin/bash")
 
     @QtCore.pyqtSlot()
     def show_folder(self):
