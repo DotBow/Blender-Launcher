@@ -15,7 +15,7 @@ from modules.settings import *
 class Downloader(QThread):
     started = pyqtSignal()
     progress_changed = pyqtSignal(
-        'PyQt_PyObject', 'PyQt_PyObject', 'PyQt_PyObject')
+        'PyQt_PyObject', 'PyQt_PyObject')
     finished = pyqtSignal('PyQt_PyObject')
 
     def __init__(self, parent, build_info):
@@ -50,8 +50,7 @@ class Downloader(QThread):
 
                 file.write(chunk)
                 progress = os.stat(temp_folder).st_size / int(size)
-                self.progress_changed.emit(
-                    progress, progress * 0.5, "Downloading: %p%")
+                self.progress_changed.emit(progress, "Downloading: %p%")
 
         self.platform = get_platform()
 
@@ -63,6 +62,8 @@ class Downloader(QThread):
             dist = library_folder / 'experimental'
 
         # Extract
+        self.progress_changed.emit(0, "Extracting: %p%")
+
         if self.platform == 'Windows':
             zf = zipfile.ZipFile(temp_folder)
             version = zf.infolist()[0].filename.split('/')[0]
@@ -73,8 +74,7 @@ class Downloader(QThread):
                 zf.extract(file, dist)
                 extracted_size += file.file_size
                 progress = extracted_size / uncompress_size
-                self.progress_changed.emit(
-                    progress, progress * 0.5 + 0.5, "Extracting: %p%")
+                self.progress_changed.emit(progress, "Extracting: %p%")
 
             zf.close()
             path = Path(self.build_info.link).stem

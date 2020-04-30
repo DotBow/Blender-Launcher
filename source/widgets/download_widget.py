@@ -75,6 +75,7 @@ class DownloadWidget(QWidget):
         self.thread.start()
 
     def download_started(self):
+        self.set_progress_bar(0, "Downloading: %p%")
         self.progressBar.show()
         self.cancelButton.show()
         self.downloadButton.hide()
@@ -87,9 +88,9 @@ class DownloadWidget(QWidget):
         self.thread.wait()
         self.downloadButton.show()
 
-    def set_progress_bar(self, progress_bar_val, taskbar_val, format):
+    def set_progress_bar(self, value, format):
         self.progressBar.setFormat(format)
-        self.progressBar.setValue(progress_bar_val * 100)
+        self.progressBar.setValue(value * 100)
 
     def download_finished(self, dist=None):
         self.state = DownloadState.WAITING
