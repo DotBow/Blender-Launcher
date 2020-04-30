@@ -95,7 +95,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.statusbar.setFont(self.font)
         self.statusbarLabel = QLabel()
         self.statusbarVersion = QLabel(
-            "v{0}".format(self.app.applicationVersion().split('.', 1)[0]))
+            "v{0}".format(self.app.applicationVersion().rsplit('.', 1)[0]))
         self.statusbar.addPermanentWidget(self.statusbarLabel, 1)
         self.statusbar.addPermanentWidget(self.statusbarVersion)
 
