@@ -82,8 +82,12 @@ class BuildInfoReader(QThread):
         subversion = re.search("Blender " + "(.*)", info)[1].rstrip()
 
         try:
-            folder_parts = folder.name.replace(
-                "blender-", "").replace("-windows64", "").rsplit('-', 2)
+            if platform == 'Windows':
+                folder_parts = folder.name.replace(
+                    "blender-", "").replace("-windows64", "").rsplit('-', 2)
+            elif platform == 'Linux':
+                folder_parts = folder.name.replace(
+                    "blender-", "").replace("-linux64", "").rsplit('-', 2)
 
             if len(folder_parts) > 2:
                 branch = folder_parts[0]
