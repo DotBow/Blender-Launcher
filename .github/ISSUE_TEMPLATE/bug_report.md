@@ -24,9 +24,9 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **System (please complete the following information):**
- - OS: [e.g. Windows 10]
- - Blender Launcher version [e.g. 22]
- - Log file [to attach a file to an issue, drag and drop it into the comment box]
+ - Operation system: [e.g. Windows 10]
+ - Blender Launcher version: [e.g. v1.0.0-rc.1]
+ - Log file: [to attach a file to an issue, drag and drop it into the comment box]
 
 **Additional context**
 Add any other context about the problem here.
