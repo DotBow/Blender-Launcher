@@ -11,6 +11,7 @@ from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QLabel,
                              QSystemTrayIcon)
 
 from items.base_list_widget_item import BaseListWidgetItem
+from modules._platform import *
 from modules.settings import *
 from threads.library_drawer import LibraryDrawer
 from threads.scraper import Scraper
@@ -242,6 +243,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         for build_info in builds:
             self.draw_to_downloads(build_info)
 
+        set_locale()
         utcnow = strftime(('%H:%M:%S %d-%b-%Y'), localtime())
         self.set_status("Last check at " + utcnow)
         self.app_state = AppState.IDLE

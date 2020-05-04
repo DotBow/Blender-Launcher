@@ -8,7 +8,7 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from modules._platform import get_platform
+from modules._platform import *
 from modules.build_info import BuildInfo
 
 
@@ -89,6 +89,7 @@ class Scraper(QThread):
             branch = 'stable'
 
         if commit_time is None:
+            set_locale()
             self.strptime = time.strptime(
                 info['last-modified'], '%a, %d %b %Y %H:%M:%S %Z')
             commit_time = time.strftime("%d-%b-%y-%H:%M", self.strptime)
@@ -122,6 +123,7 @@ class Scraper(QThread):
             soup = BeautifulSoup(content, 'html.parser')
             datetime = soup.find_all("span", {"class": "datetime"})[1].text
 
+            set_locale()
             self.strptime = time.strptime(
                 datetime, '%a, %d %b %Y %H:%M:%S %z')
             commit_time = time.strftime("%d-%b-%y-%H:%M", self.strptime)

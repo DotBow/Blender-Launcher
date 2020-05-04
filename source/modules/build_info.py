@@ -8,7 +8,7 @@ from subprocess import DEVNULL
 
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from modules._platform import get_platform
+from modules._platform import *
 from modules.settings import *
 
 if get_platform() == 'Windows':
@@ -74,6 +74,7 @@ class BuildInfoReader(QThread):
 
         info = info.decode('UTF-8')
 
+        set_locale()
         ctime = re.search("build commit time: " + "(.*)", info)[1].rstrip()
         cdate = re.search("build commit date: " + "(.*)", info)[1].rstrip()
         strptime = time.strptime(cdate + ' ' + ctime, "%Y-%m-%d %H:%M")
