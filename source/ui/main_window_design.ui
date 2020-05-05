@@ -175,7 +175,7 @@
              <x>0</x>
              <y>0</y>
              <width>632</width>
-             <height>291</height>
+             <height>267</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -217,7 +217,7 @@
              <x>0</x>
              <y>0</y>
              <width>632</width>
-             <height>291</height>
+             <height>267</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -259,7 +259,7 @@
              <x>0</x>
              <y>0</y>
              <width>632</width>
-             <height>291</height>
+             <height>267</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -285,6 +285,40 @@
             </property>
             <item>
              <widget class="QListWidget" name="LibraryExperimentalListWidget">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="sortingEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="LibraryCustomPage">
+           <attribute name="icon">
+            <iconset>
+             <normalon>:/resources/icons/page_closed.svg</normalon>
+            </iconset>
+           </attribute>
+           <attribute name="label">
+            <string>Custom Builds</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_10">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QListWidget" name="LibraryCustomListWidget">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
