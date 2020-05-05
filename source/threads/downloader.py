@@ -14,8 +14,7 @@ from modules.settings import *
 
 class Downloader(QThread):
     started = pyqtSignal()
-    progress_changed = pyqtSignal(
-        'PyQt_PyObject', 'PyQt_PyObject')
+    progress_changed = pyqtSignal('PyQt_PyObject', 'PyQt_PyObject')
     finished = pyqtSignal('PyQt_PyObject')
 
     def __init__(self, parent, build_info):
@@ -88,8 +87,7 @@ class Downloader(QThread):
                 tar.extract(member, path=dist)
                 extracted_size += member.size
                 progress = extracted_size / uncompress_size
-                self.progress_changed.emit(
-                    progress, progress * 0.5 + 0.5, "Extracting: %p%")
+                self.progress_changed.emit(progress,  "Extracting: %p%")
 
             tar.close()
             path = Path(self.build_info.link).stem.replace('.tar', '')
