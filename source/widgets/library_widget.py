@@ -33,6 +33,7 @@ class LibraryWidget(QWidget):
         self.list_widget = list_widget
         self.observer = None
 
+        self.destroyed.connect(lambda: self._destroyed())
         self.setEnabled(False)
 
         self.layout = QHBoxLayout()
@@ -253,3 +254,7 @@ class LibraryWidget(QWidget):
             os.startfile(folder.as_posix())
         elif platform == 'Linux':
             subprocess.call(["xdg-open", folder.as_posix()])
+
+    def _destroyed(self):
+        if self.parent.favorite == self:
+            self.parent.favorite = None
