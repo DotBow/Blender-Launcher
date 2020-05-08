@@ -4,11 +4,11 @@ from enum import Enum
 from pathlib import Path
 from time import localtime, strftime
 
-from PyQt5.QtCore import QFile, QTextStream, QTimer
+from PyQt5.QtCore import QFile, QTextStream, QTimer, Qt
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
-from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QLabel,
-                             QListWidgetItem, QMainWindow, QMenu,
-                             QSystemTrayIcon)
+from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QHBoxLayout,
+                             QLabel, QMainWindow, QMenu, QPushButton,
+                             QSystemTrayIcon, QTabWidget, QVBoxLayout, QWidget)
 
 from items.base_list_widget_item import BaseListWidgetItem
 from modules._platform import *
@@ -16,6 +16,7 @@ from modules.settings import *
 from threads.library_drawer import LibraryDrawer
 from threads.scraper import Scraper
 from ui.main_window_design import Ui_MainWindow
+from widgets.base_tool_box_widget import BaseToolBoxWidget
 from widgets.download_widget import DownloadState, DownloadWidget
 from widgets.library_widget import LibraryWidget
 from windows.base_window import BaseWindow
@@ -77,11 +78,75 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.draw()
 
     def draw(self):
+        self.HeaderLayout = QHBoxLayout()
+        self.HeaderLayout.setContentsMargins(1, 1, 1, 0)
+        self.HeaderLayout.setSpacing(0)
+        self.CentralLayout.addLayout(self.HeaderLayout)
+
+        self.SettingsButton = \
+            QPushButton(QIcon(":resources/icons/settings.svg"), "")
+        self.SettingsButton.setFixedSize(32, 32)
+        self.WikiButton = \
+            QPushButton(QIcon(":resources/icons/wiki.svg"), "")
+        self.WikiButton.setFixedSize(32, 32)
+        self.MinimizeButton = \
+            QPushButton(QIcon(":resources/icons/minimize.svg"), "")
+        self.MinimizeButton.setFixedSize(32, 32)
+        self.CloseButton = \
+            QPushButton(QIcon(":resources/icons/close.svg"), "")
+        self.CloseButton.setFixedSize(32, 32)
+        self.HeaderLabel = QLabel("Blender Launcher")
+        self.HeaderLabel.setAlignment(Qt.AlignCenter)
+
+        self.HeaderLayout.addWidget(self.SettingsButton, 0, Qt.AlignLeft)
+        self.HeaderLayout.addWidget(self.WikiButton, 0, Qt.AlignLeft)
+        self.HeaderLayout.addWidget(self.HeaderLabel, 1)
+        self.HeaderLayout.addWidget(self.MinimizeButton, 0, Qt.AlignRight)
+        self.HeaderLayout.addWidget(self.CloseButton, 0, Qt.AlignRight)
+
         self.SettingsButton.setProperty("HeaderButton", True)
         self.WikiButton.setProperty("HeaderButton", True)
         self.MinimizeButton.setProperty("HeaderButton", True)
         self.CloseButton.setProperty("HeaderButton", True)
         self.CloseButton.setProperty("CloseButton", True)
+
+        # Tab layout
+        self.TabWidget = QTabWidget()
+        self.CentralLayout.addWidget(self.TabWidget)
+
+        self.LibraryTab = QWidget()
+        self.LibraryTabLayout = QVBoxLayout()
+        self.LibraryTabLayout.setContentsMargins(0, 0, 0, 0)
+        self.LibraryTab.setLayout(self.LibraryTabLayout)
+        self.TabWidget.addTab(self.LibraryTab, "Library")
+
+        self.DownloadsTab = QWidget()
+        self.DownloadsTabLayout = QVBoxLayout()
+        self.DownloadsTabLayout.setContentsMargins(0, 0, 0, 0)
+        self.DownloadsTab.setLayout(self.DownloadsTabLayout)
+        self.TabWidget.addTab(self.DownloadsTab, "Downloads")
+
+        self.LibraryToolBox = BaseToolBoxWidget(self)
+
+        self.LibraryStableListWidget = \
+            self.LibraryToolBox.add_list_widget("Stable Releases")
+        self.LibraryDailyListWidget = \
+            self.LibraryToolBox.add_list_widget("Daily Builds")
+        self.LibraryExperimentalListWidget = \
+            self.LibraryToolBox.add_list_widget("Experimental Branches")
+        self.LibraryCustomListWidget = \
+            self.LibraryToolBox.add_list_widget("Custom Builds")
+        self.LibraryTab.layout().addWidget(self.LibraryToolBox)
+
+        self.DownloadsToolBox = BaseToolBoxWidget(self)
+
+        self.DownloadsStableListWidget = \
+            self.DownloadsToolBox.add_list_widget("Stable Releases")
+        self.DownloadsDailyListWidget = \
+            self.DownloadsToolBox.add_list_widget("Daily Builds")
+        self.DownloadsExperimentalListWidget = \
+            self.DownloadsToolBox.add_list_widget("Experimental Branches")
+        self.DownloadsTab.layout().addWidget(self.DownloadsToolBox)
 
         # Connect buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
@@ -93,11 +158,11 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.LibraryToolBox.currentChanged.connect(self.page_changed)
         self.DownloadsToolBox.currentChanged.connect(self.page_changed)
 
-        self.statusbar.setFont(self.font)
+        self.StatusBar.setFont(self.font)
         self.statusbarLabel = QLabel()
         self.statusbarVersion = QLabel(self.app.applicationVersion())
-        self.statusbar.addPermanentWidget(self.statusbarLabel, 1)
-        self.statusbar.addPermanentWidget(self.statusbarVersion)
+        self.StatusBar.addPermanentWidget(self.statusbarLabel, 1)
+        self.StatusBar.addPermanentWidget(self.statusbarVersion)
 
         # Draw library
         self.draw_library()
