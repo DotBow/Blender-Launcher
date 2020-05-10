@@ -1,5 +1,9 @@
 # Blender Launcher
 
+<p align="center">
+  <img width="640" height="480" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/main_window.png">
+</p>
+
 ## What is it?
 
 Blender Launcher is a standalone software client that provides with management of downloading and storing stable, daily and experimental builds of [Blender 3D](https://www.blender.org/).
