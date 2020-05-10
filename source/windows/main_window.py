@@ -376,8 +376,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             list_widget = self.LibraryStableListWidget
         elif branch == 'daily':
             list_widget = self.LibraryDailyListWidget
-        else:
+        elif branch == 'experimental':
             list_widget = self.LibraryExperimentalListWidget
+        elif branch == 'custom':
+            list_widget = self.LibraryCustomListWidget
+        else:
+            return
 
         item = BaseListWidgetItem()
         widget = LibraryWidget(self, item, dir, list_widget)
