@@ -84,14 +84,14 @@ def set_launch_minimized_to_tray(is_checked):
 
 
 def get_enable_high_dpi_scaling():
-    return get_settings().value('enable_high_dpi_scaling', type=bool)
+    settings = get_settings()
+
+    if settings.contains('enable_high_dpi_scaling'):
+        return get_settings().value('enable_high_dpi_scaling', type=bool)
+    else:
+        return True
 
 
 def set_enable_high_dpi_scaling(app, is_checked):
-    if is_checked:
-        app.setAttribute(Qt.AA_EnableHighDpiScaling)
-    else:
-        app.setAttribute(Qt.AA_DisableHighDpiScaling)
-
     settings = get_settings()
     settings.setValue('enable_high_dpi_scaling', is_checked)

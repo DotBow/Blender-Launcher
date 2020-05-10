@@ -41,11 +41,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app_state = AppState.IDLE
         self.cashed_builds = []
 
-        if get_enable_high_dpi_scaling():
-            app.setAttribute(Qt.AA_EnableHighDpiScaling)
-        else:
-            app.setAttribute(Qt.AA_DisableHighDpiScaling)
-
         # Setup window
         self.setWindowTitle("Blender Launcher")
         self.app.setWindowIcon(QIcon(":resources/icons/tray.ico"))

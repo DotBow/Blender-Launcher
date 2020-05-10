@@ -1,5 +1,11 @@
 from PyQt5.QtCore import QPoint, Qt
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QApplication, QWidget
+
+from modules.settings import *
+
+if get_enable_high_dpi_scaling():
+    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
+    QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
 
 
 class BaseWindow(QWidget):
