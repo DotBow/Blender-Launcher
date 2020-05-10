@@ -9,14 +9,14 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    sodipodi:docname="settings.svg"
-   inkscape:version="1.0beta2 (2c1767d, 2020-02-22)"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
    id="svg8"
    version="1.1"
    viewBox="0 0 5.2916665 5.2916668"
    height="20"
    width="20">
   <title
-     id="title13100">Settings</title>
+     id="title13928">settings</title>
   <defs
      id="defs2">
     <linearGradient
@@ -704,7 +704,7 @@
        xlink:href="#linearGradient16595"
        id="linearGradient25383"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="rotate(90,339,299)"
+       gradientTransform="matrix(0,1,-1,0,638,-40)"
        x1="342"
        y1="288.5"
        x2="344.5"
@@ -714,7 +714,7 @@
        xlink:href="#linearGradient16595"
        id="linearGradient25385"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="rotate(180,349.5,299.5)"
+       gradientTransform="matrix(-1,0,0,-1,699,599)"
        x1="342"
        y1="288.5"
        x2="344.5"
@@ -724,7 +724,7 @@
        xlink:href="#linearGradient16595"
        id="linearGradient25387"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="rotate(-90,360,300)"
+       gradientTransform="matrix(0,-1,1,0,60,660)"
        x1="342"
        y1="288.5"
        x2="344.5"
@@ -1127,13 +1127,13 @@
        y1="-8.4836445"
        x2="-37.784756"
        y2="-18.517523"
-       gradientTransform="translate(-0.04018164)" />
+       gradientTransform="translate(-0.04018164,0)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient16595"
        id="linearGradient45875-0"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(14)"
+       gradientTransform="translate(14,0)"
        x1="-34.051685"
        y1="-129.32457"
        x2="-32.542458"
@@ -1316,6 +1316,7 @@
        y="-0.15000001"
        height="1.4">
       <feGaussianBlur
+         in="composite1"
          stdDeviation="1.5"
          result="blur"
          id="feGaussianBlur6152" />
@@ -1329,6 +1330,7 @@
        height="1.4"
        y="-0.15000001">
       <feGaussianBlur
+         in="composite1"
          stdDeviation="1.5"
          result="blur"
          id="feGaussianBlur6084" />
@@ -1501,12 +1503,14 @@
        x1="132"
        y1="120.4313"
        x2="93.029579"
-       y2="78.9655" />
+       y2="78.9655"
+       gradientTransform="translate(-5e-8,-7.9962027e-6)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient11146"
        id="linearGradient14478"
        gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,-8e-6)"
        x1="132"
        y1="120.4313"
        x2="93.029579"
@@ -1516,6 +1520,7 @@
        xlink:href="#linearGradient11146"
        id="linearGradient13559"
        gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-1.0000001e-7,-8.5e-6)"
        x1="132"
        y1="120.4313"
        x2="93.029579"
@@ -1622,6 +1627,7 @@
        y="-0.15000001"
        height="1.4">
       <feGaussianBlur
+         in="composite1"
          stdDeviation="1.5"
          result="blur"
          id="feGaussianBlur6152-3" />
@@ -1635,6 +1641,7 @@
        height="1.4"
        y="-0.15000001">
       <feGaussianBlur
+         in="composite1"
          stdDeviation="1.5"
          result="blur"
          id="feGaussianBlur6084-6" />
@@ -1838,36 +1845,6 @@
        x2="344.01321"
        y2="288.5" />
     <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient16595"
-       id="linearGradient25575"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="rotate(90,339,299)"
-       x1="342"
-       y1="288.5"
-       x2="344.5"
-       y2="288.5" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient16595"
-       id="linearGradient25577"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="rotate(180,349.5,299.5)"
-       x1="342"
-       y1="288.5"
-       x2="344.5"
-       y2="288.5" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient16595"
-       id="linearGradient25579"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="rotate(-90,360,300)"
-       x1="342"
-       y1="288.5"
-       x2="344.5"
-       y2="288.5" />
-    <linearGradient
        id="linearGradient31356">
       <stop
          id="stop31358"
@@ -1880,10 +1857,10 @@
     </linearGradient>
     <linearGradient
        gradientUnits="userSpaceOnUse"
-       y2="91.058182"
-       x2="56.916233"
-       y1="91.058182"
-       x1="45.115948"
+       y2="91.058184"
+       x2="56.916232"
+       y1="91.058184"
+       x1="45.115946"
        gradientTransform="matrix(0.99964634,0,0,1.0003538,-3.0966264e-8,-3.9490267e-6)"
        id="linearGradient23512">
       <stop
@@ -2761,22 +2738,25 @@
      inkscape:window-x="-8"
      inkscape:window-height="1027"
      inkscape:window-width="1920"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-nodes="false"
      units="px"
      showgrid="true"
      inkscape:document-rotation="0"
-     inkscape:current-layer="g13226"
+     inkscape:current-layer="layer1"
      inkscape:document-units="mm"
-     inkscape:cy="12.935213"
-     inkscape:cx="10.693424"
-     inkscape:zoom="22.4"
+     inkscape:cy="8.2503461"
+     inkscape:cx="-18.191154"
+     inkscape:zoom="11.2"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0"
      borderopacity="1.0"
      bordercolor="#666666"
-     pagecolor="#202020"
+     pagecolor="#808080"
      id="base">
     <inkscape:grid
-       id="grid8076"
+       empspacing="4"
+       id="grid833"
        type="xygrid" />
   </sodipodi:namedview>
   <metadata
@@ -2787,283 +2767,22 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title>Settings</dc:title>
+        <dc:title>settings</dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
      id="layer1"
      inkscape:groupmode="layer"
-     inkscape:label="Settings">
+     inkscape:label="settings">
     <path
-       d=""
-       sodipodi:nodetypes="cc"
-       id="path23417"
-       style="display:inline;overflow:visible;visibility:visible;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#1a1a1a;stroke-width:0.79375;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
-       inkscape:connector-curvature="0" />
-    <path
-       d=""
-       sodipodi:nodetypes="cc"
-       id="path23347"
-       style="fill:none;stroke:#ffffff;stroke-width:0.47625;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:connector-curvature="0" />
+       inkscape:label="settings"
+       inkscape:connector-curvature="0"
+       id="settings"
+       d="m 2.3812495,0.79374983 -0.04134,0.50436197 c -0.164862,0.03764 -0.284895,0.06653 -0.42168,0.157096 l -0.4630213,-0.396875 -0.396875,0.396875 0.396875,0.463021 c -0.09056,0.136787 -0.119454,0.256818 -0.157096,0.42168 l -0.50436202,0.04134 v 0.264583 0.264584 l 0.50436102,0.041342 c 0.03764,0.164862 0.06653,0.284895 0.157096,0.421679 l -0.396875,0.463021 0.396875,0.396875 0.4630213,-0.396875 c 0.136787,0.09056 0.256818,0.119454 0.42168,0.157097 l 0.04134,0.504362 h 0.264583 0.264584 l 0.04134,-0.504362 c 0.164862,-0.03764 0.284895,-0.06653 0.42168,-0.157097 l 0.463022,0.396875 0.396875,-0.396875 -0.396875,-0.463021 c 0.090565,-0.136787 0.119454,-0.256817 0.157097,-0.421679 l 0.504362,-0.04134 v -0.264584 -0.264583 l -0.504362,-0.04134 c -0.03764,-0.164862 -0.06653,-0.284896 -0.157097,-0.42168 l 0.396875,-0.463023 -0.396875,-0.396875 -0.46302,0.396875 c -0.136787,-0.09056 -0.256818,-0.119454 -0.42168,-0.157096 l -0.04134,-0.50436197 h -0.264584 z m 0.264583,1.32291697 c 0.295384,0 0.529167,0.233783 0.529167,0.529166 0,0.295384 -0.233783,0.529167 -0.529167,0.529167 -0.295383,0 -0.529166,-0.233783 -0.529166,-0.529167 0,-0.295383 0.233783,-0.529166 0.529166,-0.529166 z"
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.264583;marker:none;enable-background:accumulate" />
     <g
-       id="g10975"
-       transform="matrix(0.26458333,0,0,0.26458333,-93.210798,-57.905934)"
-       style="display:inline;fill:#ffffff;enable-background:new"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <g
-       id="g10009"
-       transform="matrix(0.26458333,0,0,0.26458333,6.8037141,14.325317)"
-       style="display:inline;fill:#ffffff;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;enable-background:new"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <g
-       transform="matrix(0.26458333,0,0,0.26458333,-93.738094,81.000298)"
-       style="display:inline;fill:#ffffff;enable-background:new"
-       id="g12153"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       transform="matrix(0.26458333,0,0,0.26458333,-82.09643,75.444051)"
-       id="g12215"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       id="g12492"
-       transform="matrix(0.26458333,0,0,0.26458333,12.359821,19.881549)"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <g
-       id="g12457"
-       transform="matrix(0.18317313,0,0,0.18317314,-99.843918,71.77927)"
-       style="display:inline;fill:#ffffff;stroke-width:1.44444;enable-background:new"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       id="g12921"
-       transform="matrix(0.26458333,0,0,0.26458333,12.624404,19.087799)"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <g
-       style="display:inline;opacity:0.413;fill:#ffffff;enable-background:new"
-       id="g5202-0"
-       transform="matrix(0.26458333,0,0,0.26458333,138.30015,-62.666566)"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       id="g13534"
-       transform="matrix(0.26458333,0,0,0.26458333,6.8035712,25.437799)"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       id="g13838"
-       transform="matrix(0,0.26458333,-0.26458333,0,153.8237,82.193027)"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96">
-      <g
-         id="g13835"
-         transform="matrix(0,1,1,0,205.49208,-205.33334)"
-         style="fill:#ffffff" />
-    </g>
-    <g
-       style="display:inline;opacity:0.99;fill:#ffffff;enable-background:new"
-       id="g6922"
-       transform="matrix(0.26458333,0,0,0.26458333,-93.213478,47.662799)"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96">
-      <circle
-         r="0"
-         cy="162.5"
-         cx="415.5"
-         style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:fill markers stroke"
-         id="ellipse13645" />
-    </g>
-    <g
-       style="display:inline;fill:#ffffff;stroke-width:1.15385;enable-background:new"
-       id="g14341"
-       transform="matrix(0.26458333,0,0,0.26458333,-109.87768,158.7878)" />
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       id="g14199"
-       transform="matrix(0.26458333,0,0,0.26458333,6.8035712,25.173216)" />
-    <g
-       style="display:inline;fill:#ffffff;stroke:#666666;enable-background:new"
-       id="g14215"
-       inkscape:transform-center-x="-1.2499"
-       inkscape:transform-center-y="9.9999999e-06"
-       transform="matrix(0,-0.26458333,-0.26458333,0,198.36188,172.54616)" />
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       id="g14644"
-       transform="matrix(0.26458333,0,0,0.26458333,6.8035712,27.819049)" />
-    <circle
-       transform="scale(-1)"
-       cy="-95.684669"
-       cx="-100.33379"
-       id="ellipse14264"
-       style="display:inline;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:fill markers stroke;enable-background:new"
-       r="0" />
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       id="g13212"
-       transform="matrix(-0.26458333,0,0,-0.26458333,247.04832,279.43671)"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <g
-       transform="matrix(0.26458333,0,0,0.26458333,-20.977678,25.702382)"
-       id="g13043"
-       style="display:inline;opacity:0.4;fill:#ffffff;enable-background:new">
-      <g
-         id="g13161"
-         style="fill:#ffffff" />
-    </g>
-    <path
-       inkscape:export-ydpi="96"
-       inkscape:export-xdpi="96"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       id="circle21483"
-       style="display:inline;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:fill markers stroke;enable-background:new"
-       r="4"
-       cy="335.5"
-       cx="493.5"
-       d=""
-       inkscape:connector-curvature="0" />
-    <circle
-       r="0"
-       cx="127.58586"
-       cy="131.13988"
-       id="ellipse20722"
-       style="display:inline;opacity:0.1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:fill markers stroke;enable-background:new" />
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       inkscape:export-ydpi="96"
-       inkscape:export-xdpi="96"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       transform="matrix(0.26458333,0,0,0.26458333,25.853571,19.881549)"
-       id="g22120" />
-    <path
-       cx="306.99524"
-       cy="291.97034"
-       r="4.4703369"
-       style="display:inline;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new"
-       id="path24502"
-       inkscape:export-filename="C:\Documents and Settings\Tata\Pulpit\Kopia blender\.blender\icons\blender's iconset.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"
-       d=""
-       inkscape:connector-curvature="0" />
-    <g
-       inkscape:export-ydpi="96"
-       inkscape:export-xdpi="96"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       style="display:inline;fill:#ffffff;stroke-width:1.15384;enable-background:new"
-       id="g22419"
-       transform="matrix(-0.22930591,0,0,0.22930591,199.5438,63.114314)" />
-    <g
-       style="display:inline;fill:#ffffff;stroke:#666666;enable-background:new"
-       id="g22765"
-       transform="matrix(0.26458333,0,0,0.26458333,14.741071,19.881549)" />
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       transform="matrix(0.26458333,0,0,0.26458333,19.238988,20.675299)"
-       id="g23484" />
-    <g
-       style="display:inline;fill:#ffffff;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;enable-background:new"
-       inkscape:export-ydpi="96"
-       inkscape:export-xdpi="96"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       id="g22604"
-       transform="matrix(0.26458333,0,0,0.26458333,117.92857,58.775299)">
-      <g
-         style="display:inline;fill:#ffffff;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;enable-background:new"
-         transform="matrix(0,-1,-1,0,688.99474,-44.97944)"
-         id="g22557" />
-    </g>
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       id="g22477"
-       transform="matrix(-0.26458333,0,0,-0.26458333,258.15773,206.94196)" />
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       transform="matrix(0.26458333,0,0,0.26458333,7.5916692,18.828868)"
-       id="g22894" />
-    <g
-       transform="matrix(-0.26458333,0,0,0.26458333,208.15149,19.881549)"
-       id="g23294"
-       style="display:inline;fill:#ffffff;enable-background:new" />
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       transform="matrix(0,0.26458333,-0.26458333,0,188.04315,-159.24138)"
-       id="g23519" />
-    <g
-       id="g23547"
-       style="display:inline;fill:#ffffff;enable-background:new"
-       transform="matrix(-0.26458333,0,0,0.26458333,267.63836,-124.31636)" />
-    <g
-       id="g12136"
-       transform="matrix(0.26458333,0,0,0.26458333,12.624404,103.22528)"
-       style="fill:#ffffff" />
-    <g
-       style="display:inline;opacity:0.6;fill:#ffffff;enable-background:new"
-       id="g10431-7"
-       transform="matrix(0.26458333,0,0,-0.26458333,20.826487,96.345404)"
-       inkscape:export-filename="C:\Users\Andrzej Ambroż\Desktop\mtrx.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <g
-       style="display:inline;fill:#ffffff;enable-background:new"
-       id="g13226"
-       transform="matrix(0.26458333,0,0,0.26458333,-123.05605,-118.83925)">
-      <path
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;enable-background:accumulate"
-         d="m 474.09374,452.15623 -0.15625,1.90625 c -0.6231,0.14227 -1.07677,0.25145 -1.59375,0.59375 l -1.75,-1.5 -1.5,1.5 1.5,1.75 c -0.34229,0.51699 -0.45148,0.97065 -0.59375,1.59375 l -1.90625,0.15625 v 1 1 l 1.90625,0.15625 c 0.14227,0.6231 0.25145,1.07677 0.59375,1.59375 l -1.5,1.75 1.5,1.5 1.75,-1.5 c 0.51699,0.34229 0.97065,0.45148 1.59375,0.59375 l 0.15625,1.90625 h 1 1 l 0.15625,-1.90625 c 0.6231,-0.14227 1.07677,-0.25145 1.59375,-0.59375 l 1.75,1.5 1.5,-1.5 -1.5,-1.75 c 0.34229,-0.51699 0.45148,-0.97065 0.59375,-1.59375 l 1.90625,-0.15625 v -1 -1 l -1.90625,-0.15625 c -0.14227,-0.6231 -0.25145,-1.07677 -0.59375,-1.59375 l 1.5,-1.75 -1.5,-1.5 -1.75,1.5 c -0.51699,-0.34229 -0.97065,-0.45148 -1.59375,-0.59375 l -0.15625,-1.90625 h -1 z m 1,5 c 1.11641,0 2,0.88359 2,2 0,1.11641 -0.88359,2 -2,2 -1.11641,0 -2,-0.88359 -2,-2 0,-1.11641 0.88359,-2 2,-2 z"
-         id="path52982-3"
-         inkscape:connector-curvature="0" />
-    </g>
-    <g
-       transform="matrix(-0.26458333,0,0,0.26458333,163.9217,8.7690518)"
-       style="display:inline;fill:#ffffff;enable-background:new"
-       id="g22538" />
-    <rect
-       style="vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:fill markers stroke"
-       id="rect6696"
-       width="0"
-       height="0"
-       x="2.0410717"
-       y="12.473216" />
-    <g
-       id="g19296"
-       transform="matrix(0.26458333,0,0,0.26458333,231.6994,-54.201783)"
-       style="fill:#ffffff" />
-    <g
-       transform="matrix(0.26458333,0,0,0.26458333,17.916072,19.881549)"
-       id="g20430-5"
-       style="display:inline;fill:#ffffff;enable-background:new" />
-    <g
-       transform="matrix(0.26458333,0,0,0.26458333,50.961193,31.260725)"
-       id="g9160-3"
-       style="display:inline;fill:#ffffff;enable-background:new" />
-    <g
-       transform="matrix(0.26458333,0,0,0.26458333,6.8035715,19.881549)"
+       transform="matrix(0.26458333,0,0,0.26458333,-169.33333,-81.491665)"
        style="display:none"
        inkscape:label="EMPTY ICON TRACKING"
        id="layer2">

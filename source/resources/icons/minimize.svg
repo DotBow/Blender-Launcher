@@ -8,7 +8,7 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:version="1.0beta2 (2c1767d, 2020-02-22)"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
    sodipodi:docname="minimize.svg"
    id="svg8"
    version="1.1"
@@ -16,7 +16,7 @@
    height="20"
    width="20">
   <title
-     id="title14919">Minimize</title>
+     id="title13938">minimize</title>
   <defs
      id="defs2">
     <linearGradient
@@ -704,7 +704,7 @@
        xlink:href="#linearGradient16595"
        id="linearGradient25383"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="rotate(90,339,299)"
+       gradientTransform="matrix(0,1,-1,0,638,-40)"
        x1="342"
        y1="288.5"
        x2="344.5"
@@ -714,7 +714,7 @@
        xlink:href="#linearGradient16595"
        id="linearGradient25385"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="rotate(180,349.5,299.5)"
+       gradientTransform="matrix(-1,0,0,-1,699,599)"
        x1="342"
        y1="288.5"
        x2="344.5"
@@ -724,7 +724,7 @@
        xlink:href="#linearGradient16595"
        id="linearGradient25387"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="rotate(-90,360,300)"
+       gradientTransform="matrix(0,-1,1,0,60,660)"
        x1="342"
        y1="288.5"
        x2="344.5"
@@ -1127,13 +1127,13 @@
        y1="-8.4836445"
        x2="-37.784756"
        y2="-18.517523"
-       gradientTransform="translate(-0.04018164)" />
+       gradientTransform="translate(-0.04018164,0)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient16595"
        id="linearGradient45875-0"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(14)"
+       gradientTransform="translate(14,0)"
        x1="-34.051685"
        y1="-129.32457"
        x2="-32.542458"
@@ -1316,6 +1316,7 @@
        y="-0.15000001"
        height="1.4">
       <feGaussianBlur
+         in="composite1"
          stdDeviation="1.5"
          result="blur"
          id="feGaussianBlur6152" />
@@ -1329,6 +1330,7 @@
        height="1.4"
        y="-0.15000001">
       <feGaussianBlur
+         in="composite1"
          stdDeviation="1.5"
          result="blur"
          id="feGaussianBlur6084" />
@@ -1501,12 +1503,14 @@
        x1="132"
        y1="120.4313"
        x2="93.029579"
-       y2="78.9655" />
+       y2="78.9655"
+       gradientTransform="translate(-5e-8,-7.9962027e-6)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient11146"
        id="linearGradient14478"
        gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,-8e-6)"
        x1="132"
        y1="120.4313"
        x2="93.029579"
@@ -1516,6 +1520,7 @@
        xlink:href="#linearGradient11146"
        id="linearGradient13559"
        gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-1.0000001e-7,-8.5e-6)"
        x1="132"
        y1="120.4313"
        x2="93.029579"
@@ -1622,6 +1627,7 @@
        y="-0.15000001"
        height="1.4">
       <feGaussianBlur
+         in="composite1"
          stdDeviation="1.5"
          result="blur"
          id="feGaussianBlur6152-3" />
@@ -1635,6 +1641,7 @@
        height="1.4"
        y="-0.15000001">
       <feGaussianBlur
+         in="composite1"
          stdDeviation="1.5"
          result="blur"
          id="feGaussianBlur6084-6" />
@@ -1838,36 +1845,6 @@
        x2="344.01321"
        y2="288.5" />
     <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient16595"
-       id="linearGradient25575"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="rotate(90,339,299)"
-       x1="342"
-       y1="288.5"
-       x2="344.5"
-       y2="288.5" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient16595"
-       id="linearGradient25577"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="rotate(180,349.5,299.5)"
-       x1="342"
-       y1="288.5"
-       x2="344.5"
-       y2="288.5" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient16595"
-       id="linearGradient25579"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="rotate(-90,360,300)"
-       x1="342"
-       y1="288.5"
-       x2="344.5"
-       y2="288.5" />
-    <linearGradient
        id="linearGradient31356">
       <stop
          id="stop31358"
@@ -1880,10 +1857,10 @@
     </linearGradient>
     <linearGradient
        gradientUnits="userSpaceOnUse"
-       y2="91.058182"
-       x2="56.916233"
-       y1="91.058182"
-       x1="45.115948"
+       y2="91.058184"
+       x2="56.916232"
+       y1="91.058184"
+       x1="45.115946"
        gradientTransform="matrix(0.99964634,0,0,1.0003538,-3.0966264e-8,-3.9490267e-6)"
        id="linearGradient23512">
       <stop
@@ -2756,29 +2733,33 @@
        y2="540.13623" />
   </defs>
   <sodipodi:namedview
-     inkscape:snap-center="true"
+     inkscape:object-nodes="false"
+     inkscape:snap-intersection-paths="true"
+     inkscape:object-paths="false"
      inkscape:window-maximized="1"
      inkscape:window-y="-8"
      inkscape:window-x="-8"
      inkscape:window-height="1027"
      inkscape:window-width="1920"
-     inkscape:snap-object-midpoints="false"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-nodes="true"
      units="px"
      showgrid="true"
      inkscape:document-rotation="0"
      inkscape:current-layer="layer1"
      inkscape:document-units="mm"
-     inkscape:cy="10.395338"
-     inkscape:cx="7.0905651"
-     inkscape:zoom="28.963094"
+     inkscape:cy="9.0278824"
+     inkscape:cx="6.1210241"
+     inkscape:zoom="22.4"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0"
      borderopacity="1.0"
      bordercolor="#666666"
-     pagecolor="#202020"
+     pagecolor="#808080"
      id="base">
     <inkscape:grid
-       id="grid8076"
+       empspacing="4"
+       id="grid833"
        type="xygrid" />
   </sodipodi:namedview>
   <metadata
@@ -2789,21 +2770,22 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title>Minimize</dc:title>
+        <dc:title>minimize</dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
      id="layer1"
      inkscape:groupmode="layer"
-     inkscape:label="Minimize">
+     inkscape:label="minimize">
     <path
-       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.330733;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-       d="m 3.96875,3.7041667 a 0.1654481,0.1654481 0 1 1 0,0.3308962 H 1.3230441 a 0.1654481,0.1654481 0 1 1 0,-0.3308962 z"
-       id="path10309-7"
+       inkscape:label="minimize"
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352691;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="m 4.0565128,3.5277346 a 0.17643251,0.17643251 0 1 1 0,0.3528642 h -2.821359 a 0.17643251,0.17643251 0 1 1 0,-0.3528642 z"
+       id="minimize"
        inkscape:connector-curvature="0" />
     <g
-       transform="matrix(0.26458333,0,0,0.26458333,-12.095238,-5.0648799)"
+       transform="matrix(0.26458333,0,0,0.26458333,-169.33333,-81.491665)"
        style="display:none"
        inkscape:label="EMPTY ICON TRACKING"
        id="layer2">
