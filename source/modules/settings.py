@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 
-from PyQt5.QtCore import QSettings
+from PyQt5.QtCore import QSettings, Qt
 
 from modules._platform import get_platform
 
@@ -81,3 +81,17 @@ def get_launch_minimized_to_tray():
 def set_launch_minimized_to_tray(is_checked):
     settings = get_settings()
     settings.setValue('launch_minimized_to_tray', is_checked)
+
+
+def get_enable_high_dpi_scaling():
+    return get_settings().value('enable_high_dpi_scaling', type=bool)
+
+
+def set_enable_high_dpi_scaling(app, is_checked):
+    if is_checked:
+        app.setAttribute(Qt.AA_EnableHighDpiScaling)
+    else:
+        app.setAttribute(Qt.AA_DisableHighDpiScaling)
+
+    settings = get_settings()
+    settings.setValue('enable_high_dpi_scaling', is_checked)
