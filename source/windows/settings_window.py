@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QDialog, QFileDialog, QMainWindow
+from PyQt5.QtWidgets import QDialog, QFileDialog, QMainWindow, QCheckBox
 
 from modules.settings import *
 from ui.settings_window_design import Ui_SettingsWindow
@@ -34,6 +34,14 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         if get_platform() == 'Linux':
             self.LaunchWhenSystemStartsCheckBox.hide()
 
+        self.EnableHighDpiScalingCheckBox = \
+            QCheckBox("Enable High DPI Scaling")
+        self.EnableHighDpiScalingCheckBox.clicked.connect(
+            self.toggle_enable_high_dpi_scaling)
+        self.EnableHighDpiScalingCheckBox.setChecked(
+            get_enable_high_dpi_scaling())
+        self.verticalLayout_2.addWidget(self.EnableHighDpiScalingCheckBox)
+
         self.show()
 
     def set_library_folder(self):
@@ -51,3 +59,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def toggle_launch_minimized_to_tray(self, is_checked):
         set_launch_minimized_to_tray(is_checked)
+
+    def toggle_enable_high_dpi_scaling(self, is_checked):
+        set_enable_high_dpi_scaling(self.parent.app, is_checked)
