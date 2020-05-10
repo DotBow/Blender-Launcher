@@ -4,7 +4,7 @@ from enum import Enum
 from pathlib import Path
 from time import localtime, strftime
 
-from PyQt5.QtCore import QFile, QTextStream, QTimer, Qt
+from PyQt5.QtCore import QFile, QTextStream, QTimer, Qt, QSize
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QHBoxLayout,
                              QLabel, QMainWindow, QMenu, QPushButton,
@@ -85,16 +85,20 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         self.SettingsButton = \
             QPushButton(QIcon(":resources/icons/settings.svg"), "")
-        self.SettingsButton.setFixedSize(32, 32)
+        self.SettingsButton.setIconSize(QSize(20, 20))
+        self.SettingsButton.setFixedSize(36, 32)
         self.WikiButton = \
             QPushButton(QIcon(":resources/icons/wiki.svg"), "")
-        self.WikiButton.setFixedSize(32, 32)
+        self.WikiButton.setIconSize(QSize(20, 20))
+        self.WikiButton.setFixedSize(36, 32)
         self.MinimizeButton = \
             QPushButton(QIcon(":resources/icons/minimize.svg"), "")
-        self.MinimizeButton.setFixedSize(32, 32)
+        self.MinimizeButton.setIconSize(QSize(20, 20))
+        self.MinimizeButton.setFixedSize(36, 32)
         self.CloseButton = \
             QPushButton(QIcon(":resources/icons/close.svg"), "")
-        self.CloseButton.setFixedSize(32, 32)
+        self.CloseButton.setIconSize(QSize(20, 20))
+        self.CloseButton.setFixedSize(36, 32)
         self.HeaderLabel = QLabel("Blender Launcher")
         self.HeaderLabel.setAlignment(Qt.AlignCenter)
 
