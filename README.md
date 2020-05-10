@@ -18,11 +18,12 @@ Compared to it [predecessor](https://github.com/DotBow/Blender-Version-Manager) 
   * [Daily builds](https://builder.blender.org/download/)
   * [Experimental branches](https://builder.blender.org/download/branches/)
 * Faster starting times by caching data
+* High DPI displays support
 
 Core features:
 
 * Automatic checking of latest builds
-* Fast access of favorite builds via tray context menu or by double click on tray icon
+* Fast access of favorite build via tray context menu or by double click on tray icon
 * Register .blend file extension for preferred build
 * Create desktop shortcut
 * Indication of running builds and its number of instances
