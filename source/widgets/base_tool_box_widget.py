@@ -1,5 +1,7 @@
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QListWidget, QToolBox
+from PyQt5.QtWidgets import QToolBox
+
+from widgets.base_list_widget import BaseListWidget
 
 
 class BaseToolBoxWidget(QToolBox):
@@ -11,8 +13,7 @@ class BaseToolBoxWidget(QToolBox):
         self.currentChanged.connect(self.current_changed)
 
     def add_list_widget(self, name):
-        list_widget = QListWidget()
-        list_widget.setFrameShape(QListWidget.NoFrame)
+        list_widget = BaseListWidget()
         self.addItem(list_widget, QIcon(
             ":resources/icons/page_closed.svg"), name)
 
