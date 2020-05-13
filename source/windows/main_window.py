@@ -1,10 +1,11 @@
+import gc
 import threading
 import webbrowser
 from enum import Enum
 from pathlib import Path
 from time import localtime, strftime
 
-from PyQt5.QtCore import QFile, QTextStream, QTimer, Qt, QSize
+from PyQt5.QtCore import QFile, QSize, Qt, QTextStream, QTimer
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QHBoxLayout,
                              QLabel, QMainWindow, QMenu, QPushButton,
@@ -269,10 +270,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.library_drawer.start()
 
     def draw_downloads(self):
+        gc.collect()
         self.app_state = AppState.CHECKINGBUILDS
         self.set_status("Checking for new builds")
-        self.timer = threading.Timer(600.0, self.draw_downloads)
-        self.timer.start()
         self.scraper = Scraper(self)
         self.scraper.links.connect(self.draw_new_builds)
         self.scraper.start()
@@ -315,6 +315,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         utcnow = strftime(('%H:%M:%S %d-%b-%Y'), localtime())
         self.set_status("Last check at " + utcnow)
         self.app_state = AppState.IDLE
+
+        self.timer = threading.Timer(600.0, self.draw_downloads)
+        self.timer.start()
 
     def draw_from_cashed(self, build_info):
         if self.app_state == AppState.IDLE:
