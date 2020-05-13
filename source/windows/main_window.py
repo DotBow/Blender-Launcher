@@ -366,20 +366,22 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             for item in items:
                 getattr(item, param).setFixedWidth(width)
 
-    def draw_to_library(self, dir, branch):
-        if branch == 'stable':
+    def draw_to_library(self, path):
+        category = Path(path).parent.name
+
+        if category == 'stable':
             list_widget = self.LibraryStableListWidget
-        elif branch == 'daily':
+        elif category == 'daily':
             list_widget = self.LibraryDailyListWidget
-        elif branch == 'experimental':
+        elif category == 'experimental':
             list_widget = self.LibraryExperimentalListWidget
-        elif branch == 'custom':
+        elif category == 'custom':
             list_widget = self.LibraryCustomListWidget
         else:
             return
 
         item = BaseListWidgetItem()
-        widget = LibraryWidget(self, item, dir, list_widget)
+        widget = LibraryWidget(self, item, path, list_widget)
         list_widget.insertItem(0, item)
         list_widget.setItemWidget(item, widget)
 

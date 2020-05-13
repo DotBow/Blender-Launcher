@@ -96,7 +96,7 @@ class DownloadWidget(QWidget):
         self.state = DownloadState.WAITING
 
         if dist is not None:
-            self.parent.draw_to_library(dist, self.build_info.branch)
+            self.parent.draw_to_library(dist)
             self.destroy()
 
     def destroy(self):
