@@ -128,8 +128,7 @@ class LibraryWidget(QWidget):
 
         self.setEnabled(True)
         self.list_widget.sortItems()
-        self.parent.resize_labels(
-            self.list_widget, ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
+        self.list_widget.resize_labels(('subversionLabel', 'branchLabel', 'commitTimeLabel'))
 
     def context_menu(self):
         self.menu.exec_(QCursor.pos())

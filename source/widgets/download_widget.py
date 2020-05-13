@@ -63,8 +63,7 @@ class DownloadWidget(QWidget):
         self.setLayout(layout)
 
     def showEvent(self, event):
-        self.parent.resize_labels(
-            self.list_widget, ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
+        self.list_widget.resize_labels(('subversionLabel', 'branchLabel', 'commitTimeLabel'))
 
     def init_download(self):
         self.state = DownloadState.DOWNLOADING

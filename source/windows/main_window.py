@@ -350,25 +350,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         list_widget.addItem(item)
         list_widget.setItemWidget(item, widget)
 
-    def resize_labels(self, list_widget, params):
-        items = []
-
-        for i in range(list_widget.count()):
-            item = list_widget.itemWidget(list_widget.item(i))
-
-            if hasattr(item, 'subversionLabel'):
-                items.append(item)
-            else:
-                return
-
-        for param in params:
-            item = max(
-                items, key=lambda item: getattr(item, param).minimumSizeHint().width())
-            width = getattr(item, param).minimumSizeHint().width()
-
-            for item in items:
-                getattr(item, param).setFixedWidth(width)
-
     def draw_to_library(self, path):
         category = Path(path).parent.name
 
