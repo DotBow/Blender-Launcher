@@ -16,8 +16,8 @@ if get_platform() == 'Windows':
 
 
 class BuildInfo:
-    def __init__(self, type, link, subversion, build_hash, commit_time, branch, size=None):
-        self.type = type
+    def __init__(self, link_type, link, subversion, build_hash, commit_time, branch, size=None):
+        self.link_type = link_type
         self.link = link
         self.subversion = subversion
         self.build_hash = build_hash
@@ -32,9 +32,9 @@ class BuildInfo:
             return self.get_name() == other.get_name()
 
     def get_name(self):
-        if self.type == 'link':
+        if self.link_type == 'link':
             return Path(self.link).stem
-        elif self.type == 'path':
+        elif self.link_type == 'path':
             return Path(self.link).name
 
 
