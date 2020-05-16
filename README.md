@@ -1,8 +1,11 @@
 # Blender Launcher
 
-<p align="center">
-  <img width="640" height="480" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/main_window.png">
-</p>
+<details>
+  <summary>Preview</summary>
+  <p align="center">
+    <img width="640" height="480" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/main_window.png">
+  </p>
+</details>
 
 ## What is it?
 
