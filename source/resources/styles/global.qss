@@ -15,6 +15,10 @@ QTabWidget {
 	background-color: #424242;
 }
 
+QTabWidget::tab-bar {
+	left: 1px;
+}
+
 QTabBar::tab {
 	background-color: #2B2B2B;
 	color: #989898;
@@ -27,6 +31,13 @@ QTabBar::tab:hover {
 QTabBar::tab::selected {
 	background-color: #424242;
 	color: #FFFFFF;
+}
+
+QToolBox {
+	border-left: 1px solid #323232;
+	border-right: 1px solid #323232;
+	border-top: none;
+	border-bottom: none;
 }
 
 QToolBox::tab {
