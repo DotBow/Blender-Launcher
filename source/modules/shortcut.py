@@ -1,5 +1,7 @@
+import sys
 from pathlib import Path
 
+from modules._platform import *
 from modules.settings import *
 
 if get_platform() == 'Windows':
@@ -7,14 +9,44 @@ if get_platform() == 'Windows':
     from win32com.shell import shell, shellcon
 
 
-def create_shortcut(path, name, icon):
-    desktop = shell.SHGetFolderPath(0, shellcon.CSIDL_DESKTOP, None, 0)
-    _WSHELL = win32com.client.Dispatch("Wscript.Shell")
-    dist = Path(desktop) / (name + ".lnk")
-    wscript = _WSHELL.CreateShortCut(dist.as_posix())
-    wscript.Targetpath = path
-    wscript.WorkingDirectory = path
-    wscript.WindowStyle = 0
-    print(icon)
-    wscript.IconLocation = icon
-    wscript.save()
+def create_shortcut(folder, name):
+    platform = get_platform()
+    library_folder = Path(get_library_folder())
+
+    if platform == 'Windows':
+        targetpath = library_folder / folder / "blender.exe"
+        workingdir = library_folder / folder
+        desktop = shell.SHGetFolderPath(0, shellcon.CSIDL_DESKTOP, None, 0)
+        dist = Path(desktop) / (name + ".lnk")
+
+        if getattr(sys, 'frozen', False):
+            icon = sys._MEIPASS + "/files/winblender.ico"
+        else:
+            icon = Path(
+                "./resources/icons/winblender.ico").resolve().as_posix()
+
+        _WSHELL = win32com.client.Dispatch("Wscript.Shell")
+        wscript = _WSHELL.CreateShortCut(dist.as_posix())
+        wscript.Targetpath = targetpath.as_posix()
+        wscript.WorkingDirectory = workingdir.as_posix()
+        wscript.WindowStyle = 0
+        wscript.IconLocation = icon
+        wscript.save()
+    elif platform == 'Linux':
+        _exec = library_folder / folder / "blender"
+        icon = library_folder / folder / "blender.svg"
+        desktop = Path.home() / "Desktop"
+        name = name.replace(' ', '-')
+        dist = desktop / (name + ".desktop")
+
+        desktop_entry = \
+            "[Desktop Entry]\n" + \
+            "Name={0}\n".format(name) + \
+            "Type=Application\n" + \
+            "Comment={0}\n".format(name) + \
+            "Terminal=true\n" + \
+            "Icon={0}\n".format(icon.as_posix().replace(' ', r'\ ')) + \
+            "Exec=!/bin/bash {0}".format(_exec.as_posix().replace(' ', r'\ '))
+
+        with open(dist, 'w') as file:
+            file.write(desktop_entry)

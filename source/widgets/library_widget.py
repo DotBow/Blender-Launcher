@@ -9,7 +9,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor, QIcon
 from PyQt5.QtWidgets import (QAction, QHBoxLayout, QLabel, QMenu, QPushButton,
                              QSizePolicy, QWidget)
-from pyshortcuts import make_shortcut
 
 from modules._platform import *
 from modules.build_info import *
@@ -231,29 +230,11 @@ class LibraryWidget(QWidget):
 
     @QtCore.pyqtSlot()
     def create_shortcut(self):
-        platform = get_platform()
-        library_folder = Path(get_library_folder())
-
-        if getattr(sys, 'frozen', False):
-            b3d_icon = sys._MEIPASS + "/files/winblender.ico"
-        else:
-            b3d_icon = "./resources/icons/winblender.ico"
-
         name = "Blender {0} {1}".format(
             self.build_info.subversion.replace('(', '').replace(')', ''),
             self.build_info.branch.replace('-', ' ').title())
 
-        if platform == 'Windows':
-            b3d_exe = library_folder / self.link / "blender.exe"
-            create_shortcut(b3d_exe.as_posix(), name, b3d_icon)
-        elif platform == 'Linux':
-            b3d_exe = library_folder / self.link / "blender"
-            make_shortcut(
-                b3d_exe.as_posix().replace(' ', r'\ '),
-                name=name.replace(' ', '-'),
-                startmenu=False,
-                icon=b3d_icon,
-                executable="!/bin/bash")
+        create_shortcut(self.link, name)
 
     @QtCore.pyqtSlot()
     def show_folder(self):
