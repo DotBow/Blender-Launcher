@@ -10,7 +10,7 @@ class BaseListWidgetItem(QListWidgetItem):
 
     def __lt__(self, other):
         if (self.date is None) or (other.date is None):
-            return True
+            return False
         else:
             a = strptime(self.date, "%d-%b-%y-%H:%M")
             b = strptime(other.date, "%d-%b-%y-%H:%M")
