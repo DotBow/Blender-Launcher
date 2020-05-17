@@ -59,6 +59,12 @@ QPushButton[CancelButton=true]:hover {
 	padding: 9px;
 }
 
+QPushButton[CancelButton=true]:disabled {
+	background-color: #6E6E6E;
+	border: none;
+	padding: 9px;
+}
+
 QPushButton[Icon=true] {
 	background-color: transparent;
 	border: none;
