@@ -1,0 +1,9 @@
+QStatusBar {
+	color: #FFFFFF;
+}
+
+QStatusBar::item
+{
+	border: none;
+}
+

@@ -1,0 +1,12 @@
+QTabWidget::pane {
+	background-color: #424242;
+}
+
+QTabWidget {
+	background-color: #424242;
+}
+
+QTabWidget::tab-bar {
+	left: 1px;
+}
+

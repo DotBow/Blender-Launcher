@@ -1,0 +1,12 @@
+QCheckBox {
+	color: #FFFFFF
+}
+
+QCheckBox::indicator:checked {
+	image: url(:resources/icons/box_checked.svg);
+}
+
+QCheckBox::indicator:unchecked {
+	image: url(:resources/icons/box_unchecked.svg);
+}
+

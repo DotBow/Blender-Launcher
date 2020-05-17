@@ -1,0 +1,17 @@
+QListWidget {
+	background-color:#232323;
+	outline: 0;
+}
+
+QListWidget::item {
+	background-color: transparent;
+}
+
+QListWidget::item:hover {
+	background-color: #4F4F4F;
+}
+
+QListWidget::item:selected {
+	background-color: #3B5689;
+}
+
