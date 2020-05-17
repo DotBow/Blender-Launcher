@@ -32,6 +32,7 @@ class LibraryWidget(QWidget):
         self.link = link
         self.list_widget = list_widget
         self.observer = None
+        self.build_info = None
 
         self.destroyed.connect(lambda: self._destroyed())
         self.setEnabled(False)
@@ -42,10 +43,9 @@ class LibraryWidget(QWidget):
 
         self.launchButton = QPushButton("Launch")
         self.launchButton.setMinimumWidth(75)
-        self.launchButton.clicked.connect(self.launch)
         self.launchButton.setProperty("LaunchButton", True)
 
-        self.buildHashLabel = QLabel("Loading Build Information...")
+        self.buildHashLabel = QLabel("Loading build information...")
         self.buildHashLabel.setSizePolicy(
             QSizePolicy.Ignored, QSizePolicy.Fixed)
 
@@ -60,6 +60,20 @@ class LibraryWidget(QWidget):
         self.item.setSizeHint(self.sizeHint())
 
     def draw(self, build_info):
+        if build_info is None:
+            self.buildHashLabel.setText(
+                ("Build *{0}* is damaged!").format(Path(self.link).name))
+            self.launchButton.setText("Delete")
+            self.launchButton.setProperty("LaunchButton", False)
+            self.launchButton.setProperty("CancelButton", True)
+            self.launchButton.style().unpolish(self.launchButton)
+            self.launchButton.style().polish(self.launchButton)
+            self.launchButton.clicked.connect(self.ask_remove_from_drive)
+            self.setEnabled(True)
+            return
+
+        self.launchButton.clicked.connect(self.launch)
+
         self.item.date = build_info.commit_time
         self.icon_favorite = QIcon(":resources/icons/favorite.svg")
         self.icon_fake = QIcon(":resources/icons/fake.svg")
@@ -128,13 +142,15 @@ class LibraryWidget(QWidget):
 
         self.setEnabled(True)
         self.list_widget.sortItems()
-        self.list_widget.resize_labels(('subversionLabel', 'branchLabel', 'commitTimeLabel'))
+        self.list_widget.resize_labels(
+            ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
 
     def context_menu(self):
         self.menu.exec_(QCursor.pos())
 
     def mouseDoubleClickEvent(self, event):
-        self.launch()
+        if self.build_info is not None:
+            self.launch()
 
     @QtCore.pyqtSlot()
     def launch(self):

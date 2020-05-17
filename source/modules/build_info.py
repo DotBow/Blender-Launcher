@@ -4,7 +4,7 @@ import re
 import subprocess
 import time
 from pathlib import Path
-from subprocess import DEVNULL
+from subprocess import DEVNULL, CalledProcessError
 
 from PyQt5.QtCore import QThread, pyqtSignal
 
@@ -26,7 +26,9 @@ class BuildInfo:
         self.size = size
 
     def __eq__(self, other):
-        if (self.build_hash is not None) and (other.build_hash is not None):
+        if (self is None) or (other is None):
+            return False
+        elif (self.build_hash is not None) and (other.build_hash is not None):
             return self.build_hash == other.build_hash
         else:
             return self.get_name() == other.get_name()
@@ -61,16 +63,19 @@ class BuildInfoReader(QThread):
 
         exe_path = Path(get_library_folder()) / folder / blender_exe
 
-        if platform == 'Windows':
-            info = subprocess.check_output(
-                [exe_path.as_posix(), "-v"],
-                creationflags=CREATE_NO_WINDOW,
-                shell=True,
-                stderr=DEVNULL, stdin=DEVNULL)
-        elif platform == 'Linux':
-            info = subprocess.check_output(
-                [exe_path.as_posix(), "-v"], shell=False,
-                stderr=DEVNULL, stdin=DEVNULL)
+        try:
+            if platform == 'Windows':
+                info = subprocess.check_output(
+                    [exe_path.as_posix(), "-v"],
+                    creationflags=CREATE_NO_WINDOW,
+                    shell=True,
+                    stderr=DEVNULL, stdin=DEVNULL)
+            elif platform == 'Linux':
+                info = subprocess.check_output(
+                    [exe_path.as_posix(), "-v"], shell=False,
+                    stderr=DEVNULL, stdin=DEVNULL)
+        except CalledProcessError as e:
+            return 1
 
         info = info.decode('UTF-8')
 
@@ -114,11 +119,14 @@ class BuildInfoReader(QThread):
         with open(path, 'w') as file:
             json.dump(data, file)
 
+        return 0
+
     def read_build_info(self, folder):
         path = Path(get_library_folder()) / folder / '.blinfo'
 
         if not path.is_file():
-            self.write_build_info(folder)
+            if self.write_build_info(folder) == 1:
+                return None
 
         with open(path) as file:
             data = json.load(file)
