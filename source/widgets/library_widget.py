@@ -14,6 +14,7 @@ from pyshortcuts import make_shortcut
 from modules._platform import *
 from modules.build_info import *
 from modules.settings import *
+from modules.shortcut import *
 from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
@@ -244,11 +245,7 @@ class LibraryWidget(QWidget):
 
         if platform == 'Windows':
             b3d_exe = library_folder / self.link / "blender.exe"
-            make_shortcut(
-                b3d_exe.as_posix(),
-                name=name,
-                startmenu=False,
-                icon=b3d_icon)
+            create_shortcut(b3d_exe.as_posix(), name, b3d_icon)
         elif platform == 'Linux':
             b3d_exe = library_folder / self.link / "blender"
             make_shortcut(
