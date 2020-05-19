@@ -23,6 +23,8 @@ from windows.base_window import BaseWindow
 from windows.dialog_window import DialogIcon, DialogWindow
 from windows.settings_window import SettingsWindow
 
+from urllib3 import PoolManager
+
 
 class AppState(Enum):
     IDLE = 1
@@ -40,6 +42,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.status = "None"
         self.app_state = AppState.IDLE
         self.cashed_builds = []
+        self.manager = PoolManager(200)
 
         # Setup window
         self.setWindowTitle("Blender Launcher")
@@ -271,7 +274,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def draw_downloads(self):
         self.app_state = AppState.CHECKINGBUILDS
         self.set_status("Checking for new builds")
-        self.scraper = Scraper(self)
+        self.scraper = Scraper(self, self.manager)
         self.scraper.links.connect(self.draw_new_builds)
         self.scraper.start()
 
