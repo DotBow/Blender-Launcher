@@ -14,9 +14,10 @@ from modules.build_info import BuildInfo
 class Scraper(QThread):
     links = pyqtSignal('PyQt_PyObject')
 
-    def __init__(self, parent):
+    def __init__(self, parent, man):
         QThread.__init__(self)
         self.parent = parent
+        self.manager = man
 
     def run(self):
         try:
@@ -24,6 +25,7 @@ class Scraper(QThread):
         except Exception:
             self.parent.set_status("Connection Error")
 
+        self.manager.clear()
         return
 
     def get_download_links(self):
@@ -48,8 +50,8 @@ class Scraper(QThread):
 
     def scrap_download_links(self, url, branch_type, _limit=None):
         platform = get_platform()
-        manager = PoolManager()
-        content = manager.request('GET', url).data
+        r = self.manager.request('GET', url)
+        content = r.data
         soup = BeautifulSoup(content, 'html.parser')
         links = []
 
@@ -60,13 +62,15 @@ class Scraper(QThread):
             for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+lin.+64.+tar')):
                 links.append(self.new_blender_build(tag, url, branch_type))
 
+        r.release_conn()
+        r.close()
         return links
 
     def new_blender_build(self, tag, url, branch_type):
         link = urljoin(url, tag['href']).rstrip('/')
 
-        manager = PoolManager()
-        info = manager.request('HEAD', link).headers
+        r = self.manager.request('HEAD', link)
+        info = r.headers
         size = str(int(info['content-length']) // 1048576)
 
         commit_time = None
@@ -95,13 +99,15 @@ class Scraper(QThread):
                 info['last-modified'], '%a, %d %b %Y %H:%M:%S %Z')
             commit_time = time.strftime("%d-%b-%y-%H:%M", self.strptime)
 
+        r.release_conn()
+        r.close()
         return BuildInfo('link', link, subversion, build_hash, commit_time, branch, size)
 
     def scrap_stable_releases(self):
         releases = []
         url = "https://ftp.nluug.nl/pub/graphics/blender/release/"
-        manager = PoolManager()
-        content = manager.request('GET', url).data
+        r = self.manager.request('GET', url)
+        content = r.data
         soup = BeautifulSoup(content, 'html.parser')
 
         for release in soup.find_all(href=re.compile(r'Blender\d+.+')):
@@ -116,13 +122,15 @@ class Scraper(QThread):
             for link in links:
                 stable_links.append(link)
 
+        r.release_conn()
+        r.close()
         return stable_links
 
     def get_commit_time(self, commit):
         try:
             commit_url = "https://git.blender.org/gitweb/gitweb.cgi/blender.git/commit/"
-            manager = PoolManager()
-            content = manager.request('GET', commit_url + commit).data
+            r = self.manager.request('GET', commit_url + commit)
+            content = r.data
             soup = BeautifulSoup(content, 'html.parser')
             datetime = soup.find_all("span", {"class": "datetime"})[1].text
 
@@ -130,6 +138,8 @@ class Scraper(QThread):
             self.strptime = time.strptime(
                 datetime, '%a, %d %b %Y %H:%M:%S %z')
             commit_time = time.strftime("%d-%b-%y-%H:%M", self.strptime)
+            r.release_conn()
+            r.close()
             return commit_time
         except Exception as e:
             return None
