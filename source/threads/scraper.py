@@ -1,12 +1,11 @@
 import re
 import time
 from pathlib import Path
-from urllib import error
 from urllib.parse import urljoin
-from urllib.request import urlopen
 
 from bs4 import BeautifulSoup
 from PyQt5.QtCore import QThread, pyqtSignal
+from urllib3 import PoolManager
 
 from modules._platform import *
 from modules.build_info import BuildInfo
@@ -22,7 +21,7 @@ class Scraper(QThread):
     def run(self):
         try:
             self.links.emit(self.get_download_links())
-        except error.URLError:
+        except Exception:
             self.parent.set_status("Connection Error")
 
         return
@@ -49,7 +48,8 @@ class Scraper(QThread):
 
     def scrap_download_links(self, url, branch_type, _limit=None):
         platform = get_platform()
-        content = urlopen(url).read()
+        manager = PoolManager()
+        content = manager.request('GET', url).data
         soup = BeautifulSoup(content, 'html.parser')
         links = []
 
@@ -65,7 +65,8 @@ class Scraper(QThread):
     def new_blender_build(self, tag, url, branch_type):
         link = urljoin(url, tag['href']).rstrip('/')
 
-        info = urlopen(link).info()
+        manager = PoolManager()
+        info = manager.request('HEAD', link).headers
         size = str(int(info['content-length']) // 1048576)
 
         commit_time = None
@@ -99,7 +100,8 @@ class Scraper(QThread):
     def scrap_stable_releases(self):
         releases = []
         url = "https://ftp.nluug.nl/pub/graphics/blender/release/"
-        content = urlopen(url).read()
+        manager = PoolManager()
+        content = manager.request('GET', url).data
         soup = BeautifulSoup(content, 'html.parser')
 
         for release in soup.find_all(href=re.compile(r'Blender\d+.+')):
@@ -119,7 +121,8 @@ class Scraper(QThread):
     def get_commit_time(self, commit):
         try:
             commit_url = "https://git.blender.org/gitweb/gitweb.cgi/blender.git/commit/"
-            content = urlopen(commit_url + commit).read()
+            manager = PoolManager()
+            content = manager.request('GET', commit_url + commit).data
             soup = BeautifulSoup(content, 'html.parser')
             datetime = soup.find_all("span", {"class": "datetime"})[1].text
 
