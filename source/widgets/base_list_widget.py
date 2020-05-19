@@ -6,6 +6,7 @@ class BaseListWidget(QListWidget):
         super().__init__()
 
         self.setFrameShape(QListWidget.NoFrame)
+        self.setSortingEnabled(True)
 
     def remove_item(self, item):
         row = self.row(item)
