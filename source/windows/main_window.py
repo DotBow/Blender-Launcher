@@ -1,4 +1,3 @@
-import gc
 import threading
 import webbrowser
 from enum import Enum
@@ -270,7 +269,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.library_drawer.start()
 
     def draw_downloads(self):
-        gc.collect()
         self.app_state = AppState.CHECKINGBUILDS
         self.set_status("Checking for new builds")
         self.scraper = Scraper(self)
