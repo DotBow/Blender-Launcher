@@ -69,4 +69,4 @@ class Ui_DialogWindow(object):
 
     def retranslateUi(self, DialogWindow):
         pass
-import resources_rc
+import resources.resources_rc
