@@ -7,7 +7,7 @@ QMenu
 
 QMenu::item
 {
-	padding: 6px 0px 6px 24px;
+	padding: 6px 10px 6px 6px;
 }
 
 QMenu::item::selected
