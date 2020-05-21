@@ -313,7 +313,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.draw_to_downloads(build_info)
 
         set_locale()
-        utcnow = strftime(('%H:%M:%S %d-%b-%Y'), localtime())
+        utcnow = strftime(('%H:%M'), localtime())
         self.set_status("Last check at " + utcnow)
         self.app_state = AppState.IDLE
 
