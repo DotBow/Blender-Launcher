@@ -20,7 +20,7 @@ The goal of Blender Launcher is to make it easier to stay up to date with latest
 Compared to it [predecessor](https://github.com/DotBow/Blender-Version-Manager) Blender Launcher introduces number of major improvements:
 
 * Rewritten from ground up code for better stability and extensibility
-* All official builds are avaliable:
+* All official builds are available:
   * [Stable releases](https://download.blender.org/release/)
   * [Daily builds](https://builder.blender.org/download/)
   * [Experimental branches](https://builder.blender.org/download/branches/)
