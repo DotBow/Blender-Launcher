@@ -27,6 +27,7 @@ sys.excepthook = handle_exception
 def main():
     app = QApplication(sys.argv)
     app.setApplicationVersion("v1.0.0-rc.4")
+    app.setQuitOnLastWindowClosed(False)
     BlenderLauncher(app)
     app.exec_()
 
