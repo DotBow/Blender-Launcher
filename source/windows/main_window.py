@@ -4,7 +4,7 @@ from enum import Enum
 from pathlib import Path
 from time import localtime, strftime
 
-from PyQt5.QtCore import QFile, QSize, Qt, QTextStream, QTimer
+from PyQt5.QtCore import QFile, QSize, Qt, QTextStream
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QHBoxLayout,
                              QLabel, QMainWindow, QMenu, QPushButton,
@@ -198,12 +198,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.tray_icon.setToolTip("Blender Launcher")
         self.tray_icon.activated.connect(self.tray_icon_activated)
         self.tray_icon.setContextMenu(tray_menu)
-
-        # Setup doble click trigger for tray icon
-        self.tray_icon_trigger = QTimer(self)
-        self.tray_icon_trigger.setSingleShot(True)
-        self.tray_icon_trigger.timeout.connect(self._show)
-
         self.tray_icon.show()
 
         # Forse style update
@@ -239,10 +233,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def tray_icon_activated(self, reason):
         if reason == QSystemTrayIcon.Trigger:
-            self.tray_icon_trigger.start(
-                QApplication.doubleClickInterval() * 0.5)
-        elif reason == QSystemTrayIcon.DoubleClick:
-            self.tray_icon_trigger.stop()
+            self._show()
+        elif reason == QSystemTrayIcon.MiddleClick:
             self.launch_favorite()
 
     def quit(self):
