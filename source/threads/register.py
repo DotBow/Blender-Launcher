@@ -17,9 +17,6 @@ class Register(QThread):
         QThread.__init__(self)
         self.path = path
 
-    def __del__(self):
-        self.wait()
-
     def run(self):
         platform = get_platform()
 

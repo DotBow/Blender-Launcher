@@ -22,9 +22,6 @@ class Downloader(QThread):
         self.parent = parent
         self.build_info = build_info
 
-    def __del__(self):
-        self.wait()
-
     def run(self):
         self.started.emit()
         blender_zip = urlopen(self.build_info.link)

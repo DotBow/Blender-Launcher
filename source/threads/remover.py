@@ -10,9 +10,6 @@ class Remover(QThread):
         QThread.__init__(self)
         self.path = path
 
-    def __del__(self):
-        self.wait()
-
     def run(self):
         try:
             rmtree(self.path.as_posix())
