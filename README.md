@@ -30,7 +30,7 @@ Compared to it [predecessor](https://github.com/DotBow/Blender-Version-Manager) 
 Core features:
 
 * Automatic checking of latest builds
-* Fast access of favorite build via tray context menu or by double click on tray icon
+* Fast access of favorite build via tray context menu or by middle click on tray icon
 * Register .blend file extension for preferred build
 * Create desktop shortcut
 * Indication of running builds and its number of instances
