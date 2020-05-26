@@ -1,6 +1,7 @@
 import logging
 import sys
 
+from PyQt5.QtNetwork import QLocalSocket
 from PyQt5.QtWidgets import QApplication
 
 from modules._platform import get_platform
@@ -28,8 +29,14 @@ def main():
     app = QApplication(sys.argv)
     app.setApplicationVersion("v1.0.0")
     app.setQuitOnLastWindowClosed(False)
-    BlenderLauncher(app)
-    app.exec_()
+
+    socket = QLocalSocket()
+    socket.connectToServer("blender-launcher-server")
+    is_running = socket.waitForConnected()
+
+    if not is_running:
+        BlenderLauncher(app)
+        app.exec_()
 
 
 if __name__ == '__main__':

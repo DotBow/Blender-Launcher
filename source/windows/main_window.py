@@ -6,9 +6,11 @@ from time import localtime, strftime
 
 from PyQt5.QtCore import QFile, QSize, Qt, QTextStream
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
+from PyQt5.QtNetwork import QLocalServer
 from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QHBoxLayout,
                              QLabel, QMainWindow, QMenu, QPushButton,
                              QSystemTrayIcon, QTabWidget, QVBoxLayout, QWidget)
+from urllib3 import PoolManager
 
 from items.base_list_widget_item import BaseListWidgetItem
 from modules._platform import *
@@ -23,8 +25,6 @@ from windows.base_window import BaseWindow
 from windows.dialog_window import DialogIcon, DialogWindow
 from windows.settings_window import SettingsWindow
 
-from urllib3 import PoolManager
-
 
 class AppState(Enum):
     IDLE = 1
@@ -35,6 +35,11 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def __init__(self, app):
         super().__init__()
         self.setupUi(self)
+
+        # Server
+        self.server = QLocalServer()
+        self.server.listen("blender-launcher-server")
+        self.server.newConnection.connect(self.new_connection)
 
         # Global scope
         self.app = app
@@ -377,3 +382,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def closeEvent(self, event):
         event.ignore()
         self.hide()
+
+    def new_connection(self):
+        self._show()
