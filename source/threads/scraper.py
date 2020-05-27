@@ -5,7 +5,6 @@ from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 from PyQt5.QtCore import QThread, pyqtSignal
-from urllib3 import PoolManager
 
 from modules._platform import *
 from modules.build_info import BuildInfo
