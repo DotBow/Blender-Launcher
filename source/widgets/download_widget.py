@@ -63,7 +63,8 @@ class DownloadWidget(QWidget):
         self.setLayout(layout)
 
     def showEvent(self, event):
-        self.list_widget.resize_labels(('subversionLabel', 'branchLabel', 'commitTimeLabel'))
+        self.list_widget.resize_labels(
+            ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
 
     def init_download(self):
         self.state = DownloadState.DOWNLOADING
@@ -96,6 +97,7 @@ class DownloadWidget(QWidget):
 
         if dist is not None:
             self.parent.draw_to_library(dist)
+            self.parent.clear_temp()
             self.destroy()
 
     def destroy(self):

@@ -15,6 +15,7 @@ from urllib3 import PoolManager
 from items.base_list_widget_item import BaseListWidgetItem
 from modules._platform import *
 from modules.settings import *
+from threads.remover import Remover
 from threads.library_drawer import LibraryDrawer
 from threads.scraper import Scraper
 from ui.main_window_design import Ui_MainWindow
@@ -378,6 +379,11 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         x = self.x() + (self.width() - self.settings_window.width()) * 0.5
         y = self.y() + (self.height() - self.settings_window.height()) * 0.5
         self.settings_window.move(x, y)
+
+    def clear_temp(self):
+        temp_folder = Path(get_library_folder()) / ".temp"
+        self.remover = Remover(temp_folder)
+        self.remover.start()
 
     def closeEvent(self, event):
         event.ignore()
