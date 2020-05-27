@@ -3,7 +3,6 @@ import os
 import tarfile
 import zipfile
 from pathlib import Path
-from urllib.request import urlopen
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal
@@ -17,15 +16,17 @@ class Downloader(QThread):
     progress_changed = pyqtSignal('PyQt_PyObject', 'PyQt_PyObject')
     finished = pyqtSignal('PyQt_PyObject')
 
-    def __init__(self, parent, build_info):
+    def __init__(self, manager, build_info):
         QThread.__init__(self)
-        self.parent = parent
+        self.manager = manager
         self.build_info = build_info
 
     def run(self):
         self.started.emit()
-        blender_zip = urlopen(self.build_info.link)
-        size = blender_zip.info()['Content-Length']
+
+        blender_zip = self.manager.request(
+            'GET', self.build_info.link, preload_content=False)
+        size = blender_zip.headers['Content-Length']
 
         library_folder = Path(get_library_folder())
         temp_folder = library_folder / ".temp"
@@ -38,15 +39,13 @@ class Downloader(QThread):
 
         # Download
         with open(temp_folder, 'wb') as file:
-            while True:
-                chunk = blender_zip.read(16 * 1024)
-
-                if not chunk:
-                    break
-
+            for chunk in blender_zip.stream(16 * 1024):
                 file.write(chunk)
                 progress = os.stat(temp_folder).st_size / int(size)
                 self.progress_changed.emit(progress, "Downloading: %p%")
+
+        blender_zip.release_conn()
+        blender_zip.close()
 
         self.platform = get_platform()
 

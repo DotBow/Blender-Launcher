@@ -67,7 +67,7 @@ class DownloadWidget(QWidget):
 
     def init_download(self):
         self.state = DownloadState.DOWNLOADING
-        self.thread = Downloader(self, self.build_info)
+        self.thread = Downloader(self.parent.manager, self.build_info)
         self.thread.started.connect(self.download_started)
         self.thread.progress_changed.connect(self.set_progress_bar)
         self.thread.finished.connect(self.download_finished)
