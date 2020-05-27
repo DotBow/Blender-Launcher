@@ -1,10 +1,16 @@
 # Blender Launcher
 
+<p align="center">
+<img width="1280" height="840" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/blender_launcher_cover.png">
+</p>
+
 <details>
-  <summary>Preview</summary>
-  <p align="center">
-    <img width="640" height="480" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/main_window.png">
-  </p>
+<summary>Screenshots</summary>
+<p>
+<img width="640" height="420" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_01.png">
+<img width="640" height="420" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_02.png">
+<img width="400" height="282" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/tray_icon.png">
+</p>
 </details>
 
 ## What is it?
