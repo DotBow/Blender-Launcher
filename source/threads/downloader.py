@@ -1,6 +1,5 @@
 import json
 import os
-import ssl
 import tarfile
 import zipfile
 from pathlib import Path
@@ -24,8 +23,6 @@ class Downloader(QThread):
         self.build_info = build_info
 
     def run(self):
-        ssl._create_default_https_context = ssl._create_unverified_context
-
         self.started.emit()
         blender_zip = urlopen(self.build_info.link)
         size = blender_zip.info()['Content-Length']
