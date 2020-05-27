@@ -1,7 +1,7 @@
 # Blender Launcher
 
 <p align="center">
-<img width="1280" height="840" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/blender_launcher_cover.png">
+<img width="960" height="630" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/blender_launcher_cover.png">
 </p>
 
 <details>
