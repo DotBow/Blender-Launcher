@@ -13,6 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_SettingsWindow(object):
     def setupUi(self, SettingsWindow):
         SettingsWindow.setObjectName("SettingsWindow")
+        SettingsWindow.setWindowModality(QtCore.Qt.ApplicationModal)
         SettingsWindow.resize(320, 240)
         SettingsWindow.setMinimumSize(QtCore.QSize(320, 240))
         self.CentralWidget = QtWidgets.QWidget(SettingsWindow)
