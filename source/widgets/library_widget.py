@@ -129,7 +129,10 @@ class LibraryWidget(QWidget):
         self.showFolderAction.triggered.connect(self.show_folder)
 
         self.menu.addAction(self.setAsFavoriteAction)
-        self.menu.addAction(self.registerExtentionAction)
+
+        if get_platform() == 'Windows':
+            self.menu.addAction(self.registerExtentionAction)
+
         self.menu.addAction(self.createShortcutAction)
         self.menu.addAction(self.showFolderAction)
         self.menu.addAction(self.deleteAction)
