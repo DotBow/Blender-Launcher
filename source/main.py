@@ -35,6 +35,7 @@ def main():
     is_running = socket.waitForConnected()
 
     if not is_running:
+        socket.close()
         BlenderLauncher(app)
         app.exec_()
 
