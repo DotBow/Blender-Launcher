@@ -12,6 +12,7 @@ from modules.build_info import BuildInfo
 
 class Scraper(QThread):
     links = pyqtSignal('PyQt_PyObject')
+    error = pyqtSignal()
 
     def __init__(self, parent, man):
         QThread.__init__(self)
@@ -22,7 +23,7 @@ class Scraper(QThread):
         try:
             self.links.emit(self.get_download_links())
         except Exception:
-            self.parent.set_status("Connection Error")
+            self.error.emit()
 
         self.manager.clear()
         return
@@ -81,7 +82,14 @@ class Scraper(QThread):
         if match:
             build_hash = match[-1].replace('-', '')
 
-        subversion = re.search(r'-\d.\w+-', stem).group(0).replace('-', '')
+        # Old buidls style naming
+        match = re.search(r'-\d\.\w+-', stem)
+
+        if match is None:
+            # New builds style naming
+            match = re.search(r'-\d+\.\d+\.\d+-', stem)
+
+        subversion = match.group(0).replace('-', '')
 
         if branch_type == 'experimental':
             branch = re.search(r'\A.+-blender', stem).group(0)[:-8]
