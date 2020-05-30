@@ -27,7 +27,7 @@ sys.excepthook = handle_exception
 
 def main():
     app = QApplication(sys.argv)
-    app.setApplicationVersion("v1.0.0")
+    app.setApplicationVersion("v1.1.0")
     app.setQuitOnLastWindowClosed(False)
 
     socket = QLocalSocket()
