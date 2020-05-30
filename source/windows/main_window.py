@@ -49,6 +49,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app_state = AppState.IDLE
         self.cashed_builds = []
         self.manager = PoolManager(200)
+        self.timer = None
 
         # Setup window
         self.setWindowTitle("Blender Launcher")
@@ -244,7 +245,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.launch_favorite()
 
     def quit(self):
-        self.timer.cancel()
+        if self.timer is not None:
+            self.timer.cancel()
+
         self.tray_icon.hide()
         self.app.quit()
 
@@ -274,7 +277,17 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.set_status("Checking for new builds")
         self.scraper = Scraper(self, self.manager)
         self.scraper.links.connect(self.draw_new_builds)
+        self.scraper.error.connect(self.connection_error)
         self.scraper.start()
+
+    def connection_error(self):
+        set_locale()
+        utcnow = strftime(('%H:%M'), localtime())
+        self.set_status("Connection Error at " + utcnow)
+        self.app_state = AppState.IDLE
+
+        self.timer = threading.Timer(600.0, self.draw_downloads)
+        self.timer.start()
 
     def draw_new_builds(self, builds):
         self.cashed_builds.clear()
@@ -309,6 +322,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         for build_info in builds:
             self.draw_to_downloads(build_info)
+
+        print(self.timer)
 
         set_locale()
         utcnow = strftime(('%H:%M'), localtime())
