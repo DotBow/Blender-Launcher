@@ -2,7 +2,7 @@ QComboBox {
 	background-color:#1F1F1F;
 	color: #FFFFFF;
 	border: 1px solid #444444;
-	padding: 1px;
+	padding: 1px 1px 1px 3px;
 }
 
 QComboBox QAbstractItemView {
@@ -18,6 +18,6 @@ QComboBox::drop-down {
 }
 
 QComboBox::down-arrow {
-	image: url(:resources/icons/page_closed.svg);
+	image: url(:resources/icons/page_opened.svg);
 }
 
