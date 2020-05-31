@@ -88,14 +88,26 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         self.DefaultLibraryPageComboBox = QComboBox()
         self.DefaultLibraryPageComboBox.addItems(library_pages.keys())
-        self.DefaultLibraryPageComboBox.setCurrentIndex(get_default_library_page())
+        self.DefaultLibraryPageComboBox.setCurrentIndex(
+            get_default_library_page())
         self.DefaultLibraryPageComboBox.activated[str].connect(
             self.change_default_library_page)
 
         self.SettingsLayout.addWidget(self.LaunchMinimizedToTrayCheckBox)
         self.SettingsLayout.addWidget(self.EnableHighDpiScalingCheckBox)
-        self.SettingsLayout.addWidget(self.DefaultLibraryPageComboBox)
+        self.SettingsLayout.addWidget(QLabel("Interface:"))
 
+        self.DefaultLibraryPageLayout = QHBoxLayout()
+        self.DefaultLibraryPageLayout.setContentsMargins(1, 1, 1, 1)
+        self.DefaultLibraryPageLayout.setSpacing(0)
+
+        self.DefaultLibraryPageLayout.addWidget(
+            QLabel("Default Library Page:"), 1)
+        self.DefaultLibraryPageLayout.addWidget(
+            self.DefaultLibraryPageComboBox)
+        self.SettingsLayout.addLayout(self.DefaultLibraryPageLayout)
+
+        self.resize(self.sizeHint())
         self.show()
 
     def set_library_folder(self):
