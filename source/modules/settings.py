@@ -9,6 +9,14 @@ if get_platform() == 'Windows':
     import winreg
 
 
+library_pages = {
+    'Stable Releases': 0,
+    'Daily Builds': 1,
+    'Experimental Branches': 2,
+    'Custom Builds': 3
+}
+
+
 def get_settings():
     return QSettings('blender_launcher', 'settings')
 
@@ -95,3 +103,17 @@ def get_enable_high_dpi_scaling():
 def set_enable_high_dpi_scaling(is_checked):
     settings = get_settings()
     settings.setValue('enable_high_dpi_scaling', is_checked)
+
+
+def get_default_library_page():
+    settings = get_settings()
+
+    if settings.contains('default_library_page'):
+        return get_settings().value('default_library_page', type=int)
+    else:
+        return 0
+
+
+def set_default_library_page(page):
+    settings = get_settings()
+    settings.setValue('default_library_page', library_pages[page])

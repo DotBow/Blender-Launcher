@@ -1,9 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import (QCheckBox, QDialog, QFileDialog, QHBoxLayout,
-                             QLabel, QLineEdit, QMainWindow, QPushButton,
-                             QVBoxLayout)
+from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialog, QFileDialog,
+                             QHBoxLayout, QLabel, QLineEdit, QMainWindow,
+                             QPushButton, QVBoxLayout)
 
 from modules.settings import *
 from ui.settings_window_design import Ui_SettingsWindow
@@ -41,7 +41,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.LibraryFolderLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
         self.LibraryFolderLineEdit.setReadOnly(True)
         self.LibraryFolderLineEdit.setCursorPosition(0)
- 
+
         self.SetLibraryFolderButton = \
             QPushButton(QIcon(":resources/icons/folder.svg"), "")
         self.SetLibraryFolderButton.clicked.connect(self.set_library_folder)
@@ -86,8 +86,15 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         if get_platform() == 'Windows':
             self.SettingsLayout.addWidget(self.LaunchWhenSystemStartsCheckBox)
 
+        self.DefaultLibraryPageComboBox = QComboBox()
+        self.DefaultLibraryPageComboBox.addItems(library_pages.keys())
+        self.DefaultLibraryPageComboBox.setCurrentIndex(get_default_library_page())
+        self.DefaultLibraryPageComboBox.activated[str].connect(
+            self.change_default_library_page)
+
         self.SettingsLayout.addWidget(self.LaunchMinimizedToTrayCheckBox)
         self.SettingsLayout.addWidget(self.EnableHighDpiScalingCheckBox)
+        self.SettingsLayout.addWidget(self.DefaultLibraryPageComboBox)
 
         self.show()
 
@@ -109,3 +116,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def toggle_enable_high_dpi_scaling(self, is_checked):
         set_enable_high_dpi_scaling(is_checked)
+
+    def change_default_library_page(self, page):
+        set_default_library_page(page)

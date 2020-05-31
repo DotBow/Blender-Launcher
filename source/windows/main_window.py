@@ -162,6 +162,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.DownloadsToolBox.add_list_widget("Experimental Branches")
         self.DownloadsTab.layout().addWidget(self.DownloadsToolBox)
 
+        self.LibraryToolBox.setCurrentIndex(get_default_library_page())
+
         # Connect buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
         self.WikiButton.clicked.connect(lambda: webbrowser.open(
