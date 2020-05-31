@@ -92,6 +92,6 @@ def get_enable_high_dpi_scaling():
         return True
 
 
-def set_enable_high_dpi_scaling(app, is_checked):
+def set_enable_high_dpi_scaling(is_checked):
     settings = get_settings()
     settings.setValue('enable_high_dpi_scaling', is_checked)

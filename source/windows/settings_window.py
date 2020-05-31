@@ -108,4 +108,4 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         set_launch_minimized_to_tray(is_checked)
 
     def toggle_enable_high_dpi_scaling(self, is_checked):
-        set_enable_high_dpi_scaling(self.parent.app, is_checked)
+        set_enable_high_dpi_scaling(is_checked)
