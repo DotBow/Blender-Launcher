@@ -6,7 +6,7 @@
 
 <details>
 <summary>Screenshots</summary>
-<p>
+<p align="center">
 <img width="640" height="420" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_01.png">
 <img width="640" height="420" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_02.png">
 <img width="400" height="282" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/tray_icon.png">
