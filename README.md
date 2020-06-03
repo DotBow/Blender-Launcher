@@ -41,6 +41,13 @@ Core features:
 * Create desktop shortcut
 * Indication of running builds and its number of instances
 
+## How to start using it?
+
+* :floppy_disk: Download latest version from [releases page](https://github.com/DotBow/Blender-Launcher/releases)
+* :rocket: Follow [Installation](https://github.com/DotBow/Blender-Launcher/wiki/Installation) instructions and notes on [Wiki](https://github.com/DotBow/Blender-Launcher/wiki)
+* :speech_balloon: Use [Blender Artists Community thread](https://blenderartists.org/t/blender-launcher-standalone-software-client) to ask questions and make proposals 
+
+
 ***
 
 :sparkling_heart: Thanx for using Blender Launcher! Have a good day!
