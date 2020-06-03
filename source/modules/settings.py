@@ -57,7 +57,28 @@ def set_favorite_path(path):
 
 
 def get_launch_when_system_starts():
-    return get_settings().value('launch_when_system_starts', type=bool)
+    if get_platform() == 'Windows':
+        key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,
+                             r'SOFTWARE\Microsoft\Windows\CurrentVersion\Run')
+        path = sys.executable
+        _, count, _ = winreg.QueryInfoKey(key)
+
+        for i in range(count):
+            try:
+                name, value, _ = winreg.EnumValue(key, i)
+
+                if name == 'Blender Launcher':
+                    if value == path:
+                        return True
+                    else:
+                        return False
+            except WindowsError:
+                pass
+
+        key.Close()
+        return False
+    else:
+        return False
 
 
 def set_launch_when_system_starts(is_checked):
@@ -77,9 +98,6 @@ def set_launch_when_system_starts(is_checked):
                 pass
 
         key.Close()
-
-    settings = get_settings()
-    settings.setValue('launch_when_system_starts', is_checked)
 
 
 def get_launch_minimized_to_tray():
