@@ -117,10 +117,13 @@ class Scraper(QThread):
         content = r.data
         soup = BeautifulSoup(content, 'html.parser')
 
-        for release in soup.find_all(href=re.compile(r'Blender\d+.+')):
-            releases.append(urljoin(url, release['href']))
+        for release in soup.find_all(href=re.compile(r'Blender\d+\.\d+')):
+            href = release['href']
+            match = re.search(r'\d+\.\d+', href)
 
-        releases = releases[-4:]
+            if (float(match.group(0)) >= 2.79):
+                releases.append(urljoin(url, release['href']))
+
         stable_links = []
 
         for release in releases:
