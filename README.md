@@ -7,8 +7,8 @@
 <details>
 <summary>Screenshots</summary>
 <p align="center">
-<img width="640" height="420" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_01.png">
-<img width="640" height="420" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_02.png">
+<img width="800" height="525" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_01.png">
+<img width="800" height="525" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_02.png">
 <img width="400" height="282" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/tray_icon.png">
 </p>
 </details>
@@ -43,10 +43,14 @@ Core features:
 
 ## How to start using it?
 
-* :floppy_disk: Download latest version from [releases page](https://github.com/DotBow/Blender-Launcher/releases)
+* :floppy_disk: Download [latest version](https://github.com/DotBow/Blender-Launcher/releases/latest) from [releases page](https://github.com/DotBow/Blender-Launcher/releases)
 * :rocket: Follow [Installation](https://github.com/DotBow/Blender-Launcher/wiki/Installation) instructions and notes on [Wiki](https://github.com/DotBow/Blender-Launcher/wiki)
 * :speech_balloon: Use [Blender Artists Community thread](https://blenderartists.org/t/blender-launcher-standalone-software-client) to ask questions and make proposals 
 
+## How to say thanks to a developer?
+
+* :blush: The best reward is always feedback and a happy user face!
+* :dollar: Buy Blender Launcher on [Gumroad](https://gum.co/Blender-Launcher) for 4$ or more
 
 ***
 
