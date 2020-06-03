@@ -18,6 +18,6 @@ QComboBox::drop-down {
 }
 
 QComboBox::down-arrow {
-	image: url(:resources/icons/page_opened.svg);
+	image: url(:resources/icons/drop_down_arrow.svg);
 }
 

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="resources">
+    <file>icons/drop_down_arrow.svg</file>
     <file>icons/info.svg</file>
     <file>icons/exclamation.svg</file>
     <file>icons/wiki.svg</file>
