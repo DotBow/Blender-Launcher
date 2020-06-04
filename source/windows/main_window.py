@@ -171,9 +171,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.MinimizeButton.clicked.connect(self.showMinimized)
         self.CloseButton.clicked.connect(self.close)
 
-        self.LibraryToolBox.currentChanged.connect(self.page_changed)
-        self.DownloadsToolBox.currentChanged.connect(self.page_changed)
-
         self.StatusBar.setFont(self.font)
         self.statusbarLabel = QLabel()
         self.statusbarVersion = QLabel(self.app.applicationVersion())
@@ -221,17 +218,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.activateWindow()
         self.show()
         self.set_status()
-
-    def page_changed(self, index):
-        tool_box = self.sender()
-        icon_page_opened = QIcon(":resources/icons/page_opened.svg")
-        icon_page_closed = QIcon(":resources/icons/page_closed.svg")
-
-        for i in range(tool_box.count()):
-            if i != index:
-                tool_box.setItemIcon(i, icon_page_closed)
-
-        tool_box.setItemIcon(index, icon_page_opened)
 
     def launch_favorite(self):
         try:
