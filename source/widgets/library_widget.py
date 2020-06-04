@@ -189,7 +189,7 @@ class LibraryWidget(QWidget):
     @QtCore.pyqtSlot()
     def ask_remove_from_drive(self):
         self.dlg = DialogWindow(
-            self, title="Warning",
+            self.parent, title="Warning",
             text="Are you sure you want to delete?",
             accept_text="Yes", cancel_text="No", icon=DialogIcon.WARNING)
         self.dlg.accepted.connect(self.remove_from_drive)
