@@ -15,8 +15,8 @@ from urllib3 import PoolManager
 from items.base_list_widget_item import BaseListWidgetItem
 from modules._platform import *
 from modules.settings import *
-from threads.remover import Remover
 from threads.library_drawer import LibraryDrawer
+from threads.remover import Remover
 from threads.scraper import Scraper
 from ui.main_window_design import Ui_MainWindow
 from widgets.base_tool_box_widget import BaseToolBoxWidget
@@ -222,9 +222,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def launch_favorite(self):
         try:
             self.favorite.launch()
-        except Exception as e:
+        except Exception:
             self.dlg = DialogWindow(
-                self, text="Favorite build not found!", accept_text="OK", cancel_text=None)
+                self, text="Favorite build not found!",
+                accept_text="OK", cancel_text=None)
 
     def tray_icon_activated(self, reason):
         if reason == QSystemTrayIcon.Trigger:
@@ -233,6 +234,26 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.launch_favorite()
 
     def quit(self):
+        download_widgets = []
+
+        download_widgets.extend(self.DownloadsStableListWidget.items())
+        download_widgets.extend(self.DownloadsDailyListWidget.items())
+        download_widgets.extend(self.DownloadsExperimentalListWidget.items())
+
+        for widget in download_widgets:
+            if widget.state == DownloadState.DOWNLOADING:
+                self.dlg = DialogWindow(
+                    self, title="Warning", text="Download task in progress!<br>\
+                    Are you sure you want to quit?",
+                    accept_text="Yes", cancel_text="No",
+                    icon=DialogIcon.WARNING)
+
+                self.dlg.accepted.connect(self.quit2)
+                return
+
+        self.quit2()
+
+    def quit2(self):
         if self.timer is not None:
             self.timer.cancel()
 
