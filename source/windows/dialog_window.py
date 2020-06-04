@@ -37,6 +37,7 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
 
         self.TextLabel = QLabel(text)
         self.TextLabel.setTextFormat(Qt.RichText)
+        self.TextLabel.setTextInteractionFlags(Qt.NoTextInteraction)
         self.AcceptButton = QPushButton(accept_text)
         self.CancelButton = QPushButton(cancel_text)
 
