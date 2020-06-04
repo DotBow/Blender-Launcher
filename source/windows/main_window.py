@@ -298,19 +298,13 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         library_widgets = []
         download_widgets = []
 
-        library_widgets.extend(self.get_list_widget_items(
-            self.LibraryStableListWidget))
-        library_widgets.extend(self.get_list_widget_items(
-            self.LibraryDailyListWidget))
-        library_widgets.extend(self.get_list_widget_items(
-            self.LibraryExperimentalListWidget))
+        library_widgets.extend(self.LibraryStableListWidget.items())
+        library_widgets.extend(self.LibraryDailyListWidget.items())
+        library_widgets.extend(self.LibraryExperimentalListWidget.items())
 
-        download_widgets.extend(self.get_list_widget_items(
-            self.DownloadsStableListWidget))
-        download_widgets.extend(self.get_list_widget_items(
-            self.DownloadsDailyListWidget))
-        download_widgets.extend(self.get_list_widget_items(
-            self.DownloadsExperimentalListWidget))
+        download_widgets.extend(self.DownloadsStableListWidget.items())
+        download_widgets.extend(self.DownloadsDailyListWidget.items())
+        download_widgets.extend(self.DownloadsExperimentalListWidget.items())
 
         for widget in download_widgets:
             if widget.build_info in builds:
@@ -338,15 +332,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             if build_info in self.cashed_builds:
                 i = self.cashed_builds.index(build_info)
                 self.draw_to_downloads(self.cashed_builds[i])
-
-    def get_list_widget_items(self, list_widget):
-        items = []
-
-        for i in range(list_widget.count()):
-            item = list_widget.itemWidget(list_widget.item(i))
-            items.append(item)
-
-        return items
 
     def draw_to_downloads(self, build_info):
         branch = build_info.branch

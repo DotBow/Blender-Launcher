@@ -12,6 +12,15 @@ class BaseListWidget(QListWidget):
         row = self.row(item)
         self.takeItem(row)
 
+    def items(self):
+        items = []
+
+        for i in range(self.count()):
+            item = self.itemWidget(self.item(i))
+            items.append(item)
+
+        return items
+
     def resize_labels(self, params):
         items = []
 
