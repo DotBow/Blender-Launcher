@@ -60,3 +60,15 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
     def cancel(self):
         self.cancelled.emit()
         self.close()
+
+    def showEvent(self, event):
+        if self.parent.isVisible():
+            x = self.parent.x() + (self.parent.width() - self.width()) * 0.5
+            y = self.parent.y() + (self.parent.height() - self.height()) * 0.5
+        else:
+            size = self.parent.app.screens()[0].size()
+            x = (size.width() - self.width()) * 0.5
+            y = (size.height() - self.height()) * 0.5
+
+        self.move(x, y)
+        event.accept()

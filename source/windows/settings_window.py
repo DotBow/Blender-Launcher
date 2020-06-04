@@ -131,3 +131,11 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def change_default_library_page(self, page):
         set_default_library_page(page)
+
+    def showEvent(self, event):
+        if self.parent.isVisible():
+            x = self.parent.x() + (self.parent.width() - self.width()) * 0.5
+            y = self.parent.y() + (self.parent.height() - self.height()) * 0.5
+
+        self.move(x, y)
+        event.accept()
