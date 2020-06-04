@@ -1,8 +1,8 @@
 from enum import Enum
 
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import QSize, Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QHBoxLayout, QLabel, QMainWindow, QPushButton
 
 from modules.settings import *
 from ui.dialog_window_design import Ui_DialogWindow
@@ -24,11 +24,26 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
         super().__init__()
         self.parent = parent
         self.setupUi(self)
-
         self.setWindowTitle(title)
-        self.TextLabel.setText(text)
+
+        self.IconButton = QPushButton()
         self.IconButton.setProperty("Icon", True)
-        self.AcceptButton.setText(accept_text)
+        self.IconButton.setIconSize(QSize(48, 48))
+
+        if icon == DialogIcon.WARNING:
+            self.IconButton.setIcon(QIcon(":resources/icons/exclamation.svg"))
+        elif icon == DialogIcon.INFO:
+            self.IconButton.setIcon(QIcon(":resources/icons/info.svg"))
+
+        self.TextLabel = QLabel(text)
+        self.TextLabel.setTextFormat(Qt.RichText)
+        self.AcceptButton = QPushButton(accept_text)
+        self.CancelButton = QPushButton(cancel_text)
+
+        self.TextLayout = QHBoxLayout()
+        self.TextLayout.setContentsMargins(0, 0, 6, 0)
+        self.ButtonsLayout = QHBoxLayout()
+        self.ButtonsLayout.setContentsMargins(0, 0, 0, 0)
 
         if cancel_text is None:
             self.CancelButton.hide()
@@ -46,10 +61,15 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
         self.AcceptButton.clicked.connect(self.accept)
         self.CancelButton.clicked.connect(self.cancel)
 
-        if icon == DialogIcon.WARNING:
-            self.IconButton.setIcon(QIcon(":resources/icons/exclamation.svg"))
-        elif icon == DialogIcon.INFO:
-            self.IconButton.setIcon(QIcon(":resources/icons/info.svg"))
+        self.TextLayout.addWidget(self.IconButton)
+        self.TextLayout.addSpacing(6)
+        self.TextLayout.addWidget(self.TextLabel)
+        self.ButtonsLayout.addWidget(
+            self.AcceptButton, alignment=Qt.AlignRight, stretch=1)
+        self.ButtonsLayout.addWidget(self.CancelButton)
+
+        self.CentralLayout.addLayout(self.TextLayout)
+        self.CentralLayout.addLayout(self.ButtonsLayout)
 
         self.show()
 
