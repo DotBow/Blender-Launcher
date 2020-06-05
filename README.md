@@ -47,6 +47,26 @@ Core features:
 * :rocket: Follow [Installation](https://github.com/DotBow/Blender-Launcher/wiki/Installation) instructions and notes on [Wiki](https://github.com/DotBow/Blender-Launcher/wiki)
 * :speech_balloon: Use [Blender Artists Community thread](https://blenderartists.org/t/blender-launcher-standalone-software-client) to ask questions and make proposals 
 
+
+## Develop
+It uses [Pipenv](https://pypi.org/project/pipenv/), so install it. 
+
+#### 1.Install pipenv
+``$ pip install pipenv``
+
+#### 2.Install dependencies
+At the project root
+``$pipenv install`` or ``pipenv sync``
+
+
+#### 3.Enter the virtual environment
+Under the project root
+```$ pipenv shell```
+
+#### Run main.py
+At the project root
+``$ pipenv run start``
+
 ## How to say thanks to a developer?
 
 * :blush: The best reward is always feedback and a happy user face!

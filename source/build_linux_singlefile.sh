@@ -1,4 +1,4 @@
-PYTHONOPTIMIZE=2 /home/oleg/.local/bin/pyinstaller \
+PYTHONOPTIMIZE=2 pyinstaller \
 --clean \
 --noconsole \
 --noupx \

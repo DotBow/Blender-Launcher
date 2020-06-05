@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+bs4 = "*"
+pyqt5 = "*"
+urllib3 = "*"
+pyinstaller = "*"
+pywin32 = {version = "*",   os_name = "=='nt'"}
+
+[scripts]
+start = "python source/main.py"
+
+[requires]
+python_version = "3.8"
