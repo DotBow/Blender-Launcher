@@ -34,4 +34,4 @@ class Ui_DialogWindow(object):
     def retranslateUi(self, DialogWindow):
         _translate = QtCore.QCoreApplication.translate
         DialogWindow.setWindowTitle(_translate("DialogWindow", "MainWindow"))
-import resources.resources_rc
+import resources_rc

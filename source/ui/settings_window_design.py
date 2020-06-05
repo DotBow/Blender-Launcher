@@ -42,4 +42,4 @@ class Ui_SettingsWindow(object):
     def retranslateUi(self, SettingsWindow):
         _translate = QtCore.QCoreApplication.translate
         SettingsWindow.setWindowTitle(_translate("SettingsWindow", "MainWindow"))
-import resources.resources_rc
+import resources_rc
