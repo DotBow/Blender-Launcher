@@ -1,16 +1,16 @@
 [[source]]
-name = "pypi"
-url = "https://pypi.org/simple"
+url = "https://pypi.python.org/simple"
 verify_ssl = true
+name = "pypi"
 
 [dev-packages]
 
 [packages]
 bs4 = "*"
-pyqt5 = "*"
+pyqt5 = "==5.14.2"
 urllib3 = "*"
 pyinstaller = "*"
-pywin32 = {version = "*",   os_name = "=='nt'"}
+pywin32 = {version = "*", os_name = "=='nt'"}
 
 [scripts]
 start = "python source/main.py"
