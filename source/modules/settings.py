@@ -9,6 +9,17 @@ if get_platform() == 'Windows':
     import winreg
 
 
+taskbar_icon_colors = {
+    'White': 0,
+    'Black': 1
+}
+
+taskbar_icon_paths = {
+    0: ':resources/icons/tray.ico',
+    1: ':resources/icons/tray_black.ico'
+}
+
+
 library_pages = {
     'Stable Releases': 0,
     'Daily Builds': 1,
@@ -135,3 +146,17 @@ def get_default_library_page():
 def set_default_library_page(page):
     settings = get_settings()
     settings.setValue('default_library_page', library_pages[page])
+
+
+def get_taskbar_icon_color():
+    settings = get_settings()
+
+    if settings.contains('taskbar_icon_color'):
+        return get_settings().value('taskbar_icon_color', type=int)
+    else:
+        return 0
+
+
+def set_taskbar_icon_color(color):
+    settings = get_settings()
+    settings.setValue('taskbar_icon_color', taskbar_icon_colors[color])

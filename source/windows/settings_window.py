@@ -86,6 +86,33 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         if get_platform() == 'Windows':
             self.SettingsLayout.addWidget(self.LaunchWhenSystemStartsCheckBox)
 
+        self.SettingsLayout.addWidget(self.LaunchMinimizedToTrayCheckBox)
+        self.SettingsLayout.addWidget(self.EnableHighDpiScalingCheckBox)
+        self.SettingsLayout.addWidget(QLabel("Interface:"))
+
+        # Taskbar Icon Color Layout
+        self.TaskbarIconColorLayout = QHBoxLayout()
+        self.TaskbarIconColorLayout.setContentsMargins(1, 1, 1, 1)
+        self.TaskbarIconColorLayout.setSpacing(0)
+
+        self.TaskbarIconColorComboBox = QComboBox()
+        self.TaskbarIconColorComboBox.addItems(taskbar_icon_colors.keys())
+        self.TaskbarIconColorComboBox.setCurrentIndex(
+            get_taskbar_icon_color())
+        self.TaskbarIconColorComboBox.activated[str].connect(
+            self.change_taskbar_icon_color)
+
+        self.TaskbarIconColorLayout.addWidget(
+            QLabel("Taskbar Icon Color"))
+        self.TaskbarIconColorLayout.addWidget(
+            self.TaskbarIconColorComboBox)
+        self.SettingsLayout.addLayout(self.TaskbarIconColorLayout)
+
+        # Default Library Page Layout
+        self.DefaultLibraryPageLayout = QHBoxLayout()
+        self.DefaultLibraryPageLayout.setContentsMargins(1, 1, 1, 1)
+        self.DefaultLibraryPageLayout.setSpacing(0)
+
         self.DefaultLibraryPageComboBox = QComboBox()
         self.DefaultLibraryPageComboBox.addItems(library_pages.keys())
         self.DefaultLibraryPageComboBox.setCurrentIndex(
@@ -93,16 +120,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.DefaultLibraryPageComboBox.activated[str].connect(
             self.change_default_library_page)
 
-        self.SettingsLayout.addWidget(self.LaunchMinimizedToTrayCheckBox)
-        self.SettingsLayout.addWidget(self.EnableHighDpiScalingCheckBox)
-        self.SettingsLayout.addWidget(QLabel("Interface:"))
-
-        self.DefaultLibraryPageLayout = QHBoxLayout()
-        self.DefaultLibraryPageLayout.setContentsMargins(1, 1, 1, 1)
-        self.DefaultLibraryPageLayout.setSpacing(0)
-
         self.DefaultLibraryPageLayout.addWidget(
-            QLabel("Default Library Page:"), 1)
+            QLabel("Default Library Page"))
         self.DefaultLibraryPageLayout.addWidget(
             self.DefaultLibraryPageComboBox)
         self.SettingsLayout.addLayout(self.DefaultLibraryPageLayout)
@@ -131,6 +150,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def change_default_library_page(self, page):
         set_default_library_page(page)
+
+    def change_taskbar_icon_color(self, color):
+        set_taskbar_icon_color(color)
 
     def showEvent(self, event):
         if self.parent.isVisible():
