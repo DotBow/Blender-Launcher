@@ -1,7 +1,7 @@
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QToolBox
 
-from widgets.base_list_widget import BaseListWidget
+from widgets.base_page_widget import BasePageWidget
 
 
 class BaseToolBoxWidget(QToolBox):
@@ -13,11 +13,11 @@ class BaseToolBoxWidget(QToolBox):
         self.currentChanged.connect(self.current_changed)
 
     def add_list_widget(self, name):
-        list_widget = BaseListWidget()
-        self.addItem(list_widget, QIcon(
+        page_widget = BasePageWidget()
+        self.addItem(page_widget, QIcon(
             ":resources/icons/page_closed.svg"), name)
 
-        return list_widget
+        return page_widget.list_widget
 
     def current_changed(self, index):
         icon_page_opened = QIcon(":resources/icons/page_opened.svg")
