@@ -102,5 +102,4 @@ class DownloadWidget(QWidget):
 
     def destroy(self):
         if self.state == DownloadState.WAITING:
-            row = self.list_widget.row(self.item)
-            self.list_widget.takeItem(row)
+            self.list_widget.remove_item(self.item)
