@@ -1,9 +1,8 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialog, QFileDialog,
-                             QHBoxLayout, QLabel, QLineEdit, QMainWindow,
-                             QPushButton, QVBoxLayout)
+from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFileDialog, QHBoxLayout,
+                             QLabel, QLineEdit, QMainWindow, QPushButton,
+                             QVBoxLayout)
 
 from modules.settings import *
 from ui.settings_window_design import Ui_SettingsWindow

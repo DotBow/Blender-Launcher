@@ -1,10 +1,9 @@
 import os
 import subprocess
-import sys
 from pathlib import Path
-from subprocess import DEVNULL, PIPE, STDOUT, Popen
+from subprocess import Popen
 
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor, QIcon
 from PyQt5.QtWidgets import (QAction, QHBoxLayout, QLabel, QMenu, QPushButton,

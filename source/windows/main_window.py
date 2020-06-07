@@ -7,9 +7,9 @@ from time import localtime, strftime
 from PyQt5.QtCore import QFile, QSize, Qt, QTextStream
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 from PyQt5.QtNetwork import QLocalServer
-from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QHBoxLayout,
-                             QLabel, QMainWindow, QMenu, QPushButton,
-                             QSystemTrayIcon, QTabWidget, QVBoxLayout, QWidget)
+from PyQt5.QtWidgets import (QAction, QFileDialog, QHBoxLayout, QLabel,
+                             QMainWindow, QMenu, QPushButton, QSystemTrayIcon,
+                             QTabWidget, QVBoxLayout, QWidget)
 from urllib3 import PoolManager
 
 from items.base_list_widget_item import BaseListWidgetItem
