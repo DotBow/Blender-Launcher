@@ -291,6 +291,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.library_drawer.start()
 
     def draw_downloads(self):
+        for page in self.DownloadsToolBox.pages:
+            page.set_info_label_text("Checking for new builds")
+
         self.app_state = AppState.CHECKINGBUILDS
         self.set_status("Checking for new builds")
         self.scraper = Scraper(self, self.manager)
@@ -339,6 +342,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         utcnow = strftime(('%H:%M'), localtime())
         self.set_status("Last check at " + utcnow)
         self.app_state = AppState.IDLE
+        for page in self.DownloadsToolBox.pages:
+            page.set_info_label_text("No new builds available")
 
         self.timer = threading.Timer(600.0, self.draw_downloads)
         self.timer.start()
