@@ -144,23 +144,30 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.LibraryToolBox = BaseToolBoxWidget(self)
 
         self.LibraryStableListWidget = \
-            self.LibraryToolBox.add_list_widget("Stable Releases")
+            self.LibraryToolBox.add_list_widget(
+                "Stable Releases", "Nothing to show yet")
         self.LibraryDailyListWidget = \
-            self.LibraryToolBox.add_list_widget("Daily Builds")
+            self.LibraryToolBox.add_list_widget(
+                "Daily Builds", "Nothing to show yet")
         self.LibraryExperimentalListWidget = \
-            self.LibraryToolBox.add_list_widget("Experimental Branches")
+            self.LibraryToolBox.add_list_widget(
+                "Experimental Branches", "Nothing to show yet")
         self.LibraryCustomListWidget = \
-            self.LibraryToolBox.add_list_widget("Custom Builds")
+            self.LibraryToolBox.add_list_widget(
+                "Custom Builds", "Nothing to show yet")
         self.LibraryTab.layout().addWidget(self.LibraryToolBox)
 
         self.DownloadsToolBox = BaseToolBoxWidget(self)
 
         self.DownloadsStableListWidget = \
-            self.DownloadsToolBox.add_list_widget("Stable Releases")
+            self.DownloadsToolBox.add_list_widget(
+                "Stable Releases", "No new builds available")
         self.DownloadsDailyListWidget = \
-            self.DownloadsToolBox.add_list_widget("Daily Builds")
+            self.DownloadsToolBox.add_list_widget(
+                "Daily Builds", "No new builds available")
         self.DownloadsExperimentalListWidget = \
-            self.DownloadsToolBox.add_list_widget("Experimental Branches")
+            self.DownloadsToolBox.add_list_widget(
+                "Experimental Branches", "No new builds available")
         self.DownloadsTab.layout().addWidget(self.DownloadsToolBox)
 
         self.LibraryToolBox.setCurrentIndex(get_default_library_page())

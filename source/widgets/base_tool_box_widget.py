@@ -12,8 +12,8 @@ class BaseToolBoxWidget(QToolBox):
         self.layout().setSpacing(0)
         self.currentChanged.connect(self.current_changed)
 
-    def add_list_widget(self, name):
-        page_widget = BasePageWidget()
+    def add_list_widget(self, name, text):
+        page_widget = BasePageWidget(self, text)
         self.addItem(page_widget, QIcon(
             ":resources/icons/page_closed.svg"), name)
 

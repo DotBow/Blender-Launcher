@@ -5,7 +5,7 @@ from widgets.base_list_widget import BaseListWidget
 
 
 class BasePageWidget(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent, text):
         super().__init__()
 
         self.setProperty("ToolBoxWidget", True)
@@ -27,7 +27,8 @@ class BasePageWidget(QWidget):
 
         self.InfoLabelLayout = QHBoxLayout()
         self.InfoLabelLayout.setContentsMargins(0, 0, 0, 6)
-        self.InfoLabelLayout.addWidget(QLabel("Nothing to show yet"))
+        self.InfoLabel = QLabel(text)
+        self.InfoLabelLayout.addWidget(self.InfoLabel)
 
         self.list_widget = BaseListWidget(self)
         self.list_widget.hide()
@@ -39,3 +40,6 @@ class BasePageWidget(QWidget):
 
         self.layout.addWidget(self.PlaceholderWidget)
         self.layout.addWidget(self.list_widget)
+
+    def set_info_label_text(self, text):
+        self.InfoLabel.setText(text)
