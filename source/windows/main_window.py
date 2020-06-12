@@ -257,12 +257,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                     accept_text="Yes", cancel_text="No",
                     icon=DialogIcon.WARNING)
 
-                self.dlg.accepted.connect(self.quit2)
+                self.dlg.accepted.connect(self.destroy)
                 return
 
-        self.quit2()
+        self.destroy()
 
-    def quit2(self):
+    def destroy(self):
         if self.timer is not None:
             self.timer.cancel()
 
