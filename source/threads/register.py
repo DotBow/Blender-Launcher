@@ -1,6 +1,6 @@
 import subprocess
 from pathlib import Path
-from subprocess import DEVNULL, PIPE, STDOUT, Popen
+from subprocess import DEVNULL, PIPE, STDOUT
 
 from PyQt5.QtCore import QThread, pyqtSignal
 

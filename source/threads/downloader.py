@@ -1,10 +1,8 @@
-import json
 import os
 import tarfile
 import zipfile
 from pathlib import Path
 
-from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal
 
 from modules._platform import get_platform
