@@ -1,3 +1,4 @@
+import re
 import threading
 import webbrowser
 from enum import Enum
@@ -298,6 +299,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.set_status("Checking for new builds")
         self.scraper = Scraper(self, self.manager)
         self.scraper.links.connect(self.draw_new_builds)
+        self.scraper.new_bl_version.connect(self.set_version)
         self.scraper.error.connect(self.connection_error)
         self.scraper.start()
 
@@ -391,6 +393,15 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.status = status
 
         self.statusbarLabel.setText("Status: {0}".format(self.status))
+
+    def set_version(self, latest_tag):
+        current_tag = self.app.applicationVersion()
+        latest_ver = re.sub(r'\D', '', latest_tag)
+        current_ver = re.sub(r'\D', '', current_tag)
+
+        if int(latest_ver) > int(current_ver):
+            self.statusbarVersion.setText(
+                "New version {0} is available | {1}".format(latest_tag.replace('v', ''), current_tag))
 
     def show_settings_window(self):
         self.settings_window = SettingsWindow(self)

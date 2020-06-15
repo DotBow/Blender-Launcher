@@ -12,6 +12,7 @@ from modules.build_info import BuildInfo
 
 class Scraper(QThread):
     links = pyqtSignal('PyQt_PyObject')
+    new_bl_version = pyqtSignal('PyQt_PyObject')
     error = pyqtSignal()
 
     def __init__(self, parent, man):
@@ -22,11 +23,24 @@ class Scraper(QThread):
     def run(self):
         try:
             self.links.emit(self.get_download_links())
+            self.new_bl_version.emit(self.get_latest_tag())
         except Exception:
             self.error.emit()
 
         self.manager.clear()
         return
+
+    def get_latest_tag(self):
+        r = self.manager.request(
+            'GET', 'https://github.com/DotBow/Blender-Launcher/releases/latest')
+
+        url = r.geturl()
+        tag = url.rsplit('/', 1)[-1]
+
+        r.release_conn()
+        r.close()
+
+        return tag
 
     def get_download_links(self):
         links = []
