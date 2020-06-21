@@ -25,7 +25,6 @@ class DownloadWidget(QWidget):
 
         self.progressBar = QProgressBar()
         self.progressBar.setAlignment(Qt.AlignCenter)
-        self.progressBar.setMinimumWidth(135)
         self.progressBar.hide()
 
         self.downloadButton = QPushButton("Download")
@@ -47,24 +46,28 @@ class DownloadWidget(QWidget):
             self.cancelButton, alignment=Qt.AlignRight)
 
         self.subversionLabel = QLabel(self.build_info.subversion)
+        self.subversionLabel.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.branchLabel = QLabel(
             self.build_info.branch.replace('-', ' ').title())
+        self.branchLabel.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.commitTimeLabel = QLabel(self.build_info.commit_time)
+        self.commitTimeLabel.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.buildHashLabel = QLabel(self.build_info.build_hash)
-        self.buildHashLabel.setSizePolicy(
-            QSizePolicy.Ignored, QSizePolicy.Fixed)
+        self.buildHashLabel.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.progressBar.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
 
         layout.addWidget(self.subversionLabel)
         layout.addWidget(self.branchLabel)
         layout.addWidget(self.commitTimeLabel)
-        layout.addWidget(self.buildHashLabel, stretch=1)
-        layout.addWidget(self.progressBar)
+        layout.addWidget(self.buildHashLabel)
+        layout.addStretch()
+        layout.addWidget(self.progressBar, stretch=1)
 
         self.setLayout(layout)
 
     def showEvent(self, event):
         self.list_widget.resize_labels(
-            ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
+            ('subversionLabel', 'branchLabel', 'commitTimeLabel', 'buildHashLabel'))
 
     def init_download(self):
         self.state = DownloadState.DOWNLOADING
