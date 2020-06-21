@@ -38,12 +38,8 @@ class DownloadWidget(QWidget):
         self.cancelButton.clicked.connect(self.download_cancelled)
         self.cancelButton.hide()
 
-        layout = QHBoxLayout()
-        layout.setContentsMargins(2, 2, 2, 2)
-        layout.addWidget(
-            self.downloadButton, alignment=Qt.AlignRight)
-        layout.addWidget(
-            self.cancelButton, alignment=Qt.AlignRight)
+        self.layout = QHBoxLayout()
+        self.layout.setContentsMargins(2, 2, 2, 2)
 
         self.subversionLabel = QLabel(self.build_info.subversion)
         self.branchLabel = QLabel(
@@ -52,14 +48,16 @@ class DownloadWidget(QWidget):
         self.buildHashLabel = QLabel(self.build_info.build_hash)
         self.progressBar.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
 
-        layout.addWidget(self.subversionLabel)
-        layout.addWidget(self.branchLabel)
-        layout.addWidget(self.commitTimeLabel)
-        layout.addWidget(self.buildHashLabel)
-        layout.addStretch()
-        layout.addWidget(self.progressBar, stretch=1)
+        self.layout.addWidget(self.downloadButton)
+        self.layout.addWidget(self.cancelButton)
+        self.layout.addWidget(self.subversionLabel)
+        self.layout.addWidget(self.branchLabel)
+        self.layout.addWidget(self.commitTimeLabel)
+        self.layout.addWidget(self.buildHashLabel)
+        self.layout.addStretch()
+        self.layout.addWidget(self.progressBar, stretch=1)
 
-        self.setLayout(layout)
+        self.setLayout(self.layout)
 
     def showEvent(self, event):
         self.list_widget.resize_labels(
