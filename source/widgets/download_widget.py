@@ -46,14 +46,14 @@ class DownloadWidget(QWidget):
             self.cancelButton, alignment=Qt.AlignRight)
 
         self.subversionLabel = QLabel(self.build_info.subversion)
-        self.subversionLabel.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        # self.subversionLabel.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.branchLabel = QLabel(
             self.build_info.branch.replace('-', ' ').title())
-        self.branchLabel.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        # self.branchLabel.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.commitTimeLabel = QLabel(self.build_info.commit_time)
-        self.commitTimeLabel.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        # self.commitTimeLabel.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.buildHashLabel = QLabel(self.build_info.build_hash)
-        self.buildHashLabel.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        # self.buildHashLabel.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.progressBar.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
 
         layout.addWidget(self.subversionLabel)
