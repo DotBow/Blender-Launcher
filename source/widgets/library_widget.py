@@ -40,17 +40,14 @@ class LibraryWidget(QWidget):
         self.layout.setContentsMargins(2, 2, 2, 2)
         self.setLayout(self.layout)
 
+        self.infoLabel = QLabel("Loading build information...")
+
         self.launchButton = QPushButton("Launch")
         self.launchButton.setMinimumWidth(75)
-        self.launchButton.setProperty("LaunchButton", True)
+        self.launchButton.setProperty("CancelButton", True)
 
-        self.buildHashLabel = QLabel("Loading build information...")
-        self.buildHashLabel.setSizePolicy(
-            QSizePolicy.Ignored, QSizePolicy.Fixed)
-
-        self.layout.addWidget(
-            self.launchButton, alignment=QtCore.Qt.AlignRight)
-        self.layout.addWidget(self.buildHashLabel, stretch=1)
+        self.layout.addWidget(self.launchButton)
+        self.layout.addWidget(self.infoLabel, stretch=1)
 
         self.thread = BuildInfoReader(link)
         self.thread.finished.connect(self.draw)
@@ -60,56 +57,67 @@ class LibraryWidget(QWidget):
 
     def draw(self, build_info):
         if build_info is None:
-            self.buildHashLabel.setText(
+            self.infoLabel.setText(
                 ("Build *{0}* is damaged!").format(Path(self.link).name))
             self.launchButton.setText("Delete")
-            self.launchButton.setProperty("LaunchButton", False)
-            self.launchButton.setProperty("CancelButton", True)
-            self.launchButton.style().unpolish(self.launchButton)
-            self.launchButton.style().polish(self.launchButton)
             self.launchButton.clicked.connect(self.ask_remove_from_drive)
             self.setEnabled(True)
             return
 
-        self.launchButton.clicked.connect(self.launch)
-
-        self.item.date = build_info.commit_time
-        self.icon_favorite = QIcon(":resources/icons/favorite.svg")
-        self.icon_fake = QIcon(":resources/icons/fake.svg")
-        self.icon_delete = QIcon(":resources/icons/delete.svg")
-        self.widgetFavorite = QPushButton()
-        self.widgetFavorite.setEnabled(False)
-        self.widgetFavorite.setFixedSize(24, 24)
-        self.widgetFavorite.setIcon(self.icon_favorite)
-        self.widgetFavorite.setProperty("Icon", True)
+        for i in reversed(range(self.layout.count())):
+            self.layout.itemAt(i).widget().setParent(None)
 
         self.build_info = build_info
         self.branch = self.build_info.branch
+        self.item.date = build_info.commit_time
 
-        self.buildHashLabel.setText(self.build_info.build_hash)
-        self.subversionLabel = QLabel(self.build_info.subversion)
-        self.branchLabel = QLabel(self.branch.replace('-', ' ').title())
-        self.commitTimeLabel = QLabel(self.build_info.commit_time)
+        self.icon_favorite = QIcon(":resources/icons/favorite.svg")
+        self.icon_fake = QIcon(":resources/icons/fake.svg")
+        self.icon_delete = QIcon(":resources/icons/delete.svg")
 
-        self.layout.addWidget(self.subversionLabel)
-        self.layout.addWidget(self.branchLabel)
-        self.layout.addWidget(self.commitTimeLabel)
-        self.layout.removeWidget(self.buildHashLabel)
-        self.layout.addWidget(self.buildHashLabel, stretch=1)
+        self.launchButton = QPushButton("Launch")
+        self.launchButton.setMinimumWidth(75)
+        self.launchButton.setProperty("LaunchButton", True)
+
+        self.subversionLabel = QLabel()
+        self.branchLabel = QLabel()
+        self.commitTimeLabel = QLabel()
+        self.buildHashLabel = QLabel()
 
         self.countButton = QPushButton("0")
         self.countButton.setEnabled(False)
         self.countButton.setProperty("Count", True)
         self.countButton.hide()
         self.countButton.setFixedSize(24, 24)
+
+        self.widgetFavorite = QPushButton()
+        self.widgetFavorite.setEnabled(False)
+        self.widgetFavorite.setFixedSize(24, 24)
+        self.widgetFavorite.setIcon(self.icon_favorite)
+        self.widgetFavorite.setProperty("Icon", True)
+
+        self.layout.addWidget(self.launchButton)
+        self.layout.addWidget(self.subversionLabel)
+        self.layout.addWidget(self.branchLabel)
+        self.layout.addWidget(self.commitTimeLabel)
+        self.layout.addWidget(self.buildHashLabel)
+        self.layout.addStretch()
         self.layout.addWidget(self.countButton)
         self.layout.addWidget(self.widgetFavorite)
+
+        self.launchButton.clicked.connect(self.launch)
+        self.subversionLabel.setText(self.build_info.subversion)
+        self.branchLabel.setText(self.branch.replace('-', ' ').title())
+        self.commitTimeLabel.setText(self.build_info.commit_time)
+        self.buildHashLabel.setText(self.build_info.build_hash)
 
         # Context menu
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.context_menu)
 
         self.menu = QMenu()
+        self.menu.setFont(self.parent.font)
+
         self.deleteAction = QAction("Delete From Drive", self)
         self.deleteAction.setIcon(self.icon_delete)
         self.deleteAction.triggered.connect(self.ask_remove_from_drive)
@@ -135,7 +143,6 @@ class LibraryWidget(QWidget):
         self.menu.addAction(self.createShortcutAction)
         self.menu.addAction(self.showFolderAction)
         self.menu.addAction(self.deleteAction)
-        self.menu.setFont(self.parent.font)
 
         if get_favorite_path() == self.link:
             self.set_favorite()
@@ -145,7 +152,7 @@ class LibraryWidget(QWidget):
         self.setEnabled(True)
         self.list_widget.sortItems()
         self.list_widget.resize_labels(
-            ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
+            ('subversionLabel', 'branchLabel', 'commitTimeLabel', 'buildHashLabel'))
 
     def context_menu(self):
         self.menu.exec_(QCursor.pos())
