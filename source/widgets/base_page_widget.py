@@ -1,5 +1,7 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QHBoxLayout, QLabel, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QPushButton, QSizePolicy,
+                             QVBoxLayout, QWidget)
 
 from widgets.base_list_widget import BaseListWidget
 
@@ -8,14 +10,13 @@ class BasePageWidget(QWidget):
     def __init__(self, parent, text):
         super().__init__()
 
-        self.setProperty("ToolBoxWidget", True)
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.layout.setSpacing(0)
 
+        # Placeholder Widget
         self.PlaceholderWidget = QWidget()
         self.PlaceholderWidget.setProperty("ToolBoxWidget", True)
-        self.PlaceholderWidget.setObjectName("PlaceholderWidget")
         self.PlaceholderLayout = QHBoxLayout(self.PlaceholderWidget)
         self.PlaceholderLayout.setContentsMargins(0, 0, 0, 0)
 
@@ -38,6 +39,32 @@ class BasePageWidget(QWidget):
         self.PlaceholderLayout.addLayout(self.InfoLabelLayout)
         self.PlaceholderLayout.addStretch()
 
+        # Header Widget
+        self.HeaderWidget = QWidget()
+        self.HeaderWidget.hide()
+        self.HeaderWidget.setProperty("ToolBoxWidget", True)
+        self.HeaderLayout = QHBoxLayout(self.HeaderWidget)
+        self.HeaderLayout.setContentsMargins(2, 2, 2, 2)
+
+        self.fakeLabel = QLabel()
+        self.subversionLabel = QLabel("Version")
+        self.subversionLabel.setAlignment(Qt.AlignCenter)
+        self.branchLabel = QLabel("Branch")
+        self.branchLabel.setAlignment(Qt.AlignCenter)
+        self.commitTimeLabel = QLabel("Commit Time")
+        self.commitTimeLabel.setAlignment(Qt.AlignCenter)
+        self.buildHashLabel = QLabel("Hash")
+        self.buildHashLabel.setAlignment(Qt.AlignCenter)
+
+        self.HeaderLayout.addWidget(self.fakeLabel)
+        self.HeaderLayout.addWidget(self.subversionLabel)
+        self.HeaderLayout.addWidget(self.branchLabel)
+        self.HeaderLayout.addWidget(self.commitTimeLabel)
+        self.HeaderLayout.addWidget(self.buildHashLabel)
+        self.HeaderLayout.addStretch()
+
+        # Final layout
+        self.layout.addWidget(self.HeaderWidget)
         self.layout.addWidget(self.PlaceholderWidget)
         self.layout.addWidget(self.list_widget)
 

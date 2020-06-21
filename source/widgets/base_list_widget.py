@@ -28,10 +28,12 @@ class BaseListWidget(QListWidget):
 
     def count_changed(self):
         if self.count() > 0:
-            self.parent.PlaceholderWidget.hide()
             self.show()
+            self.parent.HeaderWidget.show()
+            self.parent.PlaceholderWidget.hide()
         else:
             self.hide()
+            self.parent.HeaderWidget.hide()
             self.parent.PlaceholderWidget.show()
 
     def items(self):
@@ -51,13 +53,22 @@ class BaseListWidget(QListWidget):
 
             if hasattr(item, 'subversionLabel'):
                 items.append(item)
-            else:
-                return
 
         for param in params:
-            item = max(
-                items, key=lambda item: getattr(item, param).minimumSizeHint().width())
-            width = getattr(item, param).minimumSizeHint().width()
+            widths = [getattr(item, param).minimumSizeHint().width()
+                      for item in items]
+            widths.append(
+                getattr(self.parent, param).minimumSizeHint().width())
+            max_width = max(widths)
 
             for item in items:
-                getattr(item, param).setFixedWidth(width)
+                getattr(item, param).setFixedWidth(max_width)
+
+            getattr(self.parent, param).setFixedWidth(max_width)
+
+        if hasattr(item, 'launchButton'):
+            b_width = getattr(item, 'launchButton').minimumWidth()
+        else:
+            b_width = getattr(item, 'downloadButton').minimumWidth()
+
+        getattr(self.parent, 'fakeLabel').setMinimumWidth(b_width)
