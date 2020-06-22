@@ -49,6 +49,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.status = "None"
         self.app_state = AppState.IDLE
         self.cashed_builds = []
+        self.notification_pool = []
         self.manager = PoolManager(200)
         self.timer = None
 
@@ -214,6 +215,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.tray_icon.setToolTip("Blender Launcher")
         self.tray_icon.activated.connect(self.tray_icon_activated)
         self.tray_icon.setContextMenu(tray_menu)
+        self.tray_icon.messageClicked.connect(self._show)
         self.tray_icon.show()
 
         # Forse style update
@@ -228,6 +230,14 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.activateWindow()
         self.show()
         self.set_status()
+
+    def show_message(self, message, value):
+        if value not in self.notification_pool:
+            self.notification_pool.append(value)
+            self.tray_icon.showMessage(
+                "Blender Launcher", message,
+                QIcon(taskbar_icon_paths[get_taskbar_icon_color()]),
+                10000)
 
     def launch_favorite(self):
         try:
@@ -402,6 +412,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         if int(latest_ver) > int(current_ver):
             self.statusbarVersion.setText(
                 "New version {0} is available | {1}".format(latest_tag.replace('v', ''), current_tag))
+            self.show_message(
+                "New version of Blender Launcher is available!", "new_blender_version")
 
     def show_settings_window(self):
         self.settings_window = SettingsWindow(self)
