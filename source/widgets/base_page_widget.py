@@ -7,7 +7,7 @@ from widgets.base_list_widget import BaseListWidget
 
 
 class BasePageWidget(QWidget):
-    def __init__(self, parent, text):
+    def __init__(self, parent, text, show_hash=True):
         super().__init__()
 
         self.layout = QVBoxLayout(self)
@@ -60,7 +60,10 @@ class BasePageWidget(QWidget):
         self.HeaderLayout.addWidget(self.subversionLabel)
         self.HeaderLayout.addWidget(self.branchLabel)
         self.HeaderLayout.addWidget(self.commitTimeLabel)
-        self.HeaderLayout.addWidget(self.buildHashLabel)
+
+        if show_hash:
+            self.HeaderLayout.addWidget(self.buildHashLabel)
+
         self.HeaderLayout.addStretch()
 
         # Final layout
