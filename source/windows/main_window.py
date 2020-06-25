@@ -183,8 +183,14 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         self.StatusBar.setFont(self.font)
         self.statusbarLabel = QLabel()
+        self.statusbarLabel.setIndent(8)
+        self.NewVersionButton = QPushButton()
+        self.NewVersionButton.hide()
+        self.NewVersionButton.clicked.connect(lambda: webbrowser.open(
+            "https://github.com/DotBow/Blender-Launcher/releases/latest"))
         self.statusbarVersion = QLabel(self.app.applicationVersion())
         self.StatusBar.addPermanentWidget(self.statusbarLabel, 1)
+        self.StatusBar.addPermanentWidget(self.NewVersionButton)
         self.StatusBar.addPermanentWidget(self.statusbarVersion)
 
         # Draw library
@@ -410,10 +416,13 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         current_ver = re.sub(r'\D', '', current_tag)
 
         if int(latest_ver) > int(current_ver):
-            self.statusbarVersion.setText(
-                "New version {0} is available | {1}".format(latest_tag.replace('v', ''), current_tag))
-            self.show_message(
-                "New version of Blender Launcher is available!", "new_blender_version")
+            if latest_tag not in self.notification_pool:
+                self.NewVersionButton.setText(
+                    "New version {0} is available".
+                    format(latest_tag.replace('v', '')))
+                self.NewVersionButton.show()
+                self.show_message(
+                    "New version of Blender Launcher is available!", latest_tag)
 
     def show_settings_window(self):
         self.settings_window = SettingsWindow(self)
