@@ -21,6 +21,7 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
                  accept_text="Accept", cancel_text="Cancel",
                  icon=DialogIcon.WARNING):
         super().__init__()
+        self.setWindowFlag(Qt.SubWindow)
         self.parent = parent
         self.setupUi(self)
         self.setWindowTitle(title)
