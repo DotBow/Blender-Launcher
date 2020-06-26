@@ -26,8 +26,14 @@ class BaseWindow(QWidget):
     def mouseMoveEvent(self, event):
         if self.pressing:
             delta = QPoint(event.globalPos() - self.pos)
-            self.move(self.x() + delta.x(), self.y() + delta.y())
+            self.moveWindow(delta)
             self.pos = event.globalPos()
+
+    def moveWindow(self, delta):
+        self.move(self.x() + delta.x(), self.y() + delta.y())
+
+        if self.parent is not None:
+            self.parent.moveWindow(delta)
 
     def mouseReleaseEvent(self, QMouseEvent):
         self.pressing = False
