@@ -12,6 +12,8 @@ from windows.base_window import BaseWindow
 class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def __init__(self, parent):
         super().__init__()
+        self.setWindowFlag(Qt.SubWindow)
+
         self.parent = parent
         self.setupUi(self)
 
