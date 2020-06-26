@@ -12,6 +12,7 @@ class BaseWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_DeleteOnClose)
         self.pos = self.pos()
         self.pressing = False
 
