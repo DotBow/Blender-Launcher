@@ -5,7 +5,7 @@ from enum import Enum
 from pathlib import Path
 from time import localtime, strftime
 
-from PyQt5.QtCore import QFile, QSize, Qt, QTextStream
+from PyQt5.QtCore import QFile, QSize, Qt, QTextStream, pyqtSignal
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 from PyQt5.QtNetwork import QLocalServer
 from PyQt5.QtWidgets import (QAction, QFileDialog, QHBoxLayout, QLabel,
@@ -34,6 +34,9 @@ class AppState(Enum):
 
 
 class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
+    show_signal = pyqtSignal()
+    close_signal = pyqtSignal()
+
     def __init__(self, app):
         super().__init__()
         self.setupUi(self)
@@ -50,6 +53,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app_state = AppState.IDLE
         self.cashed_builds = []
         self.notification_pool = []
+        self.windows = [self]
         self.manager = PoolManager(200)
         self.timer = None
 
@@ -200,7 +204,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         quit_action = QAction("Quit", self)
         quit_action.triggered.connect(self.quit)
         hide_action = QAction("Hide", self)
-        hide_action.triggered.connect(self.hide)
+        hide_action.triggered.connect(self.close)
         show_action = QAction("Show", self)
         show_action.triggered.connect(self._show)
         launch_favorite_action = QAction(
@@ -236,6 +240,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.activateWindow()
         self.show()
         self.set_status()
+        self.show_signal.emit()
 
     def show_message(self, message, value):
         if value not in self.notification_pool:
@@ -435,6 +440,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def closeEvent(self, event):
         event.ignore()
         self.hide()
+        self.close_signal.emit()
 
     def new_connection(self):
         self._show()
