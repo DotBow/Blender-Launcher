@@ -59,7 +59,7 @@ class Downloader(QThread):
 
         if self.platform == 'Windows':
             zf = zipfile.ZipFile(temp_folder)
-            version = zf.infolist()[0].filename.split('/')[0]
+            folder = zf.infolist()[0].filename.split('/')[0]
             uncompress_size = sum((file.file_size for file in zf.infolist()))
             extracted_size = 0
 
@@ -70,10 +70,9 @@ class Downloader(QThread):
                 self.progress_changed.emit(progress, "Extracting: %p%")
 
             zf.close()
-            path = Path(self.build_info.link).stem
         elif self.platform == 'Linux':
             tar = tarfile.open(temp_folder)
-            version = tar.getnames()[0].split('/')[0]
+            folder = tar.getnames()[0].split('/')[0]
             uncompress_size = sum((member.size for member in tar.getmembers()))
             extracted_size = 0
 
@@ -84,7 +83,6 @@ class Downloader(QThread):
                 self.progress_changed.emit(progress,  "Extracting: %p%")
 
             tar.close()
-            path = Path(self.build_info.link).stem.replace('.tar', '')
 
-        self.finished.emit(dist / path)
+        self.finished.emit(dist / folder)
         return
