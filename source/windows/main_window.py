@@ -89,7 +89,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         library_folder = Path.cwd().as_posix()
         new_library_folder = QFileDialog.getExistingDirectory(
             self, "Select Library Folder", library_folder,
-            options=QFileDialog.DontUseNativeDialog)
+            options=QFileDialog.DontUseNativeDialog | QFileDialog.ShowDirsOnly)
 
         if new_library_folder:
             set_library_folder(new_library_folder)

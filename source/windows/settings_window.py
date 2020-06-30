@@ -134,7 +134,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         library_folder = str(get_library_folder())
         new_library_folder = QFileDialog.getExistingDirectory(
             self, "Select Library Folder", library_folder,
-            options=QFileDialog.DontUseNativeDialog)
+            options=QFileDialog.DontUseNativeDialog | QFileDialog.ShowDirsOnly)
 
         if new_library_folder and (library_folder != new_library_folder):
             self.LibraryFolderLineEdit.setText(new_library_folder)
