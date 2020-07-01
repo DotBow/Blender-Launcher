@@ -95,6 +95,12 @@ class DownloadWidget(QWidget):
         if dist is not None:
             self.parent.draw_to_library(dist)
             self.parent.clear_temp()
+            name = "{0} {1} {2}".format(
+                self.subversionLabel.text(),
+                self.branchLabel.text(),
+                self.commitTimeLabel.text())
+            self.parent.show_message(
+                "Blender {0} download finished!".format(name), dist.name)
             self.destroy()
 
     def destroy(self):
