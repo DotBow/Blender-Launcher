@@ -243,9 +243,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.set_status()
         self.show_signal.emit()
 
-    def show_message(self, message, value):
+    def show_message(self, message, value=None):
         if value not in self.notification_pool:
-            self.notification_pool.append(value)
+            if value is not None:
+                self.notification_pool.append(value)
             self.tray_icon.showMessage(
                 "Blender Launcher", message,
                 QIcon(taskbar_icon_paths[get_taskbar_icon_color()]),
