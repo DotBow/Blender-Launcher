@@ -100,7 +100,7 @@ class DownloadWidget(QWidget):
                 self.branchLabel.text(),
                 self.commitTimeLabel.text())
             self.parent.show_message(
-                "Blender {0} download finished!".format(name), dist.name)
+                "Blender {0} download finished!".format(name))
             self.destroy()
 
     def destroy(self):
