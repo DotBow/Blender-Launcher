@@ -42,11 +42,14 @@ def create_shortcut(folder, name):
         desktop_entry = \
             "[Desktop Entry]\n" + \
             "Name={0}\n".format(name) + \
-            "Type=Application\n" + \
-            "Comment={0}\n".format(name) + \
-            "Terminal=true\n" + \
+            "Comment=3D modeling, animation, rendering and post-production\n" + \
+            "Keywords=3d;cg;modeling;animation;painting;sculpting;texturing;video editing;video tracking;rendering;render engine;cycles;game engine;python;\n" + \
             "Icon={0}\n".format(icon.as_posix().replace(' ', r'\ ')) + \
-            "Exec=!/bin/bash {0}".format(_exec.as_posix().replace(' ', r'\ '))
+            "Terminal=false\n" + \
+            "Type=Application\n" + \
+            "Categories=Graphics;3DGraphics;\n" + \
+            "MimeType=application/x-blender;\n" + \
+            "Exec={0} %f".format(_exec.as_posix().replace(' ', r'\ '))
 
         with open(dist, 'w') as file:
             file.write(desktop_entry)
