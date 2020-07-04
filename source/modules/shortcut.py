@@ -36,8 +36,8 @@ def create_shortcut(folder, name):
         _exec = library_folder / folder / "blender"
         icon = library_folder / folder / "blender.svg"
         desktop = Path.home() / "Desktop"
-        name = name.replace(' ', '-')
-        dist = desktop / (name + ".desktop")
+        filename = name.replace(' ', '-')
+        dist = desktop / (filename + ".desktop")
 
         desktop_entry = \
             "[Desktop Entry]\n" + \
