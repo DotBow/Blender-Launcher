@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+from shutil import copyfile
 
 from modules._platform import *
 from modules.settings import *
@@ -25,12 +26,15 @@ def create_shortcut(folder, name):
             icon = Path(
                 "./resources/icons/winblender.ico").resolve().as_posix()
 
+        icon_location = library_folder / folder / "winblender.ico"
+        copyfile(icon, icon_location.as_posix())
+
         _WSHELL = win32com.client.Dispatch("Wscript.Shell")
         wscript = _WSHELL.CreateShortCut(dist.as_posix())
         wscript.Targetpath = targetpath.as_posix()
         wscript.WorkingDirectory = workingdir.as_posix()
         wscript.WindowStyle = 0
-        wscript.IconLocation = icon
+        wscript.IconLocation = icon_location.as_posix()
         wscript.save()
     elif platform == 'Linux':
         _exec = library_folder / folder / "blender"
