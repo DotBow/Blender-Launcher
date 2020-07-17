@@ -2,7 +2,7 @@ QProgressBar
 {
 	color: #FFFFFF;
 	background-color: #2C2C2C;
-	border: none;
+	border: 1px solid #585858;
 	height: 100%;
 }
 

@@ -53,16 +53,16 @@ QLineEdit[text=\"\"] {
 }
 
 QListWidget {
-	background-color: #232323;
+	background-color: #282828;
 	outline: 0;
 }
 
 QListWidget::item {
-	background-color: #282828;
+	background-color: #2d2d2d;
 }
 
 QListWidget::item:alternate {
-	background-color: #2d2d2d;
+	background-color: #282828;
 }
 
 QListWidget::item:hover {
@@ -104,7 +104,7 @@ QProgressBar
 {
 	color: #FFFFFF;
 	background-color: #2C2C2C;
-	border: none;
+	border: 1px solid #585858;
 	height: 100%;
 }
 
@@ -282,6 +282,6 @@ QToolBox::tab:selected:hover {
 }
 
 QWidget[ToolBoxWidget=true] {
-	background-color: #232323;
+	background-color: #282828;
 }
 
