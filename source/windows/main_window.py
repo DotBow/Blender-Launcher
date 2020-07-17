@@ -40,6 +40,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def __init__(self, app):
         super().__init__()
         self.setupUi(self)
+        self.setAcceptDrops(True)
 
         # Server
         self.server = QLocalServer()
@@ -446,3 +447,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def new_connection(self):
         self._show()
+
+    def dragEnterEvent(self, e):
+        if e.mimeData().hasFormat('text/plain'):
+            e.accept()
+        else:
+            e.ignore()
+
+    def dropEvent(self, e):
+        print(e.mimeData().text())
