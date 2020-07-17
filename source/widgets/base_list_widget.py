@@ -9,7 +9,6 @@ class BaseListWidget(QListWidget):
         self.setFrameShape(QListWidget.NoFrame)
         self.setSortingEnabled(True)
         self.setAlternatingRowColors(True)
-        self.setTabKeyNavigation(True)
 
     def add_item(self, item, widget):
         item.setSizeHint(widget.sizeHint())
