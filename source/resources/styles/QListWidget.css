@@ -4,7 +4,11 @@ QListWidget {
 }
 
 QListWidget::item {
-	background-color: transparent;
+	background-color: #282828;
+}
+
+QListWidget::item:alternate {
+	background-color: #2d2d2d;
 }
 
 QListWidget::item:hover {
