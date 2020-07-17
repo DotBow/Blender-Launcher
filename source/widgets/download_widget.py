@@ -100,7 +100,7 @@ class DownloadWidget(QWidget):
         self.state = DownloadState.WAITING
 
         if dist is not None:
-            self.parent.draw_to_library(dist)
+            self.parent.draw_to_library(dist, True)
             self.parent.clear_temp()
             name = "{0} {1} {2}".format(
                 self.subversionLabel.text(),

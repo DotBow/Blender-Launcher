@@ -23,13 +23,14 @@ if get_platform() == 'Windows':
 
 
 class LibraryWidget(QWidget):
-    def __init__(self, parent, item, link, list_widget):
+    def __init__(self, parent, item, link, list_widget, show_new=False):
         super(LibraryWidget, self).__init__(None)
 
         self.parent = parent
         self.item = item
         self.link = link
         self.list_widget = list_widget
+        self.show_new = show_new
         self.observer = None
         self.build_info = None
 
@@ -96,9 +97,6 @@ class LibraryWidget(QWidget):
         self.widgetFavorite.setIcon(self.icon_favorite)
         self.widgetFavorite.setProperty("Icon", True)
 
-        self.NewItemLabel = QLabel("New")
-        self.NewItemLabel.hide()
-
         self.layout.addWidget(self.launchButton)
         self.layout.addWidget(self.subversionLabel)
         self.layout.addWidget(self.branchLabel)
@@ -107,7 +105,12 @@ class LibraryWidget(QWidget):
         self.layout.addStretch()
         self.layout.addWidget(self.countButton)
         self.layout.addWidget(self.widgetFavorite)
-        self.layout.addWidget(self.NewItemLabel)
+
+        if self.show_new:
+            self.NewItemLabel = QLabel("New")
+            self.NewItemLabel.setAlignment(Qt.AlignRight | Qt.AlignCenter)
+            self.NewItemLabel.setIndent(6)
+            self.layout.addWidget(self.NewItemLabel)
 
         self.launchButton.clicked.connect(self.launch)
         self.subversionLabel.setText(self.build_info.subversion)
@@ -166,7 +169,8 @@ class LibraryWidget(QWidget):
             self.launch()
 
     def mouseReleaseEvent(self, event):
-        self.NewItemLabel.hide()
+        if hasattr(self, "NewItemLabel"):
+            self.NewItemLabel.hide()
 
     @QtCore.pyqtSlot()
     def launch(self):

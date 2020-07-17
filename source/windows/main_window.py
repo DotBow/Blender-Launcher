@@ -394,7 +394,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         widget = DownloadWidget(self, list_widget, item, build_info)
         list_widget.add_item(item, widget)
 
-    def draw_to_library(self, path):
+    def draw_to_library(self, path, show_new=False):
         category = Path(path).parent.name
 
         if category == 'stable':
@@ -409,7 +409,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             return
 
         item = BaseListWidgetItem()
-        widget = LibraryWidget(self, item, path, list_widget)
+        widget = LibraryWidget(self, item, path, list_widget, show_new)
         list_widget.insert_item(item, widget)
 
     def set_status(self, status=None):
