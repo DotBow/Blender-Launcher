@@ -96,6 +96,9 @@ class LibraryWidget(QWidget):
         self.widgetFavorite.setIcon(self.icon_favorite)
         self.widgetFavorite.setProperty("Icon", True)
 
+        self.NewItemLabel = QLabel("New")
+        self.NewItemLabel.hide()
+
         self.layout.addWidget(self.launchButton)
         self.layout.addWidget(self.subversionLabel)
         self.layout.addWidget(self.branchLabel)
@@ -104,6 +107,7 @@ class LibraryWidget(QWidget):
         self.layout.addStretch()
         self.layout.addWidget(self.countButton)
         self.layout.addWidget(self.widgetFavorite)
+        self.layout.addWidget(self.NewItemLabel)
 
         self.launchButton.clicked.connect(self.launch)
         self.subversionLabel.setText(self.build_info.subversion)
@@ -160,6 +164,9 @@ class LibraryWidget(QWidget):
     def mouseDoubleClickEvent(self, event):
         if self.build_info is not None:
             self.launch()
+
+    def mouseReleaseEvent(self, event):
+        self.NewItemLabel.hide()
 
     @QtCore.pyqtSlot()
     def launch(self):

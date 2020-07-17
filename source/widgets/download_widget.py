@@ -48,6 +48,9 @@ class DownloadWidget(QWidget):
         self.buildHashLabel = QLabel(self.build_info.build_hash)
         self.progressBar.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
 
+        self.NewItemLabel = QLabel("New")
+        self.NewItemLabel.hide()
+
         self.layout.addWidget(self.downloadButton)
         self.layout.addWidget(self.cancelButton)
         self.layout.addWidget(self.subversionLabel)
@@ -56,8 +59,12 @@ class DownloadWidget(QWidget):
         self.layout.addWidget(self.buildHashLabel)
         self.layout.addStretch()
         self.layout.addWidget(self.progressBar, stretch=1)
+        self.layout.addWidget(self.NewItemLabel)
 
         self.setLayout(self.layout)
+
+    def mouseReleaseEvent(self, event):
+        self.NewItemLabel.hide()
 
     def showEvent(self, event):
         self.list_widget.resize_labels(
