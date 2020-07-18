@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtWidgets import QApplication, QWidget
 
-from modules.settings import *
+from modules.settings import get_enable_high_dpi_scaling
 
 if get_enable_high_dpi_scaling():
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
@@ -44,17 +44,19 @@ class BaseWindow(QWidget):
         self.setCursor(Qt.ArrowCursor)
 
     def showEvent(self, event):
-        if self.parent is not None:
-            if self not in self.parent.windows:
-                self.parent.windows.append(self)
-                self.parent.show_signal.connect(self.show)
-                self.parent.close_signal.connect(self.hide)
+        parent = self.parent
+
+        if parent is not None:
+            if self not in parent.windows:
+                parent.windows.append(self)
+                parent.show_signal.connect(self.show)
+                parent.close_signal.connect(self.hide)
 
             if self.parent.isVisible():
-                x = self.parent.x() + (self.parent.width() - self.width()) * 0.5
-                y = self.parent.y() + (self.parent.height() - self.height()) * 0.5
+                x = parent.x() + (parent.width() - self.width()) * 0.5
+                y = parent.y() + (parent.height() - self.height()) * 0.5
             else:
-                size = self.parent.app.screens()[0].size()
+                size = parent.app.screens()[0].size()
                 x = (size.width() - self.width()) * 0.5
                 y = (size.height() - self.height()) * 0.5
 
