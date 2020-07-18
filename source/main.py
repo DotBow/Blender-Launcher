@@ -18,7 +18,7 @@ def handle_exception(exc_type, exc_value, exc_traceback):
         return
 
     _format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    logging.basicConfig(filename="BL.log", format=_format)
+    logging.basicConfig(filename="Blender Launcher.log", format=_format)
     logger.error(get_platform(), exc_info=(exc_type, exc_value, exc_traceback))
 
 
