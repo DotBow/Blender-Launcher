@@ -57,6 +57,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.windows = [self]
         self.manager = PoolManager(200)
         self.timer = None
+        self.started = True
 
         # Setup window
         self.setWindowTitle("Blender Launcher")
@@ -303,6 +304,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.DownloadsStableListWidget.clear()
             self.DownloadsDailyListWidget.clear()
             self.DownloadsExperimentalListWidget.clear()
+            self.started = True
 
         self.favorite = None
 
@@ -362,9 +364,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 builds.remove(widget.build_info)
 
         for build_info in builds:
-            self.draw_to_downloads(build_info, True)
+            self.draw_to_downloads(build_info, not self.started)
 
-        if len(builds) > 0:
+        if (len(builds) > 0) and (not self.started):
             self.show_message("New builds of Blender is available!")
 
         set_locale()
@@ -377,6 +379,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         self.timer = threading.Timer(600.0, self.draw_downloads)
         self.timer.start()
+        self.started = False
 
     def draw_from_cashed(self, build_info):
         if self.app_state == AppState.IDLE:
