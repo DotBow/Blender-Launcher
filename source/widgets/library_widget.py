@@ -174,6 +174,11 @@ class LibraryWidget(QWidget):
 
     @QtCore.pyqtSlot()
     def launch(self):
+        self.item.setSelected(True)
+
+        if hasattr(self, "NewItemLabel"):
+            self.NewItemLabel.hide()
+
         platform = get_platform()
         library_folder = Path(get_library_folder())
 
@@ -205,6 +210,7 @@ class LibraryWidget(QWidget):
 
     @QtCore.pyqtSlot()
     def ask_remove_from_drive(self):
+        self.item.setSelected(True)
         self.dlg = DialogWindow(
             self.parent, title="Warning",
             text="Are you sure you want to delete?",

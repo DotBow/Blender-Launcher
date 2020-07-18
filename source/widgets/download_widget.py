@@ -75,6 +75,11 @@ class DownloadWidget(QWidget):
             ('subversionLabel', 'branchLabel', 'commitTimeLabel', 'buildHashLabel'))
 
     def init_download(self):
+        self.item.setSelected(True)
+
+        if hasattr(self, "NewItemLabel"):
+            self.NewItemLabel.hide()
+
         self.state = DownloadState.DOWNLOADING
         self.thread = Downloader(self.parent.manager, self.build_info)
         self.thread.started.connect(self.download_started)
@@ -89,6 +94,7 @@ class DownloadWidget(QWidget):
         self.downloadButton.hide()
 
     def download_cancelled(self):
+        self.item.setSelected(True)
         self.state = DownloadState.WAITING
         self.progressBar.hide()
         self.cancelButton.hide()
