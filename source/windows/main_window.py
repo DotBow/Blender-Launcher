@@ -362,12 +362,16 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 builds.remove(widget.build_info)
 
         for build_info in builds:
-            self.draw_to_downloads(build_info)
+            self.draw_to_downloads(build_info, True)
+
+        if len(builds) > 0:
+            self.show_message("New builds of Blender is available!")
 
         set_locale()
         utcnow = strftime(('%H:%M'), localtime())
         self.set_status("Last check at " + utcnow)
         self.app_state = AppState.IDLE
+
         for page in self.DownloadsToolBox.pages:
             page.set_info_label_text("No new builds available")
 
@@ -380,7 +384,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 i = self.cashed_builds.index(build_info)
                 self.draw_to_downloads(self.cashed_builds[i])
 
-    def draw_to_downloads(self, build_info):
+    def draw_to_downloads(self, build_info, show_new=False):
         branch = build_info.branch
 
         if branch == 'stable':
@@ -391,7 +395,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             list_widget = self.DownloadsExperimentalListWidget
 
         item = BaseListWidgetItem(build_info.commit_time)
-        widget = DownloadWidget(self, list_widget, item, build_info)
+        widget = DownloadWidget(self, list_widget, item, build_info, show_new)
         list_widget.add_item(item, widget)
 
     def draw_to_library(self, path, show_new=False):

@@ -15,12 +15,13 @@ class DownloadState(Enum):
 
 
 class DownloadWidget(QWidget):
-    def __init__(self, parent, list_widget, item, build_info):
+    def __init__(self, parent, list_widget, item, build_info, show_new=False):
         super(DownloadWidget, self).__init__(None)
         self.parent = parent
         self.list_widget = list_widget
         self.item = item
         self.build_info = build_info
+        self.show_new = show_new
         self.state = DownloadState.WAITING
 
         self.progressBar = QProgressBar()
@@ -48,9 +49,6 @@ class DownloadWidget(QWidget):
         self.buildHashLabel = QLabel(self.build_info.build_hash)
         self.progressBar.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
 
-        self.NewItemLabel = QLabel("New")
-        self.NewItemLabel.hide()
-
         self.layout.addWidget(self.downloadButton)
         self.layout.addWidget(self.cancelButton)
         self.layout.addWidget(self.subversionLabel)
@@ -59,12 +57,18 @@ class DownloadWidget(QWidget):
         self.layout.addWidget(self.buildHashLabel)
         self.layout.addStretch()
         self.layout.addWidget(self.progressBar, stretch=1)
-        self.layout.addWidget(self.NewItemLabel)
+
+        if self.show_new:
+            self.NewItemLabel = QLabel("New")
+            self.NewItemLabel.setAlignment(Qt.AlignRight | Qt.AlignCenter)
+            self.NewItemLabel.setIndent(6)
+            self.layout.addWidget(self.NewItemLabel)
 
         self.setLayout(self.layout)
 
     def mouseReleaseEvent(self, event):
-        self.NewItemLabel.hide()
+        if hasattr(self, "NewItemLabel"):
+            self.NewItemLabel.hide()
 
     def showEvent(self, event):
         self.list_widget.resize_labels(
