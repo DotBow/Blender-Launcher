@@ -14,8 +14,11 @@ from PyQt5.QtWidgets import (QAction, QFileDialog, QHBoxLayout, QLabel,
 from urllib3 import PoolManager
 
 from items.base_list_widget_item import BaseListWidgetItem
-from modules._platform import *
-from modules.settings import *
+from modules._platform import set_locale
+from modules.settings import (
+    get_default_library_page, get_launch_minimized_to_tray, get_library_folder,
+    get_taskbar_icon_color, is_library_folder_valid, set_library_folder,
+    taskbar_icon_paths)
 from threads.library_drawer import LibraryDrawer
 from threads.remover import Remover
 from threads.scraper import Scraper
@@ -437,7 +440,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                     format(latest_tag.replace('v', '')))
                 self.NewVersionButton.show()
                 self.show_message(
-                    "New version of Blender Launcher is available!", latest_tag)
+                    "New version of Blender Launcher is available!",
+                    latest_tag)
 
     def show_settings_window(self):
         self.settings_window = SettingsWindow(self)
