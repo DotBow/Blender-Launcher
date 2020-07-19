@@ -46,6 +46,10 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.SetLibraryFolderButton = \
             QPushButton(QIcon(":resources/icons/folder.svg"), "")
         self.SetLibraryFolderButton.clicked.connect(self.set_library_folder)
+        self.ReloadLibraryFolderContentButton = QPushButton(
+            "Reload Library Folder Content")
+        self.ReloadLibraryFolderContentButton.clicked.connect(
+            lambda: self.parent.draw_library(True))
 
         self.LaunchWhenSystemStartsCheckBox = QCheckBox(
             "Launch When System Starts")
@@ -81,6 +85,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.SettingsLayout.addLayout(self.LibraryFolderLayout)
         self.LibraryFolderLayout.addWidget(self.LibraryFolderLineEdit)
         self.LibraryFolderLayout.addWidget(self.SetLibraryFolderButton)
+        self.SettingsLayout.addWidget(
+            self.ReloadLibraryFolderContentButton)
 
         self.SettingsLayout.addWidget(QLabel("System:"))
 
