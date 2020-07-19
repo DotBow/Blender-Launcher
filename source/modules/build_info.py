@@ -35,7 +35,12 @@ class BuildInfo:
 
     def get_name(self):
         if self.link_type == 'link':
-            return Path(self.link).stem
+            platform = get_platform()
+
+            if platform == 'Linux':
+                return Path(self.link).with_suffix('').stem
+            elif platform == 'Windows':
+                return Path(self.link).stem
         elif self.link_type == 'path':
             return Path(self.link).name
 
