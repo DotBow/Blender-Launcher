@@ -99,6 +99,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         if new_library_folder:
             set_library_folder(new_library_folder)
             self.draw()
+        else:
+            self.app.quit()
 
     def draw(self):
         self.HeaderLayout = QHBoxLayout()
