@@ -316,6 +316,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.LibraryStableListWidget.clear()
         self.LibraryDailyListWidget.clear()
         self.LibraryExperimentalListWidget.clear()
+        self.LibraryCustomListWidget.clear()
 
         self.library_drawer = LibraryDrawer(self)
         self.library_drawer.build_found.connect(self.draw_to_library)
