@@ -4,7 +4,7 @@ from subprocess import DEVNULL, PIPE, STDOUT
 
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from modules._platform import *
+from modules._platform import get_platform
 
 if get_platform() == 'Windows':
     from subprocess import CREATE_NO_WINDOW

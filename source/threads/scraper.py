@@ -6,7 +6,7 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from modules._platform import *
+from modules._platform import get_platform, set_locale
 from modules.build_info import BuildInfo
 
 
