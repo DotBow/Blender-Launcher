@@ -1,5 +1,4 @@
 import json
-import os
 import re
 import subprocess
 import time
@@ -8,8 +7,8 @@ from subprocess import DEVNULL, CalledProcessError
 
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from modules._platform import *
-from modules.settings import *
+from modules._platform import get_platform, set_locale
+from modules.settings import get_library_folder
 
 if get_platform() == 'Windows':
     from subprocess import CREATE_NO_WINDOW
@@ -79,7 +78,7 @@ class BuildInfoReader(QThread):
                 info = subprocess.check_output(
                     [exe_path.as_posix(), "-v"], shell=False,
                     stderr=DEVNULL, stdin=DEVNULL)
-        except CalledProcessError as e:
+        except CalledProcessError:
             return 1
 
         info = info.decode('UTF-8')
@@ -106,7 +105,8 @@ class BuildInfoReader(QThread):
                 branch = "daily"
             else:
                 branch = "stable"
-        except Exception as e:
+                subversion = folder_parts[0]
+        except Exception:
             branch = None
 
         # Write Version Information
