@@ -191,6 +191,24 @@ QPushButton[Count=true] {
 	border-radius: 12px;
 }
 
+QPushButton[ListHeader=true] {
+	background-color: transparent;
+	border: none;
+	padding: 2px;
+}
+
+QPushButton[ListHeader=true]:hover {
+	background-color: #4F4F4F;
+	border: none;
+	padding: 2px;
+}
+
+QPushButton[ListHeader=true]:checked {
+	background-color: transparent;
+	border-top: 2px solid #FF7A00;
+	padding: 0px 2px 2px 2px;
+}
+
 QScrollBar:vertical
 {
 	background-color: #232323;
