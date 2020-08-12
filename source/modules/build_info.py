@@ -15,7 +15,10 @@ if get_platform() == 'Windows':
 
 
 class BuildInfo:
-    def __init__(self, link_type, link, subversion, build_hash, commit_time, branch, size=None):
+    file_version = "1.0"
+
+    def __init__(self, link_type, link, subversion,
+                 build_hash, commit_time, branch, size=None):
         self.link_type = link_type
         self.link = link
         self.subversion = subversion
@@ -111,6 +114,7 @@ class BuildInfoReader(QThread):
 
         # Write Version Information
         data = {}
+        data['file_version'] = BuildInfo.file_version
         data['blinfo'] = []
         data['blinfo'].append({
             'branch': branch,
@@ -135,6 +139,13 @@ class BuildInfoReader(QThread):
 
         with open(path) as file:
             data = json.load(file)
+
+        if ('file_version' not in data) or (data['file_version'] != BuildInfo.file_version):
+            if self.write_build_info(folder) == 1:
+                return None
+            else:
+                return self.read_build_info(folder)
+        else:
             blinfo = data['blinfo'][0]
             link = Path(get_library_folder()) / folder
 
