@@ -160,3 +160,17 @@ def get_taskbar_icon_color():
 def set_taskbar_icon_color(color):
     settings = get_settings()
     settings.setValue('taskbar_icon_color', taskbar_icon_colors[color])
+
+
+def get_list_sorting_type(list_name):
+    settings = get_settings()
+
+    if settings.contains(list_name + "_sorting_type"):
+        return settings.value(list_name + "_sorting_type", type=int)
+    else:
+        return 1
+
+
+def set_list_sorting_type(list_name, sorting_type):
+    settings = get_settings()
+    settings.setValue(list_name + "_sorting_type", sorting_type.value)

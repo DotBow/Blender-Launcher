@@ -159,29 +159,29 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         self.LibraryStableListWidget = \
             self.LibraryToolBox.add_list_widget(
-                "Stable Releases", "Nothing to show yet")
+                "Stable Releases", "LibraryStableListWidget", "Nothing to show yet")
         self.LibraryDailyListWidget = \
             self.LibraryToolBox.add_list_widget(
-                "Daily Builds", "Nothing to show yet")
+                "Daily Builds", "LibraryDailyListWidget", "Nothing to show yet")
         self.LibraryExperimentalListWidget = \
             self.LibraryToolBox.add_list_widget(
-                "Experimental Branches", "Nothing to show yet")
+                "Experimental Branches", "LibraryExperimentalListWidget", "Nothing to show yet")
         self.LibraryCustomListWidget = \
             self.LibraryToolBox.add_list_widget(
-                "Custom Builds", "Nothing to show yet")
+                "Custom Builds", "LibraryCustomListWidget", "Nothing to show yet")
         self.LibraryTab.layout().addWidget(self.LibraryToolBox)
 
         self.DownloadsToolBox = BaseToolBoxWidget(self)
 
         self.DownloadsStableListWidget = \
             self.DownloadsToolBox.add_list_widget(
-                "Stable Releases", "No new builds available", False)
+                "Stable Releases", "DownloadsStableListWidget", "No new builds available", False)
         self.DownloadsDailyListWidget = \
             self.DownloadsToolBox.add_list_widget(
-                "Daily Builds", "No new builds available")
+                "Daily Builds", "DownloadsDailyListWidget", "No new builds available")
         self.DownloadsExperimentalListWidget = \
             self.DownloadsToolBox.add_list_widget(
-                "Experimental Branches", "No new builds available")
+                "Experimental Branches", "DownloadsExperimentalListWidget", "No new builds available")
         self.DownloadsTab.layout().addWidget(self.DownloadsToolBox)
 
         self.LibraryToolBox.setCurrentIndex(get_default_library_page())
