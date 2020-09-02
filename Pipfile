@@ -6,10 +6,10 @@ name = "pypi"
 [dev-packages]
 
 [packages]
-bs4 = "*"
+beautifulsoup4 = "==4.9.1"
 pyqt5 = "==5.14.2"
-urllib3 = "*"
-pyinstaller = "*"
+urllib3 = "==1.25.6"
+pyinstaller = "==4.0"
 pywin32 = {version = "*", os_name = "=='nt'"}
 
 [scripts]
