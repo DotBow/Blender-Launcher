@@ -1,12 +1,12 @@
 from enum import Enum
 from pathlib import Path
 
+from modules.settings import get_library_folder
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QPushButton,
                              QSizePolicy, QWidget)
-
-from modules.settings import *
 from threads.downloader import Downloader
+from threads.extractor import Extractor
 
 
 class DownloadState(Enum):
@@ -31,7 +31,7 @@ class DownloadWidget(QWidget):
         self.downloadButton = QPushButton("Download")
         self.downloadButton.setMinimumWidth(85)
         self.downloadButton.setProperty("LaunchButton", True)
-        self.downloadButton.clicked.connect(self.init_download)
+        self.downloadButton.clicked.connect(self.init_downloader)
 
         self.cancelButton = QPushButton("Cancel")
         self.cancelButton.setMinimumWidth(85)
@@ -74,15 +74,30 @@ class DownloadWidget(QWidget):
         self.list_widget.resize_labels(
             ('subversionLabel', 'branchLabel', 'commitTimeLabel', 'buildHashLabel'))
 
-    def init_download(self):
+    def init_downloader(self):
         self.item.setSelected(True)
 
         if hasattr(self, "NewItemLabel"):
             self.NewItemLabel.hide()
 
         self.state = DownloadState.DOWNLOADING
-        self.thread = Downloader(self.parent.manager, self.build_info)
+        self.thread = Downloader(self.parent.manager, self.build_info.link)
         self.thread.started.connect(self.download_started)
+        self.thread.progress_changed.connect(self.set_progress_bar)
+        self.thread.finished.connect(self.init_extractor)
+        self.thread.start()
+
+    def init_extractor(self, source):
+        library_folder = Path(get_library_folder())
+
+        if self.build_info.branch == 'stable':
+            dist = library_folder / 'stable'
+        elif self.build_info.branch == 'daily':
+            dist = library_folder / 'daily'
+        else:
+            dist = library_folder / 'experimental'
+
+        self.thread = Extractor(self.parent.manager, source, dist)
         self.thread.progress_changed.connect(self.set_progress_bar)
         self.thread.finished.connect(self.download_finished)
         self.thread.start()
