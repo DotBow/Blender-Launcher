@@ -4,28 +4,40 @@ QScrollBar:vertical
 	width: 4px;
 }
 
+QScrollBar:horizontal
+{
+	background-color: #232323;
+	height: 4px;
+}
+
 QScrollBar::handle:vertical:hover
 {
 	background-color: #B3B3B3;
 	width: 4px;
 }
 
-QScrollBar::handle:vertical
+QScrollBar::handle:horizontal:hover
+{
+	background-color: #B3B3B3;
+	height: 4px;
+}
+
+QScrollBar::handle:vertical, QScrollBar::handle:horizontal
 {
 	background-color: #676767;
 }
 
-QScrollBar::sub-page:vertical
+QScrollBar::sub-page:vertical, QScrollBar::sub-page:horizontal
 {
 	background: none;
 }
 
-QScrollBar::add-page:vertical
+QScrollBar::add-page:vertical, QScrollBar::add-page:horizontal
 {
 	background-color: #232323;
 }
 
-QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical
+QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical, QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal
 {
 	border: none;
 	background: none;
