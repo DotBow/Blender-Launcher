@@ -29,6 +29,7 @@ from widgets.library_widget import LibraryWidget
 from windows.base_window import BaseWindow
 from windows.dialog_window import DialogIcon, DialogWindow
 from windows.settings_window import SettingsWindow
+from windows.update_window import UpdateWindow
 
 
 class AppState(Enum):
@@ -61,6 +62,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.manager = PoolManager(200)
         self.timer = None
         self.started = True
+        self.latest_tag = ""
 
         # Setup window
         self.setWindowTitle("Blender Launcher")
@@ -198,8 +200,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.statusbarLabel.setIndent(8)
         self.NewVersionButton = QPushButton()
         self.NewVersionButton.hide()
-        self.NewVersionButton.clicked.connect(lambda: webbrowser.open(
-            "https://github.com/DotBow/Blender-Launcher/releases/latest"))
+        self.NewVersionButton.clicked.connect(self.show_update_window)
         self.statusbarVersion = QLabel(self.app.applicationVersion())
         self.StatusBar.addPermanentWidget(self.statusbarLabel, 1)
         self.StatusBar.addPermanentWidget(self.NewVersionButton)
@@ -243,6 +244,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         # Show window
         if get_launch_minimized_to_tray() is False:
             self._show()
+
+    def show_update_window(self):
+        self.update_window = UpdateWindow(self, self.latest_tag)
 
     def _show(self):
         self.activateWindow()
@@ -445,6 +449,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 self.show_message(
                     "New version of Blender Launcher is available!",
                     latest_tag)
+
+            self.latest_tag = latest_tag
 
     def show_settings_window(self):
         self.settings_window = SettingsWindow(self)
