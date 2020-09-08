@@ -1,4 +1,6 @@
+import tempfile
 from pathlib import Path
+from subprocess import DEVNULL, Popen
 
 from modules._platform import get_platform
 from PyQt5.QtCore import Qt
@@ -32,7 +34,13 @@ class UpdateWindow(QMainWindow, BaseWindow, UpdateWindowUI):
         self.show()
 
     def extract(self, source):
-        dist = Path.cwd().as_posix()
+        dist = tempfile.gettempdir()
         self.thread = Extractor(self.parent.manager, source, dist)
         self.thread.progress_changed.connect(self.set_progress_bar)
+        self.thread.finished.connect(self.run)
         self.thread.start()
+
+    def run(self, dist):
+        path = Path.cwd() / 'update.bat'
+        Popen([path.as_posix()], stdin=DEVNULL, stdout=DEVNULL, stderr=DEVNULL)
+        self.parent.destroy()
