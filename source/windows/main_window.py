@@ -249,7 +249,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.update_window = UpdateWindow(self, self.latest_tag)
 
     def _show(self):
-        self.activateWindow()
+        self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
+        self.show()
+        self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
         self.show()
         self.set_status()
         self.show_signal.emit()
