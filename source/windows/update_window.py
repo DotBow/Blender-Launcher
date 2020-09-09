@@ -1,5 +1,7 @@
+import sys
 import tempfile
 from pathlib import Path
+from shutil import copyfile, copyfileobj
 from subprocess import DEVNULL, Popen
 
 from modules._platform import get_platform
@@ -41,6 +43,12 @@ class UpdateWindow(QMainWindow, BaseWindow, UpdateWindowUI):
         self.thread.start()
 
     def run(self, dist):
-        path = Path.cwd() / 'update.bat'
-        Popen([path.as_posix()], stdin=DEVNULL, stdout=DEVNULL, stderr=DEVNULL)
+        path = Path(sys._MEIPASS + "/files/update.bat")
+        new_path = Path.cwd() / "update.bat"
+
+        with open(path.as_posix(), 'r') as f1, open(new_path.as_posix(), 'w') as f2:
+            copyfileobj(f1, f2)
+
+        Popen([new_path.as_posix()], stdin=DEVNULL,
+              stdout=DEVNULL, stderr=DEVNULL)
         self.parent.destroy()
