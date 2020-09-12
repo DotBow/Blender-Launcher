@@ -6,5 +6,5 @@ PYTHONOPTIMIZE=2 pyinstaller \
 --windowed \
 --icon="source/resources/icons/desktop.ico" \
 --name="Blender Launcher" \
---add-binary="update.sh;files" \
+--add-binary="update.sh:files" \
 source/main.py
