@@ -43,12 +43,25 @@ class UpdateWindow(QMainWindow, BaseWindow, UpdateWindowUI):
         self.thread.start()
 
     def run(self, dist):
-        path = Path(sys._MEIPASS + "/files/update.bat")
-        new_path = Path.cwd() / "update.bat"
+        platform = get_platform()
 
-        with open(path.as_posix(), 'r') as f1, open(new_path.as_posix(), 'w') as f2:
-            copyfileobj(f1, f2)
+        if platform == 'Windows':
+            path = Path(sys._MEIPASS + "/files/update.bat")
+            new_path = Path.cwd() / "update.bat"
 
-        Popen([new_path.as_posix()], stdin=DEVNULL,
-              stdout=DEVNULL, stderr=DEVNULL)
-        self.parent.destroy()
+            with open(path.as_posix(), 'r') as f1, open(new_path.as_posix(), 'w') as f2:
+                copyfileobj(f1, f2)
+
+            Popen([new_path.as_posix()], stdin=DEVNULL,
+                  stdout=DEVNULL, stderr=DEVNULL)
+            self.parent.destroy()
+        elif platform == 'Linux':
+            path = Path(sys._MEIPASS + "/files/update.sh")
+            new_path = Path.cwd() / "update.sh"
+
+            with open(path.as_posix(), 'r') as f1, open(new_path.as_posix(), 'w') as f2:
+                copyfileobj(f1, f2)
+
+            Popen([new_path.as_posix()], stdin=DEVNULL,
+                  stdout=DEVNULL, stderr=DEVNULL)
+            self.parent.destroy()
