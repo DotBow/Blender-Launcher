@@ -5,24 +5,23 @@ from enum import Enum
 from pathlib import Path
 from time import localtime, strftime
 
+from items.base_list_widget_item import BaseListWidgetItem
+from modules._platform import get_platform, set_locale
+from modules.settings import (
+    get_default_library_page, get_launch_minimized_to_tray, get_library_folder,
+    get_taskbar_icon_color, is_library_folder_valid, set_library_folder,
+    taskbar_icon_paths)
 from PyQt5.QtCore import QFile, QSize, Qt, QTextStream, pyqtSignal
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 from PyQt5.QtNetwork import QLocalServer
 from PyQt5.QtWidgets import (QAction, QFileDialog, QHBoxLayout, QLabel,
                              QMainWindow, QMenu, QPushButton, QSystemTrayIcon,
                              QTabWidget, QVBoxLayout, QWidget)
-from urllib3 import PoolManager
-
-from items.base_list_widget_item import BaseListWidgetItem
-from modules._platform import set_locale
-from modules.settings import (
-    get_default_library_page, get_launch_minimized_to_tray, get_library_folder,
-    get_taskbar_icon_color, is_library_folder_valid, set_library_folder,
-    taskbar_icon_paths)
 from threads.library_drawer import LibraryDrawer
 from threads.remover import Remover
 from threads.scraper import Scraper
 from ui.main_window_design import Ui_MainWindow
+from urllib3 import PoolManager
 from widgets.base_tool_box_widget import BaseToolBoxWidget
 from widgets.download_widget import DownloadState, DownloadWidget
 from widgets.library_widget import LibraryWidget
@@ -249,10 +248,17 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.update_window = UpdateWindow(self, self.latest_tag)
 
     def _show(self):
-        self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
-        self.show()
-        self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
-        self.show()
+        platform = get_platform()
+
+        if platform == "Windows":
+            self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
+            self.show()
+            self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
+            self.show()
+        elif platform == "Linux":
+            self.show()
+            self.activateWindow()
+
         self.set_status()
         self.show_signal.emit()
 
