@@ -1,3 +1,4 @@
+import os
 import tempfile
 from pathlib import Path
 from shutil import copyfileobj
@@ -62,6 +63,7 @@ class UpdateWindow(QMainWindow, BaseWindow, UpdateWindowUI):
             Popen([dist.as_posix(), "-update"], stdin=DEVNULL,
                   stdout=DEVNULL, stderr=DEVNULL)
         elif platform == 'Linux':
+            os.chmod(dist.as_posix(), 0o744)
             Popen('nohup "' + dist.as_posix() + '" -update',
                   shell=True, stdout=None, stderr=None, close_fds=True)
 

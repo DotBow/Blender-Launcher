@@ -1,4 +1,5 @@
 import logging
+import os
 import sys
 import tempfile
 from pathlib import Path
@@ -49,6 +50,7 @@ def main():
             Popen([dist.as_posix()], stdin=DEVNULL,
                   stdout=DEVNULL, stderr=DEVNULL)
         elif platform == 'Linux':
+            os.chmod(dist.as_posix(), 0o744)
             Popen('nohup "' + dist.as_posix() + '"', shell=True,
                   stdout=None, stderr=None, close_fds=True)
 
