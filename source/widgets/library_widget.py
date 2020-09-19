@@ -3,23 +3,20 @@ import subprocess
 from pathlib import Path
 from subprocess import Popen
 
+from modules._platform import get_platform
+from modules.build_info import BuildInfoReader
+from modules.settings import (get_favorite_path, get_library_folder,
+                              set_favorite_path)
+from modules.shortcut import create_shortcut
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor, QIcon
 from PyQt5.QtWidgets import (QAction, QHBoxLayout, QLabel, QMenu, QPushButton,
                              QSizePolicy, QWidget)
-
-from modules._platform import *
-from modules.build_info import *
-from modules.settings import *
-from modules.shortcut import *
 from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
 from windows.dialog_window import DialogIcon, DialogWindow
-
-if get_platform() == 'Windows':
-    from subprocess import CREATE_NO_WINDOW
 
 
 class LibraryWidget(QWidget):
