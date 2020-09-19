@@ -1,10 +1,13 @@
 import logging
 import sys
-
-from PyQt5.QtNetwork import QLocalSocket
-from PyQt5.QtWidgets import QApplication
+import tempfile
+from pathlib import Path
+from shutil import copyfileobj
+from subprocess import DEVNULL, Popen
 
 from modules._platform import get_platform
+from PyQt5.QtNetwork import QLocalSocket
+from PyQt5.QtWidgets import QApplication
 from windows.main_window import BlenderLauncher
 
 logger = logging.getLogger(__name__)
@@ -26,8 +29,33 @@ sys.excepthook = handle_exception
 
 
 def main():
+    if "-update" in sys.argv:
+        platform = get_platform()
+        temp = Path(tempfile.gettempdir())
+        cwd = Path.cwd()
+
+        if platform == 'Windows':
+            bl_exe = "Blender Launcher.exe"
+        elif platform == 'Linux':
+            bl_exe = "Blender Launcher"
+
+        source = temp / bl_exe
+        dist = cwd / bl_exe
+
+        with open(source.as_posix(), 'rb') as f1, open(dist.as_posix(), 'wb') as f2:
+            copyfileobj(f1, f2)
+
+        if platform == 'Windows':
+            Popen([dist.as_posix()], stdin=DEVNULL,
+                  stdout=DEVNULL, stderr=DEVNULL)
+        elif platform == 'Linux':
+            Popen('nohup "' + dist.as_posix() + '"', shell=True,
+                  stdout=None, stderr=None, close_fds=True)
+
+        sys.exit(0)
+
     app = QApplication(sys.argv)
-    app.setApplicationVersion("v1.5.0")
+    app.setApplicationVersion("v1.4.0")
     app.setQuitOnLastWindowClosed(False)
 
     socket = QLocalSocket()

@@ -1,7 +1,6 @@
-import sys
 import tempfile
 from pathlib import Path
-from shutil import copyfile, copyfileobj
+from shutil import copyfileobj
 from subprocess import DEVNULL, Popen
 
 from modules._platform import get_platform
@@ -44,24 +43,26 @@ class UpdateWindow(QMainWindow, BaseWindow, UpdateWindowUI):
 
     def run(self, dist):
         platform = get_platform()
+        cwd = Path.cwd()
 
         if platform == 'Windows':
-            path = Path(sys._MEIPASS + "/files/update.bat")
-            new_path = Path.cwd() / "update.bat"
-
-            with open(path.as_posix(), 'r') as f1, open(new_path.as_posix(), 'w') as f2:
-                copyfileobj(f1, f2)
-
-            Popen([new_path.as_posix()], stdin=DEVNULL,
-                  stdout=DEVNULL, stderr=DEVNULL)
-            self.parent.destroy()
+            bl_exe = "Blender Launcher.exe"
+            blu_exe = "Blender Launcher Updater.exe"
         elif platform == 'Linux':
-            path = Path(sys._MEIPASS + "/files/update.sh")
-            new_path = Path.cwd() / "update.sh"
+            bl_exe = "Blender Launcher"
+            blu_exe = "Blender Launcher Updater"
 
-            with open(path.as_posix(), 'r') as f1, open(new_path.as_posix(), 'w') as f2:
-                copyfileobj(f1, f2)
+        source = cwd / bl_exe
+        dist = cwd / blu_exe
 
-            Popen([new_path.as_posix()], stdin=DEVNULL,
+        with open(source.as_posix(), 'rb') as f1, open(dist.as_posix(), 'wb') as f2:
+            copyfileobj(f1, f2)
+
+        if platform == 'Windows':
+            Popen([dist.as_posix(), "-update"], stdin=DEVNULL,
                   stdout=DEVNULL, stderr=DEVNULL)
-            self.parent.destroy()
+        elif platform == 'Linux':
+            Popen('nohup "' + dist.as_posix() + '" -update',
+                  shell=True, stdout=None, stderr=None, close_fds=True)
+
+        self.parent.destroy()
