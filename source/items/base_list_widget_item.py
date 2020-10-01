@@ -1,6 +1,7 @@
 import re
 from time import strptime
 
+from modules._platform import set_locale
 from PyQt5.QtWidgets import QListWidgetItem
 
 
@@ -21,6 +22,7 @@ class BaseListWidgetItem(QListWidgetItem):
         if (self.date is None) or (other.date is None):
             return False
         else:
+            set_locale()
             this_datetime = strptime(self.date, "%d-%b-%y-%H:%M")
             other_datetime = strptime(other.date, "%d-%b-%y-%H:%M")
 
