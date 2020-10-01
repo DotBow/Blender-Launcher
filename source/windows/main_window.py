@@ -451,7 +451,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         if int(latest_ver) > int(current_ver):
             if latest_tag not in self.notification_pool:
                 self.NewVersionButton.setText(
-                    "New version {0} is available".
+                    "Update to version {0}".
                     format(latest_tag.replace('v', '')))
                 self.NewVersionButton.show()
                 self.show_message(
