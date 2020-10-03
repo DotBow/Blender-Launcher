@@ -245,6 +245,23 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self._show()
 
     def show_update_window(self):
+        download_widgets = []
+
+        download_widgets.extend(self.DownloadsStableListWidget.items())
+        download_widgets.extend(self.DownloadsDailyListWidget.items())
+        download_widgets.extend(self.DownloadsExperimentalListWidget.items())
+
+        for widget in download_widgets:
+            if widget.state == DownloadState.DOWNLOADING:
+                self.dlg = DialogWindow(
+                    self, title="Warning",
+                    text="In order to update Blender Launcher<br> \
+                    complete all active downloads!",
+                    accept_text="OK", cancel_text=None,
+                    icon=DialogIcon.WARNING)
+
+                return
+
         self.update_window = UpdateWindow(self, self.latest_tag)
 
     def _show(self):
