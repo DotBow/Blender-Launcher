@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QMainWindow
 from threads.downloader import Downloader
 from threads.extractor import Extractor
 from ui.update_window_ui import UpdateWindowUI
+
 from windows.base_window import BaseWindow
 
 
@@ -17,7 +18,6 @@ class UpdateWindow(QMainWindow, BaseWindow, UpdateWindowUI):
     def __init__(self, parent, tag):
         super().__init__()
         self.setWindowTitle("Update")
-        self.setWindowFlag(Qt.SubWindow)
         self.setupUi(self)
 
         self.parent = parent
@@ -68,3 +68,7 @@ class UpdateWindow(QMainWindow, BaseWindow, UpdateWindowUI):
                   shell=True, stdout=None, stderr=None, close_fds=True)
 
         self.parent.destroy()
+
+    def closeEvent(self, event):
+        event.ignore()
+        self.showMinimized()

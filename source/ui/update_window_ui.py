@@ -1,12 +1,13 @@
-from PyQt5.QtCore import QMetaObject, QSize, Qt
-from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QSizePolicy,
-                             QVBoxLayout, QWidget)
+from PyQt5.QtCore import QMetaObject, Qt
+from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QVBoxLayout,
+                             QWidget)
 
 
 class UpdateWindowUI(object):
     def setupUi(self, UpdateWindow):
         UpdateWindow.setWindowModality(Qt.ApplicationModal)
         UpdateWindow.resize(256, 77)
+        self.setWindowTitle("Updating Blender Launcher")
 
         self.CentralWidget = QWidget(UpdateWindow)
         self.CentralLayout = QVBoxLayout(self.CentralWidget)
@@ -24,6 +25,7 @@ class UpdateWindowUI(object):
         self.ProgressBar = QProgressBar()
         self.ProgressBar.setAlignment(Qt.AlignCenter)
         self.ProgressBar.setFixedHeight(36)
+        self.set_progress_bar(0, "Downloading: %p%")
 
         self.HeaderLayout.addWidget(self.HeaderLabel)
         self.CentralLayout.addLayout(self.HeaderLayout)
