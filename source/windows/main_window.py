@@ -7,10 +7,10 @@ from time import localtime, strftime
 
 from items.base_list_widget_item import BaseListWidgetItem
 from modules._platform import get_platform, set_locale
-from modules.settings import (
-    get_default_library_page, get_launch_minimized_to_tray, get_library_folder,
-    get_taskbar_icon_color, is_library_folder_valid, set_library_folder,
-    taskbar_icon_paths)
+from modules.settings import (get_default_library_page,
+                              get_launch_minimized_to_tray, get_library_folder,
+                              get_taskbar_icon_color, is_library_folder_valid,
+                              set_library_folder, taskbar_icon_paths)
 from PyQt5.QtCore import QFile, QSize, Qt, QTextStream, pyqtSignal
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 from PyQt5.QtNetwork import QLocalServer
@@ -25,6 +25,7 @@ from urllib3 import PoolManager
 from widgets.base_tool_box_widget import BaseToolBoxWidget
 from widgets.download_widget import DownloadState, DownloadWidget
 from widgets.library_widget import LibraryWidget
+
 from windows.base_window import BaseWindow
 from windows.dialog_window import DialogIcon, DialogWindow
 from windows.settings_window import SettingsWindow
@@ -194,6 +195,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.MinimizeButton.clicked.connect(self.showMinimized)
         self.CloseButton.clicked.connect(self.close)
 
+        self.StatusBar.setContentsMargins(0, 0, 0, 2)
         self.StatusBar.setFont(self.font)
         self.statusbarLabel = QLabel()
         self.statusbarLabel.setIndent(8)
@@ -262,6 +264,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
                 return
 
+        self.tray_icon.hide()
+        self.close()
         self.update_window = UpdateWindow(self, self.latest_tag)
 
     def _show(self):
