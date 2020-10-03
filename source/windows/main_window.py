@@ -312,7 +312,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         for widget in download_widgets:
             if widget.state == DownloadState.DOWNLOADING:
                 self.dlg = DialogWindow(
-                    self, title="Warning", text="Download task in progress!<br>\
+                    self, title="Warning", text="Active downloads in progress!<br>\
                     Are you sure you want to quit?",
                     accept_text="Yes", cancel_text="No",
                     icon=DialogIcon.WARNING)
