@@ -28,6 +28,13 @@ library_pages = {
 }
 
 
+download_pages = {
+    'Stable Releases': 0,
+    'Daily Builds': 1,
+    'Experimental Branches': 2
+}
+
+
 def get_settings():
     return QSettings('blender_launcher', 'settings')
 
@@ -146,6 +153,20 @@ def get_default_library_page():
 def set_default_library_page(page):
     settings = get_settings()
     settings.setValue('default_library_page', library_pages[page])
+
+
+def get_default_download_page():
+    settings = get_settings()
+
+    if settings.contains('default_download_page'):
+        return get_settings().value('default_download_page', type=int)
+    else:
+        return 0
+
+
+def set_default_download_page(page):
+    settings = get_settings()
+    settings.setValue('default_download_page', download_pages[page])
 
 
 def get_taskbar_icon_color():
