@@ -195,3 +195,31 @@ def get_list_sorting_type(list_name):
 def set_list_sorting_type(list_name, sorting_type):
     settings = get_settings()
     settings.setValue(list_name + "_sorting_type", sorting_type.value)
+
+
+def get_enable_new_builds_notifications():
+    settings = get_settings()
+
+    if settings.contains('enable_new_builds_notifications'):
+        return get_settings().value('enable_new_builds_notifications', type=bool)
+    else:
+        return True
+
+
+def set_enable_new_builds_notifications(is_checked):
+    settings = get_settings()
+    settings.setValue('enable_new_builds_notifications', is_checked)
+
+
+def get_enable_download_notifications():
+    settings = get_settings()
+
+    if settings.contains('enable_download_notifications'):
+        return get_settings().value('enable_download_notifications', type=bool)
+    else:
+        return True
+
+
+def set_enable_download_notifications(is_checked):
+    settings = get_settings()
+    settings.setValue('enable_download_notifications', is_checked)
