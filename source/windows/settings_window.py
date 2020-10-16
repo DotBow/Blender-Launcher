@@ -1,11 +1,22 @@
+from modules.settings import (get_default_library_page,
+                              get_enable_high_dpi_scaling,
+                              get_launch_minimized_to_tray,
+                              get_launch_when_system_starts,
+                              get_library_folder, get_platform,
+                              get_taskbar_icon_color, library_pages,
+                              set_default_library_page,
+                              set_enable_high_dpi_scaling,
+                              set_launch_minimized_to_tray,
+                              set_launch_when_system_starts,
+                              set_library_folder, set_taskbar_icon_color,
+                              taskbar_icon_colors)
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFileDialog, QHBoxLayout,
-                             QLabel, QLineEdit, QMainWindow, QPushButton,
-                             QVBoxLayout)
-
-from modules.settings import *
+from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFileDialog, QFormLayout,
+                             QHBoxLayout, QLabel, QLineEdit, QMainWindow,
+                             QPushButton)
 from ui.settings_window_design import Ui_SettingsWindow
+
 from windows.base_window import BaseWindow
 
 
@@ -37,6 +48,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.HeaderLayout.addWidget(self.HeaderLabel, 1)
         self.HeaderLayout.addWidget(self.CloseButton, 0, Qt.AlignRight)
 
+        # Library Folder
         self.LibraryFolderLineEdit = QLineEdit()
         self.LibraryFolderLineEdit.setText(str(get_library_folder()))
         self.LibraryFolderLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
@@ -51,6 +63,14 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.ReloadLibraryFolderContentButton.clicked.connect(
             lambda: self.parent.draw_library(True))
 
+        self.LibraryFolderLayout = QHBoxLayout()
+        self.LibraryFolderLayout.setContentsMargins(0, 0, 0, 0)
+        self.LibraryFolderLayout.setSpacing(0)
+
+        self.LibraryFolderLayout.addWidget(self.LibraryFolderLineEdit)
+        self.LibraryFolderLayout.addWidget(self.SetLibraryFolderButton)
+
+        # Launch When System Starts
         self.LaunchWhenSystemStartsCheckBox = QCheckBox(
             "Launch When System Starts")
         self.LaunchWhenSystemStartsCheckBox.setChecked(
@@ -58,6 +78,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.LaunchWhenSystemStartsCheckBox.clicked.connect(
             self.toggle_launch_when_system_starts)
 
+        # Launch Minimized To Tray
         self.LaunchMinimizedToTrayCheckBox = QCheckBox(
             "Launch Minimized To Tray")
         self.LaunchMinimizedToTrayCheckBox.setChecked(
@@ -65,6 +86,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.LaunchMinimizedToTrayCheckBox.clicked.connect(
             self.toggle_launch_minimized_to_tray)
 
+        # High Dpi Scaling
         self.EnableHighDpiScalingCheckBox = \
             QCheckBox("Enable High DPI Scaling")
         self.EnableHighDpiScalingCheckBox.clicked.connect(
@@ -72,36 +94,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.EnableHighDpiScalingCheckBox.setChecked(
             get_enable_high_dpi_scaling())
 
-        self.SettingsLayout = QVBoxLayout()
-        self.SettingsLayout.setContentsMargins(6, 6, 6, 6)
-        self.SettingsLayout.setSpacing(6)
-        self.CentralLayout.addLayout(self.SettingsLayout)
-
-        self.LibraryFolderLayout = QHBoxLayout()
-        self.LibraryFolderLayout.setContentsMargins(1, 1, 1, 1)
-        self.LibraryFolderLayout.setSpacing(0)
-
-        self.SettingsLayout.addWidget(QLabel("Library Folder:"))
-        self.SettingsLayout.addLayout(self.LibraryFolderLayout)
-        self.LibraryFolderLayout.addWidget(self.LibraryFolderLineEdit)
-        self.LibraryFolderLayout.addWidget(self.SetLibraryFolderButton)
-        self.SettingsLayout.addWidget(
-            self.ReloadLibraryFolderContentButton)
-
-        self.SettingsLayout.addWidget(QLabel("System:"))
-
-        if get_platform() == 'Windows':
-            self.SettingsLayout.addWidget(self.LaunchWhenSystemStartsCheckBox)
-
-        self.SettingsLayout.addWidget(self.LaunchMinimizedToTrayCheckBox)
-        self.SettingsLayout.addWidget(self.EnableHighDpiScalingCheckBox)
-        self.SettingsLayout.addWidget(QLabel("Interface:"))
-
-        # Taskbar Icon Color Layout
-        self.TaskbarIconColorLayout = QHBoxLayout()
-        self.TaskbarIconColorLayout.setContentsMargins(1, 1, 1, 1)
-        self.TaskbarIconColorLayout.setSpacing(0)
-
+        # Taskbar Icon Color
         self.TaskbarIconColorComboBox = QComboBox()
         self.TaskbarIconColorComboBox.addItems(taskbar_icon_colors.keys())
         self.TaskbarIconColorComboBox.setCurrentIndex(
@@ -109,17 +102,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.TaskbarIconColorComboBox.activated[str].connect(
             self.change_taskbar_icon_color)
 
-        self.TaskbarIconColorLayout.addWidget(
-            QLabel("Taskbar Icon Color"))
-        self.TaskbarIconColorLayout.addWidget(
-            self.TaskbarIconColorComboBox)
-        self.SettingsLayout.addLayout(self.TaskbarIconColorLayout)
-
-        # Default Library Page Layout
-        self.DefaultLibraryPageLayout = QHBoxLayout()
-        self.DefaultLibraryPageLayout.setContentsMargins(1, 1, 1, 1)
-        self.DefaultLibraryPageLayout.setSpacing(0)
-
+        # Default Library Page
         self.DefaultLibraryPageComboBox = QComboBox()
         self.DefaultLibraryPageComboBox.addItems(library_pages.keys())
         self.DefaultLibraryPageComboBox.setCurrentIndex(
@@ -127,11 +110,34 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.DefaultLibraryPageComboBox.activated[str].connect(
             self.change_default_library_page)
 
-        self.DefaultLibraryPageLayout.addWidget(
-            QLabel("Default Library Page"))
-        self.DefaultLibraryPageLayout.addWidget(
-            self.DefaultLibraryPageComboBox)
-        self.SettingsLayout.addLayout(self.DefaultLibraryPageLayout)
+        # Layout
+        self.SettingsLayout = QFormLayout()
+        self.SettingsLayout.setContentsMargins(6, 6, 6, 6)
+        self.SettingsLayout.setSpacing(6)
+        self.SettingsLayout.setRowWrapPolicy(QFormLayout.DontWrapRows)
+        self.SettingsLayout.setFieldGrowthPolicy(
+            QFormLayout.AllNonFixedFieldsGrow)
+        self.SettingsLayout.setLabelAlignment(Qt.AlignLeft)
+        self.CentralLayout.addLayout(self.SettingsLayout)
+
+        self.SettingsLayout.addRow(QLabel("Library Folder:"))
+        self.SettingsLayout.addRow(self.LibraryFolderLayout)
+        self.SettingsLayout.addRow(
+            self.ReloadLibraryFolderContentButton)
+
+        self.SettingsLayout.addRow(QLabel("System:"))
+
+        if get_platform() == 'Windows':
+            self.SettingsLayout.addRow(self.LaunchWhenSystemStartsCheckBox)
+
+        self.SettingsLayout.addRow(self.LaunchMinimizedToTrayCheckBox)
+        self.SettingsLayout.addRow(self.EnableHighDpiScalingCheckBox)
+
+        self.SettingsLayout.addRow(QLabel("Interface:"))
+        self.SettingsLayout.addRow(
+            "Taskbar Icon Color", self.TaskbarIconColorComboBox)
+        self.SettingsLayout.addRow(
+            "Default Library Page", self.DefaultLibraryPageComboBox)
 
         self.resize(self.sizeHint())
         self.show()
