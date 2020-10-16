@@ -126,7 +126,7 @@ class LibraryWidget(QWidget):
         self.deleteAction.setIcon(self.icon_delete)
         self.deleteAction.triggered.connect(self.ask_remove_from_drive)
 
-        self.setAsFavoriteAction = QAction("Set As Favorite", self)
+        self.setAsFavoriteAction = QAction("Mark As Favorite", self)
         self.setAsFavoriteAction.setIcon(self.icon_favorite)
         self.setAsFavoriteAction.triggered.connect(self.set_favorite)
 

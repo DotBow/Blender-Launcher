@@ -28,6 +28,13 @@ library_pages = {
 }
 
 
+download_pages = {
+    'Stable Releases': 0,
+    'Daily Builds': 1,
+    'Experimental Branches': 2
+}
+
+
 def get_settings():
     return QSettings('blender_launcher', 'settings')
 
@@ -148,6 +155,20 @@ def set_default_library_page(page):
     settings.setValue('default_library_page', library_pages[page])
 
 
+def get_default_download_page():
+    settings = get_settings()
+
+    if settings.contains('default_download_page'):
+        return get_settings().value('default_download_page', type=int)
+    else:
+        return 0
+
+
+def set_default_download_page(page):
+    settings = get_settings()
+    settings.setValue('default_download_page', download_pages[page])
+
+
 def get_taskbar_icon_color():
     settings = get_settings()
 
@@ -174,3 +195,31 @@ def get_list_sorting_type(list_name):
 def set_list_sorting_type(list_name, sorting_type):
     settings = get_settings()
     settings.setValue(list_name + "_sorting_type", sorting_type.value)
+
+
+def get_enable_new_builds_notifications():
+    settings = get_settings()
+
+    if settings.contains('enable_new_builds_notifications'):
+        return get_settings().value('enable_new_builds_notifications', type=bool)
+    else:
+        return True
+
+
+def set_enable_new_builds_notifications(is_checked):
+    settings = get_settings()
+    settings.setValue('enable_new_builds_notifications', is_checked)
+
+
+def get_enable_download_notifications():
+    settings = get_settings()
+
+    if settings.contains('enable_download_notifications'):
+        return get_settings().value('enable_download_notifications', type=bool)
+    else:
+        return True
+
+
+def set_enable_download_notifications(is_checked):
+    settings = get_settings()
+    settings.setValue('enable_download_notifications', is_checked)
