@@ -6,11 +6,13 @@ from pathlib import Path
 from shutil import copyfileobj
 from subprocess import DEVNULL, Popen
 
-from modules._platform import get_platform
 from PyQt5.QtNetwork import QLocalSocket
 from PyQt5.QtWidgets import QApplication
+
+from modules._platform import get_platform
 from windows.main_window import BlenderLauncher
 
+version = "1.6.0"
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(stream=sys.stdout)
 logger.addHandler(handler)
@@ -21,9 +23,10 @@ def handle_exception(exc_type, exc_value, exc_traceback):
         sys.__excepthook__(exc_type, exc_value, exc_traceback)
         return
 
-    _format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    _format = '%(asctime)s - %(message)s'
     logging.basicConfig(filename="Blender Launcher.log", format=_format)
-    logger.error(get_platform(), exc_info=(exc_type, exc_value, exc_traceback))
+    logger.error("{0} - Blender Launcher {1}".format(get_platform(), version),
+                 exc_info=(exc_type, exc_value, exc_traceback))
 
 
 sys.excepthook = handle_exception
@@ -57,7 +60,7 @@ def main():
         sys.exit(0)
 
     app = QApplication(sys.argv)
-    app.setApplicationVersion("1.6.0")
+    app.setApplicationVersion(version)
     app.setQuitOnLastWindowClosed(False)
 
     socket = QLocalSocket()
