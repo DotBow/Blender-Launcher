@@ -9,6 +9,7 @@ from modules.settings import (downloads_pages, get_default_downloads_page,
                               get_taskbar_icon_color, library_pages,
                               set_default_downloads_page,
                               set_default_library_page,
+                              set_enable_download_notifications,
                               set_enable_high_dpi_scaling,
                               set_enable_new_builds_notifications,
                               set_launch_minimized_to_tray,
@@ -123,6 +124,21 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.DefaultDownloadsPageComboBox.activated[str].connect(
             self.change_default_downloads_page)
 
+        # Notifications
+        self.EnableNewBuildsNotifications = QCheckBox(
+            "When New Builds Are Available")
+        self.EnableNewBuildsNotifications.clicked.connect(
+            self.toggle_enable_new_builds_notifications)
+        self.EnableNewBuildsNotifications.setChecked(
+            get_enable_new_builds_notifications())
+
+        self.EnableDownloadNotifications = QCheckBox(
+            "When Downloading Is Finished")
+        self.EnableDownloadNotifications.clicked.connect(
+            self.toggle_enable_download_notifications)
+        self.EnableDownloadNotifications.setChecked(
+            get_enable_download_notifications())
+
         # Layout
         self.SettingsLayout = QFormLayout()
         self.SettingsLayout.setContentsMargins(6, 6, 6, 6)
@@ -153,6 +169,10 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             "Default Library Page", self.DefaultLibraryPageComboBox)
         self.SettingsLayout.addRow(
             "Default Downloads Page", self.DefaultDownloadsPageComboBox)
+
+        self.SettingsLayout.addRow(QLabel("Notifications:"))
+        self.SettingsLayout.addRow(self.EnableNewBuildsNotifications)
+        self.SettingsLayout.addRow(self.EnableDownloadNotifications)
 
         self.resize(self.sizeHint())
         self.show()
@@ -185,3 +205,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def change_taskbar_icon_color(self, color):
         set_taskbar_icon_color(color)
+
+    def toggle_enable_download_notifications(self, is_checked):
+        set_enable_download_notifications(is_checked)
+
+    def toggle_enable_new_builds_notifications(self, is_checked):
+        set_enable_new_builds_notifications(is_checked)
