@@ -28,7 +28,7 @@ library_pages = {
 }
 
 
-download_pages = {
+downloads_pages = {
     'Stable Releases': 0,
     'Daily Builds': 1,
     'Experimental Branches': 2
@@ -177,18 +177,18 @@ def set_mark_as_favorite(page):
     settings.setValue('mark_as_favorite', favorite_pages[page])
 
 
-def get_default_download_page():
+def get_default_downloads_page():
     settings = get_settings()
 
-    if settings.contains('default_download_page'):
-        return get_settings().value('default_download_page', type=int)
+    if settings.contains('default_downloads_page'):
+        return get_settings().value('default_downloads_page', type=int)
     else:
         return 0
 
 
-def set_default_download_page(page):
+def set_default_downloads_page(page):
     settings = get_settings()
-    settings.setValue('default_download_page', download_pages[page])
+    settings.setValue('default_downloads_page', downloads_pages[page])
 
 
 def get_taskbar_icon_color():

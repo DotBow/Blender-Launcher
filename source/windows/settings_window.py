@@ -1,6 +1,6 @@
 from modules.settings import (downloads_pages, get_default_downloads_page,
                               get_default_library_page,
-                              get_enable_downloads_notifications,
+                              get_enable_download_notifications,
                               get_enable_high_dpi_scaling,
                               get_enable_new_builds_notifications,
                               get_launch_minimized_to_tray,
