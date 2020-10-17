@@ -22,7 +22,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFileDialog, QFormLayout,
                              QHBoxLayout, QLabel, QLineEdit, QMainWindow,
                              QPushButton)
-from ui.settings_window_design import Ui_SettingsWindow
+from ui.settings_window_ui import Ui_SettingsWindow
 
 from windows.base_window import BaseWindow
 

@@ -4,7 +4,7 @@ from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QHBoxLayout, QLabel, QMainWindow, QPushButton
 
-from ui.dialog_window_design import Ui_DialogWindow
+from ui.dialog_window_ui import Ui_DialogWindow
 from windows.base_window import BaseWindow
 
 

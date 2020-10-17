@@ -24,7 +24,7 @@ from PyQt5.QtWidgets import (QAction, QFileDialog, QHBoxLayout, QLabel,
 from threads.library_drawer import LibraryDrawer
 from threads.remover import Remover
 from threads.scraper import Scraper
-from ui.main_window_design import Ui_MainWindow
+from ui.main_window_ui import Ui_MainWindow
 from urllib3 import PoolManager
 from widgets.base_tool_box_widget import BaseToolBoxWidget
 from widgets.download_widget import DownloadState, DownloadWidget
