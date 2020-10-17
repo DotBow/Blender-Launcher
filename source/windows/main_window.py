@@ -7,8 +7,11 @@ from time import localtime, strftime
 
 from items.base_list_widget_item import BaseListWidgetItem
 from modules._platform import get_platform, set_locale
+from modules.enums import MessageType
 from modules.settings import (get_default_downloads_page,
                               get_default_library_page,
+                              get_enable_download_notifications,
+                              get_enable_new_builds_notifications,
                               get_launch_minimized_to_tray, get_library_folder,
                               get_taskbar_icon_color, is_library_folder_valid,
                               set_library_folder, taskbar_icon_paths)
@@ -285,7 +288,14 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.set_status()
         self.show_signal.emit()
 
-    def show_message(self, message, value=None):
+    def show_message(self, message, value=None, type=None):
+        if (type == MessageType.DOWNLOADFINISHED and
+                get_enable_download_notifications() is False):
+            return
+        elif (type == MessageType.NEWBUILDS and
+              get_enable_new_builds_notifications() is False):
+            return
+
         if value not in self.notification_pool:
             if value is not None:
                 self.notification_pool.append(value)
@@ -408,7 +418,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.draw_to_downloads(build_info, not self.started)
 
         if (len(builds) > 0) and (not self.started):
-            self.show_message("New builds of Blender is available!")
+            self.show_message(
+                "New builds of Blender is available!", type=MessageType.NEWBUILDS)
 
         set_locale()
         utcnow = strftime(('%H:%M'), localtime())

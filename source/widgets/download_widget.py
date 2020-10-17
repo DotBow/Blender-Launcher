@@ -1,6 +1,7 @@
 from enum import Enum
 from pathlib import Path
 
+from modules.enums import MessageType
 from modules.settings import get_library_folder
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QPushButton,
@@ -132,7 +133,8 @@ class DownloadWidget(QWidget):
                 self.branchLabel.text(),
                 self.commitTimeLabel.text())
             self.parent.show_message(
-                "Blender {0} download finished!".format(name))
+                "Blender {0} download finished!".format(name),
+                type=MessageType.DOWNLOADFINISHED)
             self.destroy()
 
     def destroy(self):
