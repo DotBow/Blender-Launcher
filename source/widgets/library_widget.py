@@ -6,13 +6,13 @@ from subprocess import Popen
 from modules._platform import get_platform
 from modules.build_info import BuildInfoReader
 from modules.settings import (get_favorite_path, get_library_folder,
-                              set_favorite_path)
+                              get_mark_as_favorite, set_favorite_path)
 from modules.shortcut import create_shortcut
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor, QIcon
 from PyQt5.QtWidgets import (QAction, QHBoxLayout, QLabel, QMenu, QPushButton,
-                             QSizePolicy, QWidget)
+                             QWidget)
 from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
@@ -91,7 +91,7 @@ class LibraryWidget(QWidget):
         self.widgetFavorite = QPushButton()
         self.widgetFavorite.setEnabled(False)
         self.widgetFavorite.setFixedSize(24, 24)
-        self.widgetFavorite.setIcon(self.icon_favorite)
+        self.widgetFavorite.setIcon(self.icon_fake)
         self.widgetFavorite.setProperty("Icon", True)
 
         self.layout.addWidget(self.launchButton)
@@ -102,12 +102,6 @@ class LibraryWidget(QWidget):
         self.layout.addStretch()
         self.layout.addWidget(self.countButton)
         self.layout.addWidget(self.widgetFavorite)
-
-        if self.show_new:
-            self.NewItemLabel = QLabel("New")
-            self.NewItemLabel.setAlignment(Qt.AlignRight | Qt.AlignCenter)
-            self.NewItemLabel.setIndent(6)
-            self.layout.addWidget(self.NewItemLabel)
 
         self.launchButton.clicked.connect(self.launch)
         self.subversionLabel.setText(self.build_info.subversion)
@@ -148,10 +142,22 @@ class LibraryWidget(QWidget):
         self.menu.addAction(self.showFolderAction)
         self.menu.addAction(self.deleteAction)
 
-        if get_favorite_path() == self.link:
+        if self.show_new:
+            self.NewItemLabel = QLabel("New")
+            self.NewItemLabel.setAlignment(Qt.AlignRight | Qt.AlignCenter)
+            self.NewItemLabel.setIndent(6)
+            self.layout.addWidget(self.NewItemLabel)
+
+            if get_mark_as_favorite() == 0:
+                pass
+            elif (get_mark_as_favorite() == 1 and self.branch == "stable"):
+                self.set_favorite()
+            elif (get_mark_as_favorite() == 2 and self.branch == "daily"):
+                self.set_favorite()
+            elif get_mark_as_favorite() == 3:
+                self.set_favorite()
+        elif get_favorite_path() == self.link:
             self.set_favorite()
-        else:
-            self.widgetFavorite.setIcon(self.icon_fake)
 
         self.setEnabled(True)
         self.list_widget.sortItems()
