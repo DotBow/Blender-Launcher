@@ -1,11 +1,16 @@
-from modules.settings import (get_default_library_page,
+from modules.settings import (downloads_pages, get_default_downloads_page,
+                              get_default_library_page,
+                              get_enable_downloads_notifications,
                               get_enable_high_dpi_scaling,
+                              get_enable_new_builds_notifications,
                               get_launch_minimized_to_tray,
                               get_launch_when_system_starts,
                               get_library_folder, get_platform,
                               get_taskbar_icon_color, library_pages,
+                              set_default_downloads_page,
                               set_default_library_page,
                               set_enable_high_dpi_scaling,
+                              set_enable_new_builds_notifications,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
                               set_library_folder, set_taskbar_icon_color,
@@ -110,6 +115,14 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.DefaultLibraryPageComboBox.activated[str].connect(
             self.change_default_library_page)
 
+        # Default Downloads Page
+        self.DefaultDownloadsPageComboBox = QComboBox()
+        self.DefaultDownloadsPageComboBox.addItems(downloads_pages.keys())
+        self.DefaultDownloadsPageComboBox.setCurrentIndex(
+            get_default_downloads_page())
+        self.DefaultDownloadsPageComboBox.activated[str].connect(
+            self.change_default_downloads_page)
+
         # Layout
         self.SettingsLayout = QFormLayout()
         self.SettingsLayout.setContentsMargins(6, 6, 6, 6)
@@ -138,6 +151,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             "Taskbar Icon Color", self.TaskbarIconColorComboBox)
         self.SettingsLayout.addRow(
             "Default Library Page", self.DefaultLibraryPageComboBox)
+        self.SettingsLayout.addRow(
+            "Default Downloads Page", self.DefaultDownloadsPageComboBox)
 
         self.resize(self.sizeHint())
         self.show()
@@ -164,6 +179,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def change_default_library_page(self, page):
         set_default_library_page(page)
+
+    def change_default_downloads_page(self, page):
+        set_default_downloads_page(page)
 
     def change_taskbar_icon_color(self, color):
         set_taskbar_icon_color(color)
