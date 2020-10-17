@@ -7,7 +7,8 @@ from time import localtime, strftime
 
 from items.base_list_widget_item import BaseListWidgetItem
 from modules._platform import get_platform, set_locale
-from modules.settings import (get_default_library_page,
+from modules.settings import (get_default_downloads_page,
+                              get_default_library_page,
                               get_launch_minimized_to_tray, get_library_folder,
                               get_taskbar_icon_color, is_library_folder_valid,
                               set_library_folder, taskbar_icon_paths)
@@ -187,6 +188,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.DownloadsTab.layout().addWidget(self.DownloadsToolBox)
 
         self.LibraryToolBox.setCurrentIndex(get_default_library_page())
+        self.DownloadsToolBox.setCurrentIndex(get_default_downloads_page())
 
         # Connect buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
