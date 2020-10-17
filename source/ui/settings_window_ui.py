@@ -22,6 +22,4 @@ class Ui_SettingsWindow(object):
         self.CentralLayout.setContentsMargins(0, 0, 0, 0)
         self.CentralLayout.setObjectName("CentralLayout")
         SettingsWindow.setCentralWidget(self.CentralWidget)
-
-        self.retranslateUi(SettingsWindow)
         QtCore.QMetaObject.connectSlotsByName(SettingsWindow)

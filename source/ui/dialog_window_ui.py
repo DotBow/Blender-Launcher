@@ -22,6 +22,4 @@ class Ui_DialogWindow(object):
         self.CentralLayout.setSpacing(0)
         self.CentralLayout.setObjectName("CentralLayout")
         DialogWindow.setCentralWidget(self.CentralWidget)
-
-        self.retranslateUi(DialogWindow)
         QtCore.QMetaObject.connectSlotsByName(DialogWindow)

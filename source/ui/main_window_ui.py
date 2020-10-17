@@ -21,6 +21,4 @@ class Ui_MainWindow(object):
         self.StatusBar = QtWidgets.QStatusBar(MainWindow)
         self.StatusBar.setObjectName("StatusBar")
         MainWindow.setStatusBar(self.StatusBar)
-
-        self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
