@@ -57,7 +57,7 @@ def main():
         sys.exit(0)
 
     app = QApplication(sys.argv)
-    app.setApplicationVersion("1.5.0")
+    app.setApplicationVersion("1.6.0")
     app.setQuitOnLastWindowClosed(False)
 
     socket = QLocalSocket()
