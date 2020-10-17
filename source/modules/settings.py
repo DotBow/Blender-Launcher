@@ -35,6 +35,14 @@ download_pages = {
 }
 
 
+favorite_pages = {
+    'Disable': 0,
+    'Stable Releases': 1,
+    'Daily Builds': 2,
+    'Experimental Branches': 3
+}
+
+
 def get_settings():
     return QSettings('blender_launcher', 'settings')
 
@@ -153,6 +161,20 @@ def get_default_library_page():
 def set_default_library_page(page):
     settings = get_settings()
     settings.setValue('default_library_page', library_pages[page])
+
+
+def get_mark_as_favorite():
+    settings = get_settings()
+
+    if settings.contains('mark_as_favorite'):
+        return get_settings().value('mark_as_favorite', type=int)
+    else:
+        return 0
+
+
+def set_mark_as_favorite(page):
+    settings = get_settings()
+    settings.setValue('mark_as_favorite', favorite_pages[page])
 
 
 def get_default_download_page():
