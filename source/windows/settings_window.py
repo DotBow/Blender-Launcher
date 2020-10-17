@@ -1,21 +1,22 @@
-from modules.settings import (downloads_pages, get_default_downloads_page,
+from modules.settings import (downloads_pages, favorite_pages,
+                              get_default_downloads_page,
                               get_default_library_page,
                               get_enable_download_notifications,
                               get_enable_high_dpi_scaling,
                               get_enable_new_builds_notifications,
                               get_launch_minimized_to_tray,
                               get_launch_when_system_starts,
-                              get_library_folder, get_platform,
-                              get_taskbar_icon_color, library_pages,
-                              set_default_downloads_page,
+                              get_library_folder, get_mark_as_favorite,
+                              get_platform, get_taskbar_icon_color,
+                              library_pages, set_default_downloads_page,
                               set_default_library_page,
                               set_enable_download_notifications,
                               set_enable_high_dpi_scaling,
                               set_enable_new_builds_notifications,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
-                              set_library_folder, set_taskbar_icon_color,
-                              taskbar_icon_colors)
+                              set_library_folder, set_mark_as_favorite,
+                              set_taskbar_icon_color, taskbar_icon_colors)
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFileDialog, QFormLayout,
@@ -139,6 +140,14 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.EnableDownloadNotifications.setChecked(
             get_enable_download_notifications())
 
+        # Mark As Favorite
+        self.MarkAsFavorite = QComboBox()
+        self.MarkAsFavorite.addItems(favorite_pages.keys())
+        self.MarkAsFavorite.setCurrentIndex(
+            get_mark_as_favorite())
+        self.MarkAsFavorite.activated[str].connect(
+            self.change_mark_as_favorite)
+
         # Layout
         self.SettingsLayout = QFormLayout()
         self.SettingsLayout.setContentsMargins(6, 6, 6, 6)
@@ -174,6 +183,10 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.SettingsLayout.addRow(self.EnableNewBuildsNotifications)
         self.SettingsLayout.addRow(self.EnableDownloadNotifications)
 
+        self.SettingsLayout.addRow(QLabel("Service:"))
+        self.SettingsLayout.addRow(
+            "Mark New Build As Favorite", self.MarkAsFavorite)
+
         self.resize(self.sizeHint())
         self.show()
 
@@ -202,6 +215,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def change_default_downloads_page(self, page):
         set_default_downloads_page(page)
+
+    def change_mark_as_favorite(self, page):
+        set_mark_as_favorite(page)
 
     def change_taskbar_icon_color(self, color):
         set_taskbar_icon_color(color)
