@@ -1,11 +1,11 @@
 from enum import Enum
 
+from modules.settings import get_list_sorting_type, set_list_sorting_type
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QPushButton, QVBoxLayout,
                              QWidget)
 
-from modules.settings import get_list_sorting_type, set_list_sorting_type
 from widgets.base_list_widget import BaseListWidget
 
 
@@ -15,7 +15,8 @@ class SortingType(Enum):
 
 
 class BasePageWidget(QWidget):
-    def __init__(self, parent, text, name, show_hash=True):
+    def __init__(self, parent, text, name,
+                 show_hash=True, extended_selection=False):
         super().__init__()
         self.name = name
 
@@ -40,7 +41,8 @@ class BasePageWidget(QWidget):
         self.InfoLabel = QLabel(text)
         self.InfoLabelLayout.addWidget(self.InfoLabel)
 
-        self.list_widget = BaseListWidget(self)
+        self.list_widget = BaseListWidget(
+            self, extended_selection=extended_selection)
         self.list_widget.hide()
 
         self.PlaceholderLayout.addStretch()

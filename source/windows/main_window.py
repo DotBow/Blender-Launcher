@@ -165,16 +165,16 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         self.LibraryStableListWidget = \
             self.LibraryToolBox.add_list_widget(
-                "Stable Releases", "LibraryStableListWidget", "Nothing to show yet")
+                "Stable Releases", "LibraryStableListWidget", "Nothing to show yet", extended_selection=True)
         self.LibraryDailyListWidget = \
             self.LibraryToolBox.add_list_widget(
-                "Daily Builds", "LibraryDailyListWidget", "Nothing to show yet")
+                "Daily Builds", "LibraryDailyListWidget", "Nothing to show yet", extended_selection=True)
         self.LibraryExperimentalListWidget = \
             self.LibraryToolBox.add_list_widget(
-                "Experimental Branches", "LibraryExperimentalListWidget", "Nothing to show yet")
+                "Experimental Branches", "LibraryExperimentalListWidget", "Nothing to show yet", extended_selection=True)
         self.LibraryCustomListWidget = \
             self.LibraryToolBox.add_list_widget(
-                "Custom Builds", "LibraryCustomListWidget", "Nothing to show yet")
+                "Custom Builds", "LibraryCustomListWidget", "Nothing to show yet", extended_selection=True)
         self.LibraryTab.layout().addWidget(self.LibraryToolBox)
 
         self.DownloadsToolBox = BaseToolBoxWidget(self)

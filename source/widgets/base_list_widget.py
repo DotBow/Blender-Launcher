@@ -1,14 +1,17 @@
-from PyQt5.QtWidgets import QListWidget
+from PyQt5.QtWidgets import QAbstractItemView, QListWidget
 
 
 class BaseListWidget(QListWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, extended_selection=False):
         super().__init__()
         self.parent = parent
 
         self.setFrameShape(QListWidget.NoFrame)
         self.setSortingEnabled(True)
         self.setAlternatingRowColors(True)
+
+        if extended_selection is True:
+            self.setSelectionMode(QAbstractItemView.ExtendedSelection)
 
     def add_item(self, item, widget):
         item.setSizeHint(widget.sizeHint())

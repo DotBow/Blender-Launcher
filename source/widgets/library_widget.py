@@ -11,8 +11,8 @@ from modules.shortcut import create_shortcut
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor, QIcon
-from PyQt5.QtWidgets import (QAction, QHBoxLayout, QLabel, QMenu, QPushButton,
-                             QWidget)
+from PyQt5.QtWidgets import (QAction, QApplication, QHBoxLayout, QLabel, QMenu,
+                             QPushButton, QWidget)
 from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
@@ -172,8 +172,18 @@ class LibraryWidget(QWidget):
             self.launch()
 
     def mouseReleaseEvent(self, event):
-        if hasattr(self, "NewItemLabel"):
-            self.NewItemLabel.hide()
+        if event.button == Qt.LeftButton:
+            if hasattr(self, "NewItemLabel"):
+                self.NewItemLabel.hide()
+
+            mod = QApplication.keyboardModifiers()
+            if not (mod == Qt.ShiftModifier or mod == Qt.ControlModifier):
+                self.list_widget.clearSelection()
+                self.item.setSelected(True)
+
+            event.accept()
+
+        event.ignore()
 
     @QtCore.pyqtSlot()
     def launch(self):
