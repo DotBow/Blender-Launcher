@@ -6,9 +6,10 @@ name = "pypi"
 [dev-packages]
 
 [packages]
-beautifulsoup4 = "==4.9.1"
-pyqt5 = "==5.14.2"
-urllib3 = "==1.25.6"
+beautifulsoup4 = "==4.9.3"
+pyqt5 = "==5.15.1"
+pyqt5-tools = "==5.15.1.1.7.4"
+urllib3 = "==1.25.11"
 pyinstaller = "==4.0"
 pywin32 = {version = "*", os_name = "=='nt'"}
 
