@@ -209,8 +209,8 @@ class LibraryWidget(QWidget):
         if self.observer is None:
             self.observer = Observer(self)
             self.observer.count_changed.connect(self.proc_count_changed)
+            self.observer.started.connect(self.observer_started)
             self.observer.finished.connect(self.observer_finished)
-            self.observer.started.connect(self.countButton.show)
             self.observer.start()
 
         self.observer.append_proc(proc)
@@ -218,9 +218,14 @@ class LibraryWidget(QWidget):
     def proc_count_changed(self, count):
         self.countButton.setText(str(count))
 
+    def observer_started(self):
+        self.countButton.show()
+        self.deleteAction.setEnabled(False)
+
     def observer_finished(self):
-        self.countButton.hide()
         self.observer = None
+        self.countButton.hide()
+        self.deleteAction.setEnabled(True)
 
     @QtCore.pyqtSlot()
     def ask_remove_from_drive(self):
