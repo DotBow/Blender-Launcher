@@ -9,7 +9,7 @@ from subprocess import DEVNULL, Popen
 from PyQt5.QtNetwork import QLocalSocket
 from PyQt5.QtWidgets import QApplication
 
-from modules._platform import get_platform
+from modules._platform import get_environment, get_platform
 from windows.main_window import BlenderLauncher
 
 version = "1.6.0"
@@ -55,7 +55,8 @@ def main():
         elif platform == 'Linux':
             os.chmod(dist.as_posix(), 0o744)
             Popen('nohup "' + dist.as_posix() + '"', shell=True,
-                  stdout=None, stderr=None, close_fds=True)
+                  stdout=None, stderr=None, close_fds=True,
+                  env=get_environment())
 
         sys.exit(0)
 

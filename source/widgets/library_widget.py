@@ -5,8 +5,9 @@ from subprocess import Popen
 
 from modules._platform import get_platform
 from modules.build_info import BuildInfoReader
-from modules.settings import (get_favorite_path, get_library_folder,
-                              get_mark_as_favorite, set_favorite_path)
+from modules.settings import (get_environment, get_favorite_path,
+                              get_library_folder, get_mark_as_favorite,
+                              set_favorite_path)
 from modules.shortcut import create_shortcut
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
@@ -203,7 +204,7 @@ class LibraryWidget(QWidget):
         elif platform == 'Linux':
             b3d_exe = library_folder / self.link / "blender"
             proc = Popen('nohup "' + b3d_exe.as_posix() + '"', shell=True, stdout=None,
-                         stderr=None, close_fds=True, preexec_fn=os.setpgrp)
+                         stderr=None, close_fds=True, preexec_fn=os.setpgrp, env=get_environment())
 
         if self.observer is None:
             self.observer = Observer(self)
