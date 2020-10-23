@@ -169,7 +169,8 @@ class LibraryWidget(QWidget):
         self.setEnabled(True)
         self.list_widget.sortItems()
         self.list_widget.resize_labels(
-            ('subversionLabel', 'branchLabel', 'commitTimeLabel', 'buildHashLabel'))
+            ('subversionLabel', 'branchLabel',
+             'commitTimeLabel', 'buildHashLabel'))
 
     def context_menu(self):
         self.menu.exec_(QCursor.pos())
@@ -205,12 +206,16 @@ class LibraryWidget(QWidget):
         if platform == 'Windows':
             DETACHED_PROCESS = 0x00000008
             b3d_exe = library_folder / self.link / "blender.exe"
-            proc = Popen(b3d_exe.as_posix(), shell=True, stdin=None, stdout=None,
-                         stderr=None, close_fds=True, creationflags=DETACHED_PROCESS)
+            proc = Popen(b3d_exe.as_posix(), shell=True,
+                         stdin=None, stdout=None,
+                         stderr=None, close_fds=True,
+                         creationflags=DETACHED_PROCESS)
         elif platform == 'Linux':
             b3d_exe = library_folder / self.link / "blender"
-            proc = Popen('nohup "' + b3d_exe.as_posix() + '"', shell=True, stdout=None,
-                         stderr=None, close_fds=True, preexec_fn=os.setpgrp, env=get_environment())
+            proc = Popen('nohup "' + b3d_exe.as_posix() + '"',
+                         shell=True, stdout=None,
+                         stderr=None, close_fds=True,
+                         preexec_fn=os.setpgrp, env=get_environment())
 
         if self.observer is None:
             self.observer = Observer(self)
