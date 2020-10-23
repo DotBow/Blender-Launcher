@@ -3,11 +3,10 @@ import subprocess
 from pathlib import Path
 from subprocess import Popen
 
-from modules._platform import get_platform
+from modules._platform import get_environment, get_platform
 from modules.build_info import BuildInfoReader
-from modules.settings import (get_environment, get_favorite_path,
-                              get_library_folder, get_mark_as_favorite,
-                              set_favorite_path)
+from modules.settings import (get_favorite_path, get_library_folder,
+                              get_mark_as_favorite, set_favorite_path)
 from modules.shortcut import create_shortcut
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
