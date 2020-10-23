@@ -1,7 +1,7 @@
 import os
 import subprocess
 from pathlib import Path
-from subprocess import Popen
+from subprocess import DEVNULL, Popen, check_call
 
 from modules._platform import get_environment, get_platform
 from modules.build_info import BuildInfoReader
@@ -17,6 +17,9 @@ from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
 from windows.dialog_window import DialogIcon, DialogWindow
+
+if get_platform() == 'Windows':
+    from subprocess import CREATE_NO_WINDOW
 
 
 class LibraryWidget(QWidget):
@@ -133,12 +136,16 @@ class LibraryWidget(QWidget):
         self.showFolderAction = QAction("Show Folder")
         self.showFolderAction.triggered.connect(self.show_folder)
 
+        self.createSymlinkAction = QAction("Create Symlink")
+        self.createSymlinkAction.triggered.connect(self.create_symlink)
+
         self.menu.addAction(self.setAsFavoriteAction)
 
         if get_platform() == 'Windows':
             self.menu.addAction(self.registerExtentionAction)
 
         self.menu.addAction(self.createShortcutAction)
+        self.menu.addAction(self.createSymlinkAction)
         self.menu.addAction(self.showFolderAction)
         self.menu.addAction(self.deleteAction)
 
@@ -279,6 +286,20 @@ class LibraryWidget(QWidget):
             self.build_info.branch.replace('-', ' ').title())
 
         create_shortcut(self.link, name)
+
+    @QtCore.pyqtSlot()
+    def create_symlink(self):
+        platform = get_platform()
+        target = self.link
+        link = (Path(get_library_folder()) / "blender_symlink").as_posix()
+
+        if platform == 'Windows':
+            check_call('mklink /J "{0}" "{1}"'.format(link, target),
+                       creationflags=CREATE_NO_WINDOW,
+                       shell=True,
+                       stderr=DEVNULL, stdin=DEVNULL)
+        elif platform == 'Linux':
+            os.symlink(target, link)
 
     @QtCore.pyqtSlot()
     def show_folder(self):
