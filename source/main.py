@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import QApplication
 from modules._platform import get_environment, get_platform
 from windows.main_window import BlenderLauncher
 
-version = "1.6.0"
+version = "1.7.0"
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(stream=sys.stdout)
 logger.addHandler(handler)
