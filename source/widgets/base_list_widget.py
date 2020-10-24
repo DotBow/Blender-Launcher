@@ -9,6 +9,7 @@ class BaseListWidget(QListWidget):
         self.setFrameShape(QListWidget.NoFrame)
         self.setSortingEnabled(True)
         self.setAlternatingRowColors(True)
+        self.setProperty("HideBorder", True)
 
         if extended_selection is True:
             self.setSelectionMode(QAbstractItemView.ExtendedSelection)

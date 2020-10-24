@@ -33,6 +33,21 @@ QComboBox::down-arrow {
 	image: url(:resources/icons/drop_down_arrow.svg);
 }
 
+QFileDialog {
+	background-color: #232323;
+	color: #FFFFFF;
+}
+
+QHeaderView {
+	background-color: #282828;
+	color: #FFFFFF;
+}
+
+QHeaderView::section {
+	background-color: #282828;
+	border: none;
+}
+
 QLabel {
 	color: #FFFFFF;
 }
@@ -49,6 +64,29 @@ QLineEdit {
 }
 
 QLineEdit[text=\"\"] {
+	color: #FFFFFF;
+}
+
+QListView {
+	background-color: #282828;
+	color: #FFFFFF;
+	border: 1px solid #444444;
+	outline: 0;
+}
+
+QListView[HideBorder=true] {
+	border: none;
+}
+
+QListView::item:hover {
+	background-color: #4F4F4F;
+}
+
+QListView::item:selected {
+	background-color: #3B5689;
+}
+
+QListView::item:selected:!active {
 	color: #FFFFFF;
 }
 
@@ -259,6 +297,10 @@ QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical, QScrollBar::sub-li
 	background: none;
 }
 
+QSplitter::handle {
+	background-color: #444444;
+}
+
 QStatusBar {
 	color: #FFFFFF;
 }
@@ -313,6 +355,25 @@ QToolBox::tab:hover {
 
 QToolBox::tab:selected:hover {
 	background-color: #424242;
+	color: #FFFFFF;
+}
+
+QTreeView {
+	background-color: #282828;
+	color: #FFFFFF;
+	border: 1px solid #444444;
+	outline: 0;
+}
+
+QTreeView::item:hover {
+	background-color: #4F4F4F;
+}
+
+QTreeView::item:selected {
+	background-color: #3B5689;
+}
+
+QTreeView::item:selected:!active {
 	color: #FFFFFF;
 }
 
