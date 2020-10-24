@@ -294,16 +294,24 @@ class LibraryWidget(QWidget):
 
     @QtCore.pyqtSlot()
     def create_symlink(self):
-        platform = get_platform()
         target = self.link
         link = (Path(get_library_folder()) / "blender_symlink").as_posix()
+        platform = get_platform()
 
         if platform == 'Windows':
+            if os.path.exists(link):
+                if os.path.isdir(link):
+                    os.rmdir(link)
+
             check_call('mklink /J "{0}" "{1}"'.format(link, target),
                        creationflags=CREATE_NO_WINDOW,
                        shell=True,
                        stderr=DEVNULL, stdin=DEVNULL)
         elif platform == 'Linux':
+            if os.path.exists(link):
+                if os.path.islink(link):
+                    os.unlink(link)
+
             os.symlink(target, link)
 
     @QtCore.pyqtSlot()
