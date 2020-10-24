@@ -173,6 +173,16 @@ class LibraryWidget(QWidget):
              'commitTimeLabel', 'buildHashLabel'))
 
     def context_menu(self):
+        link_path = Path(get_library_folder()) / "blender_symlink"
+        link = link_path.as_posix()
+
+        if os.path.exists(link):
+            if (os.path.isdir(link) or os.path.islink(link)):
+                if link_path.resolve() == self.link:
+                    self.createSymlinkAction.setEnabled(False)
+        else:
+            self.createSymlinkAction.setEnabled(True)
+
         self.menu.exec_(QCursor.pos())
 
     def mouseDoubleClickEvent(self, event):
