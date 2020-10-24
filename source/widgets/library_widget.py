@@ -119,6 +119,9 @@ class LibraryWidget(QWidget):
         self.menu = QMenu()
         self.menu.setFont(self.parent.font)
 
+        self.menu_extended = QMenu()
+        self.menu_extended.setFont(self.parent.font)
+
         self.deleteAction = QAction("Delete From Drive", self)
         self.deleteAction.setIcon(self.icon_delete)
         self.deleteAction.triggered.connect(self.ask_remove_from_drive)
@@ -149,6 +152,8 @@ class LibraryWidget(QWidget):
         self.menu.addAction(self.showFolderAction)
         self.menu.addAction(self.deleteAction)
 
+        self.menu_extended.addAction(self.deleteAction)
+
         if self.show_new:
             self.NewItemLabel = QLabel("New")
             self.NewItemLabel.setAlignment(Qt.AlignRight | Qt.AlignCenter)
@@ -173,6 +178,10 @@ class LibraryWidget(QWidget):
              'commitTimeLabel', 'buildHashLabel'))
 
     def context_menu(self):
+        if len(self.list_widget.selectedItems()) > 1:
+            self.menu_extended.exec_(QCursor.pos())
+            return
+
         link_path = Path(get_library_folder()) / "blender_symlink"
         link = link_path.as_posix()
 
@@ -253,9 +262,18 @@ class LibraryWidget(QWidget):
         self.item.setSelected(True)
         self.dlg = DialogWindow(
             self.parent, title="Warning",
-            text="Are you sure you want to delete?",
+            text="Are you sure you want to<br>delete selected builds?",
             accept_text="Yes", cancel_text="No", icon=DialogIcon.WARNING)
-        self.dlg.accepted.connect(self.remove_from_drive)
+
+        if len(self.list_widget.selectedItems()) > 1:
+            self.dlg.accepted.connect(self.remove_from_drive_extended)
+        else:
+            self.dlg.accepted.connect(self.remove_from_drive)
+
+    @QtCore.pyqtSlot()
+    def remove_from_drive_extended(self):
+        for item in self.list_widget.selectedItems():
+            self.list_widget.itemWidget(item).remove_from_drive()
 
     @QtCore.pyqtSlot()
     def remove_from_drive(self):
