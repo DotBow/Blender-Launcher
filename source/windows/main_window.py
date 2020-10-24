@@ -90,7 +90,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         if is_library_folder_valid() is False:
             self.dlg = DialogWindow(
                 self, title="Information",
-                text="First, choose where Blender\nbuilds will be stored",
+                text="First, choose where Blender<br>builds will be stored",
                 accept_text="Continue", cancel_text=None, icon=DialogIcon.INFO)
             self.dlg.accepted.connect(self.set_library_folder)
         else:
