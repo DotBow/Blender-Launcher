@@ -182,7 +182,7 @@ class LibraryWidget(QWidget):
             self.menu_extended.exec_(QCursor.pos())
             return
 
-        link_path = Path(get_library_folder()) / "blender_symlink"
+        link_path = Path(get_library_folder()) / "bl_symlink"
         link = link_path.as_posix()
 
         if os.path.exists(link):
@@ -323,7 +323,7 @@ class LibraryWidget(QWidget):
     @QtCore.pyqtSlot()
     def create_symlink(self):
         target = self.link
-        link = (Path(get_library_folder()) / "blender_symlink").as_posix()
+        link = (Path(get_library_folder()) / "bl_symlink").as_posix()
         platform = get_platform()
 
         if platform == 'Windows':
