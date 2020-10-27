@@ -189,9 +189,10 @@ class LibraryWidget(QWidget):
             if (os.path.isdir(link) or os.path.islink(link)):
                 if link_path.resolve() == self.link:
                     self.createSymlinkAction.setEnabled(False)
-        else:
-            self.createSymlinkAction.setEnabled(True)
+                    self.menu.exec_(QCursor.pos())
+                    return
 
+        self.createSymlinkAction.setEnabled(True)
         self.menu.exec_(QCursor.pos())
 
     def mouseDoubleClickEvent(self, event):
