@@ -1,9 +1,9 @@
 import os
 import subprocess
 from pathlib import Path
-from subprocess import DEVNULL, Popen, check_call
+from subprocess import check_call
 
-from modules._platform import get_environment, get_platform
+from modules._platform import _popen, get_environment, get_platform
 from modules.build_info import BuildInfoReader
 from modules.settings import (get_favorite_path, get_library_folder,
                               get_mark_as_favorite, set_favorite_path)
@@ -224,18 +224,11 @@ class LibraryWidget(QWidget):
         library_folder = Path(get_library_folder())
 
         if platform == 'Windows':
-            DETACHED_PROCESS = 0x00000008
             b3d_exe = library_folder / self.link / "blender.exe"
-            proc = Popen(b3d_exe.as_posix(), shell=True,
-                         stdin=None, stdout=None,
-                         stderr=None, close_fds=True,
-                         creationflags=DETACHED_PROCESS)
+            proc = _popen(b3d_exe.as_posix())
         elif platform == 'Linux':
             b3d_exe = library_folder / self.link / "blender"
-            proc = Popen('nohup "' + b3d_exe.as_posix() + '"',
-                         shell=True, stdout=None,
-                         stderr=None, close_fds=True,
-                         preexec_fn=os.setpgrp, env=get_environment())
+            proc = _popen('nohup "' + b3d_exe.as_posix() + '"')
 
         if self.observer is None:
             self.observer = Observer(self)

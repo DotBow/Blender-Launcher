@@ -2,10 +2,8 @@ import os
 import tempfile
 from pathlib import Path
 from shutil import copyfileobj
-from subprocess import DEVNULL, Popen
 
-from modules._platform import get_environment, get_platform
-from PyQt5.QtCore import Qt
+from modules._platform import _popen, get_environment, get_platform
 from PyQt5.QtWidgets import QMainWindow
 from threads.downloader import Downloader
 from threads.extractor import Extractor
@@ -60,13 +58,10 @@ class UpdateWindow(QMainWindow, BaseWindow, UpdateWindowUI):
             copyfileobj(f1, f2)
 
         if platform == 'Windows':
-            Popen([dist.as_posix(), "-update"], stdin=DEVNULL,
-                  stdout=DEVNULL, stderr=DEVNULL)
+            _popen([dist.as_posix(), "-update"])
         elif platform == 'Linux':
             os.chmod(dist.as_posix(), 0o744)
-            Popen('nohup "' + dist.as_posix() + '" -update',
-                  shell=True, stdout=None, stderr=None, close_fds=True,
-                  env=get_environment())
+            _popen('nohup "' + dist.as_posix() + '" -update')
 
         self.parent.destroy()
 

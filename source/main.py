@@ -4,12 +4,11 @@ import sys
 import tempfile
 from pathlib import Path
 from shutil import copyfileobj
-from subprocess import DEVNULL, Popen
 
 from PyQt5.QtNetwork import QLocalSocket
 from PyQt5.QtWidgets import QApplication
 
-from modules._platform import get_environment, get_platform
+from modules._platform import _popen, get_environment, get_platform
 from windows.main_window import BlenderLauncher
 
 version = "1.7.0"
@@ -50,13 +49,10 @@ def main():
             copyfileobj(f1, f2)
 
         if platform == 'Windows':
-            Popen([dist.as_posix()], stdin=DEVNULL,
-                  stdout=DEVNULL, stderr=DEVNULL)
+            _popen([dist.as_posix()])
         elif platform == 'Linux':
             os.chmod(dist.as_posix(), 0o744)
-            Popen('nohup "' + dist.as_posix() + '"', shell=True,
-                  stdout=None, stderr=None, close_fds=True,
-                  env=get_environment())
+            _popen('nohup "' + dist.as_posix() + '"')
 
         sys.exit(0)
 
