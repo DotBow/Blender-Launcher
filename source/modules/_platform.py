@@ -1,6 +1,7 @@
 import os
 import sys
 from locale import LC_ALL, setlocale
+from subprocess import DEVNULL, Popen
 
 
 def get_platform():
@@ -43,3 +44,18 @@ def get_environment():
         env.pop(lp_key, None)
 
     return env
+
+
+def _popen(args):
+    platform = get_platform()
+
+    if platform == 'Windows':
+        DETACHED_PROCESS = 0x00000008
+        proc = Popen(args, shell=True, stdin=None, stdout=None, stderr=None,
+                     close_fds=True, creationflags=DETACHED_PROCESS)
+    elif platform == 'Linux':
+        proc = Popen(args, shell=True, stdout=None, stderr=None,
+                     close_fds=True,  preexec_fn=os.setpgrp,
+                     env=get_environment())
+
+    return proc
