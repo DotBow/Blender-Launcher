@@ -8,7 +8,7 @@ from shutil import copyfileobj
 from PyQt5.QtNetwork import QLocalSocket
 from PyQt5.QtWidgets import QApplication
 
-from modules._platform import _popen, get_environment, get_platform
+from modules._platform import _popen, get_platform
 from windows.main_window import BlenderLauncher
 
 version = "1.7.0"

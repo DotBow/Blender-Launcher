@@ -3,7 +3,7 @@ import tempfile
 from pathlib import Path
 from shutil import copyfileobj
 
-from modules._platform import _popen, get_environment, get_platform
+from modules._platform import _popen, get_platform
 from PyQt5.QtWidgets import QMainWindow
 from threads.downloader import Downloader
 from threads.extractor import Extractor

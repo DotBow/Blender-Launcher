@@ -3,7 +3,7 @@ import subprocess
 from pathlib import Path
 from subprocess import check_call
 
-from modules._platform import _popen, get_environment, get_platform
+from modules._platform import _popen, get_platform
 from modules.build_info import BuildInfoReader
 from modules.settings import (get_favorite_path, get_library_folder,
                               get_mark_as_favorite, set_favorite_path)
