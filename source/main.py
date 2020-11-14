@@ -42,17 +42,17 @@ def main():
         elif platform == 'Linux':
             bl_exe = "Blender Launcher"
 
-        source = temp / bl_exe
-        dist = cwd / bl_exe
+        source = (temp / bl_exe).as_posix()
+        dist = (cwd / bl_exe).as_posix()
 
-        with open(source.as_posix(), 'rb') as f1, open(dist.as_posix(), 'wb') as f2:
+        with open(source, 'rb') as f1, open(dist, 'wb') as f2:
             copyfileobj(f1, f2)
 
         if platform == 'Windows':
-            _popen([dist.as_posix()])
+            _popen([dist])
         elif platform == 'Linux':
-            os.chmod(dist.as_posix(), 0o744)
-            _popen('nohup "' + dist.as_posix() + '"')
+            os.chmod(dist, 0o744)
+            _popen('nohup "' + dist + '"')
 
         sys.exit(0)
 
