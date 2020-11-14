@@ -297,6 +297,12 @@ QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical, QScrollBar::sub-li
 	background: none;
 }
 
+QSizeGrip {
+	image: url(:resources/icons/size_grip.svg);
+	width: 16px;
+	height: 16px;
+}
+
 QSplitter::handle {
 	background-color: #444444;
 }
