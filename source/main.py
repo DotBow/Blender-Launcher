@@ -57,6 +57,7 @@ def main():
         sys.exit(0)
 
     app = QApplication(sys.argv)
+    app.setStyle('Fusion')
     app.setApplicationVersion(version)
     app.setQuitOnLastWindowClosed(False)
 
