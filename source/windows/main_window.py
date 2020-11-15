@@ -104,11 +104,11 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         if new_library_folder:
             set_library_folder(new_library_folder)
-            self.draw()
+            self.draw(True)
         else:
             self.app.quit()
 
-    def draw(self):
+    def draw(self, polish=False):
         self.HeaderLayout = QHBoxLayout()
         self.HeaderLayout.setContentsMargins(1, 1, 1, 0)
         self.HeaderLayout.setSpacing(0)
@@ -244,8 +244,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.tray_icon.show()
 
         # Forse style update
-        self.style().unpolish(self.app)
-        self.style().polish(self.app)
+        if polish is True:
+            self.style().unpolish(self.app)
+            self.style().polish(self.app)
 
         # Show window
         if get_launch_minimized_to_tray() is False:
