@@ -10,9 +10,9 @@ class LibraryDrawer(QThread):
     build_found = pyqtSignal('PyQt_PyObject')
     finished = pyqtSignal()
 
-    def __init__(self, parent):
+    def __init__(self, folders=['stable', 'daily', 'experimental', 'custom']):
         QThread.__init__(self)
-        self.parent = parent
+        self.folders = folders
 
     def run(self):
         library_folder = Path(get_library_folder())
@@ -22,13 +22,13 @@ class LibraryDrawer(QThread):
         elif get_platform() == 'Linux':
             blender_exe = "blender"
 
-        for dir in library_folder.iterdir():
+        for folder in self.folders:
+            dir = library_folder / folder
+
             if dir.is_dir():
                 for build in dir.iterdir():
-                    path = library_folder / dir / build / blender_exe
-
-                    if path.is_file():
-                        self.build_found.emit(dir / build)
+                    if (dir / build / blender_exe).is_file():
+                        self.build_found.emit(folder / build)
 
         self.finished.emit()
         return

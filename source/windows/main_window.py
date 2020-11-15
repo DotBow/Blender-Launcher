@@ -363,7 +363,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.LibraryExperimentalListWidget.clear()
         self.LibraryCustomListWidget.clear()
 
-        self.library_drawer = LibraryDrawer(self)
+        self.library_drawer = LibraryDrawer()
         self.library_drawer.build_found.connect(self.draw_to_library)
         self.library_drawer.finished.connect(self.draw_downloads)
         self.library_drawer.start()
