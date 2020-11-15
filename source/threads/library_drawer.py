@@ -23,11 +23,11 @@ class LibraryDrawer(QThread):
             blender_exe = "blender"
 
         for folder in self.folders:
-            dir = library_folder / folder
+            path = library_folder / folder
 
-            if dir.is_dir():
-                for build in dir.iterdir():
-                    if (dir / build / blender_exe).is_file():
+            if path.is_dir():
+                for build in path.iterdir():
+                    if (path / build / blender_exe).is_file():
                         self.build_found.emit(folder / build)
 
         self.finished.emit()
