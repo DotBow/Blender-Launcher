@@ -16,7 +16,7 @@ class SortingType(Enum):
 
 class BasePageWidget(QWidget):
     def __init__(self, parent, text, name,
-                 show_hash=True, extended_selection=False):
+                 show_hash=True, show_reload=False, extended_selection=False):
         super().__init__()
         self.name = name
 
@@ -57,7 +57,12 @@ class BasePageWidget(QWidget):
         self.HeaderLayout = QHBoxLayout(self.HeaderWidget)
         self.HeaderLayout.setContentsMargins(2, 0, 2, 0)
 
-        self.fakeLabel = QLabel()
+        if show_reload is True:
+            self.fakeLabel = QPushButton("Reload")
+            self.fakeLabel.clicked.connect(parent.parent.reload_custom_builds)
+        else:
+            self.fakeLabel = QLabel()
+
         self.subversionLabel = QPushButton("Version")
         self.subversionLabel.setProperty("ListHeader", True)
         self.subversionLabel.setCheckable(True)

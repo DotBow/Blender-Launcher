@@ -186,6 +186,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 "Custom Builds",
                 "LibraryCustomListWidget",
                 "Nothing to show yet",
+                show_reload=True,
                 extended_selection=True)
         self.LibraryTab.layout().addWidget(self.LibraryToolBox)
 
@@ -386,6 +387,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.library_drawer = LibraryDrawer()
         self.library_drawer.build_found.connect(self.draw_to_library)
         self.library_drawer.finished.connect(self.draw_downloads)
+        self.library_drawer.start()
+
+    def reload_custom_builds(self):
+        self.LibraryCustomListWidget.clear()
+        self.library_drawer = LibraryDrawer()
+        self.library_drawer.build_found.connect(self.draw_to_library)
         self.library_drawer.start()
 
     def draw_downloads(self):
