@@ -65,10 +65,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.SetLibraryFolderButton = \
             QPushButton(QIcon(":resources/icons/folder.svg"), "")
         self.SetLibraryFolderButton.clicked.connect(self.set_library_folder)
-        self.ReloadLibraryFolderContentButton = QPushButton(
-            "Reload Library Folder Content")
-        self.ReloadLibraryFolderContentButton.clicked.connect(
-            lambda: self.parent.draw_library(True))
 
         self.LibraryFolderLayout = QHBoxLayout()
         self.LibraryFolderLayout.setContentsMargins(0, 0, 0, 0)
@@ -160,8 +156,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         self.SettingsLayout.addRow(QLabel("Library Folder:"))
         self.SettingsLayout.addRow(self.LibraryFolderLayout)
-        self.SettingsLayout.addRow(
-            self.ReloadLibraryFolderContentButton)
 
         self.SettingsLayout.addRow(QLabel("System:"))
 
