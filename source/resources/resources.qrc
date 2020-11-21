@@ -19,6 +19,7 @@
     <file>icons/minimize.svg</file>
     <file>icons/settings.svg</file>
     <file>icons/size_grip.svg</file>
+    <file>icons/check.svg</file>
     <file>styles/global.qss</file>
     <file>fonts/OpenSans-SemiBold.ttf</file>
   </qresource>

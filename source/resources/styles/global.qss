@@ -29,6 +29,10 @@ QComboBox::item:selected {
 	border: none;
 }
 
+QComboBox::indicator:checked {
+	image: url(:resources/icons/check.svg);
+}
+
 QComboBox::drop-down {
 	background-color:#1F1F1F;
 }
