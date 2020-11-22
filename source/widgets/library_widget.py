@@ -3,7 +3,7 @@ import subprocess
 from pathlib import Path
 from subprocess import check_call
 
-from modules._platform import _popen, get_platform
+from modules._platform import _check_call, _popen, get_platform
 from modules.build_info import BuildInfoReader
 from modules.settings import (get_favorite_path, get_library_folder,
                               get_mark_as_favorite, set_favorite_path)
@@ -325,10 +325,7 @@ class LibraryWidget(QWidget):
                 if os.path.isdir(link):
                     os.rmdir(link)
 
-            check_call('mklink /J "{0}" "{1}"'.format(link, target),
-                       creationflags=CREATE_NO_WINDOW,
-                       shell=True,
-                       stderr=DEVNULL, stdin=DEVNULL)
+            _check_call('mklink /J "{0}" "{1}"'.format(link, target))
         elif platform == 'Linux':
             if os.path.exists(link):
                 if os.path.islink(link):
