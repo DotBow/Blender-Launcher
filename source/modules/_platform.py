@@ -1,7 +1,7 @@
 import os
 import sys
 from locale import LC_ALL, setlocale
-from subprocess import DEVNULL, Popen
+from subprocess import DEVNULL, Popen, check_call
 
 
 def get_platform():
@@ -59,3 +59,18 @@ def _popen(args):
                      env=get_environment())
 
     return proc
+
+
+def _check_call(args):
+    platform = get_platform()
+
+    if platform == 'Windows':
+        from subprocess import CREATE_NO_WINDOW
+
+        returncode = check_call(args, creationflags=CREATE_NO_WINDOW,
+                                shell=True, stderr=DEVNULL, stdin=DEVNULL)
+    elif platform == 'Linux':
+        returncode = check_call(
+            args, shell=False, stderr=DEVNULL, stdin=DEVNULL)
+
+    return returncode
