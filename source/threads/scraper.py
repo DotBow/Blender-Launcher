@@ -22,6 +22,7 @@ class Scraper(QThread):
 
     def run(self):
         try:
+            self.lts_tags = self.get_lts_tags()
             self.links.emit(self.get_download_links())
             self.new_bl_version.emit(self.get_latest_tag())
         except Exception:
@@ -112,7 +113,10 @@ class Scraper(QThread):
             branch = 'daily'
             commit_time = self.get_commit_time(build_hash)
         else:
-            branch = 'stable'
+            if re.sub(r'\D', '', subversion) in self.lts_tags:
+                branch = 'lts'
+            else:
+                branch = 'stable'
 
         if commit_time is None:
             set_locale()
@@ -156,7 +160,8 @@ class Scraper(QThread):
             r = self.manager.request('GET', commit_url + commit)
             content = r.data
             soup = BeautifulSoup(content, 'html.parser')
-            datetime = soup.find_all("span", {"class": "datetime"})[1].text
+            datetime = soup.find_all(
+                "span", {"id": re.compile(r'lts-release-')})[1].text
 
             set_locale()
             self.strptime = time.strptime(
@@ -165,5 +170,25 @@ class Scraper(QThread):
             r.release_conn()
             r.close()
             return commit_time
+        except Exception as e:
+            return None
+
+    def get_lts_tags(self):
+        tags = set()
+
+        try:
+            lts_url = "https://www.blender.org/download/lts/"
+            r = self.manager.request('GET', lts_url)
+            content = r.data
+            soup = BeautifulSoup(content, 'html.parser')
+
+            for release in soup.find_all(href=re.compile(r'lts-release-.+')):
+                href = release['href']
+                match = re.search(r'\d+', href)
+                tags.add(match.group(0))
+
+            r.release_conn()
+            r.close()
+            return tags
         except Exception as e:
             return None
