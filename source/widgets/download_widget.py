@@ -73,6 +73,9 @@ class DownloadWidget(QWidget):
 
         self.setLayout(self.layout)
 
+    def mouseDoubleClickEvent(self, event):
+        self.init_downloader()
+
     def mouseReleaseEvent(self, event):
         if hasattr(self, "NewItemLabel"):
             self.NewItemLabel.hide()
