@@ -470,7 +470,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def draw_to_downloads(self, build_info, show_new=False):
         branch = build_info.branch
 
-        if branch == 'stable':
+        if (branch == 'stable') or (branch == 'lts'):
             list_widget = self.DownloadsStableListWidget
         elif branch == 'daily':
             list_widget = self.DownloadsDailyListWidget
@@ -482,15 +482,15 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         list_widget.add_item(item, widget)
 
     def draw_to_library(self, path, show_new=False):
-        category = Path(path).parent.name
+        branch = Path(path).parent.name
 
-        if category == 'stable':
+        if (branch == 'stable') or (branch == 'lts'):
             list_widget = self.LibraryStableListWidget
-        elif category == 'daily':
+        elif branch == 'daily':
             list_widget = self.LibraryDailyListWidget
-        elif category == 'experimental':
+        elif branch == 'experimental':
             list_widget = self.LibraryExperimentalListWidget
-        elif category == 'custom':
+        elif branch == 'custom':
             list_widget = self.LibraryCustomListWidget
         else:
             return

@@ -108,7 +108,14 @@ class LibraryWidget(QWidget):
 
         self.launchButton.clicked.connect(self.launch)
         self.subversionLabel.setText(self.build_info.subversion)
-        self.branchLabel.setText(self.branch.replace('-', ' ').title())
+
+        if self.branch == 'lts':
+            branch_name = "LTS"
+        else:
+            branch_name = self.branch.replace('-', ' ').title()
+
+        self.branchLabel.setText(branch_name)
+
         self.commitTimeLabel.setText(self.build_info.commit_time)
         self.buildHashLabel.setText(self.build_info.build_hash)
 

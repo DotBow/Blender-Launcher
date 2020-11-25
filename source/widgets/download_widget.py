@@ -44,8 +44,14 @@ class DownloadWidget(QWidget):
         self.layout.setContentsMargins(2, 2, 2, 2)
 
         self.subversionLabel = QLabel(self.build_info.subversion)
-        self.branchLabel = QLabel(
-            self.build_info.branch.replace('-', ' ').title())
+
+        if self.build_info.branch == 'lts':
+            branch_name = "LTS"
+        else:
+            branch_name = self.build_info.branch.replace('-', ' ').title()
+
+        self.branchLabel = QLabel(branch_name)
+
         self.commitTimeLabel = QLabel(self.build_info.commit_time)
         self.buildHashLabel = QLabel(self.build_info.build_hash)
         self.progressBar.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
