@@ -16,6 +16,8 @@ if get_platform() == 'Windows':
 
 class BuildInfo:
     file_version = "1.0"
+    # https://www.blender.org/download/lts/
+    lts_tags = ('2.83', '2.93', '3.3', '3.7')
 
     def __init__(self, link_type, link, subversion,
                  build_hash, commit_time, branch, size=None):
@@ -24,6 +26,11 @@ class BuildInfo:
         self.subversion = subversion
         self.build_hash = build_hash
         self.commit_time = commit_time
+
+        if branch == 'stable':
+            if subversion.startswith(self.lts_tags):
+                branch = 'lts'
+
         self.branch = branch
         self.size = size
 
