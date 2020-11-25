@@ -280,6 +280,7 @@ class LibraryWidget(QWidget):
     def remove_from_drive(self):
         self.launchButton.setText("Deleting")
         self.setEnabled(False)
+        self.item.setFlags(self.item.flags() & ~Qt.ItemIsSelectable)
         path = Path(get_library_folder()) / self.link
         self.remover = Remover(path)
         self.remover.finished.connect(self.remover_finished)
