@@ -288,8 +288,8 @@ class LibraryWidget(QWidget):
 
     def remover_finished(self, code):
         if code == 0:
-            self.parent.draw_from_cashed(self.build_info)
             self.list_widget.remove_item(self.item)
+            self.parent.draw_from_cashed(self.build_info)
             return
         else:
             self.launchButton.setText("Launch")
