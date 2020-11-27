@@ -100,7 +100,7 @@ class DownloadWidget(QWidget):
     def init_extractor(self, source):
         library_folder = Path(get_library_folder())
 
-        if self.build_info.branch == 'stable':
+        if (self.build_info.branch == 'stable') or (self.build_info.branch == 'lts'):
             dist = library_folder / 'stable'
         elif self.build_info.branch == 'daily':
             dist = library_folder / 'daily'
