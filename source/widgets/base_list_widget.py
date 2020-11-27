@@ -5,6 +5,7 @@ class BaseListWidget(QListWidget):
     def __init__(self, parent=None, extended_selection=False):
         super().__init__()
         self.parent = parent
+        self.widgets = set()
 
         self.setFrameShape(QListWidget.NoFrame)
         self.setSortingEnabled(True)
@@ -19,14 +20,17 @@ class BaseListWidget(QListWidget):
         self.addItem(item)
         self.setItemWidget(item, widget)
         self.count_changed()
+        self.widgets.add(widget)
 
     def insert_item(self, item, widget, index=0):
         item.setSizeHint(widget.sizeHint())
         self.insertItem(index, item)
         self.setItemWidget(item, widget)
         self.count_changed()
+        self.widgets.add(widget)
 
     def remove_item(self, item):
+        self.widgets.remove(self.itemWidget(item))
         row = self.row(item)
         self.takeItem(row)
         self.count_changed()
@@ -49,6 +53,13 @@ class BaseListWidget(QListWidget):
             items.append(item)
 
         return items
+
+    def contains_build_info(self, build_info):
+        for widget in self.widgets:
+            if build_info == widget.build_info:
+                return True
+
+        return False
 
     def resize_labels(self, params):
         items = []
