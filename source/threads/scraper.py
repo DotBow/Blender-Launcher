@@ -14,6 +14,7 @@ class Scraper(QThread):
     links = pyqtSignal('PyQt_PyObject')
     new_bl_version = pyqtSignal('PyQt_PyObject')
     error = pyqtSignal()
+    finished = pyqtSignal()
 
     def __init__(self, parent, man):
         QThread.__init__(self)
@@ -22,12 +23,13 @@ class Scraper(QThread):
 
     def run(self):
         try:
-            self.links.emit(self.get_download_links())
+            self.get_download_links()
             self.new_bl_version.emit(self.get_latest_tag())
         except Exception:
             self.error.emit()
 
         self.manager.clear()
+        self.finished.emit()
         return
 
     def get_latest_tag(self):
@@ -43,42 +45,34 @@ class Scraper(QThread):
         return tag
 
     def get_download_links(self):
-        links = []
-
         # Stable Builds
-        links.extend(self.scrap_stable_releases())
+        self.scrap_stable_releases()
 
         # Daily Builds
-        daily_builds = self.scrap_download_links(
+        self.scrap_download_links(
             "https://builder.blender.org/download", 'daily')
-        for link in daily_builds:
-            links.append(link)
 
         # Experimental Branches
-        experimental = self.scrap_download_links(
+        self.scrap_download_links(
             "https://builder.blender.org/download/branches", 'experimental')
-        for link in experimental:
-            links.append(link)
-
-        return links
 
     def scrap_download_links(self, url, branch_type, _limit=None):
         platform = get_platform()
         r = self.manager.request('GET', url)
         content = r.data
         soup = BeautifulSoup(content, 'html.parser')
-        links = []
 
         if platform == 'Windows':
             for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+win.+64.+zip')):
-                links.append(self.new_blender_build(tag, url, branch_type))
+                build_info = self.new_blender_build(tag, url, branch_type)
+                self.links.emit(build_info)
         elif platform == 'Linux':
             for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+lin.+64.+tar')):
-                links.append(self.new_blender_build(tag, url, branch_type))
+                build_info = self.new_blender_build(tag, url, branch_type)
+                self.links.emit(build_info)
 
         r.release_conn()
         r.close()
-        return links
 
     def new_blender_build(self, tag, url, branch_type):
         link = urljoin(url, tag['href']).rstrip('/')
@@ -107,10 +101,8 @@ class Scraper(QThread):
 
         if branch_type == 'experimental':
             branch = re.search(r'\A.+-blender', stem).group(0)[:-8]
-            commit_time = self.get_commit_time(build_hash)
         elif branch_type == 'daily':
             branch = 'daily'
-            commit_time = self.get_commit_time(build_hash)
         else:
             branch = 'stable'
 
@@ -138,32 +130,8 @@ class Scraper(QThread):
             if (float(match.group(0)) >= 2.79):
                 releases.append(urljoin(url, release['href']))
 
-        stable_links = []
-
         for release in releases:
-            links = self.scrap_download_links(release, 'stable')
-
-            for link in links:
-                stable_links.append(link)
+            self.scrap_download_links(release, 'stable')
 
         r.release_conn()
         r.close()
-        return stable_links
-
-    def get_commit_time(self, commit):
-        try:
-            commit_url = "https://git.blender.org/gitweb/gitweb.cgi/blender.git/commit/"
-            r = self.manager.request('GET', commit_url + commit)
-            content = r.data
-            soup = BeautifulSoup(content, 'html.parser')
-            datetime = soup.find_all("span", {"class": "datetime"})[1].text
-
-            set_locale()
-            self.strptime = time.strptime(
-                datetime, '%a, %d %b %Y %H:%M:%S %z')
-            commit_time = time.strftime("%d-%b-%y-%H:%M", self.strptime)
-            r.release_conn()
-            r.close()
-            return commit_time
-        except Exception as e:
-            return None

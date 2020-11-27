@@ -63,7 +63,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.cashed_builds = []
         self.notification_pool = []
         self.windows = [self]
-        self.manager = PoolManager(200)
+        self.manager = PoolManager(num_pools=50, maxsize=10)
         self.timer = None
         self.started = True
         self.latest_tag = ""
@@ -399,12 +399,14 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         for page in self.DownloadsToolBox.pages:
             page.set_info_label_text("Checking for new builds")
 
+        self.cashed_builds.clear()
         self.app_state = AppState.CHECKINGBUILDS
         self.set_status("Checking for new builds")
         self.scraper = Scraper(self, self.manager)
-        self.scraper.links.connect(self.draw_new_builds)
+        self.scraper.links.connect(self.draw_to_downloads)
         self.scraper.new_bl_version.connect(self.set_version)
         self.scraper.error.connect(self.connection_error)
+        self.scraper.finished.connect(self.draw_new_builds)
         self.scraper.start()
 
     def connection_error(self):
@@ -416,39 +418,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.timer = threading.Timer(600.0, self.draw_downloads)
         self.timer.start()
 
-    def draw_new_builds(self, builds):
-        self.cashed_builds.clear()
-        self.cashed_builds.extend(builds)
-
-        library_widgets = []
-        download_widgets = []
-
-        library_widgets.extend(self.LibraryStableListWidget.items())
-        library_widgets.extend(self.LibraryDailyListWidget.items())
-        library_widgets.extend(self.LibraryExperimentalListWidget.items())
-
-        download_widgets.extend(self.DownloadsStableListWidget.items())
-        download_widgets.extend(self.DownloadsDailyListWidget.items())
-        download_widgets.extend(self.DownloadsExperimentalListWidget.items())
-
-        for widget in download_widgets:
-            if widget.build_info in builds:
-                builds.remove(widget.build_info)
-            elif widget.state != DownloadState.DOWNLOADING:
-                widget.destroy()
-
-        for widget in library_widgets:
-            if widget.build_info in builds:
-                builds.remove(widget.build_info)
-
-        for build_info in builds:
-            self.draw_to_downloads(build_info, not self.started)
-
-        if (len(builds) > 0) and (not self.started):
-            self.show_message(
-                "New builds of Blender is available!",
-                type=MessageType.NEWBUILDS)
-
+    def draw_new_builds(self):
         set_locale()
         utcnow = strftime(('%H:%M'), localtime())
         self.set_status("Last check at " + utcnow)
@@ -467,19 +437,30 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 i = self.cashed_builds.index(build_info)
                 self.draw_to_downloads(self.cashed_builds[i])
 
-    def draw_to_downloads(self, build_info, show_new=False):
+    def draw_to_downloads(self, build_info):
+        show_new = not self.started
+
+        if build_info not in self.cashed_builds:
+            self.cashed_builds.append(build_info)
+
         branch = build_info.branch
 
         if (branch == 'stable') or (branch == 'lts'):
-            list_widget = self.DownloadsStableListWidget
+            downloads_list_widget = self.DownloadsStableListWidget
+            library_list_widget = self.LibraryStableListWidget
         elif branch == 'daily':
-            list_widget = self.DownloadsDailyListWidget
+            downloads_list_widget = self.DownloadsDailyListWidget
+            library_list_widget = self.LibraryDailyListWidget
         else:
-            list_widget = self.DownloadsExperimentalListWidget
+            downloads_list_widget = self.DownloadsExperimentalListWidget
+            library_list_widget = self.LibraryExperimentalListWidget
 
-        item = BaseListWidgetItem(build_info.commit_time)
-        widget = DownloadWidget(self, list_widget, item, build_info, show_new)
-        list_widget.add_item(item, widget)
+        if not library_list_widget.contains_build_info(build_info) and \
+                not downloads_list_widget.contains_build_info(build_info):
+            item = BaseListWidgetItem(build_info.commit_time)
+            widget = DownloadWidget(
+                self, downloads_list_widget, item, build_info, show_new)
+            downloads_list_widget.add_item(item, widget)
 
     def draw_to_library(self, path, show_new=False):
         branch = Path(path).parent.name
