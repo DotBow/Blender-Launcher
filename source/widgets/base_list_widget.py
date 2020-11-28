@@ -92,3 +92,4 @@ class BaseListWidget(QListWidget):
     def _clear(self):
         self.clear()
         self.widgets.clear()
+        self.count_changed()
