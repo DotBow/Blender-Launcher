@@ -170,24 +170,28 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 "Stable Releases",
                 "LibraryStableListWidget",
                 "Nothing to show yet",
+                "Commit Time",
                 extended_selection=True)
         self.LibraryDailyListWidget = \
             self.LibraryToolBox.add_list_widget(
                 "Daily Builds",
                 "LibraryDailyListWidget",
                 "Nothing to show yet",
+                "Commit Time",
                 extended_selection=True)
         self.LibraryExperimentalListWidget = \
             self.LibraryToolBox.add_list_widget(
                 "Experimental Branches",
                 "LibraryExperimentalListWidget",
                 "Nothing to show yet",
+                "Commit Time",
                 extended_selection=True)
         self.LibraryCustomListWidget = \
             self.LibraryToolBox.add_list_widget(
                 "Custom Builds",
                 "LibraryCustomListWidget",
                 "Nothing to show yet",
+                "Commit Time",
                 show_reload=True,
                 extended_selection=True)
         self.LibraryTab.layout().addWidget(self.LibraryToolBox)
@@ -199,17 +203,20 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 "Stable Releases",
                 "DownloadsStableListWidget",
                 "No new builds available",
+                "Upload Time",
                 False)
         self.DownloadsDailyListWidget = \
             self.DownloadsToolBox.add_list_widget(
                 "Daily Builds",
                 "DownloadsDailyListWidget",
-                "No new builds available")
+                "No new builds available",
+                "Upload Time",)
         self.DownloadsExperimentalListWidget = \
             self.DownloadsToolBox.add_list_widget(
                 "Experimental Branches",
                 "DownloadsExperimentalListWidget",
-                "No new builds available")
+                "No new builds available",
+                "Upload Time",)
         self.DownloadsTab.layout().addWidget(self.DownloadsToolBox)
 
         self.LibraryToolBox.setCurrentIndex(get_default_library_page())

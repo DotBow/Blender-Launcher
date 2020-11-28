@@ -15,7 +15,7 @@ class SortingType(Enum):
 
 
 class BasePageWidget(QWidget):
-    def __init__(self, parent, text, name,
+    def __init__(self, parent, text, name, time_label,
                  show_hash=True, show_reload=False, extended_selection=False):
         super().__init__()
         self.name = name
@@ -72,7 +72,7 @@ class BasePageWidget(QWidget):
             lambda: self.set_sorting_type(SortingType.VERSION))
         self.branchLabel = QLabel("Branch")
         self.branchLabel.setAlignment(Qt.AlignCenter)
-        self.commitTimeLabel = QPushButton("Commit Time")
+        self.commitTimeLabel = QPushButton(time_label)
         self.commitTimeLabel.setProperty("ListHeader", True)
         self.commitTimeLabel.setCheckable(True)
         self.commitTimeLabel.clicked.connect(
