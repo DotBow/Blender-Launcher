@@ -230,7 +230,11 @@ class LibraryWidget(QWidget):
 
         if platform == 'Windows':
             b3d_exe = library_folder / self.link / "blender.exe"
-            proc = _popen([b3d_exe.as_posix(), args])
+
+            if args == "":
+                proc = _popen(b3d_exe.as_posix())
+            else:
+                proc = _popen([b3d_exe.as_posix(), args])
         elif platform == 'Linux':
             b3d_exe = library_folder / self.link / "blender"
             proc = _popen('nohup "' + b3d_exe.as_posix() + '" ' + args)
