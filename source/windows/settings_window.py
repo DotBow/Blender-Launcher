@@ -5,6 +5,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_enable_download_notifications,
                               get_enable_high_dpi_scaling,
                               get_enable_new_builds_notifications,
+                              get_install_template,
                               get_launch_minimized_to_tray,
                               get_launch_when_system_starts,
                               get_library_folder, get_mark_as_favorite,
@@ -15,6 +16,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_enable_download_notifications,
                               set_enable_high_dpi_scaling,
                               set_enable_new_builds_notifications,
+                              set_install_template,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
                               set_library_folder, set_mark_as_favorite,
@@ -149,6 +151,11 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.CommandLineArguments.editingFinished.connect(
             self.update_command_line_arguments)
 
+        # Install Template
+        self.InstallTemplate = QCheckBox()
+        self.InstallTemplate.clicked.connect(self.toggle_install_template)
+        self.InstallTemplate.setChecked(get_install_template())
+
         # Layout
         SettingsLayoutContainer = QWidget(self)
         SettingsLayoutContainer.setProperty('FormLayout', True)
@@ -196,10 +203,10 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
                       self.EnableDownloadNotifications)
         SettingsLayout.addRow(layout)
 
-        SettingsLayout.addRow(self._QLabel(
-            "Blender Command Line Arguments:"))
+        SettingsLayout.addRow(self._QLabel("Blender Defaults:"))
         layout = self._QFormLayout()
-        layout.addRow(self.CommandLineArguments)
+        layout.addRow(QLabel("Startup Arguments"), self.CommandLineArguments)
+        layout.addRow(QLabel("Install Template"), self.InstallTemplate)
         SettingsLayout.addRow(layout)
 
         self.resize(self.sizeHint())
@@ -258,3 +265,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def update_command_line_arguments(self):
         args = self.CommandLineArguments.text()
         set_command_line_arguments(args)
+
+    def toggle_install_template(self, is_checked):
+        set_install_template(is_checked)
