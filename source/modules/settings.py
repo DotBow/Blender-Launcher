@@ -245,3 +245,11 @@ def get_enable_download_notifications():
 def set_enable_download_notifications(is_checked):
     settings = get_settings()
     settings.setValue('enable_download_notifications', is_checked)
+
+
+def get_command_line_arguments():
+    return get_settings().value('command_line_arguments')
+
+
+def set_command_line_arguments(path):
+    get_settings().setValue('command_line_arguments', path)
