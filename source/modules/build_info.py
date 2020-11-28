@@ -8,7 +8,6 @@ from subprocess import DEVNULL, CalledProcessError
 from PyQt5.QtCore import QThread, pyqtSignal
 
 from modules._platform import get_platform, set_locale
-from modules.settings import get_library_folder
 
 if get_platform() == 'Windows':
     from subprocess import CREATE_NO_WINDOW
@@ -59,14 +58,14 @@ class BuildInfoReader(QThread):
 
     def __init__(self, path):
         QThread.__init__(self)
-        self.path = path
+        self.path = Path(path)
 
     def run(self):
-        build_info = self.read_build_info(self.path)
+        build_info = self.read_build_info()
         self.finished.emit(build_info)
         return
 
-    def write_build_info(self, folder):
+    def write_build_info(self):
         # Read Blender Version
         platform = get_platform()
 
@@ -75,7 +74,7 @@ class BuildInfoReader(QThread):
         elif platform == 'Linux':
             blender_exe = "blender"
 
-        exe_path = Path(get_library_folder()) / folder / blender_exe
+        exe_path = self.path / blender_exe
 
         try:
             if platform == 'Windows':
@@ -102,13 +101,14 @@ class BuildInfoReader(QThread):
         subversion = re.search("Blender " + "(.*)", info)[1].rstrip()
 
         try:
-            subfolder = Path(self.path).parent.name
+            subfolder = self.path.parent.name
+            name = self.path.name
 
             if platform == 'Windows':
-                folder_parts = folder.name.replace(
+                folder_parts = name.replace(
                     "blender-", "").replace("-windows64", "").rsplit('-', 2)
             elif platform == 'Linux':
-                folder_parts = folder.name.replace(
+                folder_parts = name.replace(
                     "blender-", "").replace("-linux64", "").rsplit('-', 2)
 
             if subfolder == 'experimental':
@@ -134,35 +134,34 @@ class BuildInfoReader(QThread):
             'commit_time': commit_time,
         })
 
-        path = Path(get_library_folder()) / folder / '.blinfo'
+        path = self.path / '.blinfo'
 
         with open(path, 'w') as file:
             json.dump(data, file)
 
         return 0
 
-    def read_build_info(self, folder):
-        path = Path(get_library_folder()) / folder / '.blinfo'
+    def read_build_info(self):
+        path = self.path / '.blinfo'
 
         if not path.is_file():
-            if self.write_build_info(folder) == 1:
+            if self.write_build_info() == 1:
                 return None
 
         with open(path) as file:
             data = json.load(file)
 
         if ('file_version' not in data) or (data['file_version'] != BuildInfo.file_version):
-            if self.write_build_info(folder) == 1:
+            if self.write_build_info() == 1:
                 return None
             else:
-                return self.read_build_info(folder)
+                return self.read_build_info()
         else:
             blinfo = data['blinfo'][0]
-            link = Path(get_library_folder()) / folder
 
             build_info = BuildInfo(
                 'path',
-                link,
+                self.path.as_posix(),
                 blinfo['subversion'],
                 blinfo['build_hash'],
                 blinfo['commit_time'],
