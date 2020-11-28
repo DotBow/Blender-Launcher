@@ -9,7 +9,7 @@ from modules.settings import get_library_folder
 class TemplateInstaller(QThread):
     started = pyqtSignal()
     progress_changed = pyqtSignal('PyQt_PyObject', 'PyQt_PyObject')
-    finished = pyqtSignal('PyQt_PyObject')
+    finished = pyqtSignal()
 
     def __init__(self, manager, dist):
         QThread.__init__(self)
