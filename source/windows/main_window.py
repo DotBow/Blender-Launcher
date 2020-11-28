@@ -8,7 +8,8 @@ from time import localtime, strftime
 from items.base_list_widget_item import BaseListWidgetItem
 from modules._platform import get_platform, set_locale
 from modules.enums import MessageType
-from modules.settings import (get_default_downloads_page,
+from modules.settings import (create_library_folders,
+                              get_default_downloads_page,
                               get_default_library_page,
                               get_enable_download_notifications,
                               get_enable_new_builds_notifications,
@@ -94,6 +95,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 accept_text="Continue", cancel_text=None, icon=DialogIcon.INFO)
             self.dlg.accepted.connect(self.set_library_folder)
         else:
+            create_library_folders(get_library_folder())
             self.draw()
 
     def set_library_folder(self):
