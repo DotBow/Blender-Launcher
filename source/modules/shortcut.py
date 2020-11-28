@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 from shutil import copyfile
@@ -57,3 +58,5 @@ def create_shortcut(folder, name):
 
         with open(dist, 'w') as file:
             file.write(desktop_entry)
+
+        os.chmod(dist, 0o744)
