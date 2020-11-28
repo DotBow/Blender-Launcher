@@ -433,9 +433,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def draw_from_cashed(self, build_info):
         if self.app_state == AppState.IDLE:
-            if build_info in self.cashed_builds:
-                i = self.cashed_builds.index(build_info)
-                self.draw_to_downloads(self.cashed_builds[i])
+            for cashed_build in self.cashed_builds:
+                if build_info == cashed_build:
+                    self.draw_to_downloads(cashed_build)
+                    return
 
     def draw_to_downloads(self, build_info):
         show_new = not self.started
