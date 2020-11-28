@@ -2,12 +2,13 @@ from enum import Enum
 from pathlib import Path
 
 from modules.enums import MessageType
-from modules.settings import get_library_folder
+from modules.settings import get_install_template, get_library_folder
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QPushButton,
                              QSizePolicy, QWidget)
 from threads.downloader import Downloader
 from threads.extractor import Extractor
+from threads.template_installer import TemplateInstaller
 
 
 class DownloadState(Enum):
@@ -109,8 +110,17 @@ class DownloadWidget(QWidget):
 
         self.thread = Extractor(self.parent.manager, source, dist)
         self.thread.progress_changed.connect(self.set_progress_bar)
-        self.thread.finished.connect(self.download_finished)
+        self.thread.finished.connect(self.init_template_installer)
         self.thread.start()
+
+    def init_template_installer(self, dist):
+        if get_install_template():
+            self.thread = TemplateInstaller(self.parent.manager, dist)
+            self.thread.progress_changed.connect(self.set_progress_bar)
+            self.thread.finished.connect(self.download_finished)
+            self.thread.start()
+        else:
+            self.download_finished(dist)
 
     def download_started(self):
         self.set_progress_bar(0, "Downloading: %p%")
