@@ -406,7 +406,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.scraper.links.connect(self.draw_to_downloads)
         self.scraper.new_bl_version.connect(self.set_version)
         self.scraper.error.connect(self.connection_error)
-        self.scraper.finished.connect(self.draw_new_builds)
+        self.scraper.finished.connect(self.scraper_finished)
         self.scraper.start()
 
     def connection_error(self):
@@ -418,7 +418,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.timer = threading.Timer(600.0, self.draw_downloads)
         self.timer.start()
 
-    def draw_new_builds(self):
+    def scraper_finished(self):
+        for list_widget in self.DownloadsToolBox.list_widgets:
+            for widget in list_widget:
+                if widget.build_info not in self.cashed_builds:
+                    widget.destroy()
+
         set_locale()
         utcnow = strftime(('%H:%M'), localtime())
         self.set_status("Last check at " + utcnow)
