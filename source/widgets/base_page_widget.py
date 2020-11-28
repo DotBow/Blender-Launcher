@@ -61,6 +61,7 @@ class BasePageWidget(QWidget):
             self.fakeLabel = QPushButton("Reload")
             self.fakeLabel.setToolTip(
                 "Reload Custom builds from disk")
+            self.fakeLabel.setProperty("ListHeader", True)
             self.fakeLabel.clicked.connect(parent.parent.reload_custom_builds)
         else:
             self.fakeLabel = QLabel()
