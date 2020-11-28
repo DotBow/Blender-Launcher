@@ -249,8 +249,13 @@ def set_enable_download_notifications(is_checked):
 
 
 def get_command_line_arguments():
-    return get_settings().value('command_line_arguments')
+    args = get_settings().value('command_line_arguments')
+
+    if args is None:
+        return ""
+    else:
+        return args.strip()
 
 
 def set_command_line_arguments(args):
-    get_settings().setValue('command_line_arguments', args)
+    get_settings().setValue('command_line_arguments', args.strip())
