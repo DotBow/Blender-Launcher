@@ -16,6 +16,7 @@ from PyQt5.QtWidgets import (QAction, QApplication, QHBoxLayout, QLabel, QMenu,
 from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
+from threads.template_installer import TemplateInstaller
 from windows.dialog_window import DialogIcon, DialogWindow
 
 
@@ -146,6 +147,9 @@ class LibraryWidget(QWidget):
         self.createSymlinkAction = QAction("Create Symlink")
         self.createSymlinkAction.triggered.connect(self.create_symlink)
 
+        self.installTemplateAction = QAction("Install Template")
+        self.installTemplateAction.triggered.connect(self.install_template)
+
         self.menu.addAction(self.setAsFavoriteAction)
 
         if get_platform() == 'Windows':
@@ -153,6 +157,7 @@ class LibraryWidget(QWidget):
 
         self.menu.addAction(self.createShortcutAction)
         self.menu.addAction(self.createSymlinkAction)
+        self.menu.addAction(self.installTemplateAction)
         self.menu.addAction(self.showFolderAction)
         self.menu.addAction(self.deleteAction)
 
@@ -217,6 +222,21 @@ class LibraryWidget(QWidget):
 
         event.ignore()
 
+    def install_template(self):
+        self.launchButton.setText("Updating")
+        self.launchButton.setEnabled(False)
+        self.deleteAction.setEnabled(False)
+        self.installTemplateAction.setEnabled(False)
+        self.thread = TemplateInstaller(self.parent.manager, self.link)
+        self.thread.finished.connect(self.install_template_finished)
+        self.thread.start()
+
+    def install_template_finished(self):
+        self.launchButton.setText("Launch")
+        self.launchButton.setEnabled(True)
+        self.deleteAction.setEnabled(True)
+        self.installTemplateAction.setEnabled(True)
+
     @QtCore.pyqtSlot()
     def launch(self):
         self.item.setSelected(True)
@@ -254,11 +274,13 @@ class LibraryWidget(QWidget):
     def observer_started(self):
         self.countButton.show()
         self.deleteAction.setEnabled(False)
+        self.installTemplateAction.setEnabled(False)
 
     def observer_finished(self):
         self.observer = None
         self.countButton.hide()
         self.deleteAction.setEnabled(True)
+        self.installTemplateAction.setEnabled(True)
 
     @QtCore.pyqtSlot()
     def ask_remove_from_drive(self):
