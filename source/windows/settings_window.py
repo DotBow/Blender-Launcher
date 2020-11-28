@@ -157,19 +157,19 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         # Layout
         SettingsLayoutContainer = QWidget(self)
         SettingsLayoutContainer.setProperty('FormLayout', True)
-        self.SettingsLayout = QFormLayout(SettingsLayoutContainer)
-        self.SettingsLayout.setContentsMargins(1, 0, 1, 6)
-        self.SettingsLayout.setSpacing(6)
-        self.SettingsLayout.setRowWrapPolicy(QFormLayout.DontWrapRows)
-        self.SettingsLayout.setFieldGrowthPolicy(
+        SettingsLayout = QFormLayout(SettingsLayoutContainer)
+        SettingsLayout.setContentsMargins(1, 0, 1, 6)
+        SettingsLayout.setSpacing(6)
+        SettingsLayout.setRowWrapPolicy(QFormLayout.DontWrapRows)
+        SettingsLayout.setFieldGrowthPolicy(
             QFormLayout.AllNonFixedFieldsGrow)
-        self.SettingsLayout.setLabelAlignment(Qt.AlignLeft)
+        SettingsLayout.setLabelAlignment(Qt.AlignLeft)
         self.CentralLayout.addWidget(SettingsLayoutContainer)
 
-        self.SettingsLayout.addRow(self._QLabel("Library Folder:"))
-        self.SettingsLayout.addRow(self.LibraryFolderLayout)
+        SettingsLayout.addRow(self._QLabel("Library Folder:"))
+        SettingsLayout.addRow(self.LibraryFolderLayout)
 
-        self.SettingsLayout.addRow(self._QLabel("System:"))
+        SettingsLayout.addRow(self._QLabel("System:"))
         layout = self._QFormLayout()
 
         if get_platform() == 'Windows':
@@ -177,9 +177,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         layout.addRow(self.LaunchMinimizedToTrayCheckBox)
         layout.addRow(self.EnableHighDpiScalingCheckBox)
-        self.SettingsLayout.addRow(layout)
+        SettingsLayout.addRow(layout)
 
-        self.SettingsLayout.addRow(self._QLabel("Interface:"))
+        SettingsLayout.addRow(self._QLabel("Interface:"))
         layout = self._QFormLayout()
         layout.addRow(
             "Taskbar Icon Color", self.TaskbarIconColorComboBox)
@@ -187,24 +187,24 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             "Default Library Page", self.DefaultLibraryPageComboBox)
         layout.addRow(
             "Default Downloads Page", self.DefaultDownloadsPageComboBox)
-        self.SettingsLayout.addRow(layout)
+        SettingsLayout.addRow(layout)
 
-        self.SettingsLayout.addRow(self._QLabel("Notifications:"))
+        SettingsLayout.addRow(self._QLabel("Notifications:"))
         layout = self._QFormLayout()
         layout.addRow(self.EnableNewBuildsNotifications)
         layout.addRow(self.EnableDownloadNotifications)
-        self.SettingsLayout.addRow(layout)
+        SettingsLayout.addRow(layout)
 
-        self.SettingsLayout.addRow(self._QLabel("Service:"))
+        SettingsLayout.addRow(self._QLabel("Service:"))
         layout = self._QFormLayout()
         layout.addRow("Mark New Build As Favorite", self.MarkAsFavorite)
-        self.SettingsLayout.addRow(layout)
+        SettingsLayout.addRow(layout)
 
-        self.SettingsLayout.addRow(self._QLabel(
+        SettingsLayout.addRow(self._QLabel(
             "Blender Command Line Arguments:"))
         layout = self._QFormLayout()
         layout.addRow(self.CommandLineArguments)
-        self.SettingsLayout.addRow(layout)
+        SettingsLayout.addRow(layout)
 
         self.resize(self.sizeHint())
         self.show()
