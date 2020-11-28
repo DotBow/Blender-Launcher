@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 
-from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtCore import QSettings
 
 from modules._platform import get_platform
 
@@ -223,7 +223,8 @@ def get_enable_new_builds_notifications():
     settings = get_settings()
 
     if settings.contains('enable_new_builds_notifications'):
-        return get_settings().value('enable_new_builds_notifications', type=bool)
+        return get_settings().value(
+            'enable_new_builds_notifications', type=bool)
     else:
         return True
 
