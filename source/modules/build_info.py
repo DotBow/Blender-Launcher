@@ -102,6 +102,8 @@ class BuildInfoReader(QThread):
         subversion = re.search("Blender " + "(.*)", info)[1].rstrip()
 
         try:
+            subfolder = Path(self.path).parent.name
+
             if platform == 'Windows':
                 folder_parts = folder.name.replace(
                     "blender-", "").replace("-windows64", "").rsplit('-', 2)
@@ -109,13 +111,15 @@ class BuildInfoReader(QThread):
                 folder_parts = folder.name.replace(
                     "blender-", "").replace("-linux64", "").rsplit('-', 2)
 
-            if len(folder_parts) > 2:
+            if subfolder == 'experimental':
                 branch = folder_parts[0]
-            elif len(folder_parts) > 1:
+            elif subfolder == 'daily':
                 branch = "daily"
-            else:
+            elif subfolder == 'stable':
                 branch = "stable"
                 subversion = folder_parts[0]
+            elif subfolder == 'custom':
+                branch = self.path.name
         except Exception:
             branch = None
 
