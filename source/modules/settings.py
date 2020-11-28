@@ -274,3 +274,12 @@ def get_command_line_arguments():
 
 def set_command_line_arguments(args):
     get_settings().setValue('command_line_arguments', args.strip())
+
+
+def get_install_template():
+    return get_settings().value('install_template', type=bool)
+
+
+def set_install_template(is_checked):
+    settings = get_settings()
+    settings.setValue('install_template', is_checked)
