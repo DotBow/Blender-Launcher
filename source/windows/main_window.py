@@ -420,7 +420,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def scraper_finished(self):
         for list_widget in self.DownloadsToolBox.list_widgets:
-            for widget in list_widget:
+            for widget in list_widget.widgets:
                 if widget.build_info not in self.cashed_builds:
                     widget.destroy()
 
