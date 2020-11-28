@@ -43,6 +43,15 @@ favorite_pages = {
 }
 
 
+library_subfolders = [
+    'custom',
+    'stable',
+    'daily',
+    'experimental',
+    'template'
+]
+
+
 def get_settings():
     return QSettings('blender_launcher', 'settings')
 
@@ -72,6 +81,12 @@ def set_library_folder(new_library_folder):
 
     if Path(new_library_folder).exists():
         settings.setValue('library_folder', new_library_folder)
+        create_library_folders(new_library_folder)
+
+
+def create_library_folders(library_folder):
+    for subfolder in library_subfolders:
+        (Path(library_folder) / subfolder).mkdir(parents=True, exist_ok=True)
 
 
 def get_favorite_path():
