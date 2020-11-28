@@ -190,10 +190,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             "Default Library Page", self.DefaultLibraryPageComboBox)
         layout.addRow(
             "Default Downloads Page", self.DefaultDownloadsPageComboBox)
-        SettingsLayout.addRow(layout)
-        layout.addRow("Mark New Build As Favorite", self.MarkAsFavorite)
         layout.addRow("Enable High DPI Scaling",
                       self.EnableHighDpiScalingCheckBox)
+        SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Notifications:"))
         layout = self._QFormLayout()
@@ -203,10 +202,15 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
                       self.EnableDownloadNotifications)
         SettingsLayout.addRow(layout)
 
+        SettingsLayout.addRow(self._QLabel("New Build Actions:"))
+        layout = self._QFormLayout()
+        layout.addRow("Mark As Favorite", self.MarkAsFavorite)
+        layout.addRow(QLabel("Install Template"), self.InstallTemplate)
+        SettingsLayout.addRow(layout)
+
         SettingsLayout.addRow(self._QLabel("Blender Defaults:"))
         layout = self._QFormLayout()
         layout.addRow(QLabel("Startup Arguments"), self.CommandLineArguments)
-        layout.addRow(QLabel("Install Template"), self.InstallTemplate)
         SettingsLayout.addRow(layout)
 
         self.resize(self.sizeHint())
