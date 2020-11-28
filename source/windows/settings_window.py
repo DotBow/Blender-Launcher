@@ -1,4 +1,5 @@
 from modules.settings import (downloads_pages, favorite_pages,
+                              get_command_line_arguments,
                               get_default_downloads_page,
                               get_default_library_page,
                               get_enable_download_notifications,
@@ -8,7 +9,8 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_launch_when_system_starts,
                               get_library_folder, get_mark_as_favorite,
                               get_platform, get_taskbar_icon_color,
-                              library_pages, set_default_downloads_page,
+                              library_pages, set_command_line_arguments,
+                              set_default_downloads_page,
                               set_default_library_page,
                               set_enable_download_notifications,
                               set_enable_high_dpi_scaling,
@@ -144,6 +146,14 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.MarkAsFavorite.activated[str].connect(
             self.change_mark_as_favorite)
 
+        # Command Line Arguments
+        self.CommandLineArguments = QLineEdit()
+        self.CommandLineArguments.setText(str(get_command_line_arguments()))
+        self.CommandLineArguments.setContextMenuPolicy(Qt.NoContextMenu)
+        self.CommandLineArguments.setCursorPosition(0)
+        self.CommandLineArguments.editingFinished.connect(
+            self.update_command_line_arguments)
+
         # Layout
         self.SettingsLayout = QFormLayout()
         self.SettingsLayout.setContentsMargins(6, 6, 6, 6)
@@ -180,6 +190,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.SettingsLayout.addRow(QLabel("Service:"))
         self.SettingsLayout.addRow(
             "Mark New Build As Favorite", self.MarkAsFavorite)
+
+        self.SettingsLayout.addRow(QLabel("Blender Command Line Arguments:"))
+        self.SettingsLayout.addRow(self.CommandLineArguments)
 
         self.resize(self.sizeHint())
         self.show()
@@ -221,3 +234,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def toggle_enable_new_builds_notifications(self, is_checked):
         set_enable_new_builds_notifications(is_checked)
+
+    def update_command_line_arguments(self):
+        args = self.CommandLineArguments.text()
+        set_command_line_arguments(args)
