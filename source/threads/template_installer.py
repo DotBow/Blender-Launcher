@@ -3,7 +3,7 @@ from re import match
 from shutil import copytree
 
 from PyQt5.QtCore import QThread, pyqtSignal
-from source.modules.settings import get_library_folder
+from modules.settings import get_library_folder
 
 
 class TemplateInstaller(QThread):
