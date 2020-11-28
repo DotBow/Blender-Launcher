@@ -76,24 +76,21 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.LibraryFolderLayout.addWidget(self.SetLibraryFolderButton)
 
         # Launch When System Starts
-        self.LaunchWhenSystemStartsCheckBox = QCheckBox(
-            "Launch When System Starts")
+        self.LaunchWhenSystemStartsCheckBox = QCheckBox()
         self.LaunchWhenSystemStartsCheckBox.setChecked(
             get_launch_when_system_starts())
         self.LaunchWhenSystemStartsCheckBox.clicked.connect(
             self.toggle_launch_when_system_starts)
 
         # Launch Minimized To Tray
-        self.LaunchMinimizedToTrayCheckBox = QCheckBox(
-            "Launch Minimized To Tray")
+        self.LaunchMinimizedToTrayCheckBox = QCheckBox()
         self.LaunchMinimizedToTrayCheckBox.setChecked(
             get_launch_minimized_to_tray())
         self.LaunchMinimizedToTrayCheckBox.clicked.connect(
             self.toggle_launch_minimized_to_tray)
 
         # High Dpi Scaling
-        self.EnableHighDpiScalingCheckBox = \
-            QCheckBox("Enable High DPI Scaling")
+        self.EnableHighDpiScalingCheckBox = QCheckBox()
         self.EnableHighDpiScalingCheckBox.clicked.connect(
             self.toggle_enable_high_dpi_scaling)
         self.EnableHighDpiScalingCheckBox.setChecked(
@@ -124,15 +121,13 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             self.change_default_downloads_page)
 
         # Notifications
-        self.EnableNewBuildsNotifications = QCheckBox(
-            "When New Builds Are Available")
+        self.EnableNewBuildsNotifications = QCheckBox()
         self.EnableNewBuildsNotifications.clicked.connect(
             self.toggle_enable_new_builds_notifications)
         self.EnableNewBuildsNotifications.setChecked(
             get_enable_new_builds_notifications())
 
-        self.EnableDownloadNotifications = QCheckBox(
-            "When Downloading Is Finished")
+        self.EnableDownloadNotifications = QCheckBox()
         self.EnableDownloadNotifications.clicked.connect(
             self.toggle_enable_download_notifications)
         self.EnableDownloadNotifications.setChecked(
@@ -171,33 +166,34 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         SettingsLayout.addRow(self._QLabel("System:"))
         layout = self._QFormLayout()
+        layout.addRow(
+            "Taskbar Icon Color", self.TaskbarIconColorComboBox)
 
         if get_platform() == 'Windows':
-            layout.addRow(self.LaunchWhenSystemStartsCheckBox)
+            layout.addRow("Launch When System Starts",
+                          self.LaunchWhenSystemStartsCheckBox)
 
-        layout.addRow(self.LaunchMinimizedToTrayCheckBox)
-        layout.addRow(self.EnableHighDpiScalingCheckBox)
+        layout.addRow("Launch Minimized To Tray",
+                      self.LaunchMinimizedToTrayCheckBox)
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Interface:"))
         layout = self._QFormLayout()
         layout.addRow(
-            "Taskbar Icon Color", self.TaskbarIconColorComboBox)
-        layout.addRow(
             "Default Library Page", self.DefaultLibraryPageComboBox)
         layout.addRow(
             "Default Downloads Page", self.DefaultDownloadsPageComboBox)
         SettingsLayout.addRow(layout)
+        layout.addRow("Mark New Build As Favorite", self.MarkAsFavorite)
+        layout.addRow("Enable High DPI Scaling",
+                      self.EnableHighDpiScalingCheckBox)
 
         SettingsLayout.addRow(self._QLabel("Notifications:"))
         layout = self._QFormLayout()
-        layout.addRow(self.EnableNewBuildsNotifications)
-        layout.addRow(self.EnableDownloadNotifications)
-        SettingsLayout.addRow(layout)
-
-        SettingsLayout.addRow(self._QLabel("Service:"))
-        layout = self._QFormLayout()
-        layout.addRow("Mark New Build As Favorite", self.MarkAsFavorite)
+        layout.addRow("When New Builds Are Available",
+                      self.EnableNewBuildsNotifications)
+        layout.addRow("When Downloading Is Finished",
+                      self.EnableDownloadNotifications)
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel(
