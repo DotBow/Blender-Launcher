@@ -59,6 +59,8 @@ class BasePageWidget(QWidget):
 
         if show_reload is True:
             self.fakeLabel = QPushButton("Reload")
+            self.fakeLabel.setToolTip(
+                "Reload Custom builds from disk")
             self.fakeLabel.clicked.connect(parent.parent.reload_custom_builds)
         else:
             self.fakeLabel = QLabel()

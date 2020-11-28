@@ -118,10 +118,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             QPushButton(QIcon(":resources/icons/settings.svg"), "")
         self.SettingsButton.setIconSize(QSize(20, 20))
         self.SettingsButton.setFixedSize(36, 32)
+        self.SettingsButton.setToolTip("Show settings window")
         self.WikiButton = \
             QPushButton(QIcon(":resources/icons/wiki.svg"), "")
         self.WikiButton.setIconSize(QSize(20, 20))
         self.WikiButton.setFixedSize(36, 32)
+        self.WikiButton.setToolTip("Open documentation")
         self.MinimizeButton = \
             QPushButton(QIcon(":resources/icons/minimize.svg"), "")
         self.MinimizeButton.setIconSize(QSize(20, 20))
@@ -228,6 +230,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.NewVersionButton.hide()
         self.NewVersionButton.clicked.connect(self.show_update_window)
         self.statusbarVersion = QLabel(self.app.applicationVersion())
+        self.statusbarVersion.setToolTip(
+            "The version of Blender Laucnher that is currently run")
         self.StatusBar.addPermanentWidget(self.statusbarLabel, 1)
         self.StatusBar.addPermanentWidget(self.NewVersionButton)
         self.StatusBar.addPermanentWidget(self.statusbarVersion)
