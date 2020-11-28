@@ -252,5 +252,5 @@ def get_command_line_arguments():
     return get_settings().value('command_line_arguments')
 
 
-def set_command_line_arguments(path):
-    get_settings().setValue('command_line_arguments', path)
+def set_command_line_arguments(args):
+    get_settings().setValue('command_line_arguments', args)
