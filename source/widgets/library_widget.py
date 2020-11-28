@@ -1,7 +1,6 @@
 import os
 import subprocess
 from pathlib import Path
-from subprocess import check_call
 
 from modules._platform import _check_call, _popen, get_platform
 from modules.build_info import BuildInfoReader
@@ -18,9 +17,6 @@ from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
 from windows.dialog_window import DialogIcon, DialogWindow
-
-if get_platform() == 'Windows':
-    from subprocess import CREATE_NO_WINDOW
 
 
 class LibraryWidget(QWidget):
