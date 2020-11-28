@@ -2,8 +2,8 @@ import sys
 from pathlib import Path
 from shutil import copyfile
 
-from modules._platform import *
-from modules.settings import *
+from modules._platform import get_platform
+from modules.settings import get_library_folder
 
 if get_platform() == 'Windows':
     import win32com.client
