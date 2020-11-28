@@ -117,7 +117,7 @@ class DownloadWidget(QWidget):
         if get_install_template():
             self.thread = TemplateInstaller(self.parent.manager, dist)
             self.thread.progress_changed.connect(self.set_progress_bar)
-            self.thread.finished.connect(self.download_finished)
+            self.thread.finished.connect(lambda: self.download_finished(dist))
             self.thread.start()
         else:
             self.download_finished(dist)
