@@ -19,11 +19,16 @@ class TemplateInstaller(QThread):
     def run(self):
         self.progress_changed.emit(0, "Copying Data...")
         library_folder = Path(get_library_folder())
-        source = (library_folder / 'template').as_posix()
+        template = library_folder / 'template'
+
+        if not template.is_dir():
+            template.mkdir()
 
         for dir in self.dist.iterdir():
             if match(r'\d+\.\d+.*', dir.name) is not None:
-                copytree(source, dir.as_posix(), dirs_exist_ok=True)
+                source = template.as_posix()
+                dist = dir.as_posix()
+                copytree(source, dist, dirs_exist_ok=True)
                 self.finished.emit()
                 return
 
