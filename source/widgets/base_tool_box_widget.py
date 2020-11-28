@@ -9,6 +9,7 @@ class BaseToolBoxWidget(QToolBox):
         super().__init__()
         self.pages = []
         self.parent = parent
+        self.list_widgets = set()
 
         self.setContentsMargins(0, 0, 0, 0)
         self.layout().setSpacing(0)
@@ -23,7 +24,7 @@ class BaseToolBoxWidget(QToolBox):
         self.pages.append(page_widget)
         self.addItem(page_widget, QIcon(
             ":resources/icons/page_closed.svg"), name)
-
+        self.list_widgets.add(page_widget.list_widget)
         return page_widget.list_widget
 
     def current_changed(self, index):
