@@ -88,3 +88,7 @@ class BaseListWidget(QListWidget):
             b_width = getattr(item, 'downloadButton').minimumWidth()
 
         getattr(self.parent, 'fakeLabel').setMinimumWidth(b_width)
+
+    def _clear(self):
+        self.clear()
+        self.widgets.clear()

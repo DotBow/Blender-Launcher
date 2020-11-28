@@ -383,17 +383,17 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         if clear:
             self.timer.cancel()
             self.scraper.quit()
-            self.DownloadsStableListWidget.clear()
-            self.DownloadsDailyListWidget.clear()
-            self.DownloadsExperimentalListWidget.clear()
+            self.DownloadsStableListWidget._clear()
+            self.DownloadsDailyListWidget._clear()
+            self.DownloadsExperimentalListWidget._clear()
             self.started = True
 
         self.favorite = None
 
-        self.LibraryStableListWidget.clear()
-        self.LibraryDailyListWidget.clear()
-        self.LibraryExperimentalListWidget.clear()
-        self.LibraryCustomListWidget.clear()
+        self.LibraryStableListWidget._clear()
+        self.LibraryDailyListWidget._clear()
+        self.LibraryExperimentalListWidget._clear()
+        self.LibraryCustomListWidget._clear()
 
         self.library_drawer = LibraryDrawer()
         self.library_drawer.build_found.connect(self.draw_to_library)
@@ -401,7 +401,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.library_drawer.start()
 
     def reload_custom_builds(self):
-        self.LibraryCustomListWidget.clear()
+        self.LibraryCustomListWidget._clear()
         self.library_drawer = LibraryDrawer()
         self.library_drawer.build_found.connect(self.draw_to_library)
         self.library_drawer.start()
