@@ -435,11 +435,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         if self.app_state == AppState.IDLE:
             for cashed_build in self.cashed_builds:
                 if build_info == cashed_build:
-                    self.draw_to_downloads(cashed_build)
+                    self.draw_to_downloads(cashed_build, False)
                     return
 
-    def draw_to_downloads(self, build_info):
-        show_new = not self.started
+    def draw_to_downloads(self, build_info, show_new=True):
+        if self.started:
+            show_new = False
 
         if build_info not in self.cashed_builds:
             self.cashed_builds.append(build_info)
