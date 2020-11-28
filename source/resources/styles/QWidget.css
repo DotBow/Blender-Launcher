@@ -2,3 +2,10 @@ QWidget[ToolBoxWidget=true] {
 	background-color: #282828;
 }
 
+QWidget[FormLayout=true] {
+	background-color: #282828;
+	border-left: 1px solid #323232;
+	border-right: 1px solid #323232;
+	border-bottom: 1px solid #323232;
+}
+

@@ -23,7 +23,7 @@ from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFileDialog, QFormLayout,
                              QHBoxLayout, QLabel, QLineEdit, QMainWindow,
-                             QPushButton)
+                             QPushButton, QWidget)
 from ui.settings_window_ui import Ui_SettingsWindow
 
 from windows.base_window import BaseWindow
@@ -69,7 +69,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.SetLibraryFolderButton.clicked.connect(self.set_library_folder)
 
         self.LibraryFolderLayout = QHBoxLayout()
-        self.LibraryFolderLayout.setContentsMargins(0, 0, 0, 0)
+        self.LibraryFolderLayout.setContentsMargins(6, 0, 6, 0)
         self.LibraryFolderLayout.setSpacing(0)
 
         self.LibraryFolderLayout.addWidget(self.LibraryFolderLineEdit)
@@ -155,47 +155,71 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             self.update_command_line_arguments)
 
         # Layout
-        self.SettingsLayout = QFormLayout()
-        self.SettingsLayout.setContentsMargins(6, 6, 6, 6)
+        SettingsLayoutContainer = QWidget(self)
+        SettingsLayoutContainer.setProperty('FormLayout', True)
+        self.SettingsLayout = QFormLayout(SettingsLayoutContainer)
+        self.SettingsLayout.setContentsMargins(1, 0, 1, 6)
         self.SettingsLayout.setSpacing(6)
         self.SettingsLayout.setRowWrapPolicy(QFormLayout.DontWrapRows)
         self.SettingsLayout.setFieldGrowthPolicy(
             QFormLayout.AllNonFixedFieldsGrow)
         self.SettingsLayout.setLabelAlignment(Qt.AlignLeft)
-        self.CentralLayout.addLayout(self.SettingsLayout)
+        self.CentralLayout.addWidget(SettingsLayoutContainer)
 
-        self.SettingsLayout.addRow(QLabel("Library Folder:"))
+        self.SettingsLayout.addRow(self._QLabel("Library Folder:"))
         self.SettingsLayout.addRow(self.LibraryFolderLayout)
 
-        self.SettingsLayout.addRow(QLabel("System:"))
+        self.SettingsLayout.addRow(self._QLabel("System:"))
+        layout = self._QFormLayout()
 
         if get_platform() == 'Windows':
-            self.SettingsLayout.addRow(self.LaunchWhenSystemStartsCheckBox)
+            layout.addRow(self.LaunchWhenSystemStartsCheckBox)
 
-        self.SettingsLayout.addRow(self.LaunchMinimizedToTrayCheckBox)
-        self.SettingsLayout.addRow(self.EnableHighDpiScalingCheckBox)
+        layout.addRow(self.LaunchMinimizedToTrayCheckBox)
+        layout.addRow(self.EnableHighDpiScalingCheckBox)
+        self.SettingsLayout.addRow(layout)
 
-        self.SettingsLayout.addRow(QLabel("Interface:"))
-        self.SettingsLayout.addRow(
+        self.SettingsLayout.addRow(self._QLabel("Interface:"))
+        layout = self._QFormLayout()
+        layout.addRow(
             "Taskbar Icon Color", self.TaskbarIconColorComboBox)
-        self.SettingsLayout.addRow(
+        layout.addRow(
             "Default Library Page", self.DefaultLibraryPageComboBox)
-        self.SettingsLayout.addRow(
+        layout.addRow(
             "Default Downloads Page", self.DefaultDownloadsPageComboBox)
+        self.SettingsLayout.addRow(layout)
 
-        self.SettingsLayout.addRow(QLabel("Notifications:"))
-        self.SettingsLayout.addRow(self.EnableNewBuildsNotifications)
-        self.SettingsLayout.addRow(self.EnableDownloadNotifications)
+        self.SettingsLayout.addRow(self._QLabel("Notifications:"))
+        layout = self._QFormLayout()
+        layout.addRow(self.EnableNewBuildsNotifications)
+        layout.addRow(self.EnableDownloadNotifications)
+        self.SettingsLayout.addRow(layout)
 
-        self.SettingsLayout.addRow(QLabel("Service:"))
-        self.SettingsLayout.addRow(
-            "Mark New Build As Favorite", self.MarkAsFavorite)
+        self.SettingsLayout.addRow(self._QLabel("Service:"))
+        layout = self._QFormLayout()
+        layout.addRow("Mark New Build As Favorite", self.MarkAsFavorite)
+        self.SettingsLayout.addRow(layout)
 
-        self.SettingsLayout.addRow(QLabel("Blender Command Line Arguments:"))
-        self.SettingsLayout.addRow(self.CommandLineArguments)
+        self.SettingsLayout.addRow(self._QLabel(
+            "Blender Command Line Arguments:"))
+        layout = self._QFormLayout()
+        layout.addRow(self.CommandLineArguments)
+        self.SettingsLayout.addRow(layout)
 
         self.resize(self.sizeHint())
         self.show()
+
+    def _QLabel(self, text):
+        label = QLabel(text)
+        label.setIndent(6)
+        label.setProperty('Header', True)
+        return label
+
+    def _QFormLayout(self):
+        layout = QFormLayout()
+        layout.setContentsMargins(6, 0, 6, 0)
+        layout.setSpacing(6)
+        return layout
 
     def set_library_folder(self):
         library_folder = str(get_library_folder())

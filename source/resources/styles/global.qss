@@ -60,6 +60,12 @@ QLabel {
 	color: #FFFFFF;
 }
 
+QLabel[Header=true] {
+	background-color: #424242;
+	border-top: 2px solid #424242;
+	border-bottom: 2px solid #424242;
+}
+
 QLabel:disabled {
 	color: #828282;
 }
@@ -393,5 +399,12 @@ QTreeView::item:selected:!active {
 
 QWidget[ToolBoxWidget=true] {
 	background-color: #282828;
+}
+
+QWidget[FormLayout=true] {
+	background-color: #282828;
+	border-left: 1px solid #323232;
+	border-right: 1px solid #323232;
+	border-bottom: 1px solid #323232;
 }
 
