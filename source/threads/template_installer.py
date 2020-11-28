@@ -22,10 +22,8 @@ class TemplateInstaller(QThread):
         source = (library_folder / 'template').as_posix()
 
         for dir in self.dist.iterdir():
-            dist = dir.as_posix()
-
-            if match(r'\d+\.\d+.', dist) is not None:
-                copytree(source, dist, dirs_exist_ok=True)
+            if match(r'\d+\.\d+.*', dir.name) is not None:
+                copytree(source, dir.as_posix(), dirs_exist_ok=True)
                 self.finished.emit()
                 return
 
