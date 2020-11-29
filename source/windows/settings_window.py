@@ -1,5 +1,6 @@
 from modules.settings import (downloads_pages, favorite_pages,
                               get_blender_startup_arguments,
+                              get_command_line_arguments,
                               get_default_downloads_page,
                               get_default_library_page,
                               get_enable_download_notifications,
@@ -11,6 +12,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_library_folder, get_mark_as_favorite,
                               get_platform, get_taskbar_icon_color,
                               library_pages, set_blender_startup_arguments,
+                              set_command_line_arguments,
                               set_default_downloads_page,
                               set_default_library_page,
                               set_enable_download_notifications,
@@ -37,6 +39,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.setWindowFlag(Qt.SubWindow)
 
         self.parent = parent
+        platform = get_platform()
         self.setupUi(self)
 
         self.setWindowTitle("Settings")
@@ -143,13 +146,23 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.MarkAsFavorite.activated[str].connect(
             self.change_mark_as_favorite)
 
-        # Command Line Arguments
+        # Blender Startup Arguments
         self.BlenderStartupArguments = QLineEdit()
-        self.BlenderStartupArguments.setText(str(get_blender_startup_arguments()))
+        self.BlenderStartupArguments.setText(
+            str(get_blender_startup_arguments()))
         self.BlenderStartupArguments.setContextMenuPolicy(Qt.NoContextMenu)
         self.BlenderStartupArguments.setCursorPosition(0)
         self.BlenderStartupArguments.editingFinished.connect(
             self.update_blender_startup_arguments)
+
+        # Command Line Arguments
+        self.CommandLineArguments = QLineEdit()
+        self.CommandLineArguments.setText(
+            str(get_command_line_arguments()))
+        self.CommandLineArguments.setContextMenuPolicy(Qt.NoContextMenu)
+        self.CommandLineArguments.setCursorPosition(0)
+        self.CommandLineArguments.editingFinished.connect(
+            self.update_command_line_arguments)
 
         # Install Template
         self.InstallTemplate = QCheckBox()
@@ -176,7 +189,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         layout.addRow(
             "Taskbar Icon Color", self.TaskbarIconColorComboBox)
 
-        if get_platform() == 'Windows':
+        if platform == 'Windows':
             layout.addRow("Launch When System Starts",
                           self.LaunchWhenSystemStartsCheckBox)
 
@@ -208,9 +221,15 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         layout.addRow(QLabel("Install Template"), self.InstallTemplate)
         SettingsLayout.addRow(layout)
 
-        SettingsLayout.addRow(self._QLabel("Blender Defaults:"))
+        SettingsLayout.addRow(self._QLabel("Blender Launching:"))
         layout = self._QFormLayout()
-        layout.addRow(QLabel("Startup Arguments"), self.BlenderStartupArguments)
+        layout.addRow(QLabel("Startup Arguments"),
+                      self.BlenderStartupArguments)
+
+        if platform == 'Linux':
+            layout.addRow(QLabel("Bash Arguments"),
+                          self.CommandLineArguments)
+
         SettingsLayout.addRow(layout)
 
         self.resize(self.sizeHint())
@@ -269,6 +288,10 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def update_blender_startup_arguments(self):
         args = self.BlenderStartupArguments.text()
         set_blender_startup_arguments(args)
+
+    def update_command_line_arguments(self):
+        args = self.CommandLineArguments.text()
+        set_command_line_arguments(args)
 
     def toggle_install_template(self, is_checked):
         set_install_template(is_checked)
