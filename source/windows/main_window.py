@@ -104,9 +104,16 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self, "Select Library Folder", library_folder,
             options=QFileDialog.DontUseNativeDialog | QFileDialog.ShowDirsOnly)
 
-        if new_library_folder:
-            set_library_folder(new_library_folder)
-            self.draw(True)
+        if (new_library_folder):
+            if set_library_folder(new_library_folder) is True:
+                self.draw(True)
+            else:
+                self.dlg = DialogWindow(
+                    self, title="Warning",
+                    text="Chosen folder doesn't have write permissions!",
+                    accept_text="Retry", cancel_text=None,
+                    icon=DialogIcon.WARNING)
+                self.dlg.accepted.connect(self.set_library_folder)
         else:
             self.app.quit()
 

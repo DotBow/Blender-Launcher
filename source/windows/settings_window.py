@@ -1,6 +1,6 @@
 from modules.settings import (downloads_pages, favorite_pages,
-                              get_blender_startup_arguments,
                               get_bash_arguments,
+                              get_blender_startup_arguments,
                               get_default_downloads_page,
                               get_default_library_page,
                               get_enable_download_notifications,
@@ -11,8 +11,8 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_launch_when_system_starts,
                               get_library_folder, get_mark_as_favorite,
                               get_platform, get_taskbar_icon_color,
-                              library_pages, set_blender_startup_arguments,
-                              set_bash_arguments,
+                              library_pages, set_bash_arguments,
+                              set_blender_startup_arguments,
                               set_default_downloads_page,
                               set_default_library_page,
                               set_enable_download_notifications,
@@ -31,6 +31,7 @@ from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFileDialog, QFormLayout,
 from ui.settings_window_ui import Ui_SettingsWindow
 
 from windows.base_window import BaseWindow
+from windows.dialog_window import DialogIcon, DialogWindow
 
 
 class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
@@ -254,9 +255,16 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             options=QFileDialog.DontUseNativeDialog | QFileDialog.ShowDirsOnly)
 
         if new_library_folder and (library_folder != new_library_folder):
-            self.LibraryFolderLineEdit.setText(new_library_folder)
-            set_library_folder(new_library_folder)
-            self.parent.draw_library(clear=True)
+            if set_library_folder(new_library_folder) is True:
+                self.LibraryFolderLineEdit.setText(new_library_folder)
+                self.parent.draw_library(clear=True)
+            else:
+                self.dlg = DialogWindow(
+                    self, title="Warning",
+                    text="Chosen folder doesn't have write permissions!",
+                    accept_text="Retry", cancel_text=None,
+                    icon=DialogIcon.WARNING)
+                self.dlg.accepted.connect(self.set_library_folder)
 
     def toggle_launch_when_system_starts(self, is_checked):
         set_launch_when_system_starts(is_checked)
