@@ -276,6 +276,19 @@ def set_blender_startup_arguments(args):
     get_settings().setValue('blender_startup_arguments', args.strip())
 
 
+def get_command_line_arguments():
+    args = get_settings().value('command_line_arguments')
+
+    if args is None:
+        return ""
+    else:
+        return args.strip()
+
+
+def set_command_line_arguments(args):
+    get_settings().setValue('command_line_arguments', args.strip())
+
+
 def get_install_template():
     return get_settings().value('install_template', type=bool)
 
