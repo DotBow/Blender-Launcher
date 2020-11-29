@@ -92,11 +92,11 @@ class DownloadWidget(QWidget):
             self.NewItemLabel.hide()
 
         self.state = DownloadState.DOWNLOADING
-        self.thread = Downloader(self.parent.manager, self.build_info.link)
-        self.thread.started.connect(self.download_started)
-        self.thread.progress_changed.connect(self.set_progress_bar)
-        self.thread.finished.connect(self.init_extractor)
-        self.thread.start()
+        self.downloader = Downloader(self.parent.manager, self.build_info.link)
+        self.downloader.started.connect(self.download_started)
+        self.downloader.progress_changed.connect(self.set_progress_bar)
+        self.downloader.finished.connect(self.init_extractor)
+        self.downloader.start()
 
     def init_extractor(self, source):
         library_folder = Path(get_library_folder())
@@ -108,17 +108,17 @@ class DownloadWidget(QWidget):
         else:
             dist = library_folder / 'experimental'
 
-        self.thread = Extractor(self.parent.manager, source, dist)
-        self.thread.progress_changed.connect(self.set_progress_bar)
-        self.thread.finished.connect(self.init_template_installer)
-        self.thread.start()
+        self.extractor = Extractor(self.parent.manager, source, dist)
+        self.extractor.progress_changed.connect(self.set_progress_bar)
+        self.extractor.finished.connect(self.init_template_installer)
+        self.extractor.start()
 
     def init_template_installer(self, dist):
         if get_install_template():
-            self.thread = TemplateInstaller(self.parent.manager, dist)
-            self.thread.progress_changed.connect(self.set_progress_bar)
-            self.thread.finished.connect(lambda: self.download_finished(dist))
-            self.thread.start()
+            self.template_installer = TemplateInstaller(self.parent.manager, dist)
+            self.template_installer.progress_changed.connect(self.set_progress_bar)
+            self.template_installer.finished.connect(lambda: self.download_finished(dist))
+            self.template_installer.start()
         else:
             self.download_finished(dist)
 
@@ -133,8 +133,8 @@ class DownloadWidget(QWidget):
         self.state = DownloadState.WAITING
         self.progressBar.hide()
         self.cancelButton.hide()
-        self.thread.terminate()
-        self.thread.wait()
+        self.downloader.terminate()
+        self.downloader.wait()
         self.downloadButton.show()
 
     def set_progress_bar(self, value, format):
