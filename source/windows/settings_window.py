@@ -144,12 +144,12 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             self.change_mark_as_favorite)
 
         # Command Line Arguments
-        self.CommandLineArguments = QLineEdit()
-        self.CommandLineArguments.setText(str(get_blender_startup_arguments()))
-        self.CommandLineArguments.setContextMenuPolicy(Qt.NoContextMenu)
-        self.CommandLineArguments.setCursorPosition(0)
-        self.CommandLineArguments.editingFinished.connect(
-            self.update_command_line_arguments)
+        self.BlenderStartupArguments = QLineEdit()
+        self.BlenderStartupArguments.setText(str(get_blender_startup_arguments()))
+        self.BlenderStartupArguments.setContextMenuPolicy(Qt.NoContextMenu)
+        self.BlenderStartupArguments.setCursorPosition(0)
+        self.BlenderStartupArguments.editingFinished.connect(
+            self.update_blender_startup_arguments)
 
         # Install Template
         self.InstallTemplate = QCheckBox()
@@ -210,7 +210,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         SettingsLayout.addRow(self._QLabel("Blender Defaults:"))
         layout = self._QFormLayout()
-        layout.addRow(QLabel("Startup Arguments"), self.CommandLineArguments)
+        layout.addRow(QLabel("Startup Arguments"), self.BlenderStartupArguments)
         SettingsLayout.addRow(layout)
 
         self.resize(self.sizeHint())
@@ -266,8 +266,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def toggle_enable_new_builds_notifications(self, is_checked):
         set_enable_new_builds_notifications(is_checked)
 
-    def update_command_line_arguments(self):
-        args = self.CommandLineArguments.text()
+    def update_blender_startup_arguments(self):
+        args = self.BlenderStartupArguments.text()
         set_blender_startup_arguments(args)
 
     def toggle_install_template(self, is_checked):
