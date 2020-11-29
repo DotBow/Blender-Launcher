@@ -257,7 +257,7 @@ class LibraryWidget(QWidget):
             else:
                 proc = _popen([b3d_exe.as_posix(), blender_args])
         elif platform == 'Linux':
-            bash_args = get_blender_startup_arguments()
+            bash_args = get_bash_arguments()
 
             if bash_args != '':
                 bash_args = bash_args + " nohup"
