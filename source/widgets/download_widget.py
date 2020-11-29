@@ -99,6 +99,7 @@ class DownloadWidget(QWidget):
         self.downloader.start()
 
     def init_extractor(self, source):
+        self.cancelButton.setEnabled(False)
         library_folder = Path(get_library_folder())
 
         if (self.build_info.branch == 'stable') or (self.build_info.branch == 'lts'):
