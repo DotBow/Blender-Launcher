@@ -60,17 +60,23 @@ def get_library_folder():
     settings = get_settings()
     library_folder = settings.value('library_folder')
 
-    if not is_library_folder_valid():
+    if not is_library_folder_valid(library_folder):
         library_folder = Path.cwd()
         settings.setValue('library_folder', library_folder)
 
     return library_folder
 
 
-def is_library_folder_valid():
-    library_folder = get_settings().value('library_folder')
+def is_library_folder_valid(library_folder=None):
+    if library_folder is None:
+        library_folder = get_settings().value('library_folder')
 
     if (library_folder is not None) and Path(library_folder).exists():
+        try:
+            (Path(library_folder) / ".temp").mkdir(parents=True, exist_ok=True)
+        except PermissionError:
+            return False
+
         return True
     else:
         return False
@@ -79,9 +85,12 @@ def is_library_folder_valid():
 def set_library_folder(new_library_folder):
     settings = get_settings()
 
-    if Path(new_library_folder).exists():
+    if is_library_folder_valid(new_library_folder) is True:
         settings.setValue('library_folder', new_library_folder)
         create_library_folders(new_library_folder)
+        return True
+
+    return False
 
 
 def create_library_folders(library_folder):
