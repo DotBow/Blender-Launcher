@@ -276,8 +276,8 @@ def set_blender_startup_arguments(args):
     get_settings().setValue('blender_startup_arguments', args.strip())
 
 
-def get_command_line_arguments():
-    args = get_settings().value('command_line_arguments')
+def get_bash_arguments():
+    args = get_settings().value('bash_arguments')
 
     if args is None:
         return ""
@@ -285,8 +285,8 @@ def get_command_line_arguments():
         return args.strip()
 
 
-def set_command_line_arguments(args):
-    get_settings().setValue('command_line_arguments', args.strip())
+def set_bash_arguments(args):
+    get_settings().setValue('bash_arguments', args.strip())
 
 
 def get_install_template():

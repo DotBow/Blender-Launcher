@@ -5,7 +5,7 @@ from pathlib import Path
 from modules._platform import _check_call, _popen, get_platform
 from modules.build_info import BuildInfoReader
 from modules.settings import (get_blender_startup_arguments,
-                              get_command_line_arguments, get_favorite_path,
+                              get_bash_arguments, get_favorite_path,
                               get_library_folder, get_mark_as_favorite,
                               set_favorite_path)
 from modules.shortcut import create_shortcut

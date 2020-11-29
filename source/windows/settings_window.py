@@ -1,6 +1,6 @@
 from modules.settings import (downloads_pages, favorite_pages,
                               get_blender_startup_arguments,
-                              get_command_line_arguments,
+                              get_bash_arguments,
                               get_default_downloads_page,
                               get_default_library_page,
                               get_enable_download_notifications,
@@ -12,7 +12,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_library_folder, get_mark_as_favorite,
                               get_platform, get_taskbar_icon_color,
                               library_pages, set_blender_startup_arguments,
-                              set_command_line_arguments,
+                              set_bash_arguments,
                               set_default_downloads_page,
                               set_default_library_page,
                               set_enable_download_notifications,
@@ -156,13 +156,13 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             self.update_blender_startup_arguments)
 
         # Command Line Arguments
-        self.CommandLineArguments = QLineEdit()
-        self.CommandLineArguments.setText(
-            str(get_command_line_arguments()))
-        self.CommandLineArguments.setContextMenuPolicy(Qt.NoContextMenu)
-        self.CommandLineArguments.setCursorPosition(0)
-        self.CommandLineArguments.editingFinished.connect(
-            self.update_command_line_arguments)
+        self.BashArguments = QLineEdit()
+        self.BashArguments.setText(
+            str(get_bash_arguments()))
+        self.BashArguments.setContextMenuPolicy(Qt.NoContextMenu)
+        self.BashArguments.setCursorPosition(0)
+        self.BashArguments.editingFinished.connect(
+            self.update_bash_arguments)
 
         # Install Template
         self.InstallTemplate = QCheckBox()
@@ -228,7 +228,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         if platform == 'Linux':
             layout.addRow(QLabel("Bash Arguments"),
-                          self.CommandLineArguments)
+                          self.BashArguments)
 
         SettingsLayout.addRow(layout)
 
@@ -289,9 +289,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         args = self.BlenderStartupArguments.text()
         set_blender_startup_arguments(args)
 
-    def update_command_line_arguments(self):
-        args = self.CommandLineArguments.text()
-        set_command_line_arguments(args)
+    def update_bash_arguments(self):
+        args = self.BashArguments.text()
+        set_bash_arguments(args)
 
     def toggle_install_template(self, is_checked):
         set_install_template(is_checked)
