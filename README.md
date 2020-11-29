@@ -40,6 +40,8 @@ Core features:
 * Register .blend file extension for preferred build
 * Create desktop shortcut
 * Indication of running builds and its number of instances
+* Startup arguments for launching Blender
+* Template installation
 
 ## How to start using it?
 
