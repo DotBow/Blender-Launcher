@@ -4,7 +4,8 @@ from pathlib import Path
 
 from modules._platform import _check_call, _popen, get_platform
 from modules.build_info import BuildInfoReader
-from modules.settings import (get_blender_startup_arguments, get_favorite_path,
+from modules.settings import (get_blender_startup_arguments,
+                              get_command_line_arguments, get_favorite_path,
                               get_library_folder, get_mark_as_favorite,
                               set_favorite_path)
 from modules.shortcut import create_shortcut
@@ -246,18 +247,26 @@ class LibraryWidget(QWidget):
 
         platform = get_platform()
         library_folder = Path(get_library_folder())
-        args = get_blender_startup_arguments()
+        blender_args = get_blender_startup_arguments()
 
         if platform == 'Windows':
             b3d_exe = library_folder / self.link / "blender.exe"
 
-            if args == "":
+            if blender_args == "":
                 proc = _popen(b3d_exe.as_posix())
             else:
-                proc = _popen([b3d_exe.as_posix(), args])
+                proc = _popen([b3d_exe.as_posix(), blender_args])
         elif platform == 'Linux':
+            bash_args = get_blender_startup_arguments()
+
+            if bash_args != '':
+                bash_args = bash_args + " nohup"
+            else:
+                bash_args = "nohup"
+
             b3d_exe = library_folder / self.link / "blender"
-            proc = _popen('nohup "' + b3d_exe.as_posix() + '" ' + args)
+            proc = _popen('{0} "{1}" {2}'.format(
+                bash_args, b3d_exe.as_posix(), blender_args))
 
         if self.observer is None:
             self.observer = Observer(self)
