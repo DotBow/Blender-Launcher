@@ -1,5 +1,5 @@
 from modules.settings import (downloads_pages, favorite_pages,
-                              get_command_line_arguments,
+                              get_blender_startup_arguments,
                               get_default_downloads_page,
                               get_default_library_page,
                               get_enable_download_notifications,
@@ -10,7 +10,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_launch_when_system_starts,
                               get_library_folder, get_mark_as_favorite,
                               get_platform, get_taskbar_icon_color,
-                              library_pages, set_command_line_arguments,
+                              library_pages, set_blender_startup_arguments,
                               set_default_downloads_page,
                               set_default_library_page,
                               set_enable_download_notifications,
@@ -145,7 +145,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         # Command Line Arguments
         self.CommandLineArguments = QLineEdit()
-        self.CommandLineArguments.setText(str(get_command_line_arguments()))
+        self.CommandLineArguments.setText(str(get_blender_startup_arguments()))
         self.CommandLineArguments.setContextMenuPolicy(Qt.NoContextMenu)
         self.CommandLineArguments.setCursorPosition(0)
         self.CommandLineArguments.editingFinished.connect(
@@ -268,7 +268,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def update_command_line_arguments(self):
         args = self.CommandLineArguments.text()
-        set_command_line_arguments(args)
+        set_blender_startup_arguments(args)
 
     def toggle_install_template(self, is_checked):
         set_install_template(is_checked)
