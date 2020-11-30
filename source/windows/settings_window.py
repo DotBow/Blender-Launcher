@@ -260,7 +260,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
                 self.parent.draw_library(clear=True)
             else:
                 self.dlg = DialogWindow(
-                    self, title="Warning",
+                    self.parent, title="Warning",
                     text="Chosen folder doesn't have write permissions!",
                     accept_text="Retry", cancel_text=None,
                     icon=DialogIcon.WARNING)
