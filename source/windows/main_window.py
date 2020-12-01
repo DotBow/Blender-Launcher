@@ -68,6 +68,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.timer = None
         self.started = True
         self.latest_tag = ""
+        self.new_downloads = False
 
         # Setup window
         self.setWindowTitle("Blender Launcher")
@@ -413,6 +414,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             page.set_info_label_text("Checking for new builds")
 
         self.cashed_builds.clear()
+        self.new_downloads = False
         self.app_state = AppState.CHECKINGBUILDS
         self.set_status("Checking for new builds")
         self.scraper = Scraper(self, self.manager)
@@ -432,6 +434,11 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.timer.start()
 
     def scraper_finished(self):
+        if self.new_downloads and not self.started:
+            self.show_message(
+                "New builds of Blender is available!",
+                type=MessageType.NEWBUILDS)
+
         for list_widget in self.DownloadsToolBox.list_widgets:
             for widget in list_widget.widgets:
                 if widget.build_info not in self.cashed_builds:
@@ -481,6 +488,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             widget = DownloadWidget(
                 self, downloads_list_widget, item, build_info, show_new)
             downloads_list_widget.add_item(item, widget)
+            self.new_downloads = True
 
     def draw_to_library(self, path, show_new=False):
         branch = Path(path).parent.name
