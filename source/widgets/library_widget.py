@@ -2,7 +2,7 @@ import os
 import subprocess
 from pathlib import Path
 
-from modules._platform import _check_call, _popen, get_platform
+from modules._platform import _call, _popen, get_platform
 from modules.build_info import BuildInfoReader
 from modules.settings import (get_blender_startup_arguments,
                               get_bash_arguments, get_favorite_path,
@@ -255,7 +255,9 @@ class LibraryWidget(QWidget):
             if blender_args == "":
                 proc = _popen(b3d_exe.as_posix())
             else:
-                proc = _popen([b3d_exe.as_posix(), blender_args])
+                args = [b3d_exe.as_posix()]
+                args.extend(blender_args.split(' '))
+                proc = _popen(args)
         elif platform == 'Linux':
             bash_args = get_bash_arguments()
 
@@ -366,7 +368,7 @@ class LibraryWidget(QWidget):
                 if os.path.isdir(link):
                     os.rmdir(link)
 
-            _check_call('mklink /J "{0}" "{1}"'.format(link, target))
+            _call('mklink /J "{0}" "{1}"'.format(link, target))
         elif platform == 'Linux':
             if os.path.exists(link):
                 if os.path.islink(link):
