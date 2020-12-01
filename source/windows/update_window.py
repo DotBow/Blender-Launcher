@@ -26,19 +26,19 @@ class UpdateWindow(QMainWindow, BaseWindow, UpdateWindowUI):
     def download(self):
         self.link = "https://github.com/DotBow/Blender-Launcher/releases/download/{0}/Blender_Launcher_{0}_{1}_x64.zip".format(
             self.tag, get_platform())
-        self.thread = Downloader(self.parent.manager, self.link)
-        self.thread.progress_changed.connect(self.set_progress_bar)
-        self.thread.finished.connect(self.extract)
-        self.thread.start()
+        self.downlaoder = Downloader(self.parent.manager, self.link)
+        self.downlaoder.progress_changed.connect(self.set_progress_bar)
+        self.downlaoder.finished.connect(self.extract)
+        self.downlaoder.start()
 
         self.show()
 
     def extract(self, source):
         dist = tempfile.gettempdir()
-        self.thread = Extractor(self.parent.manager, source, dist)
-        self.thread.progress_changed.connect(self.set_progress_bar)
-        self.thread.finished.connect(self.run)
-        self.thread.start()
+        self.extractor = Extractor(self.parent.manager, source, dist)
+        self.extractor.progress_changed.connect(self.set_progress_bar)
+        self.extractor.finished.connect(self.run)
+        self.extractor.start()
 
     def run(self, dist):
         platform = get_platform()
