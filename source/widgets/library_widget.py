@@ -255,7 +255,9 @@ class LibraryWidget(QWidget):
             if blender_args == "":
                 proc = _popen(b3d_exe.as_posix())
             else:
-                proc = _popen([b3d_exe.as_posix(), blender_args])
+                args = [b3d_exe.as_posix()]
+                args.extend(blender_args.split(' '))
+                proc = _popen(args)
         elif platform == 'Linux':
             bash_args = get_bash_arguments()
 
