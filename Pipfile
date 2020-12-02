@@ -10,7 +10,7 @@ beautifulsoup4 = "==4.9.3"
 pyqt5 = "==5.15.1"
 pyqt5-tools = "==5.15.1.1.7.4"
 urllib3 = "==1.25.11"
-pyinstaller = "==4.0"
+pyinstaller = "==4.1"
 pywin32 = {version = "*", os_name = "=='nt'"}
 
 [scripts]
