@@ -49,9 +49,9 @@ class LibraryWidget(QWidget):
         self.layout.addWidget(self.launchButton)
         self.layout.addWidget(self.infoLabel, stretch=1)
 
-        self.thread = BuildInfoReader(link)
-        self.thread.finished.connect(self.draw)
-        self.thread.start()
+        self.build_info_reader = BuildInfoReader(link)
+        self.build_info_reader.finished.connect(self.draw)
+        self.build_info_reader.start()
 
         self.item.setSizeHint(self.sizeHint())
 
@@ -228,9 +228,11 @@ class LibraryWidget(QWidget):
         self.launchButton.setEnabled(False)
         self.deleteAction.setEnabled(False)
         self.installTemplateAction.setEnabled(False)
-        self.thread = TemplateInstaller(self.parent.manager, self.link)
-        self.thread.finished.connect(self.install_template_finished)
-        self.thread.start()
+        self.tempalte_installer = TemplateInstaller(
+            self.parent.manager, self.link)
+        self.tempalte_installer.finished.connect(
+            self.install_template_finished)
+        self.tempalte_installer.start()
 
     def install_template_finished(self):
         self.launchButton.setText("Launch")
