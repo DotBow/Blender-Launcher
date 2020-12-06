@@ -220,8 +220,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 "Stable Releases",
                 "DownloadsStableListWidget",
                 "No new builds available",
-                "Upload Time",
-                False)
+                "Upload Time")
         self.DownloadsDailyListWidget = \
             self.DownloadsToolBox.add_list_widget(
                 "Daily Builds",

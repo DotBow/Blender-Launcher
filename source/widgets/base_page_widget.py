@@ -78,16 +78,11 @@ class BasePageWidget(QWidget):
         self.commitTimeLabel.setCheckable(True)
         self.commitTimeLabel.clicked.connect(
             lambda: self.set_sorting_type(SortingType.DATETIME))
-        self.buildHashLabel = QLabel("Hash")
-        self.buildHashLabel.setAlignment(Qt.AlignCenter)
 
         self.HeaderLayout.addWidget(self.fakeLabel)
         self.HeaderLayout.addWidget(self.subversionLabel)
         self.HeaderLayout.addWidget(self.branchLabel)
         self.HeaderLayout.addWidget(self.commitTimeLabel)
-
-        if show_hash:
-            self.HeaderLayout.addWidget(self.buildHashLabel)
 
         self.HeaderLayout.addStretch()
 

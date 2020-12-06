@@ -82,7 +82,6 @@ class LibraryWidget(QWidget):
         self.subversionLabel = QLabel()
         self.branchLabel = QLabel()
         self.commitTimeLabel = QLabel()
-        self.buildHashLabel = QLabel()
 
         self.countButton = QPushButton("0")
         self.countButton.setEnabled(False)
@@ -100,7 +99,6 @@ class LibraryWidget(QWidget):
         self.layout.addWidget(self.subversionLabel)
         self.layout.addWidget(self.branchLabel)
         self.layout.addWidget(self.commitTimeLabel)
-        self.layout.addWidget(self.buildHashLabel)
         self.layout.addStretch()
         self.layout.addWidget(self.countButton)
         self.layout.addWidget(self.widgetFavorite)
@@ -116,7 +114,6 @@ class LibraryWidget(QWidget):
         self.branchLabel.setText(branch_name)
 
         self.commitTimeLabel.setText(self.build_info.commit_time)
-        self.buildHashLabel.setText(self.build_info.build_hash)
 
         # Context menu
         self.setContextMenuPolicy(Qt.CustomContextMenu)
@@ -184,8 +181,7 @@ class LibraryWidget(QWidget):
         self.setEnabled(True)
         self.list_widget.sortItems()
         self.list_widget.resize_labels(
-            ('subversionLabel', 'branchLabel',
-             'commitTimeLabel', 'buildHashLabel'))
+            ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
 
     def context_menu(self):
         if len(self.list_widget.selectedItems()) > 1:

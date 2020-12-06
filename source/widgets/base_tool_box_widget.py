@@ -16,10 +16,9 @@ class BaseToolBoxWidget(QToolBox):
         self.currentChanged.connect(self.current_changed)
 
     def add_list_widget(self, name, custom_name, text, _time_label,
-                        _show_hash=True, show_reload=False,
-                        extended_selection=False):
+                        show_reload=False, extended_selection=False):
         page_widget = BasePageWidget(
-            self, text, custom_name, time_label=_time_label, show_hash=_show_hash,
+            self, text, custom_name, time_label=_time_label,
             show_reload=show_reload, extended_selection=extended_selection)
         self.pages.append(page_widget)
         self.addItem(page_widget, QIcon(

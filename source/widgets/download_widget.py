@@ -54,7 +54,6 @@ class DownloadWidget(QWidget):
         self.branchLabel = QLabel(branch_name)
 
         self.commitTimeLabel = QLabel(self.build_info.commit_time)
-        self.buildHashLabel = QLabel(self.build_info.build_hash)
         self.progressBar.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
 
         self.layout.addWidget(self.downloadButton)
@@ -62,7 +61,6 @@ class DownloadWidget(QWidget):
         self.layout.addWidget(self.subversionLabel)
         self.layout.addWidget(self.branchLabel)
         self.layout.addWidget(self.commitTimeLabel)
-        self.layout.addWidget(self.buildHashLabel)
         self.layout.addStretch()
         self.layout.addWidget(self.progressBar, stretch=1)
 
@@ -84,7 +82,7 @@ class DownloadWidget(QWidget):
 
     def showEvent(self, event):
         self.list_widget.resize_labels(
-            ('subversionLabel', 'branchLabel', 'commitTimeLabel', 'buildHashLabel'))
+            ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
 
     def init_downloader(self):
         self.item.setSelected(True)
