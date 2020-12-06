@@ -16,7 +16,7 @@ class SortingType(Enum):
 
 class BasePageWidget(QWidget):
     def __init__(self, parent, text, name, time_label,
-                 show_hash=True, show_reload=False, extended_selection=False):
+                 show_reload=False, extended_selection=False):
         super().__init__()
         self.name = name
 
