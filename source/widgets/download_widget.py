@@ -27,6 +27,8 @@ class DownloadWidget(QWidget):
         self.state = DownloadState.WAITING
 
         self.progressBar = QProgressBar()
+        self.progressBar.setMinimumWidth(150)
+        self.progressBar.setMaximumWidth(150)
         self.progressBar.setAlignment(Qt.AlignCenter)
         self.progressBar.hide()
 
@@ -54,7 +56,6 @@ class DownloadWidget(QWidget):
         self.branchLabel = QLabel(branch_name)
 
         self.commitTimeLabel = QLabel(self.build_info.commit_time)
-        self.progressBar.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
 
         self.layout.addWidget(self.downloadButton)
         self.layout.addWidget(self.cancelButton)
@@ -62,7 +63,7 @@ class DownloadWidget(QWidget):
         self.layout.addWidget(self.branchLabel)
         self.layout.addWidget(self.commitTimeLabel)
         self.layout.addStretch()
-        self.layout.addWidget(self.progressBar, stretch=1)
+        self.layout.addWidget(self.progressBar)
 
         if self.show_new:
             self.NewItemLabel = QLabel("New")
