@@ -67,7 +67,7 @@ def main():
 
     if not is_running:
         socket.close()
-        BlenderLauncher(app)
+        BlenderLauncher(app, version)
         app.exec_()
 
 

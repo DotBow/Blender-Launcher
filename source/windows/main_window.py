@@ -46,7 +46,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     show_signal = pyqtSignal()
     close_signal = pyqtSignal()
 
-    def __init__(self, app):
+    def __init__(self, app, version):
         super().__init__()
         self.setupUi(self)
         self.setAcceptDrops(True)
@@ -58,6 +58,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         # Global scope
         self.app = app
+        self.version = version
         self.favorite = None
         self.status = "None"
         self.app_state = AppState.IDLE
@@ -246,7 +247,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.NewVersionButton = QPushButton()
         self.NewVersionButton.hide()
         self.NewVersionButton.clicked.connect(self.show_update_window)
-        self.statusbarVersion = QLabel(self.app.applicationVersion())
+        self.statusbarVersion = QLabel(self.version)
         self.statusbarVersion.setToolTip(
             "The version of Blender Laucnher that is currently run")
         self.StatusBar.addPermanentWidget(self.statusbarLabel, 1)
@@ -522,9 +523,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.statusbarLabel.setText("Status: {0}".format(self.status))
 
     def set_version(self, latest_tag):
-        current_tag = self.app.applicationVersion()
         latest_ver = re.sub(r'\D', '', latest_tag)
-        current_ver = re.sub(r'\D', '', current_tag)
+        current_ver = re.sub(r'\D', '', self.version)
 
         if int(latest_ver) > int(current_ver):
             if latest_tag not in self.notification_pool:
