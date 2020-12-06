@@ -6,7 +6,7 @@ from pathlib import Path
 from time import localtime, strftime
 
 from items.base_list_widget_item import BaseListWidgetItem
-from modules._platform import get_platform, set_locale
+from modules._platform import get_platform, get_platform_full, set_locale
 from modules.enums import MessageType
 from modules.settings import (create_library_folders,
                               get_default_downloads_page,
@@ -65,7 +65,13 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.cashed_builds = []
         self.notification_pool = []
         self.windows = [self]
-        self.manager = PoolManager(num_pools=50, maxsize=10)
+
+        _headers = {
+            'user-agent': 'Blender Launcher/{0} ({1})'.format(
+                version, get_platform_full())}
+        self.manager = PoolManager(
+            num_pools=50, maxsize=10, headers=_headers)
+
         self.timer = None
         self.started = True
         self.latest_tag = ""
