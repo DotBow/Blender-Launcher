@@ -1,4 +1,5 @@
 import os
+import platform
 import sys
 from locale import LC_ALL, setlocale
 from subprocess import DEVNULL, PIPE, STDOUT, Popen, call, check_call
@@ -17,6 +18,10 @@ def get_platform():
         return sys.platform
 
     return platforms[sys.platform]
+
+
+def get_platform_full():
+    return ("{0} {1} {2}").format(get_platform(), os.name, platform.release())
 
 
 def set_locale():
