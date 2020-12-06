@@ -325,6 +325,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def _show(self):
         platform = get_platform()
 
+        if self.isMinimized():
+            self.showNormal()
+
         if platform == "Windows":
             self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
             self.show()
