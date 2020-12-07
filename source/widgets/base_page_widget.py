@@ -15,7 +15,7 @@ class SortingType(Enum):
 
 
 class BasePageWidget(QWidget):
-    def __init__(self, parent, info_text, page_name, time_label,
+    def __init__(self, parent, page_name, time_label, info_text,
                  show_reload=False, extended_selection=False):
         super().__init__()
         self.name = page_name
@@ -62,7 +62,7 @@ class BasePageWidget(QWidget):
             self.fakeLabel.setToolTip(
                 "Reload Custom builds from disk")
             self.fakeLabel.setProperty("ListHeader", True)
-            self.fakeLabel.clicked.connect(parent.parent.reload_custom_builds)
+            self.fakeLabel.clicked.connect(parent.reload_custom_builds)
         else:
             self.fakeLabel = QLabel()
 

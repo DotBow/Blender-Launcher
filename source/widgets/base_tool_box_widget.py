@@ -1,8 +1,6 @@
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QToolBox
 
-from widgets.base_page_widget import BasePageWidget
-
 
 class BaseToolBoxWidget(QToolBox):
     def __init__(self, parent=None):
@@ -15,14 +13,10 @@ class BaseToolBoxWidget(QToolBox):
         self.layout().setSpacing(0)
         self.currentChanged.connect(self.current_changed)
 
-    def add_list_widget(self, name, page_name, info_text, _time_label,
-                        show_reload=False, extended_selection=False):
-        page_widget = BasePageWidget(
-            self, info_text, page_name, time_label=_time_label,
-            show_reload=show_reload, extended_selection=extended_selection)
+    def add_page_widget(self, page_widget, page_name):
         self.pages.append(page_widget)
         self.addItem(page_widget, QIcon(
-            ":resources/icons/page_closed.svg"), name)
+            ":resources/icons/page_closed.svg"), page_name)
         self.list_widgets.add(page_widget.list_widget)
         return page_widget.list_widget
 

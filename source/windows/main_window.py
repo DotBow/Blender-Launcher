@@ -27,6 +27,7 @@ from threads.remover import Remover
 from threads.scraper import Scraper
 from ui.main_window_ui import Ui_MainWindow
 from urllib3 import PoolManager
+from widgets.base_page_widget import BasePageWidget
 from widgets.base_tool_box_widget import BaseToolBoxWidget
 from widgets.download_widget import DownloadState, DownloadWidget
 from widgets.library_widget import LibraryWidget
@@ -182,57 +183,71 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         self.LibraryToolBox = BaseToolBoxWidget(self)
 
+        page = BasePageWidget(
+            parent=self,
+            page_name="LibraryStableListWidget",
+            time_label="Commit Time",
+            info_text="Nothing to show yet",
+            extended_selection=True)
         self.LibraryStableListWidget = \
-            self.LibraryToolBox.add_list_widget(
-                "Stable Releases",
-                "LibraryStableListWidget",
-                "Nothing to show yet",
-                "Commit Time",
-                extended_selection=True)
+            self.LibraryToolBox.add_page_widget(page, "Stable Releases")
+
+        page = BasePageWidget(
+            parent=self,
+            page_name="LibraryDailyListWidget",
+            time_label="Commit Time",
+            info_text="Nothing to show yet",
+            extended_selection=True)
         self.LibraryDailyListWidget = \
-            self.LibraryToolBox.add_list_widget(
-                "Daily Builds",
-                "LibraryDailyListWidget",
-                "Nothing to show yet",
-                "Commit Time",
-                extended_selection=True)
+            self.LibraryToolBox.add_page_widget(page, "Daily Builds")
+
+        page = BasePageWidget(
+            parent=self,
+            page_name="LibraryExperimentalListWidget",
+            time_label="Commit Time",
+            info_text="Nothing to show yet",
+            extended_selection=True)
         self.LibraryExperimentalListWidget = \
-            self.LibraryToolBox.add_list_widget(
-                "Experimental Branches",
-                "LibraryExperimentalListWidget",
-                "Nothing to show yet",
-                "Commit Time",
-                extended_selection=True)
+            self.LibraryToolBox.add_page_widget(page, "Experimental Branches")
+
+        page = BasePageWidget(
+            parent=self,
+            page_name="LibraryCustomListWidget",
+            time_label="Commit Time",
+            info_text="Nothing to show yet",
+            show_reload=True,
+            extended_selection=True)
         self.LibraryCustomListWidget = \
-            self.LibraryToolBox.add_list_widget(
-                "Custom Builds",
-                "LibraryCustomListWidget",
-                "Nothing to show yet",
-                "Commit Time",
-                show_reload=True,
-                extended_selection=True)
+            self.LibraryToolBox.add_page_widget(page, "Custom Builds")
+
         self.LibraryTab.layout().addWidget(self.LibraryToolBox)
 
         self.DownloadsToolBox = BaseToolBoxWidget(self)
 
+        page = BasePageWidget(
+            parent=self,
+            page_name="DownloadsStableListWidget",
+            time_label="Upload Time",
+            info_text="No new builds available")
         self.DownloadsStableListWidget = \
-            self.DownloadsToolBox.add_list_widget(
-                "Stable Releases",
-                "DownloadsStableListWidget",
-                "No new builds available",
-                "Upload Time")
+            self.DownloadsToolBox.add_page_widget(page, "Stable Releases")
+
+        page = BasePageWidget(
+            parent=self,
+            page_name="DownloadsDailyListWidget",
+            time_label="Upload Time",
+            info_text="No new builds available")
         self.DownloadsDailyListWidget = \
-            self.DownloadsToolBox.add_list_widget(
-                "Daily Builds",
-                "DownloadsDailyListWidget",
-                "No new builds available",
-                "Upload Time",)
+            self.DownloadsToolBox.add_page_widget(page, "Daily Builds")
+
+        page = BasePageWidget(
+            parent=self,
+            page_name="DownloadsExperimentalListWidget",
+            time_label="Upload Time",
+            info_text="No new builds available")
         self.DownloadsExperimentalListWidget = \
-            self.DownloadsToolBox.add_list_widget(
-                "Experimental Branches",
-                "DownloadsExperimentalListWidget",
-                "No new builds available",
-                "Upload Time",)
+            self.DownloadsToolBox.add_page_widget(page, "Experimental Branches")
+
         self.DownloadsTab.layout().addWidget(self.DownloadsToolBox)
 
         self.LibraryToolBox.setCurrentIndex(get_default_library_page())
