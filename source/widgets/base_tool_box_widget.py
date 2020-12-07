@@ -15,10 +15,10 @@ class BaseToolBoxWidget(QToolBox):
         self.layout().setSpacing(0)
         self.currentChanged.connect(self.current_changed)
 
-    def add_list_widget(self, name, custom_name, text, _time_label,
+    def add_list_widget(self, name, page_name, info_text, _time_label,
                         show_reload=False, extended_selection=False):
         page_widget = BasePageWidget(
-            self, text, custom_name, time_label=_time_label,
+            self, info_text, page_name, time_label=_time_label,
             show_reload=show_reload, extended_selection=extended_selection)
         self.pages.append(page_widget)
         self.addItem(page_widget, QIcon(

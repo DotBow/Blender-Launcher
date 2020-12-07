@@ -15,10 +15,10 @@ class SortingType(Enum):
 
 
 class BasePageWidget(QWidget):
-    def __init__(self, parent, text, name, time_label,
+    def __init__(self, parent, info_text, page_name, time_label,
                  show_reload=False, extended_selection=False):
         super().__init__()
-        self.name = name
+        self.name = page_name
 
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(0, 0, 0, 0)
@@ -38,7 +38,7 @@ class BasePageWidget(QWidget):
 
         self.InfoLabelLayout = QHBoxLayout()
         self.InfoLabelLayout.setContentsMargins(0, 0, 0, 6)
-        self.InfoLabel = QLabel(text)
+        self.InfoLabel = QLabel(info_text)
         self.InfoLabelLayout.addWidget(self.InfoLabel)
 
         self.list_widget = BaseListWidget(
