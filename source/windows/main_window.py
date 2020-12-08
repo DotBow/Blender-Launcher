@@ -467,7 +467,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def scraper_finished(self):
         if self.new_downloads and not self.started:
             self.show_message(
-                "New builds of Blender is available!",
+                "New builds of Blender are available!",
                 type=MessageType.NEWBUILDS)
 
         for list_widget in self.DownloadsToolBox.list_widgets:
