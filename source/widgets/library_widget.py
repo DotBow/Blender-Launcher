@@ -22,13 +22,15 @@ from windows.dialog_window import DialogIcon, DialogWindow
 
 
 class LibraryWidget(QWidget):
-    def __init__(self, parent, item, link, list_widget, show_new=False):
+    def __init__(self, parent, item, link, list_widget,
+                 show_branch=True, show_new=False):
         super(LibraryWidget, self).__init__(None)
 
         self.parent = parent
         self.item = item
         self.link = link
         self.list_widget = list_widget
+        self.show_branch = show_branch
         self.show_new = show_new
         self.observer = None
         self.build_info = None
@@ -97,7 +99,10 @@ class LibraryWidget(QWidget):
 
         self.layout.addWidget(self.launchButton)
         self.layout.addWidget(self.subversionLabel)
-        self.layout.addWidget(self.branchLabel)
+
+        if self.show_branch:
+            self.layout.addWidget(self.branchLabel)
+
         self.layout.addWidget(self.commitTimeLabel)
         self.layout.addStretch()
         self.layout.addWidget(self.countButton)

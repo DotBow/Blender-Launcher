@@ -197,6 +197,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             page_name="LibraryDailyListWidget",
             time_label="Commit Time",
             info_text="Nothing to show yet",
+            show_branch=False,
             extended_selection=True)
         self.LibraryDailyListWidget = \
             self.LibraryToolBox.add_page_widget(page, "Daily Builds")
@@ -236,7 +237,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             parent=self,
             page_name="DownloadsDailyListWidget",
             time_label="Upload Time",
-            info_text="No new builds available")
+            info_text="No new builds available",
+            show_branch=False)
         self.DownloadsDailyListWidget = \
             self.DownloadsToolBox.add_page_widget(page, "Daily Builds")
 
@@ -246,7 +248,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             time_label="Upload Time",
             info_text="No new builds available")
         self.DownloadsExperimentalListWidget = \
-            self.DownloadsToolBox.add_page_widget(page, "Experimental Branches")
+            self.DownloadsToolBox.add_page_widget(
+                page, "Experimental Branches")
 
         self.DownloadsTab.layout().addWidget(self.DownloadsToolBox)
 
@@ -523,11 +526,13 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def draw_to_library(self, path, show_new=False):
         branch = Path(path).parent.name
+        show_branch = True
 
         if (branch == 'stable') or (branch == 'lts'):
             list_widget = self.LibraryStableListWidget
         elif branch == 'daily':
             list_widget = self.LibraryDailyListWidget
+            show_branch = False
         elif branch == 'experimental':
             list_widget = self.LibraryExperimentalListWidget
         elif branch == 'custom':
@@ -536,7 +541,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             return
 
         item = BaseListWidgetItem()
-        widget = LibraryWidget(self, item, path, list_widget, show_new)
+        widget = LibraryWidget(self, item, path, list_widget,
+                               show_branch, show_new)
         list_widget.insert_item(item, widget)
 
     def set_status(self, status=None):
