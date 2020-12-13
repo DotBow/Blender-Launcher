@@ -498,6 +498,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                     return
 
     def draw_to_downloads(self, build_info, show_new=True):
+        show_branch = True
+
         if self.started:
             show_new = False
 
@@ -512,6 +514,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         elif branch == 'daily':
             downloads_list_widget = self.DownloadsDailyListWidget
             library_list_widget = self.LibraryDailyListWidget
+            show_branch = False
         else:
             downloads_list_widget = self.DownloadsExperimentalListWidget
             library_list_widget = self.LibraryExperimentalListWidget
@@ -520,7 +523,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 not downloads_list_widget.contains_build_info(build_info):
             item = BaseListWidgetItem(build_info.commit_time)
             widget = DownloadWidget(
-                self, downloads_list_widget, item, build_info, show_new)
+                self, downloads_list_widget, item,
+                build_info, show_branch, show_new)
             downloads_list_widget.add_item(item, widget)
             self.new_downloads = True
 

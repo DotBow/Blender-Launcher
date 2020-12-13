@@ -17,7 +17,8 @@ class DownloadState(Enum):
 
 
 class DownloadWidget(QWidget):
-    def __init__(self, parent, list_widget, item, build_info, show_new=False):
+    def __init__(self, parent, list_widget, item, build_info,
+                 show_branch=True, show_new=False):
         super(DownloadWidget, self).__init__(None)
         self.parent = parent
         self.list_widget = list_widget
@@ -60,7 +61,10 @@ class DownloadWidget(QWidget):
         self.layout.addWidget(self.downloadButton)
         self.layout.addWidget(self.cancelButton)
         self.layout.addWidget(self.subversionLabel)
-        self.layout.addWidget(self.branchLabel)
+
+        if show_branch:
+            self.layout.addWidget(self.branchLabel)
+
         self.layout.addWidget(self.commitTimeLabel)
         self.layout.addStretch()
         self.layout.addWidget(self.progressBar)
@@ -116,9 +120,12 @@ class DownloadWidget(QWidget):
 
     def init_template_installer(self, dist):
         if get_install_template():
-            self.template_installer = TemplateInstaller(self.parent.manager, dist)
-            self.template_installer.progress_changed.connect(self.set_progress_bar)
-            self.template_installer.finished.connect(lambda: self.download_finished(dist))
+            self.template_installer = TemplateInstaller(
+                self.parent.manager, dist)
+            self.template_installer.progress_changed.connect(
+                self.set_progress_bar)
+            self.template_installer.finished.connect(
+                lambda: self.download_finished(dist))
             self.template_installer.start()
         else:
             self.download_finished(dist)
