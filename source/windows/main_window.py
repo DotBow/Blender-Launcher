@@ -474,7 +474,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 type=MessageType.NEWBUILDS)
 
         for list_widget in self.DownloadsToolBox.list_widgets:
-            for widget in list_widget.widgets:
+            for widget in list_widget.widgets.copy():
                 if widget.build_info not in self.cashed_builds:
                     widget.destroy()
 
