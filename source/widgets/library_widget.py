@@ -158,9 +158,11 @@ class LibraryWidget(QWidget):
         if get_platform() == 'Windows':
             self.menu.addAction(self.registerExtentionAction)
 
+        self.menu.addSeparator()
         self.menu.addAction(self.createShortcutAction)
         self.menu.addAction(self.createSymlinkAction)
         self.menu.addAction(self.installTemplateAction)
+        self.menu.addSeparator()
         self.menu.addAction(self.showFolderAction)
         self.menu.addAction(self.deleteAction)
 
