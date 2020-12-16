@@ -1,9 +1,8 @@
 import json
 import re
-import subprocess
 import time
 from pathlib import Path
-from subprocess import DEVNULL, CalledProcessError
+from subprocess import CalledProcessError
 
 from PyQt5.QtCore import QThread, pyqtSignal
 
@@ -62,7 +61,7 @@ class BuildInfoReader(QThread):
         self.finished.emit(build_info)
         return
 
-    def write_build_info(self):
+    def read_blender_version(self):
         # Read Blender Version
         platform = get_platform()
 
@@ -74,19 +73,19 @@ class BuildInfoReader(QThread):
         exe_path = self.path / blender_exe
 
         try:
-            info = _check_output([exe_path.as_posix(), "-v"])
+            version = _check_output([exe_path.as_posix(), "-v"])
         except CalledProcessError:
             return 1
 
-        info = info.decode('UTF-8')
+        version = version.decode('UTF-8')
 
         set_locale()
-        ctime = re.search("build commit time: " + "(.*)", info)[1].rstrip()
-        cdate = re.search("build commit date: " + "(.*)", info)[1].rstrip()
+        ctime = re.search("build commit time: " + "(.*)", version)[1].rstrip()
+        cdate = re.search("build commit date: " + "(.*)", version)[1].rstrip()
         strptime = time.strptime(cdate + ' ' + ctime, "%Y-%m-%d %H:%M")
         commit_time = time.strftime("%d-%b-%y-%H:%M", strptime)
-        build_hash = re.search("build hash: " + "(.*)", info)[1].rstrip()
-        subversion = re.search("Blender " + "(.*)", info)[1].rstrip()
+        build_hash = re.search("build hash: " + "(.*)", version)[1].rstrip()
+        subversion = re.search("Blender " + "(.*)", version)[1].rstrip()
 
         try:
             subfolder = self.path.parent.name
@@ -111,10 +110,14 @@ class BuildInfoReader(QThread):
         except Exception:
             branch = None
 
-        # Write Version Information
+        self.write_build_info(branch, subversion, build_hash, commit_time)
+
+    def write_build_info(self, branch, subversion, build_hash, commit_time):
         data = {}
+
         data['file_version'] = BuildInfo.file_version
         data['blinfo'] = []
+
         data['blinfo'].append({
             'branch': branch,
             'subversion': subversion,
@@ -133,14 +136,14 @@ class BuildInfoReader(QThread):
         path = self.path / '.blinfo'
 
         if not path.is_file():
-            if self.write_build_info() == 1:
+            if self.read_blender_version() == 1:
                 return None
 
         with open(path) as file:
             data = json.load(file)
 
         if ('file_version' not in data) or (data['file_version'] != BuildInfo.file_version):
-            if self.write_build_info() == 1:
+            if self.read_blender_version() == 1:
                 return None
             else:
                 return self.read_build_info()
