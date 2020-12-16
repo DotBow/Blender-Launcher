@@ -2,7 +2,8 @@ import os
 import platform
 import sys
 from locale import LC_ALL, setlocale
-from subprocess import DEVNULL, PIPE, STDOUT, Popen, call, check_call
+from subprocess import (DEVNULL, PIPE, STDOUT, Popen, call, check_call,
+                        check_output)
 
 
 def get_platform():
@@ -91,3 +92,17 @@ def _call(args):
              shell=True, stdout=PIPE, stderr=STDOUT, stdin=DEVNULL)
     elif platform == 'Linux':
         pass
+
+
+def _check_output(args):
+    platform = get_platform()
+
+    if platform == 'Windows':
+        from subprocess import CREATE_NO_WINDOW
+
+        output = check_output(args, creationflags=CREATE_NO_WINDOW,
+                              shell=True, stderr=DEVNULL, stdin=DEVNULL)
+    elif platform == 'Linux':
+        output = check_output(args, shell=False, stderr=DEVNULL, stdin=DEVNULL)
+
+    return output
