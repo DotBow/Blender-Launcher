@@ -7,10 +7,7 @@ from subprocess import DEVNULL, CalledProcessError
 
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from modules._platform import get_platform, set_locale
-
-if get_platform() == 'Windows':
-    from subprocess import CREATE_NO_WINDOW
+from modules._platform import _check_output, get_platform, set_locale
 
 
 class BuildInfo:
@@ -77,16 +74,7 @@ class BuildInfoReader(QThread):
         exe_path = self.path / blender_exe
 
         try:
-            if platform == 'Windows':
-                info = subprocess.check_output(
-                    [exe_path.as_posix(), "-v"],
-                    creationflags=CREATE_NO_WINDOW,
-                    shell=True,
-                    stderr=DEVNULL, stdin=DEVNULL)
-            elif platform == 'Linux':
-                info = subprocess.check_output(
-                    [exe_path.as_posix(), "-v"], shell=False,
-                    stderr=DEVNULL, stdin=DEVNULL)
+            info = _check_output([exe_path.as_posix(), "-v"])
         except CalledProcessError:
             return 1
 
