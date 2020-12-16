@@ -4,13 +4,13 @@ from pathlib import Path
 
 from modules._platform import _call, _popen, get_platform
 from modules.build_info import BuildInfoReader
-from modules.settings import (get_blender_startup_arguments,
-                              get_bash_arguments, get_favorite_path,
+from modules.settings import (get_bash_arguments,
+                              get_blender_startup_arguments, get_favorite_path,
                               get_library_folder, get_mark_as_favorite,
                               set_favorite_path)
 from modules.shortcut import create_shortcut
 from PyQt5 import QtCore
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QCursor, QIcon
 from PyQt5.QtWidgets import (QAction, QApplication, QHBoxLayout, QLabel, QMenu,
                              QPushButton, QWidget)
@@ -191,8 +191,11 @@ class LibraryWidget(QWidget):
             ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
 
     def context_menu(self):
+        pos = QCursor.pos()
+        pos = QPoint(pos.x() - 15, pos.y() - 15)
+
         if len(self.list_widget.selectedItems()) > 1:
-            self.menu_extended.exec_(QCursor.pos())
+            self.menu_extended.exec_(pos)
             return
 
         link_path = Path(get_library_folder()) / "bl_symlink"
@@ -202,11 +205,11 @@ class LibraryWidget(QWidget):
             if (os.path.isdir(link) or os.path.islink(link)):
                 if link_path.resolve() == self.link:
                     self.createSymlinkAction.setEnabled(False)
-                    self.menu.exec_(QCursor.pos())
+                    self.menu.exec_(pos)
                     return
 
         self.createSymlinkAction.setEnabled(True)
-        self.menu.exec_(QCursor.pos())
+        self.menu.exec_(pos)
 
     def mouseDoubleClickEvent(self, event):
         if self.build_info is not None:
