@@ -195,6 +195,7 @@ class LibraryWidget(QWidget):
         pos = QPoint(pos.x() - 15, pos.y() - 15)
 
         if len(self.list_widget.selectedItems()) > 1:
+            self.menu_extended.setActiveAction(self.deleteAction)
             self.menu_extended.exec_(pos)
             return
 
@@ -209,6 +210,12 @@ class LibraryWidget(QWidget):
                     return
 
         self.createSymlinkAction.setEnabled(True)
+
+        for action in self.menu.actions():
+            if action.isVisible() and action.isEnabled():
+                self.menu.setActiveAction(action)
+                break
+
         self.menu.exec_(pos)
 
     def mouseDoubleClickEvent(self, event):
