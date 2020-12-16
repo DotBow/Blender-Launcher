@@ -1,6 +1,6 @@
 QMenu
 {
-	background-color: #232323;
+	background-color: #1F1F1F;
 	color: #FFFFFF;
 	padding: 0px;
 }
@@ -12,7 +12,7 @@ QMenu::item
 
 QMenu::item::selected
 {
-	background-color: #343434;
+	background-color: #5076B2;
 }
 
 QMenu::item:disabled

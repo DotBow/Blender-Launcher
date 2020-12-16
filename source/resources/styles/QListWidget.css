@@ -4,7 +4,7 @@ QListWidget {
 }
 
 QListWidget::item {
-	background-color: #2d2d2d;
+	background-color: #2D2D2D;
 }
 
 QListWidget::item:alternate {
@@ -20,6 +20,6 @@ QListWidget::item:selected {
 }
 
 QListWidget::item:selected:hover {
-	background-color: #546c98;
+	background-color: #546C98;
 }
 

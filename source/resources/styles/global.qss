@@ -110,7 +110,7 @@ QListWidget {
 }
 
 QListWidget::item {
-	background-color: #2d2d2d;
+	background-color: #2D2D2D;
 }
 
 QListWidget::item:alternate {
@@ -126,7 +126,7 @@ QListWidget::item:selected {
 }
 
 QListWidget::item:selected:hover {
-	background-color: #546c98;
+	background-color: #546C98;
 }
 
 QMainWindow {
@@ -136,7 +136,7 @@ QMainWindow {
 
 QMenu
 {
-	background-color: #232323;
+	background-color: #1F1F1F;
 	color: #FFFFFF;
 	padding: 0px;
 }
@@ -148,7 +148,7 @@ QMenu::item
 
 QMenu::item::selected
 {
-	background-color: #343434;
+	background-color: #5076B2;
 }
 
 QMenu::item:disabled
