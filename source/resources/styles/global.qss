@@ -157,6 +157,14 @@ QMenu::icon
 	margin: 6px;
 }
 
+QMenu::separator
+{
+	background-color: #616161;
+	border: none;
+	height: 1px;
+	margin: 0px 4px 0px 4px;
+}
+
 QProgressBar
 {
 	color: #FFFFFF;
