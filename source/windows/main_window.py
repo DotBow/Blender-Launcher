@@ -167,6 +167,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         # Tab layout
         self.TabWidget = QTabWidget()
+        self.TabWidget.setProperty('North', True)
         self.CentralLayout.addWidget(self.TabWidget)
 
         self.LibraryTab = QWidget()

@@ -6,7 +6,11 @@ QTabWidget {
 	background-color: #424242;
 }
 
-QTabWidget::tab-bar {
+QTabWidget::tab-bar[North=true] {
+	left: 31px;
+}
+
+QTabWidget::tab-bar[West=true] {
 	left: 1px;
 }
 

@@ -10,6 +10,7 @@ class BaseToolBoxWidget(QTabWidget):
 
         self.setContentsMargins(0, 0, 0, 0)
         self.setTabPosition(QTabWidget.West)
+        self.setProperty('West', True)
 
     def add_page_widget(self, page_widget, page_name):
         self.pages.append(page_widget)
