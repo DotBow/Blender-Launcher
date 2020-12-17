@@ -352,11 +352,11 @@ class LibraryWidget(QWidget):
 
         if self.parent.favorite is not None:
             self.parent.favorite.widgetFavorite.setIcon(self.icon_fake)
-            self.parent.favorite.setAsFavoriteAction.setVisible(True)
+            self.parent.favorite.setAsFavoriteAction.setEnabled(True)
 
         self.parent.favorite = self
         self.widgetFavorite.setIcon(self.icon_favorite)
-        self.setAsFavoriteAction.setVisible(False)
+        self.setAsFavoriteAction.setEnabled(False)
 
     @QtCore.pyqtSlot()
     def register_extension(self):
