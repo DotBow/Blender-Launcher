@@ -199,6 +199,7 @@ class LibraryWidget(QWidget):
             self.menu_extended.exec_(pos)
             return
 
+        self.createSymlinkAction.setEnabled(True)
         link_path = Path(get_library_folder()) / "bl_symlink"
         link = link_path.as_posix()
 
@@ -206,10 +207,7 @@ class LibraryWidget(QWidget):
             if (os.path.isdir(link) or os.path.islink(link)):
                 if link_path.resolve() == self.link:
                     self.createSymlinkAction.setEnabled(False)
-                    self.menu.exec_(pos)
-                    return
 
-        self.createSymlinkAction.setEnabled(True)
         i = 0
 
         for action in self.menu.actions():
