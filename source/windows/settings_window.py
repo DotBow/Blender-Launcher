@@ -46,7 +46,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.setWindowTitle("Settings")
 
         self.HeaderLayout = QHBoxLayout()
-        self.HeaderLayout.setContentsMargins(36, 1, 1, 0)
+        self.HeaderLayout.setContentsMargins(36, 0, 0, 0)
         self.HeaderLayout.setSpacing(0)
         self.CentralLayout.addLayout(self.HeaderLayout)
 
@@ -174,7 +174,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayoutContainer = QWidget(self)
         SettingsLayoutContainer.setProperty('FormLayout', True)
         SettingsLayout = QFormLayout(SettingsLayoutContainer)
-        SettingsLayout.setContentsMargins(1, 0, 1, 6)
+        SettingsLayout.setContentsMargins(0, 0, 0, 6)
         SettingsLayout.setSpacing(6)
         SettingsLayout.setRowWrapPolicy(QFormLayout.DontWrapRows)
         SettingsLayout.setFieldGrowthPolicy(

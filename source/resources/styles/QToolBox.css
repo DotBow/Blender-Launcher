@@ -1,8 +1,5 @@
 QToolBox {
-	border-left: 1px solid #323232;
-	border-right: 1px solid #323232;
-	border-top: none;
-	border-bottom: none;
+	border: none;
 }
 
 QToolBox::tab {

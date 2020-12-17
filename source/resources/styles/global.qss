@@ -366,18 +366,15 @@ QTabWidget {
 }
 
 QTabWidget::tab-bar[North=true] {
-	left: 31px;
+	left: 30px;
 }
 
 QTabWidget::tab-bar[West=true] {
-	left: 1px;
+	left: 0px;
 }
 
 QToolBox {
-	border-left: 1px solid #323232;
-	border-right: 1px solid #323232;
-	border-top: none;
-	border-bottom: none;
+	border: none;
 }
 
 QToolBox::tab {
@@ -420,8 +417,6 @@ QWidget[ToolBoxWidget=true] {
 
 QWidget[FormLayout=true] {
 	background-color: #282828;
-	border-left: 1px solid #323232;
-	border-right: 1px solid #323232;
-	border-bottom: 1px solid #323232;
+	border: none;
 }
 

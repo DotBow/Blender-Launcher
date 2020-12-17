@@ -11,7 +11,7 @@ class Ui_MainWindow(object):
         self.CentralWidget = QtWidgets.QWidget(MainWindow)
         self.CentralWidget.setObjectName("CentralWidget")
         self.CentralLayout = QtWidgets.QVBoxLayout(self.CentralWidget)
-        self.CentralLayout.setContentsMargins(0, 0, 0, 0)
+        self.CentralLayout.setContentsMargins(1, 1, 1, 1)
         self.CentralLayout.setObjectName("CentralLayout")
         MainWindow.setCentralWidget(self.CentralWidget)
         self.MenuBar = QtWidgets.QMenuBar(MainWindow)

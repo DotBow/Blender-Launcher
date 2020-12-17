@@ -19,7 +19,7 @@ class Ui_SettingsWindow(object):
         self.CentralWidget = QtWidgets.QWidget(SettingsWindow)
         self.CentralWidget.setObjectName("CentralWidget")
         self.CentralLayout = QtWidgets.QVBoxLayout(self.CentralWidget)
-        self.CentralLayout.setContentsMargins(0, 0, 0, 0)
+        self.CentralLayout.setContentsMargins(1, 1, 1, 1)
         self.CentralLayout.setObjectName("CentralLayout")
         SettingsWindow.setCentralWidget(self.CentralWidget)
         QtCore.QMetaObject.connectSlotsByName(SettingsWindow)

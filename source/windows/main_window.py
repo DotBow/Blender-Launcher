@@ -128,7 +128,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def draw(self, polish=False):
         self.HeaderLayout = QHBoxLayout()
-        self.HeaderLayout.setContentsMargins(1, 1, 1, 0)
+        self.HeaderLayout.setContentsMargins(0, 0, 0, 0)
         self.HeaderLayout.setSpacing(0)
         self.CentralLayout.addLayout(self.HeaderLayout)
 
