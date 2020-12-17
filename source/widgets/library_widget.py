@@ -10,8 +10,8 @@ from modules.settings import (get_bash_arguments,
                               set_favorite_path)
 from modules.shortcut import create_shortcut
 from PyQt5 import QtCore
-from PyQt5.QtCore import QPoint, Qt
-from PyQt5.QtGui import QCursor, QIcon
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import (QAction, QApplication, QHBoxLayout, QLabel,
                              QPushButton, QWidget)
 from threads.observer import Observer
@@ -193,12 +193,8 @@ class LibraryWidget(QWidget):
             ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
 
     def context_menu(self):
-        pos = QCursor.pos()
-        pos = QPoint(pos.x() - 15, pos.y() - 15)
-
         if len(self.list_widget.selectedItems()) > 1:
-            self.menu_extended.setActiveAction(self.deleteAction)
-            self.menu_extended.exec_(pos)
+            self.menu_extended._show()
             return
 
         self.createSymlinkAction.setEnabled(True)
@@ -210,17 +206,7 @@ class LibraryWidget(QWidget):
                 if link_path.resolve() == self.link:
                     self.createSymlinkAction.setEnabled(False)
 
-        i = 0
-
-        for action in self.menu.actions():
-            if action.isVisible() and action.isEnabled():
-                self.menu.setActiveAction(action)
-                pos.setY(pos.y() - i * 30)
-                break
-
-            i = i + 1
-
-        self.menu.exec_(pos)
+        self.menu._show()
 
     def mouseDoubleClickEvent(self, event):
         if self.build_info is not None:
