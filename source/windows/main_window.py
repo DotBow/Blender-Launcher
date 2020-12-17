@@ -190,7 +190,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             info_text="Nothing to show yet",
             extended_selection=True)
         self.LibraryStableListWidget = \
-            self.LibraryToolBox.add_page_widget(page, "Stable Releases")
+            self.LibraryToolBox.add_page_widget(page, "Stable")
 
         page = BasePageWidget(
             parent=self,
@@ -200,7 +200,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             show_branch=False,
             extended_selection=True)
         self.LibraryDailyListWidget = \
-            self.LibraryToolBox.add_page_widget(page, "Daily Builds")
+            self.LibraryToolBox.add_page_widget(page, "Daily")
 
         page = BasePageWidget(
             parent=self,
@@ -209,7 +209,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             info_text="Nothing to show yet",
             extended_selection=True)
         self.LibraryExperimentalListWidget = \
-            self.LibraryToolBox.add_page_widget(page, "Experimental Branches")
+            self.LibraryToolBox.add_page_widget(page, "Experimental")
 
         page = BasePageWidget(
             parent=self,
@@ -219,7 +219,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             show_reload=True,
             extended_selection=True)
         self.LibraryCustomListWidget = \
-            self.LibraryToolBox.add_page_widget(page, "Custom Builds")
+            self.LibraryToolBox.add_page_widget(page, "Custom")
 
         self.LibraryTab.layout().addWidget(self.LibraryToolBox)
 
@@ -231,7 +231,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             time_label="Upload Time",
             info_text="No new builds available")
         self.DownloadsStableListWidget = \
-            self.DownloadsToolBox.add_page_widget(page, "Stable Releases")
+            self.DownloadsToolBox.add_page_widget(page, "Stable")
 
         page = BasePageWidget(
             parent=self,
@@ -240,7 +240,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             info_text="No new builds available",
             show_branch=False)
         self.DownloadsDailyListWidget = \
-            self.DownloadsToolBox.add_page_widget(page, "Daily Builds")
+            self.DownloadsToolBox.add_page_widget(page, "Daily")
 
         page = BasePageWidget(
             parent=self,
@@ -249,7 +249,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             info_text="No new builds available")
         self.DownloadsExperimentalListWidget = \
             self.DownloadsToolBox.add_page_widget(
-                page, "Experimental Branches")
+                page, "Experimental")
 
         self.DownloadsTab.layout().addWidget(self.DownloadsToolBox)
 
