@@ -293,12 +293,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             QIcon(":resources/icons/favorite.svg"), "Blender", self)
         launch_favorite_action.triggered.connect(self.launch_favorite)
 
-        tray_menu = BaseMenuWidget()
-        tray_menu.setFont(self.font)
-        tray_menu.addAction(launch_favorite_action)
-        tray_menu.addAction(show_action)
-        tray_menu.addAction(hide_action)
-        tray_menu.addAction(quit_action)
+        self.tray_menu = BaseMenuWidget()
+        self.tray_menu.setFont(self.font)
+        self.tray_menu.addAction(launch_favorite_action)
+        self.tray_menu.addAction(show_action)
+        self.tray_menu.addAction(hide_action)
+        self.tray_menu.addAction(quit_action)
 
         # Setup tray icon
         self.tray_icon = QSystemTrayIcon(self)
@@ -306,7 +306,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             QIcon(taskbar_icon_paths[get_taskbar_icon_color()]))
         self.tray_icon.setToolTip("Blender Launcher")
         self.tray_icon.activated.connect(self.tray_icon_activated)
-        self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.messageClicked.connect(self._show)
         self.tray_icon.show()
 
@@ -388,6 +387,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self._show()
         elif reason == QSystemTrayIcon.MiddleClick:
             self.launch_favorite()
+        elif reason == QSystemTrayIcon.Context:
+            self.tray_menu._show(reverse=True)
 
     def quit(self):
         download_widgets = []
