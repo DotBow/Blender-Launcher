@@ -1,5 +1,6 @@
 QTabWidget::pane {
-	background-color: #424242;
+	background-color: transparent;
+	border: none;
 }
 
 QTabWidget {
