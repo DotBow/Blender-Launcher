@@ -12,13 +12,15 @@ from modules.shortcut import create_shortcut
 from PyQt5 import QtCore
 from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QCursor, QIcon
-from PyQt5.QtWidgets import (QAction, QApplication, QHBoxLayout, QLabel, QMenu,
+from PyQt5.QtWidgets import (QAction, QApplication, QHBoxLayout, QLabel,
                              QPushButton, QWidget)
 from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
 from threads.template_installer import TemplateInstaller
 from windows.dialog_window import DialogIcon, DialogWindow
+
+from widgets.base_menu_widget import BaseMenuWidget
 
 
 class LibraryWidget(QWidget):
@@ -124,10 +126,10 @@ class LibraryWidget(QWidget):
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.context_menu)
 
-        self.menu = QMenu()
+        self.menu = BaseMenuWidget()
         self.menu.setFont(self.parent.font)
 
-        self.menu_extended = QMenu()
+        self.menu_extended = BaseMenuWidget()
         self.menu_extended.setFont(self.parent.font)
 
         self.deleteAction = QAction("Delete From Drive", self)

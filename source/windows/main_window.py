@@ -20,13 +20,14 @@ from PyQt5.QtCore import QFile, QSize, Qt, QTextStream, pyqtSignal
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 from PyQt5.QtNetwork import QLocalServer
 from PyQt5.QtWidgets import (QAction, QFileDialog, QHBoxLayout, QLabel,
-                             QMainWindow, QMenu, QPushButton, QSystemTrayIcon,
+                             QMainWindow, QPushButton, QSystemTrayIcon,
                              QTabWidget, QVBoxLayout, QWidget)
 from threads.library_drawer import LibraryDrawer
 from threads.remover import Remover
 from threads.scraper import Scraper
 from ui.main_window_ui import Ui_MainWindow
 from urllib3 import PoolManager
+from widgets.base_menu_widget import BaseMenuWidget
 from widgets.base_page_widget import BasePageWidget
 from widgets.base_tool_box_widget import BaseToolBoxWidget
 from widgets.download_widget import DownloadState, DownloadWidget
@@ -292,7 +293,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             QIcon(":resources/icons/favorite.svg"), "Blender", self)
         launch_favorite_action.triggered.connect(self.launch_favorite)
 
-        tray_menu = QMenu()
+        tray_menu = BaseMenuWidget()
         tray_menu.setFont(self.font)
         tray_menu.addAction(launch_favorite_action)
         tray_menu.addAction(show_action)
