@@ -210,11 +210,15 @@ class LibraryWidget(QWidget):
                     return
 
         self.createSymlinkAction.setEnabled(True)
+        i = 0
 
         for action in self.menu.actions():
             if action.isVisible() and action.isEnabled():
                 self.menu.setActiveAction(action)
+                pos.setY(pos.y() - i * 30)
                 break
+
+            i = i + 1
 
         self.menu.exec_(pos)
 
