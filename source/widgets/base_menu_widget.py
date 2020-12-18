@@ -1,28 +1,36 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor
-from PyQt5.QtWidgets import QMenu
+from PyQt5.QtWidgets import QDesktopWidget, QMenu
 
 
 class BaseMenuWidget(QMenu):
-    height = 30
+    action_height = 30
 
     def __init__(self):
         super().__init__()
         self.setWindowFlags(self.windowFlags() | Qt.NoDropShadowWindowHint)
-        self.height = BaseMenuWidget.height
+        self.action_height = BaseMenuWidget.action_height
+        self.screen_size = QDesktopWidget().screenGeometry()
 
-    def _show(self, reverse=False):
+    def _show(self):
         cursor = QCursor.pos()
-        cursor.setX(cursor.x() - self.height * 0.5)
+        cursor.setX(cursor.x() - self.action_height * 0.5)
+
         actions = self.actions()
+        actions_count = sum((a.isVisible() and not a.isSeparator())
+                            for a in actions)
+
+        menu_height = actions_count * self.action_height
+        reverse = False
+
+        if cursor.y() > (self.screen_size.height() - menu_height):
+            reverse = True
 
         if reverse:
             actions.reverse()
-            actions_count = sum((a.isVisible() and not a.isSeparator())
-                                for a in actions)
-            cursor.setY(cursor.y() - actions_count * self.height + 15)
+            cursor.setY(cursor.y() - actions_count * self.action_height + 15)
         else:
-            cursor.setY(cursor.y() - self.height * 0.5)
+            cursor.setY(cursor.y() - self.action_height * 0.5)
 
         i = 0
 
@@ -31,7 +39,8 @@ class BaseMenuWidget(QMenu):
                 if action.isEnabled():
                     self.setActiveAction(action)
                     cursor.setY(cursor.y() + i *
-                                (self.height if reverse else (- self.height)))
+                                (self.action_height if reverse
+                                 else (- self.action_height)))
                     break
 
                 i = i + 1
