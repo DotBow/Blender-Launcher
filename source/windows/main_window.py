@@ -388,7 +388,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         elif reason == QSystemTrayIcon.MiddleClick:
             self.launch_favorite()
         elif reason == QSystemTrayIcon.Context:
-            self.tray_menu._show(reverse=True)
+            self.tray_menu._show()
 
     def quit(self):
         download_widgets = []
