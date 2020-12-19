@@ -121,7 +121,7 @@ class BuildInfoReader(QThread):
 
         path = self.path / '.blinfo'
 
-        with open(path, 'w') as file:
+        with open(path, 'w', encoding='utf-8') as file:
             json.dump(data, file)
 
         return 0
@@ -133,7 +133,7 @@ class BuildInfoReader(QThread):
             if self.read_blender_version() == 1:
                 return None
 
-        with open(path) as file:
+        with open(path, 'r', encoding='utf-8') as file:
             data = json.load(file)
 
         if ('file_version' not in data) or (data['file_version'] != BuildInfo.file_version):
