@@ -47,7 +47,7 @@ class LibraryWidget(QWidget):
         self.infoLabel = QLabel("Loading build information...")
 
         self.launchButton = QPushButton("Launch")
-        self.launchButton.setMinimumWidth(75)
+        self.launchButton.setFixedWidth(85)
         self.launchButton.setProperty("CancelButton", True)
 
         self.layout.addWidget(self.launchButton)
@@ -80,10 +80,11 @@ class LibraryWidget(QWidget):
         self.icon_delete = QIcon(":resources/icons/delete.svg")
 
         self.launchButton = QPushButton("Launch")
-        self.launchButton.setMinimumWidth(75)
+        self.launchButton.setFixedWidth(85)
         self.launchButton.setProperty("LaunchButton", True)
 
         self.subversionLabel = QLabel()
+        self.subversionLabel.setFixedWidth(80)
         self.branchLabel = QLabel()
         self.commitTimeLabel = QLabel()
 
@@ -189,8 +190,7 @@ class LibraryWidget(QWidget):
 
         self.setEnabled(True)
         self.list_widget.sortItems()
-        self.list_widget.resize_labels(
-            ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
+        self.list_widget.resize_labels(('branchLabel', 'commitTimeLabel'))
 
     def context_menu(self):
         if len(self.list_widget.selectedItems()) > 1:

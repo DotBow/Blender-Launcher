@@ -67,7 +67,10 @@ class BasePageWidget(QWidget):
         else:
             self.fakeLabel = QLabel()
 
+        self.fakeLabel .setFixedWidth(85)
+
         self.subversionLabel = QPushButton("Version")
+        self.subversionLabel.setFixedWidth(80)
         self.subversionLabel.setProperty("ListHeader", True)
         self.subversionLabel.setCheckable(True)
         self.subversionLabel.clicked.connect(

@@ -28,18 +28,17 @@ class DownloadWidget(QWidget):
         self.state = DownloadState.WAITING
 
         self.progressBar = QProgressBar()
-        self.progressBar.setMinimumWidth(150)
-        self.progressBar.setMaximumWidth(150)
+        self.progressBar.setFixedWidth(150)
         self.progressBar.setAlignment(Qt.AlignCenter)
         self.progressBar.hide()
 
         self.downloadButton = QPushButton("Download")
-        self.downloadButton.setMinimumWidth(85)
+        self.downloadButton.setFixedWidth(85)
         self.downloadButton.setProperty("LaunchButton", True)
         self.downloadButton.clicked.connect(self.init_downloader)
 
         self.cancelButton = QPushButton("Cancel")
-        self.cancelButton.setMinimumWidth(85)
+        self.cancelButton.setFixedWidth(85)
         self.cancelButton.setProperty("CancelButton", True)
         self.cancelButton.clicked.connect(self.download_cancelled)
         self.cancelButton.hide()
@@ -48,6 +47,7 @@ class DownloadWidget(QWidget):
         self.layout.setContentsMargins(2, 2, 2, 2)
 
         self.subversionLabel = QLabel(self.build_info.subversion)
+        self.subversionLabel.setFixedWidth(80)
 
         if self.build_info.branch == 'lts':
             branch_name = "LTS"
@@ -86,8 +86,7 @@ class DownloadWidget(QWidget):
             self.NewItemLabel.hide()
 
     def showEvent(self, event):
-        self.list_widget.resize_labels(
-            ('subversionLabel', 'branchLabel', 'commitTimeLabel'))
+        self.list_widget.resize_labels(('branchLabel', 'commitTimeLabel'))
 
     def init_downloader(self):
         self.item.setSelected(True)

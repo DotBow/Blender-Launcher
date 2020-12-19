@@ -82,13 +82,6 @@ class BaseListWidget(QListWidget):
 
             getattr(self.parent, param).setFixedWidth(max_width)
 
-        if hasattr(item, 'launchButton'):
-            b_width = getattr(item, 'launchButton').minimumWidth()
-        else:
-            b_width = getattr(item, 'downloadButton').minimumWidth()
-
-        getattr(self.parent, 'fakeLabel').setMinimumWidth(b_width)
-
     def _clear(self):
         self.clear()
         self.widgets.clear()
