@@ -62,21 +62,20 @@ class BuildInfoReader(QThread):
         return
 
     def read_blender_version(self):
-        if self.platform == 'Windows':
-            blender_exe = "blender.exe"
-        elif self.platform == 'Linux':
-            blender_exe = "blender"
-
-        exe_path = self.path / blender_exe
-
         try:
+            if self.platform == 'Windows':
+                blender_exe = "blender.exe"
+            elif self.platform == 'Linux':
+                blender_exe = "blender"
+
+            exe_path = self.path / blender_exe
             version = _check_output([exe_path.as_posix(), "-v"])
         except CalledProcessError:
             return 1
 
         version = version.decode('UTF-8')
-
         set_locale()
+
         ctime = re.search("build commit time: " + "(.*)", version)[1].rstrip()
         cdate = re.search("build commit date: " + "(.*)", version)[1].rstrip()
         strptime = time.strptime(cdate + ' ' + ctime, "%Y-%m-%d %H:%M")
@@ -84,10 +83,14 @@ class BuildInfoReader(QThread):
         build_hash = re.search("build hash: " + "(.*)", version)[1].rstrip()
         subversion = re.search("Blender " + "(.*)", version)[1].rstrip()
 
-        try:
-            subfolder = self.path.parent.name
-            name = self.path.name
+        subfolder = self.path.parent.name
+        name = self.path.name
 
+        if subfolder == 'daily':
+            branch = "daily"
+        elif subfolder == 'custom':
+            branch = name
+        else:
             if self.platform == 'Windows':
                 folder_parts = name.replace(
                     "blender-", "").replace("-windows64", "").rsplit('-', 2)
@@ -97,15 +100,9 @@ class BuildInfoReader(QThread):
 
             if subfolder == 'experimental':
                 branch = folder_parts[0]
-            elif subfolder == 'daily':
-                branch = "daily"
             elif subfolder == 'stable':
                 branch = "stable"
                 subversion = folder_parts[0]
-            elif subfolder == 'custom':
-                branch = self.path.name
-        except Exception:
-            branch = None
 
         self.write_build_info(branch, subversion, build_hash, commit_time)
 
