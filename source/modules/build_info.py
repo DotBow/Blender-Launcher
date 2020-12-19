@@ -22,12 +22,13 @@ class BuildInfo:
         self.build_hash = build_hash
         self.commit_time = commit_time
 
-        if branch == 'stable':
-            if subversion.startswith(self.lts_tags):
-                branch = 'lts'
+        if branch == 'stable' and subversion.startswith(self.lts_tags):
+            branch = 'lts'
 
         self.branch = branch
         self.size = size
+
+        self.platform = get_platform()
 
     def __eq__(self, other):
         if (self is None) or (other is None):
@@ -39,11 +40,9 @@ class BuildInfo:
 
     def get_name(self):
         if self.link_type == 'link':
-            platform = get_platform()
-
-            if platform == 'Linux':
+            if self.platform == 'Linux':
                 return Path(self.link).with_suffix('').stem
-            elif platform == 'Windows':
+            elif self.platform == 'Windows':
                 return Path(self.link).stem
         elif self.link_type == 'path':
             return Path(self.link).name
@@ -55,6 +54,7 @@ class BuildInfoReader(QThread):
     def __init__(self, path):
         QThread.__init__(self)
         self.path = Path(path)
+        self.platform = get_platform()
 
     def run(self):
         build_info = self.read_build_info()
@@ -62,12 +62,9 @@ class BuildInfoReader(QThread):
         return
 
     def read_blender_version(self):
-        # Read Blender Version
-        platform = get_platform()
-
-        if platform == 'Windows':
+        if self.platform == 'Windows':
             blender_exe = "blender.exe"
-        elif platform == 'Linux':
+        elif self.platform == 'Linux':
             blender_exe = "blender"
 
         exe_path = self.path / blender_exe
@@ -91,10 +88,10 @@ class BuildInfoReader(QThread):
             subfolder = self.path.parent.name
             name = self.path.name
 
-            if platform == 'Windows':
+            if self.platform == 'Windows':
                 folder_parts = name.replace(
                     "blender-", "").replace("-windows64", "").rsplit('-', 2)
-            elif platform == 'Linux':
+            elif self.platform == 'Linux':
                 folder_parts = name.replace(
                     "blender-", "").replace("-linux64", "").rsplit('-', 2)
 
