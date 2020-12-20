@@ -274,7 +274,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.NewVersionButton.clicked.connect(self.show_update_window)
         self.statusbarVersion = QLabel(self.version)
         self.statusbarVersion.setToolTip(
-            "The version of Blender Laucnher that is currently run")
+            "The version of Blender Launcher that is currently run")
         self.StatusBar.addPermanentWidget(self.statusbarLabel, 1)
         self.StatusBar.addPermanentWidget(self.NewVersionButton)
         self.StatusBar.addPermanentWidget(self.statusbarVersion)
