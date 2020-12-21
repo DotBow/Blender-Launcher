@@ -305,3 +305,16 @@ def get_install_template():
 def set_install_template(is_checked):
     settings = get_settings()
     settings.setValue('install_template', is_checked)
+
+
+def get_show_tray_icon():
+    settings = get_settings()
+
+    if settings.contains('show_tray_icon'):
+        return settings.value('show_tray_icon', type=bool)
+    else:
+        return True
+
+
+def set_show_tray_icon(is_checked):
+    get_settings().setValue('show_tray_icon', is_checked)
