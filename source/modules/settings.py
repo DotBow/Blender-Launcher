@@ -155,78 +155,72 @@ def get_launch_minimized_to_tray():
 
 
 def set_launch_minimized_to_tray(is_checked):
-    settings = get_settings()
-    settings.setValue('launch_minimized_to_tray', is_checked)
+    get_settings().setValue('launch_minimized_to_tray', is_checked)
 
 
 def get_enable_high_dpi_scaling():
     settings = get_settings()
 
     if settings.contains('enable_high_dpi_scaling'):
-        return get_settings().value('enable_high_dpi_scaling', type=bool)
+        return settings.value('enable_high_dpi_scaling', type=bool)
     else:
         return True
 
 
 def set_enable_high_dpi_scaling(is_checked):
-    settings = get_settings()
-    settings.setValue('enable_high_dpi_scaling', is_checked)
+    get_settings().setValue('enable_high_dpi_scaling', is_checked)
 
 
 def get_default_library_page():
     settings = get_settings()
 
     if settings.contains('default_library_page'):
-        return get_settings().value('default_library_page', type=int)
+        return settings.value('default_library_page', type=int)
     else:
         return 0
 
 
 def set_default_library_page(page):
-    settings = get_settings()
-    settings.setValue('default_library_page', library_pages[page])
+    get_settings().setValue('default_library_page', library_pages[page])
 
 
 def get_mark_as_favorite():
     settings = get_settings()
 
     if settings.contains('mark_as_favorite'):
-        return get_settings().value('mark_as_favorite', type=int)
+        return settings.value('mark_as_favorite', type=int)
     else:
         return 0
 
 
 def set_mark_as_favorite(page):
-    settings = get_settings()
-    settings.setValue('mark_as_favorite', favorite_pages[page])
+    get_settings().setValue('mark_as_favorite', favorite_pages[page])
 
 
 def get_default_downloads_page():
     settings = get_settings()
 
     if settings.contains('default_downloads_page'):
-        return get_settings().value('default_downloads_page', type=int)
+        return settings.value('default_downloads_page', type=int)
     else:
         return 0
 
 
 def set_default_downloads_page(page):
-    settings = get_settings()
-    settings.setValue('default_downloads_page', downloads_pages[page])
+    get_settings().setValue('default_downloads_page', downloads_pages[page])
 
 
 def get_taskbar_icon_color():
     settings = get_settings()
 
     if settings.contains('taskbar_icon_color'):
-        return get_settings().value('taskbar_icon_color', type=int)
+        return settings.value('taskbar_icon_color', type=int)
     else:
         return 0
 
 
 def set_taskbar_icon_color(color):
-    settings = get_settings()
-    settings.setValue('taskbar_icon_color', taskbar_icon_colors[color])
+    get_settings().setValue('taskbar_icon_color', taskbar_icon_colors[color])
 
 
 def get_list_sorting_type(list_name):
@@ -239,37 +233,34 @@ def get_list_sorting_type(list_name):
 
 
 def set_list_sorting_type(list_name, sorting_type):
-    settings = get_settings()
-    settings.setValue(list_name + "_sorting_type", sorting_type.value)
+    get_settings().setValue(list_name + "_sorting_type", sorting_type.value)
 
 
 def get_enable_new_builds_notifications():
     settings = get_settings()
 
     if settings.contains('enable_new_builds_notifications'):
-        return get_settings().value(
+        return settings.value(
             'enable_new_builds_notifications', type=bool)
     else:
         return True
 
 
 def set_enable_new_builds_notifications(is_checked):
-    settings = get_settings()
-    settings.setValue('enable_new_builds_notifications', is_checked)
+    get_settings().setValue('enable_new_builds_notifications', is_checked)
 
 
 def get_enable_download_notifications():
     settings = get_settings()
 
     if settings.contains('enable_download_notifications'):
-        return get_settings().value('enable_download_notifications', type=bool)
+        return settings.value('enable_download_notifications', type=bool)
     else:
         return True
 
 
 def set_enable_download_notifications(is_checked):
-    settings = get_settings()
-    settings.setValue('enable_download_notifications', is_checked)
+    get_settings().setValue('enable_download_notifications', is_checked)
 
 
 def get_blender_startup_arguments():
@@ -303,8 +294,7 @@ def get_install_template():
 
 
 def set_install_template(is_checked):
-    settings = get_settings()
-    settings.setValue('install_template', is_checked)
+    get_settings().setValue('install_template', is_checked)
 
 
 def get_show_tray_icon():
