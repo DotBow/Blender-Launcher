@@ -88,7 +88,7 @@ class DownloadWidget(QWidget):
             self.NewItemLabel.hide()
 
     def showEvent(self, event):
-        self.list_widget.resize_labels(('branchLabel', 'commitTimeLabel'))
+        self.list_widget.resize_labels(['branchLabel'])
 
     def init_downloader(self):
         self.item.setSelected(True)

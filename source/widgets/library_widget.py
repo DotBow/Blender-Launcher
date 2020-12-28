@@ -189,7 +189,7 @@ class LibraryWidget(QWidget):
 
         self.setEnabled(True)
         self.list_widget.sortItems()
-        self.list_widget.resize_labels(('branchLabel', 'commitTimeLabel'))
+        self.list_widget.resize_labels(['branchLabel'])
 
     def context_menu(self):
         if len(self.list_widget.selectedItems()) > 1:
