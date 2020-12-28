@@ -78,6 +78,7 @@ class BasePageWidget(QWidget):
         self.branchLabel = QLabel("Branch")
         self.branchLabel.setAlignment(Qt.AlignCenter)
         self.commitTimeLabel = QPushButton(time_label)
+        self.commitTimeLabel.setFixedWidth(105)
         self.commitTimeLabel.setProperty("ListHeader", True)
         self.commitTimeLabel.setCheckable(True)
         self.commitTimeLabel.clicked.connect(
