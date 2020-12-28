@@ -5,10 +5,12 @@ from modules.enums import MessageType
 from modules.settings import get_install_template, get_library_folder
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QPushButton,
-                             QSizePolicy, QWidget)
+                             QWidget)
 from threads.downloader import Downloader
 from threads.extractor import Extractor
 from threads.template_installer import TemplateInstaller
+
+from widgets.datetime_widget import DateTimeWidget
 
 
 class DownloadState(Enum):
@@ -56,7 +58,7 @@ class DownloadWidget(QWidget):
 
         self.branchLabel = QLabel(branch_name)
 
-        self.commitTimeLabel = QLabel(self.build_info.commit_time)
+        self.commitTimeLabel = DateTimeWidget(self.build_info.commit_time)
 
         self.layout.addWidget(self.downloadButton)
         self.layout.addWidget(self.cancelButton)

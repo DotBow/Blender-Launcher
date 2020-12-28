@@ -21,6 +21,7 @@ from threads.template_installer import TemplateInstaller
 from windows.dialog_window import DialogIcon, DialogWindow
 
 from widgets.base_menu_widget import BaseMenuWidget
+from widgets.datetime_widget import DateTimeWidget
 
 
 class LibraryWidget(QWidget):
@@ -86,7 +87,7 @@ class LibraryWidget(QWidget):
         self.subversionLabel = QLabel()
         self.subversionLabel.setFixedWidth(80)
         self.branchLabel = QLabel()
-        self.commitTimeLabel = QLabel()
+        self.commitTimeLabel = DateTimeWidget(self.build_info.commit_time)
 
         self.countButton = QPushButton("0")
         self.countButton.setEnabled(False)
@@ -120,8 +121,6 @@ class LibraryWidget(QWidget):
             branch_name = self.branch.replace('-', ' ').title()
 
         self.branchLabel.setText(branch_name)
-
-        self.commitTimeLabel.setText(self.build_info.commit_time)
 
         # Context menu
         self.setContextMenuPolicy(Qt.CustomContextMenu)
