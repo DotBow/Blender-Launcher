@@ -159,7 +159,7 @@ class DownloadWidget(QWidget):
             name = "{0} {1} {2}".format(
                 self.subversionLabel.text(),
                 self.branchLabel.text(),
-                self.commitTimeLabel.text())
+                self.build_info.commit_time)
             self.parent.show_message(
                 "Blender {0} download finished!".format(name),
                 type=MessageType.DOWNLOADFINISHED)
