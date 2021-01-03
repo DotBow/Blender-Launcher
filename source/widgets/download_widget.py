@@ -38,6 +38,7 @@ class DownloadWidget(QWidget):
         self.downloadButton.setFixedWidth(85)
         self.downloadButton.setProperty("LaunchButton", True)
         self.downloadButton.clicked.connect(self.init_downloader)
+        self.downloadButton.setCursor(Qt.PointingHandCursor)
 
         self.cancelButton = QPushButton("Cancel")
         self.cancelButton.setFixedWidth(85)

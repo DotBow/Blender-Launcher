@@ -113,6 +113,7 @@ class LibraryWidget(QWidget):
         self.layout.addWidget(self.widgetFavorite)
 
         self.launchButton.clicked.connect(self.launch)
+        self.launchButton.setCursor(Qt.PointingHandCursor)
         self.subversionLabel.setText(self.build_info.subversion)
 
         if self.branch == 'lts':
