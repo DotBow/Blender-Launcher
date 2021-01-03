@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QHBoxLayout, QLabel, QWidget
 class DateTimeWidget(QWidget):
     def __init__(self, datetime):
         super(DateTimeWidget, self).__init__(None)
-        self.setFixedWidth(105)
+        self.setFixedWidth(120)
 
         self.layout = QHBoxLayout(self)
         self.layout.setContentsMargins(0, 0, 0, 0)
@@ -21,7 +21,9 @@ class DateTimeWidget(QWidget):
         YearLabel = QLabel(date_parts[2] + ", ")
         TimeLabel = QLabel(datetime_parts[1])
 
+        self.layout.addStretch()
         self.layout.addWidget(DayLabel)
         self.layout.addWidget(MonthLabel)
         self.layout.addWidget(YearLabel)
         self.layout.addWidget(TimeLabel)
+        self.layout.addStretch()

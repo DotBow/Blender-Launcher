@@ -105,10 +105,11 @@ class LibraryWidget(QWidget):
         self.layout.addWidget(self.subversionLabel)
 
         if self.show_branch:
-            self.layout.addWidget(self.branchLabel)
+            self.layout.addWidget(self.branchLabel, stretch=1)
+        else:
+            self.layout.addStretch()
 
         self.layout.addWidget(self.commitTimeLabel)
-        self.layout.addStretch()
         self.layout.addWidget(self.countButton)
         self.layout.addWidget(self.widgetFavorite)
 

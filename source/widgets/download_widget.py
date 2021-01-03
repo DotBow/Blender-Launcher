@@ -4,7 +4,7 @@ from pathlib import Path
 from modules.enums import MessageType
 from modules.settings import get_install_template, get_library_folder
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QPushButton,
+from PyQt5.QtWidgets import (QHBoxLayout, QVBoxLayout, QLabel, QProgressBar, QPushButton,
                              QWidget)
 from threads.downloader import Downloader
 from threads.extractor import Extractor
@@ -30,8 +30,8 @@ class DownloadWidget(QWidget):
         self.state = DownloadState.WAITING
 
         self.progressBar = QProgressBar()
-        self.progressBar.setFixedWidth(150)
-        self.progressBar.setAlignment(Qt.AlignCenter)
+        self.progressBar.setFixedHeight(2)
+        self.progressBar.setProperty('Thin', True)
         self.progressBar.hide()
 
         self.downloadButton = QPushButton("Download")
@@ -47,8 +47,14 @@ class DownloadWidget(QWidget):
         self.cancelButton.setCursor(Qt.PointingHandCursor)
         self.cancelButton.hide()
 
-        self.layout = QHBoxLayout()
-        self.layout.setContentsMargins(2, 2, 2, 2)
+        self.h_layout = QHBoxLayout()
+        self.h_layout.setContentsMargins(2, 2, 2, 2)
+
+        self.v_layout = QVBoxLayout()
+        self.v_layout.setContentsMargins(0, 0, 0, 0)
+
+        self.h_layout1 = QHBoxLayout()
+        self.h_layout1.setContentsMargins(0, 0, 0, 0)
 
         self.subversionLabel = QLabel(self.build_info.subversion)
         self.subversionLabel.setFixedWidth(80)
@@ -62,24 +68,29 @@ class DownloadWidget(QWidget):
 
         self.commitTimeLabel = DateTimeWidget(self.build_info.commit_time)
 
-        self.layout.addWidget(self.downloadButton)
-        self.layout.addWidget(self.cancelButton)
-        self.layout.addWidget(self.subversionLabel)
+        self.h_layout1.addWidget(self.subversionLabel)
 
         if show_branch:
-            self.layout.addWidget(self.branchLabel)
+            self.h_layout1.addWidget(self.branchLabel, stretch=1)
+        else:
+            self.h_layout1.addStretch()
 
-        self.layout.addWidget(self.commitTimeLabel)
-        self.layout.addStretch()
-        self.layout.addWidget(self.progressBar)
+        self.h_layout1.addWidget(self.commitTimeLabel)
 
         if self.show_new:
             self.NewItemLabel = QLabel("New")
             self.NewItemLabel.setAlignment(Qt.AlignRight | Qt.AlignCenter)
             self.NewItemLabel.setIndent(6)
-            self.layout.addWidget(self.NewItemLabel)
+            self.h_layout1.addWidget(self.NewItemLabel)
 
-        self.setLayout(self.layout)
+        self.v_layout.addLayout(self.h_layout1)
+        self.v_layout.addWidget(self.progressBar)
+
+        self.h_layout.addWidget(self.downloadButton)
+        self.h_layout.addWidget(self.cancelButton)
+        self.h_layout.addLayout(self.v_layout)
+
+        self.setLayout(self.h_layout)
 
     def mouseDoubleClickEvent(self, event):
         if self.state != DownloadState.DOWNLOADING:
@@ -149,7 +160,7 @@ class DownloadWidget(QWidget):
         self.downloadButton.show()
 
     def set_progress_bar(self, value, format):
-        self.progressBar.setFormat(format)
+        self.progressBar.setFormat("")
         self.progressBar.setValue(value * 100)
 
     def download_finished(self, dist=None):

@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QAbstractItemView, QListWidget
 
 
@@ -11,6 +12,7 @@ class BaseListWidget(QListWidget):
         self.setSortingEnabled(True)
         self.setAlternatingRowColors(True)
         self.setProperty("HideBorder", True)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
 
         if extended_selection is True:
             self.setSelectionMode(QAbstractItemView.ExtendedSelection)
@@ -70,17 +72,11 @@ class BaseListWidget(QListWidget):
             if hasattr(item, 'subversionLabel'):
                 items.append(item)
 
-        for param in params:
-            widths = [getattr(item, param).minimumSizeHint().width()
-                      for item in items]
-            widths.append(
-                getattr(self.parent, param).minimumSizeHint().width())
-            max_width = max(widths)
+        c = [len(getattr(item, 'subversionLabel').text()) for item in items]
+        max_c = max(c)
 
-            for item in items:
-                getattr(item, param).setFixedWidth(max_width)
-
-            getattr(self.parent, param).setFixedWidth(max_width)
+        for item in items:
+            getattr(item, 'subversionLabel').setIndent((12 - max_c) * 4)
 
     def _clear(self):
         self.clear()
