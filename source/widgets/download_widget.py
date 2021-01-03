@@ -44,7 +44,7 @@ class DownloadWidget(QWidget):
         self.cancelButton.setFixedWidth(85)
         self.cancelButton.setProperty("CancelButton", True)
         self.cancelButton.clicked.connect(self.download_cancelled)
-        self.downloadButton.setCursor(Qt.PointingHandCursor)
+        self.cancelButton.setCursor(Qt.PointingHandCursor)
         self.cancelButton.hide()
 
         self.layout = QHBoxLayout()
