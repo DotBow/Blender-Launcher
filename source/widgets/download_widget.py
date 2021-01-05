@@ -149,6 +149,7 @@ class DownloadWidget(QWidget):
         self.progressBar.show()
         self.cancelButton.show()
         self.downloadButton.hide()
+        self.h_layout1.setContentsMargins(0, 8, 0, 0)
 
     def download_cancelled(self):
         self.item.setSelected(True)
@@ -158,6 +159,7 @@ class DownloadWidget(QWidget):
         self.downloader.terminate()
         self.downloader.wait()
         self.downloadButton.show()
+        self.h_layout1.setContentsMargins(0, 0, 0, 0)
 
     def set_progress_bar(self, value, format):
         self.progressBar.setFormat("")
