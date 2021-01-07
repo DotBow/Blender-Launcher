@@ -184,6 +184,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.TabWidget.addTab(self.DownloadsTab, "Downloads")
 
         self.LibraryToolBox = BaseToolBoxWidget(self)
+        self.DownloadsToolBox = BaseToolBoxWidget(self)
+
+        self.LibraryToolBox.tab_changed.connect(
+            lambda i: self.DownloadsToolBox.setCurrentIndex(i))
+        self.DownloadsToolBox.tab_changed.connect(
+            lambda i: self.LibraryToolBox.setCurrentIndex(i))
 
         page = BasePageWidget(
             parent=self,
@@ -224,8 +230,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.LibraryToolBox.add_page_widget(page, "Custom")
 
         self.LibraryTab.layout().addWidget(self.LibraryToolBox)
-
-        self.DownloadsToolBox = BaseToolBoxWidget(self)
 
         page = BasePageWidget(
             parent=self,
