@@ -315,3 +315,4 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def toggle_show_tray_icon(self, is_checked):
         set_show_tray_icon(is_checked)
+        self.parent.tray_icon.setVisible(is_checked)
