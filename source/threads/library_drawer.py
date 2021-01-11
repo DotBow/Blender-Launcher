@@ -32,6 +32,9 @@ class LibraryDrawer(QThread):
                         self.builds_count = self.builds_count + 1
                         self.build_found.emit(folder / build)
 
+                        while self.builds_count > 9:
+                            QThread.msleep(100)
+
         while self.builds_count > 0:
             QThread.msleep(100)
 
