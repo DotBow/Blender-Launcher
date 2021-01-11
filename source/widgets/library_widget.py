@@ -61,6 +61,9 @@ class LibraryWidget(QWidget):
         self.item.setSizeHint(self.sizeHint())
 
     def draw(self, build_info):
+        if self.parent.library_drawer is not None:
+            self.parent.library_drawer.release_build()
+
         if build_info is None:
             self.infoLabel.setText(
                 ("Build *{0}* is damaged!").format(Path(self.link).name))
