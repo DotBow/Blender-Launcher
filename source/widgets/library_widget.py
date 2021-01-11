@@ -142,12 +142,11 @@ class LibraryWidget(QWidget):
         self.deleteAction.triggered.connect(self.ask_remove_from_drive)
 
         self.addToQuickLaunchAction = QAction("Add To Quick Launch", self)
-        self.addToQuickLaunchAction.setIcon(self.icon_favorite)
         self.addToQuickLaunchAction.triggered.connect(self.add_to_quick_launch)
 
         self.addToFavoritesAction = QAction("Add To Favorites", self)
         self.addToFavoritesAction.setIcon(self.icon_favorite)
-        self.addToFavoritesAction.triggered.connect(self.add_to_quick_launch)
+        self.addToFavoritesAction.triggered.connect(self.add_to_favorites)
 
         self.registerExtentionAction = QAction("Register Extension")
         self.registerExtentionAction.triggered.connect(self.register_extension)
@@ -352,11 +351,15 @@ class LibraryWidget(QWidget):
 
         if self.parent.favorite is not None:
             self.parent.favorite.widgetFavorite.setIcon(self.icon_fake)
-            self.parent.favorite.setAsFavoriteAction.setEnabled(True)
+            self.parent.favorite.addToQuickLaunchAction.setEnabled(True)
 
         self.parent.favorite = self
         self.widgetFavorite.setIcon(self.icon_favorite)
         self.addToQuickLaunchAction.setEnabled(False)
+
+    @QtCore.pyqtSlot()
+    def add_to_favorites(self):
+        pass
 
     @QtCore.pyqtSlot()
     def register_extension(self):
