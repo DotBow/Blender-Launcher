@@ -14,7 +14,7 @@ class BuildInfo:
     lts_tags = ('2.83', '2.93', '3.3', '3.7')
 
     def __init__(self, link_type, link, subversion,
-                 build_hash, commit_time, branch, size=None):
+                 build_hash, commit_time, branch):
         self.link_type = link_type
         self.link = link
         self.subversion = subversion
@@ -25,8 +25,6 @@ class BuildInfo:
             branch = 'lts'
 
         self.branch = branch
-        self.size = size
-
         self.platform = get_platform()
 
     def __eq__(self, other):
