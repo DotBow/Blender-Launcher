@@ -138,9 +138,9 @@ class LibraryWidget(QWidget):
         self.deleteAction.setIcon(self.icon_delete)
         self.deleteAction.triggered.connect(self.ask_remove_from_drive)
 
-        self.setAsFavoriteAction = QAction("Mark As Favorite", self)
-        self.setAsFavoriteAction.setIcon(self.icon_favorite)
-        self.setAsFavoriteAction.triggered.connect(self.set_favorite)
+        self.addToQuickLaunchAction = QAction("Add To Quick Launch", self)
+        self.addToQuickLaunchAction.setIcon(self.icon_favorite)
+        self.addToQuickLaunchAction.triggered.connect(self.add_to_quick_launch)
 
         self.registerExtentionAction = QAction("Register Extension")
         self.registerExtentionAction.triggered.connect(self.register_extension)
@@ -157,7 +157,7 @@ class LibraryWidget(QWidget):
         self.installTemplateAction = QAction("Install Template")
         self.installTemplateAction.triggered.connect(self.install_template)
 
-        self.menu.addAction(self.setAsFavoriteAction)
+        self.menu.addAction(self.addToQuickLaunchAction)
 
         if get_platform() == 'Windows':
             self.menu.addAction(self.registerExtentionAction)
@@ -181,13 +181,13 @@ class LibraryWidget(QWidget):
             if get_mark_as_favorite() == 0:
                 pass
             elif (get_mark_as_favorite() == 1 and self.branch == "stable"):
-                self.set_favorite()
+                self.add_to_quick_launch()
             elif (get_mark_as_favorite() == 2 and self.branch == "daily"):
-                self.set_favorite()
+                self.add_to_quick_launch()
             elif get_mark_as_favorite() == 3:
-                self.set_favorite()
+                self.add_to_quick_launch()
         elif get_favorite_path() == self.link:
-            self.set_favorite()
+            self.add_to_quick_launch()
 
         self.setEnabled(True)
         self.list_widget.sortItems()
@@ -338,7 +338,7 @@ class LibraryWidget(QWidget):
             return
 
     @QtCore.pyqtSlot()
-    def set_favorite(self):
+    def add_to_quick_launch(self):
         set_favorite_path(self.link)
 
         if self.parent.favorite is not None:
@@ -347,7 +347,7 @@ class LibraryWidget(QWidget):
 
         self.parent.favorite = self
         self.widgetFavorite.setIcon(self.icon_favorite)
-        self.setAsFavoriteAction.setEnabled(False)
+        self.addToQuickLaunchAction.setEnabled(False)
 
     @QtCore.pyqtSlot()
     def register_extension(self):
