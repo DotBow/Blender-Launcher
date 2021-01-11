@@ -142,6 +142,10 @@ class LibraryWidget(QWidget):
         self.addToQuickLaunchAction.setIcon(self.icon_favorite)
         self.addToQuickLaunchAction.triggered.connect(self.add_to_quick_launch)
 
+        self.addToFavoritesAction = QAction("Add To Favorites", self)
+        self.addToFavoritesAction.setIcon(self.icon_favorite)
+        self.addToFavoritesAction.triggered.connect(self.add_to_quick_launch)
+
         self.registerExtentionAction = QAction("Register Extension")
         self.registerExtentionAction.triggered.connect(self.register_extension)
 
@@ -158,11 +162,13 @@ class LibraryWidget(QWidget):
         self.installTemplateAction.triggered.connect(self.install_template)
 
         self.menu.addAction(self.addToQuickLaunchAction)
+        self.menu.addAction(self.addToFavoritesAction)
+
+        self.menu.addSeparator()
 
         if get_platform() == 'Windows':
             self.menu.addAction(self.registerExtentionAction)
 
-        self.menu.addSeparator()
         self.menu.addAction(self.createShortcutAction)
         self.menu.addAction(self.createSymlinkAction)
         self.menu.addAction(self.installTemplateAction)
