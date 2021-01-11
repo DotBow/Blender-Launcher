@@ -183,13 +183,24 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.DownloadsTab.setLayout(self.DownloadsTabLayout)
         self.TabWidget.addTab(self.DownloadsTab, "Downloads")
 
+        self.UserTab = QWidget()
+        self.UserTabLayout = QVBoxLayout()
+        self.UserTabLayout.setContentsMargins(0, 0, 0, 0)
+        self.UserTab.setLayout(self.UserTabLayout)
+        self.TabWidget.addTab(self.UserTab, "User")
+
         self.LibraryToolBox = BaseToolBoxWidget(self)
         self.DownloadsToolBox = BaseToolBoxWidget(self)
+        self.UserToolBox = BaseToolBoxWidget(self)
 
         self.LibraryToolBox.tab_changed.connect(
             lambda i: self.DownloadsToolBox.setCurrentIndex(i))
         self.DownloadsToolBox.tab_changed.connect(
             lambda i: self.LibraryToolBox.setCurrentIndex(i))
+
+        self.LibraryTab.layout().addWidget(self.LibraryToolBox)
+        self.DownloadsTab.layout().addWidget(self.DownloadsToolBox)
+        self.UserTab.layout().addWidget(self.UserToolBox)
 
         page = BasePageWidget(
             parent=self,
@@ -221,18 +232,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         page = BasePageWidget(
             parent=self,
-            page_name="LibraryCustomListWidget",
-            time_label="Commit Time",
-            info_text="Nothing to show yet",
-            show_reload=True,
-            extended_selection=True)
-        self.LibraryCustomListWidget = \
-            self.LibraryToolBox.add_page_widget(page, "Custom")
-
-        self.LibraryTab.layout().addWidget(self.LibraryToolBox)
-
-        page = BasePageWidget(
-            parent=self,
             page_name="DownloadsStableListWidget",
             time_label="Upload Time",
             info_text="No new builds available")
@@ -257,7 +256,24 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.DownloadsToolBox.add_page_widget(
                 page, "Experimental")
 
-        self.DownloadsTab.layout().addWidget(self.DownloadsToolBox)
+        page = BasePageWidget(
+            parent=self,
+            page_name="UserFavoriteListWidget",
+            time_label="Upload Time",
+            info_text="No new builds available")
+        self.UserFavoriteListWidget = \
+            self.UserToolBox.add_page_widget(
+                page, "Favorite")
+
+        page = BasePageWidget(
+            parent=self,
+            page_name="UserCustomListWidget",
+            time_label="Commit Time",
+            info_text="Nothing to show yet",
+            show_reload=True,
+            extended_selection=True)
+        self.UserCustomListWidget = \
+            self.UserToolBox.add_page_widget(page, "Custom")
 
         self.LibraryToolBox.setCurrentIndex(get_default_library_page())
         self.DownloadsToolBox.setCurrentIndex(get_default_downloads_page())
@@ -437,7 +453,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.LibraryStableListWidget._clear()
         self.LibraryDailyListWidget._clear()
         self.LibraryExperimentalListWidget._clear()
-        self.LibraryCustomListWidget._clear()
+        self.UserCustomListWidget._clear()
 
         self.library_drawer = LibraryDrawer()
         self.library_drawer.build_found.connect(self.draw_to_library)
@@ -445,7 +461,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.library_drawer.start()
 
     def reload_custom_builds(self):
-        self.LibraryCustomListWidget._clear()
+        self.UserCustomListWidget._clear()
         self.library_drawer = LibraryDrawer()
         self.library_drawer.build_found.connect(self.draw_to_library)
         self.library_drawer.start()
@@ -547,7 +563,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         elif branch == 'experimental':
             list_widget = self.LibraryExperimentalListWidget
         elif branch == 'custom':
-            list_widget = self.LibraryCustomListWidget
+            list_widget = self.UserCustomListWidget
         else:
             return
 
