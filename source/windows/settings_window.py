@@ -10,8 +10,9 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_launch_minimized_to_tray,
                               get_launch_when_system_starts,
                               get_library_folder, get_mark_as_favorite,
-                              get_platform, get_taskbar_icon_color,
-                              library_pages, set_bash_arguments,
+                              get_platform, get_show_tray_icon,
+                              get_taskbar_icon_color, library_pages,
+                              set_bash_arguments,
                               set_blender_startup_arguments,
                               set_default_downloads_page,
                               set_default_library_page,
@@ -22,7 +23,8 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
                               set_library_folder, set_mark_as_favorite,
-                              set_taskbar_icon_color, taskbar_icon_colors)
+                              set_show_tray_icon, set_taskbar_icon_color,
+                              taskbar_icon_colors)
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFileDialog, QFormLayout,
@@ -94,6 +96,11 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             get_launch_minimized_to_tray())
         self.LaunchMinimizedToTrayCheckBox.clicked.connect(
             self.toggle_launch_minimized_to_tray)
+
+        # Show Tray Icon
+        self.ShowTrayIconCheckBox = QCheckBox()
+        self.ShowTrayIconCheckBox.setChecked(get_show_tray_icon())
+        self.ShowTrayIconCheckBox.clicked.connect(self.toggle_show_tray_icon)
 
         # High Dpi Scaling
         self.EnableHighDpiScalingCheckBox = QCheckBox()
@@ -194,6 +201,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             layout.addRow("Launch When System Starts",
                           self.LaunchWhenSystemStartsCheckBox)
 
+        layout.addRow("Show Tray Icon",
+                      self.ShowTrayIconCheckBox)
         layout.addRow("Launch Minimized To Tray",
                       self.LaunchMinimizedToTrayCheckBox)
         SettingsLayout.addRow(layout)
@@ -303,3 +312,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def toggle_install_template(self, is_checked):
         set_install_template(is_checked)
+
+    def toggle_show_tray_icon(self, is_checked):
+        set_show_tray_icon(is_checked)
