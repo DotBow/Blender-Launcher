@@ -56,7 +56,7 @@ def create_shortcut(folder, name):
             "MimeType=application/x-blender;\n" + \
             "Exec={0} %f".format(_exec.as_posix().replace(' ', r'\ '))
 
-        with open(dist, 'w') as file:
+        with open(dist, 'w', encoding='utf-8') as file:
             file.write(desktop_entry)
 
         os.chmod(dist, 0o744)
