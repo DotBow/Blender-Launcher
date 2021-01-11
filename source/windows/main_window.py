@@ -14,8 +14,9 @@ from modules.settings import (create_library_folders,
                               get_enable_download_notifications,
                               get_enable_new_builds_notifications,
                               get_launch_minimized_to_tray, get_library_folder,
-                              get_taskbar_icon_color, is_library_folder_valid,
-                              set_library_folder, taskbar_icon_paths)
+                              get_show_tray_icon, get_taskbar_icon_color,
+                              is_library_folder_valid, set_library_folder,
+                              taskbar_icon_paths)
 from PyQt5.QtCore import QFile, QSize, Qt, QTextStream, pyqtSignal
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 from PyQt5.QtNetwork import QLocalServer
@@ -327,7 +328,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.tray_icon.setToolTip("Blender Launcher")
         self.tray_icon.activated.connect(self.tray_icon_activated)
         self.tray_icon.messageClicked.connect(self._show)
-        self.tray_icon.show()
 
         # Forse style update
         if polish is True:
@@ -335,7 +335,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.style().polish(self.app)
 
         # Show window
-        if get_launch_minimized_to_tray() is False:
+        if get_show_tray_icon():
+            self.tray_icon.show()
+
+            if get_launch_minimized_to_tray() is False:
+                self._show()
+        else:
             self._show()
 
     def show_update_window(self):
@@ -603,9 +608,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.remover.start()
 
     def closeEvent(self, event):
-        event.ignore()
-        self.hide()
-        self.close_signal.emit()
+        if get_show_tray_icon():
+            event.ignore()
+            self.hide()
+            self.close_signal.emit()
+        else:
+            self.destroy()
 
     def new_connection(self):
         self._show()
