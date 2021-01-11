@@ -32,9 +32,11 @@ class LibraryDrawer(QThread):
                         self.builds_count = self.builds_count + 1
                         self.build_found.emit(folder / build)
 
+                        # Limit build info reader threads to 10
                         while self.builds_count > 9:
                             QThread.msleep(100)
 
+        # Wait until all builds are drawn on screen
         while self.builds_count > 0:
             QThread.msleep(100)
 
