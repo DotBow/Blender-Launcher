@@ -9,12 +9,13 @@ from modules._platform import _check_output, get_platform, set_locale
 
 
 class BuildInfo:
-    file_version = "1.0"
+    file_version = "1.1"
     # https://www.blender.org/download/lts/
     lts_tags = ('2.83', '2.93', '3.3', '3.7')
 
     def __init__(self, link_type, link, subversion,
-                 build_hash, commit_time, branch):
+                 build_hash, commit_time, branch,
+                 custom_name="", is_favorite=False):
         self.link_type = link_type
         self.link = link
         self.subversion = subversion
@@ -25,6 +26,9 @@ class BuildInfo:
             branch = 'lts'
 
         self.branch = branch
+        self.custom_name = custom_name
+        self.is_favorite = is_favorite
+
         self.platform = get_platform()
 
     def __eq__(self, other):
@@ -124,6 +128,8 @@ class BuildInfoReader(QThread):
             'subversion': build_info.subversion,
             'build_hash': build_info.build_hash,
             'commit_time': build_info.commit_time,
+            'custom_name': build_info.custom_name,
+            'is_favorite': build_info.is_favorite,
         })
 
         path = self.path / '.blinfo'
@@ -158,7 +164,9 @@ class BuildInfoReader(QThread):
                 blinfo['subversion'],
                 blinfo['build_hash'],
                 blinfo['commit_time'],
-                blinfo['branch']
+                blinfo['branch'],
+                blinfo['custom_name'],
+                blinfo['is_favorite']
             )
 
             return build_info
