@@ -79,7 +79,6 @@ class Scraper(QThread):
 
         r = self.manager.request('HEAD', link)
         info = r.headers
-        size = str(int(info['content-length']) // 1048576)
 
         commit_time = None
         build_hash = None
@@ -114,7 +113,8 @@ class Scraper(QThread):
 
         r.release_conn()
         r.close()
-        return BuildInfo('link', link, subversion, build_hash, commit_time, branch, size)
+        return BuildInfo('link', link, subversion,
+                         build_hash, commit_time, branch)
 
     def scrap_stable_releases(self):
         releases = []
