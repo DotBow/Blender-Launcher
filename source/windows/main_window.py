@@ -264,7 +264,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             info_text="No new builds available")
         self.UserFavoritesListWidget = \
             self.UserToolBox.add_page_widget(
-                page, "Favorite")
+                page, "Favorites")
 
         page = BasePageWidget(
             parent=self,
