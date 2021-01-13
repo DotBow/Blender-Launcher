@@ -4,8 +4,8 @@ from pathlib import Path
 from modules.enums import MessageType
 from modules.settings import get_install_template, get_library_folder
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QHBoxLayout, QVBoxLayout, QLabel, QProgressBar, QPushButton,
-                             QWidget)
+from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QPushButton,
+                             QVBoxLayout, QWidget)
 from threads.downloader import Downloader
 from threads.extractor import Extractor
 from threads.template_installer import TemplateInstaller
@@ -120,7 +120,8 @@ class DownloadWidget(QWidget):
         self.cancelButton.setEnabled(False)
         library_folder = Path(get_library_folder())
 
-        if (self.build_info.branch == 'stable') or (self.build_info.branch == 'lts'):
+        if (self.build_info.branch == 'stable') or \
+                (self.build_info.branch == 'lts'):
             dist = library_folder / 'stable'
         elif self.build_info.branch == 'daily':
             dist = library_folder / 'daily'
