@@ -1,3 +1,4 @@
+from layouts.settings_form_layout import SettingsFormLayout
 from modules.settings import (downloads_pages, favorite_pages,
                               get_bash_arguments,
                               get_blender_startup_arguments,
@@ -193,52 +194,52 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(self.LibraryFolderLayout)
 
         SettingsLayout.addRow(self._QLabel("System:"))
-        layout = self._QFormLayout()
-        layout.addRow(
+        layout = SettingsFormLayout(200)
+        layout._addRow(
             "Taskbar Icon Color", self.TaskbarIconColorComboBox)
 
         if platform == 'Windows':
-            layout.addRow("Launch When System Starts",
-                          self.LaunchWhenSystemStartsCheckBox)
+            layout._addRow("Launch When System Starts",
+                           self.LaunchWhenSystemStartsCheckBox)
 
-        layout.addRow("Show Tray Icon",
-                      self.ShowTrayIconCheckBox)
-        layout.addRow("Launch Minimized To Tray",
-                      self.LaunchMinimizedToTrayCheckBox)
+        layout._addRow("Show Tray Icon",
+                       self.ShowTrayIconCheckBox)
+        layout._addRow("Launch Minimized To Tray",
+                       self.LaunchMinimizedToTrayCheckBox)
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Interface:"))
-        layout = self._QFormLayout()
-        layout.addRow(
+        layout = SettingsFormLayout(200)
+        layout._addRow(
             "Default Library Page", self.DefaultLibraryPageComboBox)
-        layout.addRow(
+        layout._addRow(
             "Default Downloads Page", self.DefaultDownloadsPageComboBox)
-        layout.addRow("Enable High DPI Scaling",
-                      self.EnableHighDpiScalingCheckBox)
+        layout._addRow("Enable High DPI Scaling",
+                       self.EnableHighDpiScalingCheckBox)
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Notifications:"))
-        layout = self._QFormLayout()
-        layout.addRow("When New Builds Are Available",
-                      self.EnableNewBuildsNotifications)
-        layout.addRow("When Downloading Is Finished",
-                      self.EnableDownloadNotifications)
+        layout = SettingsFormLayout(200)
+        layout._addRow("When New Builds Are Available",
+                       self.EnableNewBuildsNotifications)
+        layout._addRow("When Downloading Is Finished",
+                       self.EnableDownloadNotifications)
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("New Build Actions:"))
-        layout = self._QFormLayout()
-        layout.addRow("Mark As Favorite", self.MarkAsFavorite)
-        layout.addRow(QLabel("Install Template"), self.InstallTemplate)
+        layout = SettingsFormLayout(200)
+        layout._addRow("Mark As Favorite", self.MarkAsFavorite)
+        layout._addRow("Install Template", self.InstallTemplate)
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Blender Launching:"))
-        layout = self._QFormLayout()
-        layout.addRow(QLabel("Startup Arguments"),
-                      self.BlenderStartupArguments)
+        layout = SettingsFormLayout(120)
+        layout._addRow("Startup Arguments",
+                       self.BlenderStartupArguments)
 
         if platform == 'Linux':
-            layout.addRow(QLabel("Bash Arguments"),
-                          self.BashArguments)
+            layout._addRow("Bash Arguments",
+                           self.BashArguments)
 
         SettingsLayout.addRow(layout)
 
@@ -250,12 +251,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         label.setIndent(6)
         label.setProperty('Header', True)
         return label
-
-    def _QFormLayout(self):
-        layout = QFormLayout()
-        layout.setContentsMargins(6, 0, 6, 0)
-        layout.setSpacing(6)
-        return layout
 
     def set_library_folder(self):
         library_folder = str(get_library_folder())
