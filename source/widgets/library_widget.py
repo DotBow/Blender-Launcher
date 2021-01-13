@@ -2,6 +2,7 @@ import os
 import subprocess
 from pathlib import Path
 
+from items.base_list_widget_item import BaseListWidgetItem
 from modules._platform import _call, _popen, get_platform
 from modules.build_info import BuildInfoReader
 from modules.settings import (get_bash_arguments,
@@ -26,7 +27,7 @@ from widgets.datetime_widget import DateTimeWidget
 
 class LibraryWidget(QWidget):
     def __init__(self, parent, item, link, list_widget,
-                 show_branch=True, show_new=False):
+                 show_branch=True, show_new=False, parent_widget=None):
         super(LibraryWidget, self).__init__(None)
 
         self.parent = parent
@@ -37,6 +38,8 @@ class LibraryWidget(QWidget):
         self.show_new = show_new
         self.observer = None
         self.build_info = None
+        self.favorite_item = None
+        self.parent_widget = parent_widget
 
         self.destroyed.connect(lambda: self._destroyed())
         self.setEnabled(False)
@@ -148,6 +151,16 @@ class LibraryWidget(QWidget):
         self.addToFavoritesAction.setIcon(self.icon_favorite)
         self.addToFavoritesAction.triggered.connect(self.add_to_favorites)
 
+        self.removeFromFavoritesAction = QAction("Remove From Favorites", self)
+        self.removeFromFavoritesAction.setIcon(self.icon_favorite)
+        self.removeFromFavoritesAction.triggered.connect(
+            self.remove_from_favorites)
+
+        if self.parent_widget is not None:
+            self.addToFavoritesAction.setVisible(False)
+        else:
+            self.removeFromFavoritesAction.setVisible(False)
+
         self.registerExtentionAction = QAction("Register Extension")
         self.registerExtentionAction.triggered.connect(self.register_extension)
 
@@ -165,6 +178,7 @@ class LibraryWidget(QWidget):
 
         self.menu.addAction(self.addToQuickLaunchAction)
         self.menu.addAction(self.addToFavoritesAction)
+        self.menu.addAction(self.removeFromFavoritesAction)
 
         self.menu.addSeparator()
 
@@ -359,7 +373,29 @@ class LibraryWidget(QWidget):
 
     @QtCore.pyqtSlot()
     def add_to_favorites(self):
-        pass
+        item = BaseListWidgetItem()
+        widget = LibraryWidget(self.parent, item, self.link,
+                               self.list_widget, self.show_branch,
+                               self.show_new, parent_widget=self)
+
+        self.parent.UserFavoritesListWidget.insert_item(item, widget)
+        self.favorite_item = item
+
+        self.removeFromFavoritesAction.setVisible(True)
+        self.addToFavoritesAction.setVisible(False)
+
+    @QtCore.pyqtSlot()
+    def remove_from_favorites(self):
+        if self.parent_widget is None:
+            widget = self
+        else:
+            widget = self.parent_widget
+
+        self.parent.UserFavoritesListWidget.remove_item(widget.favorite_item)
+        widget.favorite_item = None
+
+        widget.removeFromFavoritesAction.setVisible(False)
+        widget.addToFavoritesAction.setVisible(True)
 
     @QtCore.pyqtSlot()
     def register_extension(self):
