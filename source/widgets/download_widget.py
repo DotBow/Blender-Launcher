@@ -11,6 +11,7 @@ from threads.extractor import Extractor
 from threads.template_installer import TemplateInstaller
 
 from widgets.datetime_widget import DateTimeWidget
+from widgets.elided_text_label import ElidedTextLabel
 
 
 class DownloadState(Enum):
@@ -64,7 +65,7 @@ class DownloadWidget(QWidget):
         else:
             branch_name = self.build_info.branch.replace('-', ' ').title()
 
-        self.branchLabel = QLabel(branch_name)
+        self.branchLabel = ElidedTextLabel(branch_name)
 
         self.commitTimeLabel = DateTimeWidget(self.build_info.commit_time)
 
@@ -174,7 +175,7 @@ class DownloadWidget(QWidget):
             self.parent.clear_temp()
             name = "{0} {1} {2}".format(
                 self.subversionLabel.text(),
-                self.branchLabel.text(),
+                self.branchLabel.text,
                 self.build_info.commit_time)
             self.parent.show_message(
                 "Blender {0} download finished!".format(name),
