@@ -7,16 +7,15 @@ class ElidedTextLabel(QLabel):
     def __init__(self, text=""):
         super(ElidedTextLabel, self).__init__(None)
         self.text = text
+        self.metrics = QFontMetrics(self.font())
 
     def _setText(self, text):
         self.text = text
-        self.setText(text)
 
     def setElidedText(self):
-        metrics = QFontMetrics(self.font())
-        width = self.width() - 2
-        clippedText = metrics.elidedText(self.text, Qt.ElideRight, width)
-        self.setText(clippedText)
+        width = self.width()
+        elided_text = self.metrics.elidedText(self.text, Qt.ElideRight, width)
+        self.setText(elided_text)
 
     def resizeEvent(self, event):
         self.setElidedText()
