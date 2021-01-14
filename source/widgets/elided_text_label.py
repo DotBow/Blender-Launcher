@@ -4,9 +4,13 @@ from PyQt5.QtWidgets import QLabel
 
 
 class ElidedTextLabel(QLabel):
-    def __init__(self, text):
+    def __init__(self, text=""):
         super(ElidedTextLabel, self).__init__(None)
         self.text = text
+
+    def _setText(self, text):
+        self.text = text
+        self.setText(text)
 
     def setElidedText(self):
         metrics = QFontMetrics(self.font())
