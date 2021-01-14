@@ -22,7 +22,7 @@ class DownloadState(Enum):
 class DownloadWidget(QWidget):
     def __init__(self, parent, list_widget, item, build_info,
                  show_branch=True, show_new=False):
-        super(DownloadWidget, self).__init__(None)
+        super().__init__()
         self.parent = parent
         self.list_widget = list_widget
         self.item = item

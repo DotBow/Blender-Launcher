@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QHBoxLayout, QLabel, QWidget
 
 class DateTimeWidget(QWidget):
     def __init__(self, datetime):
-        super(DateTimeWidget, self).__init__(None)
+        super().__init__()
         self.setFixedWidth(120)
 
         self.layout = QHBoxLayout(self)
