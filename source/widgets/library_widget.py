@@ -29,7 +29,7 @@ from widgets.elided_text_label import ElidedTextLabel
 class LibraryWidget(QWidget):
     def __init__(self, parent, item, link, list_widget,
                  show_branch=True, show_new=False, parent_widget=None):
-        super(LibraryWidget, self).__init__(None)
+        super().__init__()
 
         self.parent = parent
         self.item = item

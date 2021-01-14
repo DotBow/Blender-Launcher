@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QLabel
 
 class ElidedTextLabel(QLabel):
     def __init__(self, text=""):
-        super(ElidedTextLabel, self).__init__(None)
+        super().__init__()
         self.text = text
         self.metrics = QFontMetrics(self.font())
 

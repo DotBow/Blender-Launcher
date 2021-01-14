@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QHBoxLayout, QLabel, QPushButton
 
 class LeftIconButtonWidget(QPushButton):
     def __init__(self, text, icon):
-        super(LeftIconButtonWidget, self).__init__(None)
+        super().__init__()
         self.setIcon(icon)
         self.setStyleSheet("text-align:left;")
         self.setLayout(QHBoxLayout())
