@@ -31,6 +31,9 @@ class DownloadWidget(QWidget):
         self.show_new = show_new
         self.state = DownloadState.WAITING
 
+        self.progress_start = 0
+        self.progress_end = 1
+
         self.progressBar = QProgressBar()
         self.progressBar.setFixedHeight(4)
         self.progressBar.hide()
@@ -116,6 +119,10 @@ class DownloadWidget(QWidget):
         self.downloader.started.connect(self.download_started)
         self.downloader.progress_changed.connect(self.set_progress_bar)
         self.downloader.finished.connect(self.init_extractor)
+
+        self.progress_start = 0
+        self.progress_end = 0.5
+
         self.downloader.start()
 
     def init_extractor(self, source):
@@ -133,6 +140,10 @@ class DownloadWidget(QWidget):
         self.extractor = Extractor(self.parent.manager, source, dist)
         self.extractor.progress_changed.connect(self.set_progress_bar)
         self.extractor.finished.connect(self.init_template_installer)
+
+        self.progress_start = 0.5
+        self.progress_end = 1
+
         self.extractor.start()
 
     def init_template_installer(self, dist):
@@ -166,6 +177,8 @@ class DownloadWidget(QWidget):
 
     def set_progress_bar(self, value, format):
         self.progressBar.setFormat("")
+        value = (self.progress_end - self.progress_start) * \
+            value + self.progress_start
         self.progressBar.setValue(value * 100)
 
     def download_finished(self, dist=None):
