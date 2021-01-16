@@ -49,7 +49,7 @@ class DownloadWidget(QWidget):
         self.cancelButton.hide()
 
         self.h_layout = QHBoxLayout()
-        self.h_layout.setContentsMargins(2, 2, 2, 2)
+        self.h_layout.setContentsMargins(2, 2, 0, 2)
 
         self.v_layout = QVBoxLayout()
         self.v_layout.setContentsMargins(0, 0, 0, 0)
