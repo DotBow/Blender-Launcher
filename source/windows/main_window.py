@@ -80,10 +80,20 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.latest_tag = ""
         self.new_downloads = False
 
+        # Icon cache
+        self.icon_settings = QIcon(":resources/icons/settings.svg")
+        self.icon_wiki = QIcon(":resources/icons/wiki.svg")
+        self.icon_minimize = QIcon(":resources/icons/minimize.svg")
+        self.icon_close = QIcon(":resources/icons/close.svg")
+        self.icon_folder = QIcon(":resources/icons/folder.svg")
+        self.icon_favorite = QIcon(":resources/icons/favorite.svg")
+        self.icon_fake = QIcon(":resources/icons/fake.svg")
+        self.icon_delete = QIcon(":resources/icons/delete.svg")
+        self.icon_taskbar = QIcon(taskbar_icon_paths[get_taskbar_icon_color()])
+
         # Setup window
         self.setWindowTitle("Blender Launcher")
-        self.app.setWindowIcon(
-            QIcon(taskbar_icon_paths[get_taskbar_icon_color()]))
+        self.app.setWindowIcon(self.icon_taskbar)
 
         # Setup font
         QFontDatabase.addApplicationFont(
@@ -134,22 +144,18 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.HeaderLayout.setSpacing(0)
         self.CentralLayout.addLayout(self.HeaderLayout)
 
-        self.SettingsButton = \
-            QPushButton(QIcon(":resources/icons/settings.svg"), "")
+        self.SettingsButton = QPushButton(self.icon_settings, "")
         self.SettingsButton.setIconSize(QSize(20, 20))
         self.SettingsButton.setFixedSize(36, 32)
         self.SettingsButton.setToolTip("Show settings window")
-        self.WikiButton = \
-            QPushButton(QIcon(":resources/icons/wiki.svg"), "")
+        self.WikiButton = QPushButton(self.icon_wiki, "")
         self.WikiButton.setIconSize(QSize(20, 20))
         self.WikiButton.setFixedSize(36, 32)
         self.WikiButton.setToolTip("Open documentation")
-        self.MinimizeButton = \
-            QPushButton(QIcon(":resources/icons/minimize.svg"), "")
+        self.MinimizeButton = QPushButton(self.icon_minimize, "")
         self.MinimizeButton.setIconSize(QSize(20, 20))
         self.MinimizeButton.setFixedSize(36, 32)
-        self.CloseButton = \
-            QPushButton(QIcon(":resources/icons/close.svg"), "")
+        self.CloseButton = QPushButton(self.icon_close, "")
         self.CloseButton.setIconSize(QSize(20, 20))
         self.CloseButton.setFixedSize(36, 32)
         self.HeaderLabel = QLabel("Blender Launcher")
@@ -310,8 +316,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         hide_action.triggered.connect(self.close)
         show_action = QAction("Show", self)
         show_action.triggered.connect(self._show)
-        launch_favorite_action = QAction(
-            QIcon(":resources/icons/favorite.svg"), "Blender", self)
+        launch_favorite_action = QAction(self.icon_favorite, "Blender", self)
         launch_favorite_action.triggered.connect(self.launch_favorite)
 
         self.tray_menu = BaseMenuWidget()
@@ -323,8 +328,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         # Setup tray icon
         self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(
-            QIcon(taskbar_icon_paths[get_taskbar_icon_color()]))
+        self.tray_icon.setIcon(self.icon_taskbar)
         self.tray_icon.setToolTip("Blender Launcher")
         self.tray_icon.activated.connect(self.tray_icon_activated)
         self.tray_icon.messageClicked.connect(self._show)
@@ -396,8 +400,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 self.notification_pool.append(value)
             self.tray_icon.showMessage(
                 "Blender Launcher", message,
-                QIcon(taskbar_icon_paths[get_taskbar_icon_color()]),
-                10000)
+                self.icon_taskbar, 10000)
 
     def launch_favorite(self):
         try:

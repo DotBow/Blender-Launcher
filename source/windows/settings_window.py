@@ -27,7 +27,6 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_show_tray_icon, set_taskbar_icon_color,
                               taskbar_icon_colors)
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFileDialog, QFormLayout,
                              QHBoxLayout, QLabel, QLineEdit, QMainWindow,
                              QPushButton, QWidget)
@@ -53,8 +52,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.HeaderLayout.setSpacing(0)
         self.CentralLayout.addLayout(self.HeaderLayout)
 
-        self.CloseButton = \
-            QPushButton(QIcon(":resources/icons/close.svg"), "")
+        self.CloseButton = QPushButton(self.parent.icon_close, "")
         self.CloseButton.setIconSize(QSize(20, 20))
         self.CloseButton.setFixedSize(36, 32)
         self.CloseButton.setProperty("HeaderButton", True)
@@ -73,8 +71,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.LibraryFolderLineEdit.setReadOnly(True)
         self.LibraryFolderLineEdit.setCursorPosition(0)
 
-        self.SetLibraryFolderButton = \
-            QPushButton(QIcon(":resources/icons/folder.svg"), "")
+        self.SetLibraryFolderButton = QPushButton(self.parent.icon_folder, "")
         self.SetLibraryFolderButton.clicked.connect(self.set_library_folder)
 
         self.LibraryFolderLayout = QHBoxLayout()

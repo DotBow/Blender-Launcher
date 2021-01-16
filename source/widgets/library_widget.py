@@ -12,7 +12,6 @@ from modules.settings import (get_bash_arguments,
 from modules.shortcut import create_shortcut
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import (QAction, QApplication, QHBoxLayout, QLabel,
                              QPushButton, QWidget)
 from threads.observer import Observer
@@ -83,10 +82,6 @@ class LibraryWidget(QWidget):
         self.branch = self.build_info.branch
         self.item.date = build_info.commit_time
 
-        self.icon_favorite = QIcon(":resources/icons/favorite.svg")
-        self.icon_fake = QIcon(":resources/icons/fake.svg")
-        self.icon_delete = QIcon(":resources/icons/delete.svg")
-
         self.launchButton = QPushButton("Launch")
         self.launchButton.setFixedWidth(85)
         self.launchButton.setProperty("LaunchButton", True)
@@ -105,7 +100,7 @@ class LibraryWidget(QWidget):
         self.widgetFavorite = QPushButton()
         self.widgetFavorite.setEnabled(False)
         self.widgetFavorite.setFixedSize(24, 24)
-        self.widgetFavorite.setIcon(self.icon_fake)
+        self.widgetFavorite.setIcon(self.parent.icon_fake)
         self.widgetFavorite.setProperty("Icon", True)
 
         self.layout.addWidget(self.launchButton)
@@ -142,18 +137,18 @@ class LibraryWidget(QWidget):
         self.menu_extended.setFont(self.parent.font)
 
         self.deleteAction = QAction("Delete From Drive", self)
-        self.deleteAction.setIcon(self.icon_delete)
+        self.deleteAction.setIcon(self.parent.icon_delete)
         self.deleteAction.triggered.connect(self.ask_remove_from_drive)
 
         self.addToQuickLaunchAction = QAction("Add To Quick Launch", self)
         self.addToQuickLaunchAction.triggered.connect(self.add_to_quick_launch)
 
         self.addToFavoritesAction = QAction("Add To Favorites", self)
-        self.addToFavoritesAction.setIcon(self.icon_favorite)
+        self.addToFavoritesAction.setIcon(self.parent.icon_favorite)
         self.addToFavoritesAction.triggered.connect(self.add_to_favorites)
 
         self.removeFromFavoritesAction = QAction("Remove From Favorites", self)
-        self.removeFromFavoritesAction.setIcon(self.icon_favorite)
+        self.removeFromFavoritesAction.setIcon(self.parent.icon_favorite)
         self.removeFromFavoritesAction.triggered.connect(
             self.remove_from_favorites)
 
@@ -365,11 +360,11 @@ class LibraryWidget(QWidget):
         set_favorite_path(self.link)
 
         if self.parent.favorite is not None:
-            self.parent.favorite.widgetFavorite.setIcon(self.icon_fake)
+            self.parent.favorite.widgetFavorite.setIcon(self.parent.icon_fake)
             self.parent.favorite.addToQuickLaunchAction.setEnabled(True)
 
         self.parent.favorite = self
-        self.widgetFavorite.setIcon(self.icon_favorite)
+        self.widgetFavorite.setIcon(self.parent.icon_favorite)
         self.addToQuickLaunchAction.setEnabled(False)
 
     @QtCore.pyqtSlot()
