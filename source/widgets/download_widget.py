@@ -80,7 +80,6 @@ class DownloadWidget(QWidget):
             self.h_layout1.addStretch()
 
         self.h_layout1.addWidget(self.commitTimeLabel)
-        self.h_layout1.addWidget(self.build_state_widget)
 
         if self.show_new:
             self.NewItemLabel = QLabel("New")
@@ -94,6 +93,7 @@ class DownloadWidget(QWidget):
         self.h_layout.addWidget(self.downloadButton)
         self.h_layout.addWidget(self.cancelButton)
         self.h_layout.addLayout(self.v_layout)
+        self.h_layout.addWidget(self.build_state_widget)
 
         self.setLayout(self.h_layout)
 
