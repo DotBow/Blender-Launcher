@@ -31,8 +31,7 @@ class DownloadWidget(QWidget):
         self.state = DownloadState.WAITING
 
         self.progressBar = QProgressBar()
-        self.progressBar.setFixedHeight(2)
-        self.progressBar.setProperty('Thin', True)
+        self.progressBar.setFixedHeight(4)
         self.progressBar.hide()
 
         self.downloadButton = QPushButton("Download")
@@ -151,7 +150,7 @@ class DownloadWidget(QWidget):
         self.progressBar.show()
         self.cancelButton.show()
         self.downloadButton.hide()
-        self.h_layout1.setContentsMargins(0, 8, 0, 0)
+        self.h_layout1.setContentsMargins(0, 10, 0, 0)
 
     def download_cancelled(self):
         self.item.setSelected(True)
