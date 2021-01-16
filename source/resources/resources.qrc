@@ -20,6 +20,8 @@
     <file>icons/settings.svg</file>
     <file>icons/size_grip.svg</file>
     <file>icons/check.svg</file>
+    <file>icons/filled_circle.svg</file>
+    <file>icons/quick_launch.svg</file>
     <file>styles/global.qss</file>
     <file>fonts/OpenSans-SemiBold.ttf</file>
   </qresource>
