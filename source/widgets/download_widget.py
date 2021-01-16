@@ -10,6 +10,7 @@ from threads.downloader import Downloader
 from threads.extractor import Extractor
 from threads.template_installer import TemplateInstaller
 
+from widgets.build_state_widget import BuildStateWidget
 from widgets.datetime_widget import DateTimeWidget
 from widgets.elided_text_label import ElidedTextLabel
 
@@ -65,8 +66,8 @@ class DownloadWidget(QWidget):
             branch_name = self.build_info.branch.replace('-', ' ').title()
 
         self.branchLabel = ElidedTextLabel(branch_name)
-
         self.commitTimeLabel = DateTimeWidget(self.build_info.commit_time)
+        self.build_state_widget = BuildStateWidget(self.parent)
 
         self.h_layout1.addWidget(self.subversionLabel)
 
@@ -76,6 +77,7 @@ class DownloadWidget(QWidget):
             self.h_layout1.addStretch()
 
         self.h_layout1.addWidget(self.commitTimeLabel)
+        self.h_layout1.addWidget(self.build_state_widget)
 
         if self.show_new:
             self.NewItemLabel = QLabel("New")
