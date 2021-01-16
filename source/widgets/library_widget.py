@@ -21,6 +21,7 @@ from threads.template_installer import TemplateInstaller
 from windows.dialog_window import DialogIcon, DialogWindow
 
 from widgets.base_menu_widget import BaseMenuWidget
+from widgets.build_state_widget import BuildStateWidget
 from widgets.datetime_widget import DateTimeWidget
 from widgets.elided_text_label import ElidedTextLabel
 
@@ -45,7 +46,7 @@ class LibraryWidget(QWidget):
         self.setEnabled(False)
 
         self.layout = QHBoxLayout()
-        self.layout.setContentsMargins(2, 2, 2, 2)
+        self.layout.setContentsMargins(2, 2, 0, 2)
         self.setLayout(self.layout)
 
         self.infoLabel = QLabel("Loading build information...")
@@ -91,17 +92,7 @@ class LibraryWidget(QWidget):
         self.branchLabel = ElidedTextLabel()
         self.commitTimeLabel = DateTimeWidget(self.build_info.commit_time)
 
-        self.countButton = QPushButton("0")
-        self.countButton.setEnabled(False)
-        self.countButton.setProperty("Count", True)
-        self.countButton.hide()
-        self.countButton.setFixedSize(24, 24)
-
-        self.widgetFavorite = QPushButton()
-        self.widgetFavorite.setEnabled(False)
-        self.widgetFavorite.setFixedSize(24, 24)
-        self.widgetFavorite.setIcon(self.parent.icon_fake)
-        self.widgetFavorite.setProperty("Icon", True)
+        self.build_state_widget = BuildStateWidget(self.parent)
 
         self.layout.addWidget(self.launchButton)
         self.layout.addWidget(self.subversionLabel)
@@ -112,8 +103,7 @@ class LibraryWidget(QWidget):
             self.layout.addStretch()
 
         self.layout.addWidget(self.commitTimeLabel)
-        self.layout.addWidget(self.countButton)
-        self.layout.addWidget(self.widgetFavorite)
+        self.layout.addWidget(self.build_state_widget)
 
         self.launchButton.clicked.connect(self.launch)
         self.launchButton.setCursor(Qt.PointingHandCursor)
@@ -304,16 +294,15 @@ class LibraryWidget(QWidget):
         self.observer.append_proc(proc)
 
     def proc_count_changed(self, count):
-        self.countButton.setText(str(count))
+        self.build_state_widget.setCount(count)
 
     def observer_started(self):
-        self.countButton.show()
         self.deleteAction.setEnabled(False)
         self.installTemplateAction.setEnabled(False)
 
     def observer_finished(self):
         self.observer = None
-        self.countButton.hide()
+        self.build_state_widget.setCount(0)
         self.deleteAction.setEnabled(True)
         self.installTemplateAction.setEnabled(True)
 

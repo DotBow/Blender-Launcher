@@ -93,6 +93,7 @@ class BasePageWidget(QWidget):
             self.HeaderLayout.addStretch()
 
         self.HeaderLayout.addWidget(self.commitTimeLabel)
+        self.HeaderLayout.addSpacing(34)
 
         # Final layout
         self.layout.addWidget(self.HeaderWidget)
