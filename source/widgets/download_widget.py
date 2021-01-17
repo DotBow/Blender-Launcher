@@ -82,10 +82,7 @@ class DownloadWidget(QWidget):
         self.h_layout1.addWidget(self.commitTimeLabel)
 
         if self.show_new:
-            self.NewItemLabel = QLabel("New")
-            self.NewItemLabel.setAlignment(Qt.AlignRight | Qt.AlignCenter)
-            self.NewItemLabel.setIndent(6)
-            self.h_layout1.addWidget(self.NewItemLabel)
+            self.build_state_widget.setNewBuild(True)
 
         self.v_layout.addLayout(self.h_layout1)
         self.v_layout.addWidget(self.progressBar)
@@ -102,8 +99,9 @@ class DownloadWidget(QWidget):
             self.init_downloader()
 
     def mouseReleaseEvent(self, event):
-        if hasattr(self, "NewItemLabel"):
-            self.NewItemLabel.hide()
+        if self.show_new is True:
+            self.build_state_widget.setNewBuild(False)
+            self.show_new = False
 
     def showEvent(self, event):
         self.list_widget.resize_labels(['branchLabel'])
@@ -111,8 +109,9 @@ class DownloadWidget(QWidget):
     def init_downloader(self):
         self.item.setSelected(True)
 
-        if hasattr(self, "NewItemLabel"):
-            self.NewItemLabel.hide()
+        if self.show_new is True:
+            self.build_state_widget.setNewBuild(False)
+            self.show_new = False
 
         self.state = DownloadState.DOWNLOADING
         self.downloader = Downloader(self.parent.manager, self.build_info.link)

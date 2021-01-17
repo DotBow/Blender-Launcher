@@ -181,10 +181,7 @@ class LibraryWidget(QWidget):
         self.menu_extended.addAction(self.deleteAction)
 
         if self.show_new:
-            self.NewItemLabel = QLabel("New")
-            self.NewItemLabel.setAlignment(Qt.AlignRight | Qt.AlignCenter)
-            self.NewItemLabel.setIndent(6)
-            self.layout.addWidget(self.NewItemLabel)
+            self.build_state_widget.setNewBuild(True)
 
             if get_mark_as_favorite() == 0:
                 pass
@@ -223,8 +220,9 @@ class LibraryWidget(QWidget):
 
     def mouseReleaseEvent(self, event):
         if event.button == Qt.LeftButton:
-            if hasattr(self, "NewItemLabel"):
-                self.NewItemLabel.hide()
+            if self.show_new is True:
+                self.build_state_widget.setNewBuild(False)
+                self.show_new = False
 
             mod = QApplication.keyboardModifiers()
             if not (mod == Qt.ShiftModifier or mod == Qt.ControlModifier):
@@ -256,8 +254,9 @@ class LibraryWidget(QWidget):
     def launch(self):
         self.item.setSelected(True)
 
-        if hasattr(self, "NewItemLabel"):
-            self.NewItemLabel.hide()
+        if self.show_new is True:
+            self.build_state_widget.setNewBuild(False)
+            self.show_new = False
 
         platform = get_platform()
         library_folder = Path(get_library_folder())
