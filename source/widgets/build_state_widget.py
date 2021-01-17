@@ -10,17 +10,19 @@ class BuildStateWidget(QWidget):
         self.layout.setContentsMargins(0, 0, 4, 0)
         self.layout.setSpacing(0)
 
-        self.widgetFake = self.IconButton()
+        self.fakeIcon = self.IconButton()
 
-        self.countButton = self.IconButton(text="0", prop="Count")
-        self.countButton.hide()
+        self.countIcon = self.IconButton(text="0", prop="Count")
+        self.countIcon.hide()
 
-        self.widgetFavorite = self.IconButton(self.parent.icon_fake)
-        self.widgetFavorite.hide()
+        self.newBuildIcon = self.IconButton(self.parent.filled_circle)
+        self.newBuildIcon.hide()
 
-        self.layout.addWidget(self.widgetFake)
-        self.layout.addWidget(self.countButton)
-        self.layout.addWidget(self.widgetFavorite)
+        self.layout.addWidget(self.fakeIcon)
+        self.layout.addWidget(self.countIcon)
+        self.layout.addWidget(self.newBuildIcon)
+
+        self.active_icon = self.fakeIcon
 
     def IconButton(self, icon=None, text="", prop="Icon"):
         button = QPushButton(text)
@@ -35,9 +37,21 @@ class BuildStateWidget(QWidget):
 
     def setCount(self, count):
         if count > 0:
-            self.countButton.setText(str(count))
-            self.widgetFake.hide()
-            self.countButton.show()
+            self.countIcon.setText(str(count))
+            self.active_icon.hide()
+            self.countIcon.show()
+            self.active_icon = self.countIcon
         else:
-            self.countButton.hide()
-            self.widgetFake.show()
+            self.active_icon.hide()
+            self.fakeIcon.show()
+            self.active_icon = self.fakeIcon
+
+    def setNewBuild(self, show=True):
+        if show:
+            self.active_icon.hide()
+            self.newBuildIcon.show()
+            self.active_icon = self.newBuildIcon
+        else:
+            self.active_icon.hide()
+            self.fakeIcon.show()
+            self.active_icon = self.fakeIcon
