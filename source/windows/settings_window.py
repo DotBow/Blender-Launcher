@@ -249,6 +249,14 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         label.setProperty('Header', True)
         return label
 
+    def show_dlg_restart_bl(self):
+        self.dlg = DialogWindow(
+            self.parent, title="Warning",
+            text="Restart Blender Launcher in<br> \
+                  order to apply this setting!",
+            accept_text="OK", cancel_text=None,
+            icon=DialogIcon.WARNING)
+
     def set_library_folder(self):
         library_folder = str(get_library_folder())
         new_library_folder = QFileDialog.getExistingDirectory(
@@ -275,6 +283,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def toggle_enable_high_dpi_scaling(self, is_checked):
         set_enable_high_dpi_scaling(is_checked)
+        self.show_dlg_restart_bl()
 
     def change_default_library_page(self, page):
         set_default_library_page(page)
@@ -286,7 +295,11 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         set_mark_as_favorite(page)
 
     def change_taskbar_icon_color(self, color):
-        set_taskbar_icon_color(color)
+        currentIndex = self.TaskbarIconColorComboBox.currentIndex()
+
+        if get_taskbar_icon_color() != currentIndex:
+            set_taskbar_icon_color(color)
+            self.show_dlg_restart_bl()
 
     def toggle_enable_download_notifications(self, is_checked):
         set_enable_download_notifications(is_checked)
