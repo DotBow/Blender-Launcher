@@ -254,8 +254,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             self.parent, title="Warning",
             text="Restart Blender Launcher in<br> \
                   order to apply this setting!",
-            accept_text="OK", cancel_text=None,
-            icon=DialogIcon.WARNING)
+            accept_text="OK", cancel_text=None)
 
     def set_library_folder(self):
         library_folder = str(get_library_folder())
@@ -271,8 +270,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
                 self.dlg = DialogWindow(
                     self.parent, title="Warning",
                     text="Chosen folder doesn't have write permissions!",
-                    accept_text="Retry", cancel_text=None,
-                    icon=DialogIcon.WARNING)
+                    accept_text="Retry", cancel_text=None)
                 self.dlg.accepted.connect(self.set_library_folder)
 
     def toggle_launch_when_system_starts(self, is_checked):

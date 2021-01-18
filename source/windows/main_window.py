@@ -134,8 +134,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 self.dlg = DialogWindow(
                     self, title="Warning",
                     text="Chosen folder doesn't have write permissions!",
-                    accept_text="Retry", cancel_text=None,
-                    icon=DialogIcon.WARNING)
+                    accept_text="Retry", cancel_text=None)
                 self.dlg.accepted.connect(self.set_library_folder)
         else:
             self.app.quit()
@@ -364,9 +363,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 self.dlg = DialogWindow(
                     self, title="Warning",
                     text="In order to update Blender Launcher<br> \
-                    complete all active downloads!",
-                    accept_text="OK", cancel_text=None,
-                    icon=DialogIcon.WARNING)
+                          complete all active downloads!",
+                    accept_text="OK", cancel_text=None)
 
                 return
 
@@ -417,8 +415,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.favorite.launch()
         except Exception:
             self.dlg = DialogWindow(
-                self, text="Favorite build not found!",
-                accept_text="OK", cancel_text=None)
+                self, text="Add build to Quick Launch via<br>\
+                            context menu to run it from tray",
+                accept_text="OK", cancel_text=None, icon=DialogIcon.INFO)
 
     def tray_icon_activated(self, reason):
         if reason == QSystemTrayIcon.Trigger:
@@ -438,10 +437,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         for widget in download_widgets:
             if widget.state == DownloadState.DOWNLOADING:
                 self.dlg = DialogWindow(
-                    self, title="Warning", text="Active downloads in progress!<br>\
-                    Are you sure you want to quit?",
-                    accept_text="Yes", cancel_text="No",
-                    icon=DialogIcon.WARNING)
+                    self, title="Warning",
+                    text="Active downloads in progress!<br>\
+                          Are you sure you want to quit?",
+                    accept_text="Yes", cancel_text="No")
 
                 self.dlg.accepted.connect(self.destroy)
                 return

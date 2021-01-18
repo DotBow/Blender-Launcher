@@ -311,8 +311,9 @@ class LibraryWidget(QWidget):
         self.item.setSelected(True)
         self.dlg = DialogWindow(
             self.parent, title="Warning",
-            text="Are you sure you want to<br>delete selected builds?",
-            accept_text="Yes", cancel_text="No", icon=DialogIcon.WARNING)
+            text="Are you sure you want to<br> \
+                  delete selected builds?",
+            accept_text="Yes", cancel_text="No")
 
         if len(self.list_widget.selectedItems()) > 1:
             self.dlg.accepted.connect(self.remove_from_drive_extended)
