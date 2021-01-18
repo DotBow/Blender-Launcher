@@ -90,6 +90,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.icon_fake = QIcon(":resources/icons/fake.svg")
         self.icon_delete = QIcon(":resources/icons/delete.svg")
         self.filled_circle = QIcon(":resources/icons/filled_circle.svg")
+        self.icon_quick_launch = QIcon(":resources/icons/quick_launch.svg")
         self.icon_taskbar = QIcon(taskbar_icon_paths[get_taskbar_icon_color()])
 
         # Setup window
@@ -317,12 +318,15 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         hide_action.triggered.connect(self.close)
         show_action = QAction("Show", self)
         show_action.triggered.connect(self._show)
-        launch_favorite_action = QAction(self.icon_favorite, "Blender", self)
-        launch_favorite_action.triggered.connect(self.launch_favorite)
+        show_favorites_action = QAction(self.icon_favorite, "Favorites", self)
+        show_favorites_action.triggered.connect(self.show_favorites)
+        quick_launch_action = QAction(self.icon_quick_launch, "Blender", self)
+        quick_launch_action.triggered.connect(self.quick_launch)
 
         self.tray_menu = BaseMenuWidget()
         self.tray_menu.setFont(self.font)
-        self.tray_menu.addAction(launch_favorite_action)
+        self.tray_menu.addAction(quick_launch_action)
+        self.tray_menu.addAction(show_favorites_action)
         self.tray_menu.addAction(show_action)
         self.tray_menu.addAction(hide_action)
         self.tray_menu.addAction(quit_action)
@@ -403,7 +407,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 "Blender Launcher", message,
                 self.icon_taskbar, 10000)
 
-    def launch_favorite(self):
+    def show_favorites(self):
+        self.TabWidget.setCurrentWidget(self.UserTab)
+        self.UserToolBox.setCurrentWidget(self.UserFavoritesListWidget)
+        self._show()
+
+    def quick_launch(self):
         try:
             self.favorite.launch()
         except Exception:
@@ -415,7 +424,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         if reason == QSystemTrayIcon.Trigger:
             self._show()
         elif reason == QSystemTrayIcon.MiddleClick:
-            self.launch_favorite()
+            self.quick_launch()
         elif reason == QSystemTrayIcon.Context:
             self.tray_menu._show()
 
