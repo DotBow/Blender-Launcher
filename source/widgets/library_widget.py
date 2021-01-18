@@ -131,6 +131,7 @@ class LibraryWidget(QWidget):
         self.deleteAction.triggered.connect(self.ask_remove_from_drive)
 
         self.addToQuickLaunchAction = QAction("Add To Quick Launch", self)
+        self.addToQuickLaunchAction.setIcon(self.parent.icon_quick_launch)
         self.addToQuickLaunchAction.triggered.connect(self.add_to_quick_launch)
 
         self.addToFavoritesAction = QAction("Add To Favorites", self)
