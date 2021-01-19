@@ -18,7 +18,7 @@ from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
 from threads.template_installer import TemplateInstaller
-from windows.dialog_window import DialogIcon, DialogWindow
+from windows.dialog_window import DialogWindow
 
 from widgets.base_menu_widget import BaseMenuWidget
 from widgets.build_state_widget import BuildStateWidget
