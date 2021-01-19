@@ -40,7 +40,7 @@ class LibraryWidget(QWidget):
         self.show_new = show_new
         self.observer = None
         self.build_info = None
-        self.favorite_item = None
+        self.child_widget = None
         self.parent_widget = parent_widget
 
         self.destroyed.connect(lambda: self._destroyed())
@@ -366,7 +366,7 @@ class LibraryWidget(QWidget):
                                self.show_new, parent_widget=self)
 
         self.parent.UserFavoritesListWidget.insert_item(item, widget)
-        self.favorite_item = item
+        self.child_widget = widget
 
         self.removeFromFavoritesAction.setVisible(True)
         self.addToFavoritesAction.setVisible(False)
@@ -378,9 +378,10 @@ class LibraryWidget(QWidget):
         else:
             widget = self.parent_widget
 
-        self.parent.UserFavoritesListWidget.remove_item(widget.favorite_item)
-        widget.favorite_item = None
+        self.parent.UserFavoritesListWidget.remove_item(
+            widget.child_widget.item)
 
+        widget.child_widget = None
         widget.removeFromFavoritesAction.setVisible(False)
         widget.addToFavoritesAction.setVisible(True)
 
