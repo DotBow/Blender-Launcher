@@ -44,41 +44,46 @@ class LibraryWidget(QWidget):
         self.parent_widget = parent_widget
 
         self.destroyed.connect(lambda: self._destroyed())
-        self.setEnabled(False)
 
         self.layout = QHBoxLayout()
         self.layout.setContentsMargins(2, 2, 0, 2)
         self.setLayout(self.layout)
 
-        self.infoLabel = QLabel("Loading build information...")
+        if self.parent_widget is None:
+            self.setEnabled(False)
+            self.infoLabel = QLabel("Loading build information...")
 
-        self.launchButton = QPushButton("Launch")
-        self.launchButton.setFixedWidth(85)
-        self.launchButton.setProperty("CancelButton", True)
+            self.launchButton = QPushButton("Launch")
+            self.launchButton.setFixedWidth(85)
+            self.launchButton.setProperty("CancelButton", True)
 
-        self.layout.addWidget(self.launchButton)
-        self.layout.addWidget(self.infoLabel, stretch=1)
+            self.layout.addWidget(self.launchButton)
+            self.layout.addWidget(self.infoLabel, stretch=1)
 
-        self.build_info_reader = BuildInfoReader(link)
-        self.build_info_reader.finished.connect(self.draw)
-        self.build_info_reader.start()
+            self.build_info_reader = BuildInfoReader(link)
+            self.build_info_reader.finished.connect(self.draw)
+            self.build_info_reader.start()
 
-        self.item.setSizeHint(self.sizeHint())
+            self.item.setSizeHint(self.sizeHint())
+        else:
+            self.draw(self.parent_widget.build_info)
+            self.item.setSizeHint(self.sizeHint())
 
     def draw(self, build_info):
-        if self.parent.library_drawer is not None:
-            self.parent.library_drawer.release_build()
+        if self.parent_widget is None:
+            if self.parent.library_drawer is not None:
+                self.parent.library_drawer.release_build()
 
-        if build_info is None:
-            self.infoLabel.setText(
-                ("Build *{0}* is damaged!").format(Path(self.link).name))
-            self.launchButton.setText("Delete")
-            self.launchButton.clicked.connect(self.ask_remove_from_drive)
-            self.setEnabled(True)
-            return
+            if build_info is None:
+                self.infoLabel.setText(
+                    ("Build *{0}* is damaged!").format(Path(self.link).name))
+                self.launchButton.setText("Delete")
+                self.launchButton.clicked.connect(self.ask_remove_from_drive)
+                self.setEnabled(True)
+                return
 
-        for i in reversed(range(self.layout.count())):
-            self.layout.itemAt(i).widget().setParent(None)
+            for i in reversed(range(self.layout.count())):
+                self.layout.itemAt(i).widget().setParent(None)
 
         self.build_info = build_info
         self.branch = self.build_info.branch
