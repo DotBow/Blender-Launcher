@@ -362,8 +362,7 @@ class LibraryWidget(QWidget):
     def add_to_favorites(self):
         item = BaseListWidgetItem()
         widget = LibraryWidget(self.parent, item, self.link,
-                               self.list_widget, self.show_branch,
-                               self.show_new, parent_widget=self)
+                               self.list_widget, parent_widget=self)
 
         self.parent.UserFavoritesListWidget.insert_item(item, widget)
         self.child_widget = widget
