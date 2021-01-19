@@ -24,6 +24,7 @@ from widgets.base_menu_widget import BaseMenuWidget
 from widgets.build_state_widget import BuildStateWidget
 from widgets.datetime_widget import DateTimeWidget
 from widgets.elided_text_label import ElidedTextLabel
+from widgets.left_icon_button_widget import LeftIconButtonWidget
 
 
 class LibraryWidget(QWidget):
@@ -83,7 +84,7 @@ class LibraryWidget(QWidget):
         self.branch = self.build_info.branch
         self.item.date = build_info.commit_time
 
-        self.launchButton = QPushButton("Launch")
+        self.launchButton = LeftIconButtonWidget("Launch")
         self.launchButton.setFixedWidth(85)
         self.launchButton.setProperty("LaunchButton", True)
 
@@ -350,11 +351,11 @@ class LibraryWidget(QWidget):
         set_favorite_path(self.link)
 
         if self.parent.favorite is not None:
-            self.parent.favorite.widgetFavorite.setIcon(self.parent.icon_fake)
+            self.parent.favorite.launchButton.setIcon(self.parent.icon_fake)
             self.parent.favorite.addToQuickLaunchAction.setEnabled(True)
 
         self.parent.favorite = self
-        self.widgetFavorite.setIcon(self.parent.icon_favorite)
+        self.launchButton.setIcon(self.parent.icon_quick_launch)
         self.addToQuickLaunchAction.setEnabled(False)
 
     @QtCore.pyqtSlot()
