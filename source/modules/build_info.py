@@ -1,6 +1,7 @@
 import json
 import re
 import time
+from enum import Enum
 from pathlib import Path
 
 from PyQt5.QtCore import QThread, pyqtSignal
@@ -50,19 +51,29 @@ class BuildInfo:
 
 
 class BuildInfoReader(QThread):
+    Mode = Enum('Mode', 'READ WRITE', start=1)
     finished = pyqtSignal('PyQt_PyObject')
 
-    def __init__(self, path):
+    def __init__(self, path, build_info=None, mode=Mode.READ):
         QThread.__init__(self)
         self.path = Path(path)
+        self.build_info = build_info
+        self.mode = mode
         self.platform = get_platform()
 
     def run(self):
-        try:
-            build_info = self.read_build_info()
-            self.finished.emit(build_info)
-        except Exception:
-            self.finished.emit(None)
+        if self.mode == self.Mode.READ:
+            try:
+                build_info = self.read_build_info()
+                self.finished.emit(build_info)
+            except Exception:
+                self.finished.emit(None)
+        elif self.mode == self.Mode.WRITE:
+            try:
+                self.write_build_info(self.build_info)
+                self.finished.emit(0)
+            except Exception:
+                self.finished.emit(None)
 
         return
 
