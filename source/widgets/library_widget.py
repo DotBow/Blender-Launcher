@@ -241,7 +241,7 @@ class LibraryWidget(QWidget):
         event.ignore()
 
     def install_template(self):
-        self.launchButton.setText("Updating")
+        self.launchButton._setText("Updating")
         self.launchButton.setEnabled(False)
         self.deleteAction.setEnabled(False)
         self.installTemplateAction.setEnabled(False)
@@ -252,7 +252,7 @@ class LibraryWidget(QWidget):
         self.tempalte_installer.start()
 
     def install_template_finished(self):
-        self.launchButton.setText("Launch")
+        self.launchButton._setText("Launch")
         self.launchButton.setEnabled(True)
         self.deleteAction.setEnabled(True)
         self.installTemplateAction.setEnabled(True)
