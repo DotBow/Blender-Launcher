@@ -261,6 +261,10 @@ class LibraryWidget(QWidget):
     def launch(self):
         self.item.setSelected(True)
 
+        if self.parent_widget is not None:
+            self.parent_widget.launch()
+            return
+
         if self.show_new is True:
             self.build_state_widget.setNewBuild(False)
             self.show_new = False
@@ -302,15 +306,24 @@ class LibraryWidget(QWidget):
     def proc_count_changed(self, count):
         self.build_state_widget.setCount(count)
 
+        if self.child_widget is not None:
+            self.child_widget.proc_count_changed(count)
+
     def observer_started(self):
         self.deleteAction.setEnabled(False)
         self.installTemplateAction.setEnabled(False)
+
+        if self.child_widget is not None:
+            self.child_widget.observer_started()
 
     def observer_finished(self):
         self.observer = None
         self.build_state_widget.setCount(0)
         self.deleteAction.setEnabled(True)
         self.installTemplateAction.setEnabled(True)
+
+        if self.child_widget is not None:
+            self.child_widget.observer_finished()
 
     @QtCore.pyqtSlot()
     def ask_remove_from_drive(self):
