@@ -366,15 +366,40 @@ class LibraryWidget(QWidget):
 
     @QtCore.pyqtSlot()
     def add_to_quick_launch(self):
+        if (self.parent.favorite is not None) and \
+                (self.parent.favorite.link != self.link):
+            self.parent.favorite.remove_from_quick_launch()
+
         set_favorite_path(self.link)
-
-        if self.parent.favorite is not None:
-            self.parent.favorite.launchButton.setIcon(self.parent.icon_fake)
-            self.parent.favorite.addToQuickLaunchAction.setEnabled(True)
-
         self.parent.favorite = self
+
         self.launchButton.setIcon(self.parent.icon_quick_launch)
         self.addToQuickLaunchAction.setEnabled(False)
+
+        # TODO Make more optimal and simpler synchronization
+        if self.parent_widget is not None:
+            self.parent_widget.launchButton.setIcon(
+                self.parent.icon_quick_launch)
+            self.parent_widget.addToQuickLaunchAction.setEnabled(False)
+
+        if self.child_widget is not None:
+            self.child_widget.launchButton.setIcon(
+                self.parent.icon_quick_launch)
+            self.child_widget.addToQuickLaunchAction.setEnabled(False)
+
+    @QtCore.pyqtSlot()
+    def remove_from_quick_launch(self):
+        self.launchButton.setIcon(self.parent.icon_fake)
+        self.addToQuickLaunchAction.setEnabled(True)
+
+        # TODO Make more optimal and simpler synchronization
+        if self.parent_widget is not None:
+            self.parent_widget.launchButton.setIcon(self.parent.icon_fake)
+            self.parent_widget.addToQuickLaunchAction.setEnabled(True)
+
+        if self.child_widget is not None:
+            self.child_widget.launchButton.setIcon(self.parent.icon_fake)
+            self.child_widget.addToQuickLaunchAction.setEnabled(True)
 
     @QtCore.pyqtSlot()
     def add_to_favorites(self):
