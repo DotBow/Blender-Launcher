@@ -346,21 +346,39 @@ class LibraryWidget(QWidget):
 
     @QtCore.pyqtSlot()
     def remove_from_drive(self):
-        self.launchButton.setText("Deleting")
-        self.setEnabled(False)
-        self.item.setFlags(self.item.flags() & ~Qt.ItemIsSelectable)
+        if self.parent_widget is not None:
+            self.parent_widget.remove_from_drive()
+            return
+
         path = Path(get_library_folder()) / self.link
         self.remover = Remover(path)
+        self.remover.started.connect(self.remover_started)
         self.remover.finished.connect(self.remover_finished)
         self.remover.start()
 
+    # TODO Clear icon if build in quick launch
+    def remover_started(self):
+        self.launchButton._setText("Deleting")
+        self.setEnabled(False)
+        self.item.setFlags(self.item.flags() & ~Qt.ItemIsSelectable)
+
+        if self.child_widget is not None:
+            self.child_widget.remover_started()
+
     def remover_finished(self, code):
+        if self.child_widget is not None:
+            self.child_widget.remover_finished(code)
+
         if code == 0:
             self.list_widget.remove_item(self.item)
-            self.parent.draw_from_cashed(self.build_info)
+
+            if self.parent_widget is None:
+                self.parent.draw_from_cashed(self.build_info)
+
             return
+        # TODO Child synchronization and reverting selection flags
         else:
-            self.launchButton.setText("Launch")
+            self.launchButton._setText("Launch")
             self.setEnabled(True)
             return
 
@@ -405,7 +423,8 @@ class LibraryWidget(QWidget):
     def add_to_favorites(self):
         item = BaseListWidgetItem()
         widget = LibraryWidget(self.parent, item, self.link,
-                               self.list_widget, parent_widget=self)
+                               self.parent.UserFavoritesListWidget,
+                               parent_widget=self)
 
         self.parent.UserFavoritesListWidget.insert_item(item, widget)
         self.child_widget = widget
