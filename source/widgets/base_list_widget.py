@@ -1,4 +1,5 @@
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFontMetrics
 from PyQt5.QtWidgets import QAbstractItemView, QListWidget
 
 
@@ -7,6 +8,7 @@ class BaseListWidget(QListWidget):
         super().__init__()
         self.parent = parent
         self.widgets = set()
+        self.metrics = QFontMetrics(self.font())
 
         self.setFrameShape(QListWidget.NoFrame)
         self.setSortingEnabled(True)
@@ -63,24 +65,21 @@ class BaseListWidget(QListWidget):
 
         return False
 
-    # TODO Make unique resize function only for subversion label,
-    # cleanup usage of function
-    def resize_labels(self, params):
-        items = []
+    def resize(self):
+        widths = []
 
-        for i in range(self.count()):
-            item = self.itemWidget(self.item(i))
+        for widget in self.widgets:
+            if hasattr(widget, 'subversionLabel'):
+                text = widget.subversionLabel.text()
+                widths.append(self.metrics.width(text))
 
-            if hasattr(item, 'subversionLabel'):
-                items.append(item)
+        if len(widths) > 0:
+            max_width = max(widths)
 
-        if len(items) > 0:
-            c = [len(getattr(item, 'subversionLabel').text())
-                 for item in items]
-            max_c = max(c)
-
-            for item in items:
-                getattr(item, 'subversionLabel').setIndent((12 - max_c) * 4)
+            for widget in self.widgets:
+                if hasattr(widget, 'subversionLabel'):
+                    widget.subversionLabel.setIndent(
+                        int((80 - max_width) * 0.5))
 
     def _clear(self):
         self.clear()

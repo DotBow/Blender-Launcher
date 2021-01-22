@@ -104,7 +104,7 @@ class DownloadWidget(QWidget):
             self.show_new = False
 
     def showEvent(self, event):
-        self.list_widget.resize_labels(['branchLabel'])
+        self.list_widget.resize()
 
     def init_downloader(self):
         self.item.setSelected(True)
