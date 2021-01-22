@@ -63,6 +63,8 @@ class BaseListWidget(QListWidget):
 
         return False
 
+    # TODO Make unique resize function only for subversion label,
+    # cleanup usage of function
     def resize_labels(self, params):
         items = []
 
@@ -72,11 +74,13 @@ class BaseListWidget(QListWidget):
             if hasattr(item, 'subversionLabel'):
                 items.append(item)
 
-        c = [len(getattr(item, 'subversionLabel').text()) for item in items]
-        max_c = max(c)
+        if len(items) > 0:
+            c = [len(getattr(item, 'subversionLabel').text())
+                 for item in items]
+            max_c = max(c)
 
-        for item in items:
-            getattr(item, 'subversionLabel').setIndent((12 - max_c) * 4)
+            for item in items:
+                getattr(item, 'subversionLabel').setIndent((12 - max_c) * 4)
 
     def _clear(self):
         self.clear()
