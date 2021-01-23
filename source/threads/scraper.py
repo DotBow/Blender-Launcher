@@ -106,10 +106,12 @@ class Scraper(QThread):
         subversion = match.group(0).replace('-', '')
 
         if branch_type == 'experimental':
-            branch = tag.find_next("span", class_="build-var").get_text()
-            branch = re.compile("branch", re.IGNORECASE).sub("", branch)
+            build_var = tag.find_next("span", class_="build-var").get_text()
+            branch = re.compile("branch", re.IGNORECASE).sub("", build_var)
         elif branch_type == 'daily':
             branch = 'daily'
+            build_var = tag.find_next("span", class_="build-var").get_text()
+            subversion = "{0} {1}".format(subversion, build_var)
         else:
             branch = 'stable'
 
