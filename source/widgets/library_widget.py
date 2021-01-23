@@ -203,7 +203,6 @@ class LibraryWidget(QWidget):
 
         self.setEnabled(True)
         self.list_widget.sortItems()
-        self.list_widget.resize()
 
         if self.build_info.is_favorite and self.parent_widget is None:
             self.add_to_favorites()

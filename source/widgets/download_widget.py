@@ -103,9 +103,6 @@ class DownloadWidget(QWidget):
             self.build_state_widget.setNewBuild(False)
             self.show_new = False
 
-    def showEvent(self, event):
-        self.list_widget.resize()
-
     def init_downloader(self):
         self.item.setSelected(True)
 
