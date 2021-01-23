@@ -106,7 +106,8 @@ class Scraper(QThread):
         subversion = match.group(0).replace('-', '')
 
         if branch_type == 'experimental':
-            branch = re.search(r'\A.+-blender', stem).group(0)[:-8]
+            branch = tag.find_next("span", class_="build-var").get_text()
+            branch = re.compile("branch", re.IGNORECASE).sub("", branch)
         elif branch_type == 'daily':
             branch = 'daily'
         else:
