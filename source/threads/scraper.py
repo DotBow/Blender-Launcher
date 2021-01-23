@@ -78,6 +78,10 @@ class Scraper(QThread):
         link = urljoin(url, tag['href']).rstrip('/')
 
         r = self.manager.request('HEAD', link)
+
+        if r.status != 200:
+            return
+
         info = r.headers
         size = str(int(info['content-length']) // 1048576)
 
@@ -100,7 +104,8 @@ class Scraper(QThread):
         subversion = match.group(0).replace('-', '')
 
         if branch_type == 'experimental':
-            branch = re.search(r'\A.+-blender', stem).group(0)[:-8]
+            branch = tag.find_next("span", class_="build-var").get_text()
+            branch = re.compile("branch", re.IGNORECASE).sub("", branch)
         elif branch_type == 'daily':
             branch = 'daily'
         else:
