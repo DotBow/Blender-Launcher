@@ -65,19 +65,26 @@ class Scraper(QThread):
         if platform == 'Windows':
             for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+win.+64.+zip')):
                 build_info = self.new_blender_build(tag, url, branch_type)
-                self.links.emit(build_info)
+
+                if build_info is not None:
+                    self.links.emit(build_info)
         elif platform == 'Linux':
             for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+lin.+64.+tar')):
                 build_info = self.new_blender_build(tag, url, branch_type)
-                self.links.emit(build_info)
+
+                if build_info is not None:
+                    self.links.emit(build_info)
 
         r.release_conn()
         r.close()
 
     def new_blender_build(self, tag, url, branch_type):
         link = urljoin(url, tag['href']).rstrip('/')
-
         r = self.manager.request('HEAD', link)
+
+        if r.status != 200:
+            return None
+
         info = r.headers
 
         commit_time = None
