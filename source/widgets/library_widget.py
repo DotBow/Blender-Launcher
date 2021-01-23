@@ -205,6 +205,9 @@ class LibraryWidget(QWidget):
         self.list_widget.sortItems()
         self.list_widget.resize()
 
+        if self.build_info.is_favorite and self.parent_widget is None:
+            self.add_to_favorites()
+
     def context_menu(self):
         if len(self.list_widget.selectedItems()) > 1:
             self.menu_extended._show()
@@ -432,6 +435,12 @@ class LibraryWidget(QWidget):
         self.removeFromFavoritesAction.setVisible(True)
         self.addToFavoritesAction.setVisible(False)
 
+        self.build_info.is_favorite = True
+        self.build_info_writer = BuildInfoReader(
+            self.link, build_info=self.build_info,
+            mode=BuildInfoReader.Mode.WRITE)
+        self.build_info_writer.start()
+
     @QtCore.pyqtSlot()
     def remove_from_favorites(self):
         if self.parent_widget is None:
@@ -445,6 +454,12 @@ class LibraryWidget(QWidget):
         widget.child_widget = None
         widget.removeFromFavoritesAction.setVisible(False)
         widget.addToFavoritesAction.setVisible(True)
+
+        self.build_info.is_favorite = False
+        self.build_info_writer = BuildInfoReader(
+            self.link, build_info=self.build_info,
+            mode=BuildInfoReader.Mode.WRITE)
+        self.build_info_writer.start()
 
     @QtCore.pyqtSlot()
     def register_extension(self):
