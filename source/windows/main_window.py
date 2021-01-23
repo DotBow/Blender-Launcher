@@ -498,6 +498,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                     return
 
     def draw_to_downloads(self, build_info, show_new=True):
+        if build_info is None:
+            return
+
         show_branch = True
 
         if self.started:
