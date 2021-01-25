@@ -436,11 +436,12 @@ class LibraryWidget(QWidget):
         self.removeFromFavoritesAction.setVisible(True)
         self.addToFavoritesAction.setVisible(False)
 
-        self.build_info.is_favorite = True
-        self.build_info_writer = BuildInfoReader(
-            self.link, build_info=self.build_info,
-            mode=BuildInfoReader.Mode.WRITE)
-        self.build_info_writer.start()
+        if self.build_info.is_favorite is False:
+            self.build_info.is_favorite = True
+            self.build_info_writer = BuildInfoReader(
+                self.link, build_info=self.build_info,
+                mode=BuildInfoReader.Mode.WRITE)
+            self.build_info_writer.start()
 
     @QtCore.pyqtSlot()
     def remove_from_favorites(self):
