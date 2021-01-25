@@ -207,6 +207,8 @@ class LibraryWidget(QWidget):
         if self.build_info.is_favorite and self.parent_widget is None:
             self.add_to_favorites()
 
+        self.list_widget.resize(self)
+
     def context_menu(self):
         if len(self.list_widget.selectedItems()) > 1:
             self.menu_extended._show()
