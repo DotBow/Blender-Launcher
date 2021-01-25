@@ -13,7 +13,7 @@ from modules.shortcut import create_shortcut
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QAction, QApplication, QHBoxLayout, QLabel,
-                             QPushButton, QWidget)
+                             QLineEdit, QPushButton, QWidget)
 from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
@@ -105,6 +105,17 @@ class LibraryWidget(QWidget):
 
         if self.show_branch:
             self.layout.addWidget(self.branchLabel, stretch=1)
+
+            if self.parent_widget is not None:
+                self.lineEdit = QLineEdit()
+                self.lineEdit.setMaxLength(256)
+                self.lineEdit.setContextMenuPolicy(Qt.NoContextMenu)
+                self.lineEdit.inputRejected.connect(
+                    self.rename_branch_rejected)
+                self.lineEdit.editingFinished.connect(
+                    self.rename_branch_accepted)
+                self.layout.addWidget(self.lineEdit, stretch=1)
+                self.lineEdit.hide()
         else:
             self.layout.addStretch()
 
@@ -117,6 +128,8 @@ class LibraryWidget(QWidget):
 
         if self.branch == 'lts':
             branch_name = "LTS"
+        if (self.parent_widget is not None) and self.build_info.custom_name:
+            branch_name = self.build_info.custom_name
         else:
             branch_name = self.branch.replace('-', ' ').title()
 
@@ -172,6 +185,11 @@ class LibraryWidget(QWidget):
         self.menu.addAction(self.addToQuickLaunchAction)
         self.menu.addAction(self.addToFavoritesAction)
         self.menu.addAction(self.removeFromFavoritesAction)
+
+        if self.parent_widget is not None:
+            self.renameBranchAction = QAction("Rename Branch")
+            self.renameBranchAction.triggered.connect(self.rename_branch)
+            self.menu.addAction(self.renameBranchAction)
 
         self.menu.addSeparator()
 
@@ -330,6 +348,37 @@ class LibraryWidget(QWidget):
             self.child_widget.observer_finished()
 
     @QtCore.pyqtSlot()
+    def rename_branch(self):
+        self.lineEdit.setText(self.branchLabel.text)
+        self.lineEdit.selectAll()
+        self.lineEdit.setFocus()
+        self.lineEdit.show()
+        self.branchLabel.hide()
+
+    @QtCore.pyqtSlot()
+    def rename_branch_accepted(self):
+        self.lineEdit.hide()
+        name = self.lineEdit.text().strip()
+
+        if name:
+            self.branchLabel._setText(name)
+            self.build_info.custom_name = name
+            self.write_build_info()
+
+        self.branchLabel.show()
+
+    @QtCore.pyqtSlot()
+    def rename_branch_rejected(self):
+        self.lineEdit.hide()
+        self.branchLabel.show()
+
+    def write_build_info(self):
+        self.build_info_writer = BuildInfoReader(
+            self.link, build_info=self.build_info,
+            mode=BuildInfoReader.Mode.WRITE)
+        self.build_info_writer.start()
+
+    @QtCore.pyqtSlot()
     def ask_remove_from_drive(self):
         self.item.setSelected(True)
         self.dlg = DialogWindow(
@@ -438,10 +487,7 @@ class LibraryWidget(QWidget):
 
         if self.build_info.is_favorite is False:
             self.build_info.is_favorite = True
-            self.build_info_writer = BuildInfoReader(
-                self.link, build_info=self.build_info,
-                mode=BuildInfoReader.Mode.WRITE)
-            self.build_info_writer.start()
+            self.write_build_info()
 
     @QtCore.pyqtSlot()
     def remove_from_favorites(self):
