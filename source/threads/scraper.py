@@ -94,13 +94,7 @@ class Scraper(QThread):
         if match:
             build_hash = match[-1].replace('-', '')
 
-        # Old buidls style naming
-        match = re.search(r'-\d\.\w+-', stem)
-
-        if match is None:
-            # New builds style naming
-            match = re.search(r'-\d+\.\d+\.\d+-', stem)
-
+        match = re.search(r'-\d\.[a-zA-Z0-9.]+-', stem)
         subversion = match.group(0).replace('-', '')
 
         if branch_type == 'experimental':
