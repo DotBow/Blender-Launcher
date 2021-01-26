@@ -19,6 +19,13 @@ class BuildInfo:
                  custom_name="", is_favorite=False):
         self.link_type = link_type
         self.link = link
+
+        if "Candidate" in subversion:
+            subversion = subversion.replace("Candidate", "")
+
+        if "rc" in subversion:
+            subversion = subversion.replace("rc", " RC ").strip()
+
         self.subversion = subversion
         self.build_hash = build_hash
         self.commit_time = commit_time
