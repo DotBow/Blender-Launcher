@@ -95,7 +95,7 @@ class DownloadWidget(QWidget):
         self.setLayout(self.h_layout)
 
     def showEvent(self, event):
-        self.list_widget.resize(self)
+        self.list_widget.resize()
 
     def mouseDoubleClickEvent(self, event):
         if self.state != DownloadState.DOWNLOADING:

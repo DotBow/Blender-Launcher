@@ -9,7 +9,6 @@ class BaseListWidget(QListWidget):
         self.parent = parent
         self.widgets = set()
         self.metrics = QFontMetrics(self.font())
-        self.subversion_indent = 0
 
         self.setFrameShape(QListWidget.NoFrame)
         self.setSortingEnabled(True)
@@ -66,20 +65,21 @@ class BaseListWidget(QListWidget):
 
         return False
 
-    def resize(self, widget):
-        if hasattr(widget, 'subversionLabel'):
-            text = widget.subversionLabel.text()
-            indent = int((80 - self.metrics.width(text)) * 0.5)
+    def resize(self):
+        widths = []
 
-            if self.subversion_indent != indent:
-                self.subversion_indent = indent
-
-                for widget in self.widgets:
-                    if hasattr(widget, 'subversionLabel'):
-                        widget.subversionLabel.setIndent(
-                            self.subversion_indent)
+        for widget in self.widgets:
+            if not hasattr(widget, 'subversionLabel'):
+                return
             else:
-                widget.subversionLabel.setIndent(self.subversion_indent)
+                text = widget.subversionLabel.text()
+                widths.append(self.metrics.width(text))
+
+        if len(widths) > 0:
+            indent = int((80 - max(widths)) * 0.5)
+
+            for widget in self.widgets:
+                widget.subversionLabel.setIndent(indent)
 
     def _clear(self):
         self.clear()
