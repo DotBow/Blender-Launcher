@@ -96,7 +96,6 @@ class Scraper(QThread):
         if match:
             build_hash = match[-1].replace('-', '')
 
-        # Old buidls style naming
         match = re.search(r'-\d\.[a-zA-Z0-9.]+-', stem)
         subversion = match.group(0).replace('-', '')
 
