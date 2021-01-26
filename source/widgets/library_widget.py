@@ -128,7 +128,7 @@ class LibraryWidget(QWidget):
 
         if self.branch == 'lts':
             branch_name = "LTS"
-        if (self.parent_widget is not None) and self.build_info.custom_name:
+        elif (self.parent_widget is not None) and self.build_info.custom_name:
             branch_name = self.build_info.custom_name
         else:
             branch_name = self.branch.replace('-', ' ').title()
