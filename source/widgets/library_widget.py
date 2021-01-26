@@ -63,11 +63,8 @@ class LibraryWidget(QWidget):
             self.build_info_reader = BuildInfoReader(link)
             self.build_info_reader.finished.connect(self.draw)
             self.build_info_reader.start()
-
-            self.item.setSizeHint(self.sizeHint())
         else:
             self.draw(self.parent_widget.build_info)
-            self.item.setSizeHint(self.sizeHint())
 
     def draw(self, build_info):
         if self.parent_widget is None:
