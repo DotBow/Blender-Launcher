@@ -267,7 +267,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         page = BasePageWidget(
             parent=self,
             page_name="UserFavoritesListWidget",
-            time_label="Upload Time",
+            time_label="Commit Time",
             info_text="Nothing to show yet")
         self.UserFavoritesListWidget = \
             self.UserToolBox.add_page_widget(
