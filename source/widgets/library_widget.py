@@ -487,6 +487,9 @@ class LibraryWidget(QWidget):
             self.build_info.is_favorite = True
             self.write_build_info()
 
+        # It fixes the issue with indenting last added widget
+        self.parent.UserFavoritesListWidget.resize()
+
     @QtCore.pyqtSlot()
     def remove_from_favorites(self):
         if self.parent_widget is None:
