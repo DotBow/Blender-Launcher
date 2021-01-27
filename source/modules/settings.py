@@ -19,6 +19,11 @@ taskbar_icon_paths = {
     1: ':resources/icons/tray_black.ico'
 }
 
+tabs = {
+    'Library': 0,
+    'Downloads': 1,
+    'User': 2
+}
 
 library_pages = {
     'Stable Releases': 0,
@@ -208,6 +213,19 @@ def get_default_downloads_page():
 
 def set_default_downloads_page(page):
     get_settings().setValue('default_downloads_page', downloads_pages[page])
+
+
+def get_default_tab():
+    settings = get_settings()
+
+    if settings.contains('default_tab'):
+        return settings.value('default_tab', type=int)
+    else:
+        return 0
+
+
+def set_default_tab(tab):
+    get_settings().setValue('default_tab', tabs[tab])
 
 
 def get_taskbar_icon_color():
