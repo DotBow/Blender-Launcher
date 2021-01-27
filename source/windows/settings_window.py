@@ -207,8 +207,10 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         layout._addRow("Show Tray Icon",
                        self.ShowTrayIconCheckBox)
-        layout._addRow("Launch Minimized To Tray",
-                       self.LaunchMinimizedToTrayCheckBox)
+        self.LaunchMinimizedToTrayRow = \
+            layout._addRow("Launch Minimized To Tray",
+                           self.LaunchMinimizedToTrayCheckBox)
+        self.LaunchMinimizedToTrayRow.setEnabled(get_show_tray_icon())
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Interface:"))
@@ -329,4 +331,5 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def toggle_show_tray_icon(self, is_checked):
         set_show_tray_icon(is_checked)
+        self.LaunchMinimizedToTrayRow.setEnabled(is_checked)
         self.parent.tray_icon.setVisible(is_checked)
