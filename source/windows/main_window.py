@@ -10,7 +10,7 @@ from modules._platform import get_platform, get_platform_full, set_locale
 from modules.enums import MessageType
 from modules.settings import (create_library_folders,
                               get_default_downloads_page,
-                              get_default_library_page,
+                              get_default_library_page, get_default_tab,
                               get_enable_download_notifications,
                               get_enable_new_builds_notifications,
                               get_launch_minimized_to_tray, get_library_folder,
@@ -283,6 +283,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.UserCustomListWidget = \
             self.UserToolBox.add_page_widget(page, "Custom")
 
+        self.TabWidget.setCurrentIndex(get_default_tab())
         self.LibraryToolBox.setCurrentIndex(get_default_library_page())
         self.DownloadsToolBox.setCurrentIndex(get_default_downloads_page())
 
