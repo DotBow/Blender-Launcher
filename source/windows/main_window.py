@@ -63,7 +63,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app = app
         self.version = version
         self.favorite = None
-        self.status = "None"
+        self.status = "Ready"
+        self.text = "OK"
         self.app_state = AppState.IDLE
         self.cashed_builds = []
         self.notification_pool = []
@@ -456,7 +457,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app.quit()
 
     def draw_library(self, clear=False):
-        self.set_status("Reading local builds")
+        self.set_status("Updating", "Reading local builds")
 
         if clear:
             self.timer.cancel()
@@ -491,7 +492,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.cashed_builds.clear()
         self.new_downloads = False
         self.app_state = AppState.CHECKINGBUILDS
-        self.set_status("Checking for new builds")
+        self.set_status("Updating", "Checking for new builds")
         self.scraper = Scraper(self, self.manager)
         self.scraper.links.connect(self.draw_to_downloads)
         self.scraper.new_bl_version.connect(self.set_version)
@@ -502,7 +503,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def connection_error(self):
         set_locale()
         utcnow = strftime(('%H:%M'), localtime())
-        self.set_status("Connection Error at " + utcnow)
+        self.set_status("Error", "Connection failed at " + utcnow)
         self.app_state = AppState.IDLE
 
         self.timer = threading.Timer(600.0, self.draw_downloads)
@@ -521,7 +522,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         set_locale()
         utcnow = strftime(('%H:%M'), localtime())
-        self.set_status("Last check at " + utcnow)
+        self.set_status("Ready", "Last check at " + utcnow)
         self.app_state = AppState.IDLE
 
         for page in self.DownloadsToolBox.pages:
@@ -590,11 +591,14 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                                show_branch, show_new)
         list_widget.insert_item(item, widget)
 
-    def set_status(self, status=None):
+    def set_status(self, status=None, text=None):
         if status is not None:
             self.status = status
 
-        self.statusbarLabel.setText("Status: {0}".format(self.status))
+        if text is not None:
+            self.text = text
+
+        self.statusbarLabel.setText("{0} | {1}".format(self.status, self.text))
 
     def set_version(self, latest_tag):
         latest_ver = re.sub(r'\D', '', latest_tag)
