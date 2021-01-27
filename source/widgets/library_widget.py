@@ -94,6 +94,8 @@ class LibraryWidget(QWidget):
         self.subversionLabel.setFixedWidth(80)
         self.branchLabel = ElidedTextLabel()
         self.commitTimeLabel = DateTimeWidget(self.build_info.commit_time)
+        self.list_widget.subversion_indent_changed.connect(
+            lambda x: self.subversionLabel.setIndent(x))
 
         self.build_state_widget = BuildStateWidget(self.parent)
 

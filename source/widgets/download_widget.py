@@ -62,6 +62,8 @@ class DownloadWidget(QWidget):
 
         self.subversionLabel = QLabel(self.build_info.subversion)
         self.subversionLabel.setFixedWidth(80)
+        self.list_widget.subversion_indent_changed.connect(
+            lambda x: self.subversionLabel.setIndent(x))
 
         if self.build_info.branch == 'lts':
             branch_name = "LTS"
@@ -93,8 +95,6 @@ class DownloadWidget(QWidget):
         self.h_layout.addWidget(self.build_state_widget)
 
         self.setLayout(self.h_layout)
-
-    def showEvent(self, event):
         self.list_widget.resize()
 
     def mouseDoubleClickEvent(self, event):

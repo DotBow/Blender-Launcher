@@ -1,9 +1,11 @@
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QFontMetrics
 from PyQt5.QtWidgets import QAbstractItemView, QListWidget
 
 
 class BaseListWidget(QListWidget):
+    subversion_indent_changed = pyqtSignal('PyQt_PyObject')
+
     def __init__(self, parent=None, extended_selection=False):
         super().__init__()
         self.parent = parent
@@ -77,9 +79,7 @@ class BaseListWidget(QListWidget):
 
         if len(widths) > 0:
             indent = int((80 - max(widths)) * 0.5)
-
-            for widget in self.widgets:
-                widget.subversionLabel.setIndent(indent)
+            self.subversion_indent_changed.emit(indent)
 
     def _clear(self):
         self.clear()
