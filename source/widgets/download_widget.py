@@ -62,8 +62,7 @@ class DownloadWidget(QWidget):
 
         self.subversionLabel = QLabel(self.build_info.subversion)
         self.subversionLabel.setFixedWidth(80)
-        self.list_widget.subversion_indent_changed.connect(
-            lambda x: self.subversionLabel.setIndent(x))
+        self.list_widget.subversion_indent_changed.connect(self.set_indent)
 
         if self.build_info.branch == 'lts':
             branch_name = "LTS"
@@ -195,6 +194,11 @@ class DownloadWidget(QWidget):
                 type=MessageType.DOWNLOADFINISHED)
             self.destroy()
 
+    def set_indent(self, indent):
+        self.subversionLabel.setIndent(indent)
+
     def destroy(self):
         if self.state == DownloadState.WAITING:
+            self.list_widget.subversion_indent_changed.disconnect(
+                self.set_indent)
             self.list_widget.remove_item(self.item)

@@ -94,8 +94,7 @@ class LibraryWidget(QWidget):
         self.subversionLabel.setFixedWidth(80)
         self.branchLabel = ElidedTextLabel()
         self.commitTimeLabel = DateTimeWidget(self.build_info.commit_time)
-        self.list_widget.subversion_indent_changed.connect(
-            lambda x: self.subversionLabel.setIndent(x))
+        self.list_widget.subversion_indent_changed.connect(self.set_indent)
 
         self.build_state_widget = BuildStateWidget(self.parent)
 
@@ -552,6 +551,11 @@ class LibraryWidget(QWidget):
         elif platform == 'Linux':
             subprocess.call(["xdg-open", folder.as_posix()])
 
+    def set_indent(self, indent):
+        self.subversionLabel.setIndent(indent)
+
     def _destroyed(self):
+        self.list_widget.subversion_indent_changed.disconnect(self.set_indent)
+
         if self.parent.favorite == self:
             self.parent.favorite = None
