@@ -3,7 +3,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_bash_arguments,
                               get_blender_startup_arguments,
                               get_default_downloads_page,
-                              get_default_library_page,
+                              get_default_library_page, get_default_tab,
                               get_enable_download_notifications,
                               get_enable_high_dpi_scaling,
                               get_enable_new_builds_notifications,
@@ -16,7 +16,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_bash_arguments,
                               set_blender_startup_arguments,
                               set_default_downloads_page,
-                              set_default_library_page,
+                              set_default_library_page, set_default_tab,
                               set_enable_download_notifications,
                               set_enable_high_dpi_scaling,
                               set_enable_new_builds_notifications,
@@ -24,7 +24,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
                               set_library_folder, set_mark_as_favorite,
-                              set_show_tray_icon, set_taskbar_icon_color,
+                              set_show_tray_icon, set_taskbar_icon_color, tabs,
                               taskbar_icon_colors)
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFileDialog, QFormLayout,
@@ -33,7 +33,7 @@ from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFileDialog, QFormLayout,
 from ui.settings_window_ui import Ui_SettingsWindow
 
 from windows.base_window import BaseWindow
-from windows.dialog_window import DialogIcon, DialogWindow
+from windows.dialog_window import DialogWindow
 
 
 class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
@@ -114,6 +114,12 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             get_taskbar_icon_color())
         self.TaskbarIconColorComboBox.activated[str].connect(
             self.change_taskbar_icon_color)
+
+        # Default Tab
+        self.DefaultTabComboBox = QComboBox()
+        self.DefaultTabComboBox.addItems(tabs.keys())
+        self.DefaultTabComboBox.setCurrentIndex(get_default_tab())
+        self.DefaultTabComboBox.activated[str].connect(self.change_default_tab)
 
         # Default Library Page
         self.DefaultLibraryPageComboBox = QComboBox()
@@ -208,6 +214,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(self._QLabel("Interface:"))
         layout = SettingsFormLayout(200)
         layout._addRow(
+            "Default Tab", self.DefaultTabComboBox)
+        layout._addRow(
             "Default Library Page", self.DefaultLibraryPageComboBox)
         layout._addRow(
             "Default Downloads Page", self.DefaultDownloadsPageComboBox)
@@ -282,6 +290,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def toggle_enable_high_dpi_scaling(self, is_checked):
         set_enable_high_dpi_scaling(is_checked)
         self.show_dlg_restart_bl()
+
+    def change_default_tab(self, tab):
+        set_default_tab(tab)
 
     def change_default_library_page(self, page):
         set_default_library_page(page)
