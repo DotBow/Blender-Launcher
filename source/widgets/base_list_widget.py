@@ -40,6 +40,7 @@ class BaseListWidget(QListWidget):
         row = self.row(item)
         self.takeItem(row)
         self.count_changed()
+        self.resize()
 
     def count_changed(self):
         if self.count() > 0:
