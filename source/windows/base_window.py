@@ -1,6 +1,7 @@
 from modules._platform import get_platform_full
 from modules.settings import get_enable_high_dpi_scaling
-from PyQt5.QtCore import QPoint, Qt
+from PyQt5.QtCore import QFile, QPoint, Qt, QTextStream
+from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import QApplication, QWidget
 from urllib3 import PoolManager
 
@@ -12,18 +13,31 @@ if get_enable_high_dpi_scaling():
 class BaseWindow(QWidget):
     def __init__(self, parent=None, app=None, version=None):
         super().__init__()
-
         self.parent = parent
 
         if parent is None:
             self.app = app
             self.version = version
 
+            # Setup pool manager
             _headers = {
                 'user-agent': 'Blender Launcher/{0} ({1})'.format(
                     version, get_platform_full())}
             self.manager = PoolManager(
                 num_pools=50, maxsize=10, headers=_headers)
+
+            # Setup font
+            QFontDatabase.addApplicationFont(
+                ":/resources/fonts/OpenSans-SemiBold.ttf")
+            self.font = QFont("Open Sans SemiBold", 10)
+            self.font.setHintingPreference(QFont.PreferNoHinting)
+            self.app.setFont(self.font)
+
+            # Setup style
+            file = QFile(":/resources/styles/global.qss")
+            file.open(QFile.ReadOnly | QFile.Text)
+            self.style_sheet = QTextStream(file).readAll()
+            self.app.setStyleSheet(self.style_sheet)
 
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_DeleteOnClose)

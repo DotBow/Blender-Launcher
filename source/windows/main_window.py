@@ -19,8 +19,8 @@ from modules.settings import (create_library_folders,
                               get_show_tray_icon, get_taskbar_icon_color,
                               is_library_folder_valid, set_library_folder,
                               taskbar_icon_paths)
-from PyQt5.QtCore import QFile, QSize, Qt, QTextStream, pyqtSignal
-from PyQt5.QtGui import QFont, QFontDatabase, QIcon
+from PyQt5.QtCore import QSize, Qt, pyqtSignal
+from PyQt5.QtGui import QIcon
 from PyQt5.QtNetwork import QLocalServer
 from PyQt5.QtWidgets import (QAction, QFileDialog, QHBoxLayout, QLabel,
                              QMainWindow, QPushButton, QSystemTrayIcon,
@@ -91,19 +91,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         # Setup window
         self.setWindowTitle("Blender Launcher")
         self.app.setWindowIcon(self.icon_taskbar)
-
-        # Setup font
-        QFontDatabase.addApplicationFont(
-            ":/resources/fonts/OpenSans-SemiBold.ttf")
-        self.font = QFont("Open Sans SemiBold", 10)
-        self.font.setHintingPreference(QFont.PreferNoHinting)
-        self.app.setFont(self.font)
-
-        # Setup style
-        file = QFile(":/resources/styles/global.qss")
-        file.open(QFile.ReadOnly | QFile.Text)
-        self.style_sheet = QTextStream(file).readAll()
-        self.app.setStyleSheet(self.style_sheet)
 
         # Check library folder
         if is_library_folder_valid() is False:
