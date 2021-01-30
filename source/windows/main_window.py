@@ -1,12 +1,15 @@
+import os
 import re
 import threading
 import webbrowser
 from enum import Enum
 from pathlib import Path
+from shutil import copyfileobj
 from time import localtime, strftime
 
 from items.base_list_widget_item import BaseListWidgetItem
-from modules._platform import get_platform, get_platform_full, set_locale
+from modules._platform import (_popen, get_platform, get_platform_full,
+                               set_locale)
 from modules.enums import MessageType
 from modules.settings import (create_library_folders,
                               get_default_downloads_page,
@@ -37,7 +40,6 @@ from widgets.library_widget import LibraryWidget
 from windows.base_window import BaseWindow
 from windows.dialog_window import DialogIcon, DialogWindow
 from windows.settings_window import SettingsWindow
-from windows.update_window import UpdateWindow
 
 
 class AppState(Enum):
@@ -370,9 +372,30 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
                 return
 
-        self.tray_icon.hide()
-        self.close()
-        self.update_window = UpdateWindow(self, self.latest_tag)
+        platform = get_platform()
+        cwd = Path.cwd()
+
+        if platform == 'Windows':
+            bl_exe = "Blender Launcher.exe"
+            blu_exe = "Blender Launcher Updater.exe"
+        elif platform == 'Linux':
+            bl_exe = "Blender Launcher"
+            blu_exe = "Blender Launcher Updater"
+
+        source = cwd / bl_exe
+        dist = cwd / blu_exe
+
+        with open(source.as_posix(), 'rb') as f1, open(dist.as_posix(), 'wb') as f2:
+            copyfileobj(f1, f2)
+
+        if platform == 'Windows':
+            _popen([dist.as_posix(), '-update', self.latest_tag])
+        elif platform == 'Linux':
+            os.chmod(dist.as_posix(), 0o744)
+            _popen('nohup "{0}" -update {1}'.format(dist.as_posix(),
+                                                    self.latest_tag))
+
+        self.destroy()
 
     def _show(self):
         platform = get_platform()

@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QApplication
 
 from modules._platform import _popen, get_platform
 from windows.main_window import BlenderLauncher
+from windows.update_window import BlenderLauncherUpdater
 
 version = "1.10.0"
 logger = logging.getLogger(__name__)
@@ -32,34 +33,15 @@ sys.excepthook = handle_exception
 
 
 def main():
-    if "-update" in sys.argv:
-        platform = get_platform()
-        temp = Path(tempfile.gettempdir())
-        cwd = Path.cwd()
-
-        if platform == 'Windows':
-            bl_exe = "Blender Launcher.exe"
-        elif platform == 'Linux':
-            bl_exe = "Blender Launcher"
-
-        source = (temp / bl_exe).as_posix()
-        dist = (cwd / bl_exe).as_posix()
-
-        with open(source, 'rb') as f1, open(dist, 'wb') as f2:
-            copyfileobj(f1, f2)
-
-        if platform == 'Windows':
-            _popen([dist])
-        elif platform == 'Linux':
-            os.chmod(dist, 0o744)
-            _popen('nohup "' + dist + '"')
-
-        sys.exit(0)
-
     app = QApplication(sys.argv)
     app.setStyle('Fusion')
     app.setApplicationVersion(version)
     app.setQuitOnLastWindowClosed(False)
+
+    if "-update" in sys.argv:
+        BlenderLauncherUpdater(app, version, sys.argv[-1])
+        app.exec_()
+        return
 
     socket = QLocalSocket()
     socket.connectToServer("blender-launcher-server")
@@ -69,6 +51,7 @@ def main():
         socket.close()
         BlenderLauncher(app, version)
         app.exec_()
+        return
 
 
 if __name__ == '__main__':
