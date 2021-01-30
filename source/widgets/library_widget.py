@@ -43,6 +43,7 @@ class LibraryWidget(QWidget):
         self.child_widget = None
         self.parent_widget = parent_widget
 
+        self.parent.quit_signal.connect(self.list_widget_deleted)
         self.destroyed.connect(lambda: self._destroyed())
 
         self.layout = QHBoxLayout()
@@ -557,8 +558,13 @@ class LibraryWidget(QWidget):
     def set_indent(self, indent):
         self.subversionLabel.setIndent(indent)
 
+    def list_widget_deleted(self):
+        self.list_widget = None
+
     def _destroyed(self):
-        self.list_widget.subversion_indent_changed.disconnect(self.set_indent)
+        if self.list_widget is not None:
+            self.list_widget.subversion_indent_changed.disconnect(
+                self.set_indent)
 
         if self.parent.favorite == self:
             self.parent.favorite = None

@@ -50,6 +50,7 @@ class AppState(Enum):
 class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     show_signal = pyqtSignal()
     close_signal = pyqtSignal()
+    quit_signal = pyqtSignal()
 
     def __init__(self, app, version):
         super().__init__()
@@ -470,6 +471,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 self.dlg.accepted.connect(self.destroy)
                 return
 
+        self.quit_signal.emit()
         self.destroy()
 
     def destroy(self):
