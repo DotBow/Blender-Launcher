@@ -1,14 +1,10 @@
 import logging
-import os
 import sys
-import tempfile
-from pathlib import Path
-from shutil import copyfileobj
 
 from PyQt5.QtNetwork import QLocalSocket
 from PyQt5.QtWidgets import QApplication
 
-from modules._platform import _popen, get_platform
+from modules._platform import get_platform
 from windows.main_window import BlenderLauncher
 from windows.update_window import BlenderLauncherUpdater
 
