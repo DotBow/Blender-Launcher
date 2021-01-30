@@ -16,8 +16,6 @@ class BlenderLauncherUpdater(QMainWindow, BaseWindow, UpdateWindowUI):
     def __init__(self, app, version, tag):
         super(BlenderLauncherUpdater, self).__init__(app=app, version=version)
         self.tag = tag
-
-        self.setWindowTitle("Update")
         self.setupUi(self)
 
         self.show()
