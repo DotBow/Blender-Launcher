@@ -35,7 +35,7 @@ def main():
     app.setQuitOnLastWindowClosed(False)
 
     if "-update" in sys.argv:
-        BlenderLauncherUpdater(app, version, sys.argv[-1])
+        BlenderLauncherUpdater(app=app, version=version, tag=sys.argv[-1])
         app.exec_()
         return
 
@@ -45,7 +45,7 @@ def main():
 
     if not is_running:
         socket.close()
-        BlenderLauncher(app, version)
+        BlenderLauncher(app=app, version=version)
         app.exec_()
         return
 

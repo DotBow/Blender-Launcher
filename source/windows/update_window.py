@@ -3,30 +3,22 @@ import tempfile
 from pathlib import Path
 from shutil import copyfileobj
 
-from modules._platform import _popen, get_platform, get_platform_full
+from modules._platform import _popen, get_platform
 from PyQt5.QtWidgets import QMainWindow
 from threads.downloader import Downloader
 from threads.extractor import Extractor
 from ui.update_window_ui import UpdateWindowUI
-from urllib3 import PoolManager
 
 from windows.base_window import BaseWindow
 
 
 class BlenderLauncherUpdater(QMainWindow, BaseWindow, UpdateWindowUI):
     def __init__(self, app, version, tag):
-        super().__init__()
-        self.setWindowTitle("Update")
-        self.setupUi(self)
-
-        self.app = app
+        super(BlenderLauncherUpdater, self).__init__(app=app, version=version)
         self.tag = tag
 
-        _headers = {
-            'user-agent': 'Blender Launcher/{0} ({1})'.format(
-                version, get_platform_full())}
-        self.manager = PoolManager(
-            num_pools=50, maxsize=10, headers=_headers)
+        self.setWindowTitle("Update")
+        self.setupUi(self)
 
         self.show()
         self.download()

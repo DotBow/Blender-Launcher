@@ -8,8 +8,7 @@ from shutil import copyfileobj
 from time import localtime, strftime
 
 from items.base_list_widget_item import BaseListWidgetItem
-from modules._platform import (_popen, get_platform, get_platform_full,
-                               set_locale)
+from modules._platform import _popen, get_platform, set_locale
 from modules.enums import MessageType
 from modules.settings import (create_library_folders,
                               get_default_downloads_page,
@@ -30,7 +29,6 @@ from threads.library_drawer import LibraryDrawer
 from threads.remover import Remover
 from threads.scraper import Scraper
 from ui.main_window_ui import Ui_MainWindow
-from urllib3 import PoolManager
 from widgets.base_menu_widget import BaseMenuWidget
 from widgets.base_page_widget import BasePageWidget
 from widgets.base_tool_box_widget import BaseToolBoxWidget
@@ -53,7 +51,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     quit_signal = pyqtSignal()
 
     def __init__(self, app, version):
-        super().__init__()
+        super(BlenderLauncher, self).__init__(app=app, version=version)
         self.setupUi(self)
         self.setAcceptDrops(True)
 
@@ -72,13 +70,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.cashed_builds = []
         self.notification_pool = []
         self.windows = [self]
-
-        _headers = {
-            'user-agent': 'Blender Launcher/{0} ({1})'.format(
-                version, get_platform_full())}
-        self.manager = PoolManager(
-            num_pools=50, maxsize=10, headers=_headers)
-
         self.timer = None
         self.started = True
         self.latest_tag = ""
@@ -117,7 +108,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         # Check library folder
         if is_library_folder_valid() is False:
             self.dlg = DialogWindow(
-                self, title="Information",
+                parent=self, title="Information",
                 text="First, choose where Blender<br>builds will be stored",
                 accept_text="Continue", cancel_text=None, icon=DialogIcon.INFO)
             self.dlg.accepted.connect(self.set_library_folder)
@@ -136,7 +127,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 self.draw(True)
             else:
                 self.dlg = DialogWindow(
-                    self, title="Warning",
+                    parent=self, title="Warning",
                     text="Selected folder doesn't have write permissions!",
                     accept_text="Retry", cancel_text=None)
                 self.dlg.accepted.connect(self.set_library_folder)
@@ -366,7 +357,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         for widget in download_widgets:
             if widget.state == DownloadState.DOWNLOADING:
                 self.dlg = DialogWindow(
-                    self, title="Warning",
+                    parent=self, title="Warning",
                     text="In order to update Blender Launcher<br> \
                           complete all active downloads!",
                     accept_text="OK", cancel_text=None)
@@ -441,7 +432,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.favorite.launch()
         except Exception:
             self.dlg = DialogWindow(
-                self, text="Add build to Quick Launch via<br>\
+                parent=self, text="Add build to Quick Launch via<br>\
                             context menu to run it from tray",
                 accept_text="OK", cancel_text=None, icon=DialogIcon.INFO)
 
@@ -463,7 +454,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         for widget in download_widgets:
             if widget.state == DownloadState.DOWNLOADING:
                 self.dlg = DialogWindow(
-                    self, title="Warning",
+                    parent=self, title="Warning",
                     text="Active downloads in progress!<br>\
                           Are you sure you want to quit?",
                     accept_text="Yes", cancel_text="No")
@@ -642,7 +633,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.latest_tag = latest_tag
 
     def show_settings_window(self):
-        self.settings_window = SettingsWindow(self)
+        self.settings_window = SettingsWindow(parent=self)
 
     def clear_temp(self):
         temp_folder = Path(get_library_folder()) / ".temp"

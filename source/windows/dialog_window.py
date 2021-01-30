@@ -3,8 +3,8 @@ from enum import Enum
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QHBoxLayout, QLabel, QMainWindow, QPushButton
-
 from ui.dialog_window_ui import Ui_DialogWindow
+
 from windows.base_window import BaseWindow
 
 
@@ -20,9 +20,9 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
     def __init__(self, parent, title="Warning", text="Dialog Window",
                  accept_text="Accept", cancel_text="Cancel",
                  icon=DialogIcon.WARNING):
-        super().__init__()
+        super(DialogWindow, self).__init__(parent=parent)
+
         self.setWindowFlag(Qt.SubWindow)
-        self.parent = parent
         self.setupUi(self)
         self.setWindowTitle(title)
 

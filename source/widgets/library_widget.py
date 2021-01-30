@@ -381,7 +381,7 @@ class LibraryWidget(QWidget):
     def ask_remove_from_drive(self):
         self.item.setSelected(True)
         self.dlg = DialogWindow(
-            self.parent, title="Warning",
+            parent=self.parent, title="Warning",
             text="Are you sure you want to<br> \
                   delete selected builds?",
             accept_text="Yes", cancel_text="No")

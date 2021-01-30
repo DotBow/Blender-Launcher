@@ -38,12 +38,11 @@ from windows.dialog_window import DialogWindow
 
 class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def __init__(self, parent):
-        super().__init__()
-        self.setWindowFlag(Qt.SubWindow)
+        super(SettingsWindow, self).__init__(parent=parent)
 
-        self.parent = parent
-        platform = get_platform()
+        self.setWindowFlag(Qt.SubWindow)
         self.setupUi(self)
+        platform = get_platform()
 
         self.setWindowTitle("Settings")
 
@@ -261,7 +260,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def show_dlg_restart_bl(self):
         self.dlg = DialogWindow(
-            self.parent, title="Warning",
+            parent=self.parent, title="Warning",
             text="Restart Blender Launcher in<br> \
                   order to apply this setting!",
             accept_text="OK", cancel_text=None)
@@ -278,7 +277,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
                 self.parent.draw_library(clear=True)
             else:
                 self.dlg = DialogWindow(
-                    self.parent, title="Warning",
+                    parent=self.parent, title="Warning",
                     text="Selected folder doesn't have write permissions!",
                     accept_text="Retry", cancel_text=None)
                 self.dlg.accepted.connect(self.set_library_folder)
