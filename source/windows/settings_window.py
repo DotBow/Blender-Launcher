@@ -12,6 +12,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_launch_when_system_starts,
                               get_library_folder, get_mark_as_favorite,
                               get_platform, get_show_tray_icon,
+                              get_sync_library_and_downloads_pages,
                               get_taskbar_icon_color, library_pages,
                               set_bash_arguments,
                               set_blender_startup_arguments,
@@ -24,7 +25,9 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
                               set_library_folder, set_mark_as_favorite,
-                              set_show_tray_icon, set_taskbar_icon_color, tabs,
+                              set_show_tray_icon,
+                              set_sync_library_and_downloads_pages,
+                              set_taskbar_icon_color, tabs,
                               taskbar_icon_colors)
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFileDialog, QFormLayout,
@@ -120,6 +123,13 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.DefaultTabComboBox.setCurrentIndex(get_default_tab())
         self.DefaultTabComboBox.activated[str].connect(self.change_default_tab)
 
+        # Sync Library and Downloads pages
+        self.SyncLibraryAndDownloadsPages = QCheckBox()
+        self.SyncLibraryAndDownloadsPages.clicked.connect(
+            self.toggle_sync_library_and_downloads_pages)
+        self.SyncLibraryAndDownloadsPages.setChecked(
+            get_sync_library_and_downloads_pages())
+
         # Default Library Page
         self.DefaultLibraryPageComboBox = QComboBox()
         self.DefaultLibraryPageComboBox.addItems(library_pages.keys())
@@ -196,7 +206,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(self.LibraryFolderLayout)
 
         SettingsLayout.addRow(self._QLabel("System:"))
-        layout = SettingsFormLayout(200)
+        layout = SettingsFormLayout(220)
         layout._addRow(
             "Taskbar Icon Color", self.TaskbarIconColorComboBox)
 
@@ -213,9 +223,12 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Interface:"))
-        layout = SettingsFormLayout(200)
+        layout = SettingsFormLayout(220)
         layout._addRow(
             "Default Tab", self.DefaultTabComboBox)
+        layout._addRow(
+            "Sync Library & Downloads Pages",
+            self.SyncLibraryAndDownloadsPages)
         layout._addRow(
             "Default Library Page", self.DefaultLibraryPageComboBox)
         layout._addRow(
@@ -225,7 +238,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Notifications:"))
-        layout = SettingsFormLayout(200)
+        layout = SettingsFormLayout(220)
         layout._addRow("When New Builds Are Available",
                        self.EnableNewBuildsNotifications)
         layout._addRow("When Downloading Is Finished",
@@ -233,7 +246,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("New Build Actions:"))
-        layout = SettingsFormLayout(200)
+        layout = SettingsFormLayout(220)
         layout._addRow("Mark As Favorite", self.MarkAsFavorite)
         layout._addRow("Install Template", self.InstallTemplate)
         SettingsLayout.addRow(layout)
@@ -310,6 +323,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         if get_taskbar_icon_color() != currentIndex:
             set_taskbar_icon_color(color)
             self.show_dlg_restart_bl()
+
+    def toggle_sync_library_and_downloads_pages(self, is_checked):
+        set_sync_library_and_downloads_pages(is_checked)
 
     def toggle_enable_download_notifications(self, is_checked):
         set_enable_download_notifications(is_checked)
