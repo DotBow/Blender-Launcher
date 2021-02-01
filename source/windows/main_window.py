@@ -387,7 +387,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         source = cwd / bl_exe
         dist = cwd / blu_exe
 
-        with open(source.as_posix(), 'rb') as f1, open(dist.as_posix(), 'wb') as f2:
+        with open(source.as_posix(), 'rb') as f1, \
+                open(dist.as_posix(), 'wb') as f2:
             copyfileobj(f1, f2)
 
         if platform == 'Windows':
