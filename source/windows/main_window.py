@@ -16,9 +16,10 @@ from modules.settings import (create_library_folders,
                               get_enable_download_notifications,
                               get_enable_new_builds_notifications,
                               get_launch_minimized_to_tray, get_library_folder,
-                              get_show_tray_icon, get_taskbar_icon_color,
-                              is_library_folder_valid, set_library_folder,
-                              taskbar_icon_paths)
+                              get_show_tray_icon,
+                              get_sync_library_and_downloads_pages,
+                              get_taskbar_icon_color, is_library_folder_valid,
+                              set_library_folder, taskbar_icon_paths)
 from PyQt5.QtCore import QSize, Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
 from PyQt5.QtNetwork import QLocalServer
@@ -183,10 +184,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.DownloadsToolBox = BaseToolBoxWidget(self)
         self.UserToolBox = BaseToolBoxWidget(self)
 
-        self.LibraryToolBox.tab_changed.connect(
-            lambda i: self.DownloadsToolBox.setCurrentIndex(i))
-        self.DownloadsToolBox.tab_changed.connect(
-            lambda i: self.LibraryToolBox.setCurrentIndex(i))
+        self.toggle_sync_library_and_downloads_pages(
+            get_sync_library_and_downloads_pages())
 
         self.LibraryTab.layout().addWidget(self.LibraryToolBox)
         self.DownloadsTab.layout().addWidget(self.DownloadsToolBox)
@@ -333,6 +332,30 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 self._show()
         else:
             self._show()
+
+    def toggle_sync_library_and_downloads_pages(self, is_sync):
+        if is_sync:
+            self.LibraryToolBox.tab_changed.connect(
+                lambda i: self.DownloadsToolBox.setCurrentIndex(i))
+            self.DownloadsToolBox.tab_changed.connect(
+                lambda i: self.LibraryToolBox.setCurrentIndex(i))
+        else:
+            if self.isSignalConnected(self.LibraryToolBox, 'tab_changed()'):
+                self.LibraryToolBox.tab_changed.disconnect()
+
+            if self.isSignalConnected(self.DownloadsToolBox, 'tab_changed()'):
+                self.DownloadsToolBox.tab_changed.disconnect()
+
+    def isSignalConnected(self, obj, name):
+        index = obj.metaObject().indexOfMethod(name)
+
+        if index > -1:
+            method = obj.metaObject().method(index)
+
+            if method:
+                return obj.isSignalConnected(method)
+
+        return False
 
     def show_update_window(self):
         download_widgets = []

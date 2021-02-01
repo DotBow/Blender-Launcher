@@ -326,6 +326,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def toggle_sync_library_and_downloads_pages(self, is_checked):
         set_sync_library_and_downloads_pages(is_checked)
+        self.parent.toggle_sync_library_and_downloads_pages(is_checked)
 
     def toggle_enable_download_notifications(self, is_checked):
         set_enable_download_notifications(is_checked)
