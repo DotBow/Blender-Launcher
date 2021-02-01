@@ -28,8 +28,7 @@ tabs = {
 library_pages = {
     'Stable Releases': 0,
     'Daily Builds': 1,
-    'Experimental Branches': 2,
-    'Custom Builds': 3
+    'Experimental Branches': 2
 }
 
 
