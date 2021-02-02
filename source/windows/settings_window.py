@@ -311,8 +311,18 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def change_default_library_page(self, page):
         set_default_library_page(page)
 
+        if get_sync_library_and_downloads_pages():
+            index = self.DefaultLibraryPageComboBox.currentIndex()
+            self.DefaultDownloadsPageComboBox.setCurrentIndex(index)
+            set_default_downloads_page(page)
+
     def change_default_downloads_page(self, page):
         set_default_downloads_page(page)
+
+        if get_sync_library_and_downloads_pages():
+            index = self.DefaultDownloadsPageComboBox.currentIndex()
+            self.DefaultLibraryPageComboBox.setCurrentIndex(index)
+            set_default_library_page(page)
 
     def change_mark_as_favorite(self, page):
         set_mark_as_favorite(page)
@@ -327,6 +337,12 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def toggle_sync_library_and_downloads_pages(self, is_checked):
         set_sync_library_and_downloads_pages(is_checked)
         self.parent.toggle_sync_library_and_downloads_pages(is_checked)
+
+        if is_checked:
+            index = self.DefaultLibraryPageComboBox.currentIndex()
+            self.DefaultDownloadsPageComboBox.setCurrentIndex(index)
+            text = self.DefaultLibraryPageComboBox.currentText()
+            set_default_downloads_page(text)
 
     def toggle_enable_download_notifications(self, is_checked):
         set_enable_download_notifications(is_checked)
