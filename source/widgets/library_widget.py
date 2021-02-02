@@ -532,9 +532,10 @@ class LibraryWidget(QWidget):
         platform = get_platform()
 
         if platform == 'Windows':
-            if os.path.exists(link):
-                if os.path.isdir(link):
-                    os.rmdir(link)
+            try:
+                os.rmdir(link)
+            except Exception:
+                pass
 
             _call('mklink /J "{0}" "{1}"'.format(link, target))
         elif platform == 'Linux':
