@@ -1,2 +1,7 @@
 theme: jekyll-theme-cayman
 title: "Blender Launcher"
+site_name: "Blender Launcher"
+site_description: "Standalone client for managing official builds of Blender 3D"
+nav:
+    - Introduction: index.md
+    - Installation: installation.md
