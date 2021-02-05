@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Library Folder - Blender Launcher</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Library Folder";
+    var mkdocs_page_input_path = "library_folder.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Blender Launcher</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Blender Launcher</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../user_interface/">User Interface</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Library Folder</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#important-note">Important Note</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structure">Structure</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#bl_symlink">bl_symlink</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#temp">.temp</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#custom">custom</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#daily">daily</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#experimental">experimental</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#stable">stable</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#template">template</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../settings/">Settings</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../troubleshooting/">Troubleshooting</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../development/">Development</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../feature_request/">Feature Request</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Blender Launcher</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Library Folder</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="library-folder">Library Folder</h1>
+<p><strong>Library Folder</strong> - a directory on hard drive where all downloaded builds are stored.</p>
+<h2 id="important-note">Important Note</h2>
+<p>Don&rsquo;t create <strong>Library Folder</strong> inside UAC protected folders like <strong>Program Files</strong>. \
+It is recommended to create a new directory on a non system drive or inside user folder like <strong>Documents</strong> to avoid any file collisions and have a nice structure.</p>
+<h2 id="structure">Structure</h2>
+<p><strong>Library Folder</strong> has the following structure:</p>
+<pre>
+|-- %Library Folder%
+    |-- bl_symlink
+    |-- .temp
+    |-- custom
+    |-- daily
+    |-- experimental
+    |-- stable
+    |-- template
+</pre>
+
+<h3 id="bl_symlink">bl_symlink</h3>
+<p><strong>bl_symlink</strong> is a symbolic link that creates via <a href="User-Interface#library-build-context-menu">library build context menu</a>.</p>
+<h3 id="temp">.temp</h3>
+<p><strong>.temp</strong> folder is used to store downloaded <em>.zip and </em>.tar files.</p>
+<h3 id="custom">custom</h3>
+<p><strong>custom</strong> folder is used to store builds downloaded by user manually (e.g. from <a href="https://blender.community/c/graphicall/">GraphicAll</a>). \
+To use custom builds with Blender Launcher they must be placed inside <strong>custom</strong> folder manually:</p>
+<pre>
+|-- %Library Folder%
+    |-- custom
+        |-- %custom blender build 1%
+            |-- ...
+            |-- blender.exe
+            |-- ...
+        |-- %custom blender build 1%
+            |-- ...
+            |-- blender.exe
+            |-- ...
+        |-- ...
+</pre>
+
+<h3 id="daily">daily</h3>
+<p><strong>daily</strong> folder is used to store <a href="https://builder.blender.org/download/">daily builds</a>.</p>
+<h3 id="experimental">experimental</h3>
+<p><strong>experimental</strong> folder is used to store <a href="https://builder.blender.org/download/branches/">experimental branches builds</a>.</p>
+<h3 id="stable">stable</h3>
+<p><strong>stable</strong> folder is used to store <a href="https://download.blender.org/release/">stable builds</a>.</p>
+<h3 id="template">template</h3>
+<p><strong>template</strong> folder is used to store custom Blender preferences and scripts (e.g. <a href="https://github.com/HEAVYPOLY/HEAVYPOLY_Blender">HEAVYPOLY config</a>). \
+Template represents a file structure similar to one existing in Blender build (e.g. blender-2.91.0-windows64\2.91):</p>
+<pre>
+|-- %Library Folder%
+    |-- template
+        |-- ...
+        |-- config
+        |-- datafiles
+        |-- scripts
+            |-- ...
+            |-- addons
+            |-- startup
+            |-- ...
+        |-- ...
+</pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../settings/" class="btn btn-neutral float-right" title="Settings">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../user_interface/" class="btn btn-neutral" title="User Interface"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../user_interface/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../settings/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Settings - Blender Launcher</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Settings";
+    var mkdocs_page_input_path = "settings.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Blender Launcher</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Blender Launcher</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../user_interface/">User Interface</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../library_folder/">Library Folder</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Settings</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#settings-window">Settings Window</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#library-folder">Library Folder</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#system">System</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#taskbar-icon-color">Taskbar Icon Color</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#launch-when-system-starts-windows-only">Launch When System Starts [Windows only]</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#launch-minimized-to-tray">Launch Minimized To Tray</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#interface">Interface</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#default-library-page">Default Library Page</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#default-downloads-page">Default Downloads Page</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#enable-high-dpi-scaling">Enable High DPI Scaling</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#notifications">Notifications</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#when-new-builds-are-available">When New Builds Are Available</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#when-downloading-finished">When Downloading Finished</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-build-actions">New Build Actions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#mark-as-favorite">Mark As Favorite</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#install-template">Install Template</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#blender-launching">Blender Launching</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#startup-arguments">Startup Arguments</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#bash-arguments-linux-only">Bash Arguments [Linux only]</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../troubleshooting/">Troubleshooting</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../development/">Development</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../feature_request/">Feature Request</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Blender Launcher</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Settings</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="settings">Settings</h1>
+<h2 id="settings-window">Settings Window</h2>
+<p>To open the <strong>Settings Window</strong> use button with gear icon on top left of the <strong>Main Window</strong>.\
+All changes saved automatically.</p>
+<h2 id="library-folder">Library Folder</h2>
+<p><strong>Library Folder</strong> - a directory on hard drive, where all downloaded builds are stored. \
+For detailed information check <a href="wiki#Library-Folder">Library Folder</a> page.</p>
+<h2 id="system">System</h2>
+<h3 id="taskbar-icon-color">Taskbar Icon Color</h3>
+<p>Determines the color of the <strong>Blender Launcher</strong> icon in taskbar so it is both readable in light and dark system themes. \
+To apply changes application should be restarted.</p>
+<h3 id="launch-when-system-starts-windows-only">Launch When System Starts [Windows only]</h3>
+<p>Determines if <strong>Blender Launcher</strong> will run when system starts.</p>
+<h3 id="launch-minimized-to-tray">Launch Minimized To Tray</h3>
+<p>Determines if <strong>Main Window</strong> will pop up when user execute <strong>Blender Launcher</strong> or only tray icon will be shown.</p>
+<h2 id="interface">Interface</h2>
+<h3 id="default-library-page">Default Library Page</h3>
+<p>Determines what page of Library tab will be opened when <strong>Blender Launcher</strong> starts.</p>
+<h3 id="default-downloads-page">Default Downloads Page</h3>
+<p>Determines what page of Downloads tab will be opened when <strong>Blender Launcher</strong> starts.</p>
+<h3 id="enable-high-dpi-scaling">Enable High DPI Scaling</h3>
+<p>Determines if <strong>Blender Launcher</strong> user interface will automatically scale based on the monitor&rsquo;s pixel density. \
+To apply changes application should be restarted.</p>
+<h2 id="notifications">Notifications</h2>
+<h3 id="when-new-builds-are-available">When New Builds Are Available</h3>
+<p>Show OS notifications when new new builds of Blender are available in Downloads tab.</p>
+<h3 id="when-downloading-finished">When Downloading Finished</h3>
+<p>Show OS notifications when build finished downloading and added to Library tab.</p>
+<h2 id="new-build-actions">New Build Actions</h2>
+<p>Actions that will be performed on newly added build to Library tab right after downloading is finished.</p>
+<h3 id="mark-as-favorite">Mark As Favorite</h3>
+<p>Mark every newly added build to Library tab as favorite depending on branch type.</p>
+<h3 id="install-template">Install Template</h3>
+<p>Installs template on newly added build to Library tab.</p>
+<h2 id="blender-launching">Blender Launching</h2>
+<h3 id="startup-arguments">Startup Arguments</h3>
+<p>Adds specific instructions as if Blender was launching from the command line (after the blender executable i.e. <strong>blender [args …]</strong>). \
+For example, adding <strong>-W</strong> (force opening Blender in fullscreen mode) argument internally will produce following command:</p>
+<p><code>$ %path to blender executable% -W</code></p>
+<p>List of commands can be found on Blender manual <a href="https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html">Command Line Arguments</a> page.</p>
+<h3 id="bash-arguments-linux-only">Bash Arguments [Linux only]</h3>
+<p>Adds specific instructions as if Blender was launching from the command line (before the blender executable i.e. <strong>[args …] blender</strong>). \
+For example, adding <strong>env __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia</strong> (force Blender to use dedicated graphics card) arguments internally will produce following command:</p>
+<p><code>$ env __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia nohup %path to blender executable% %startup arguments%</code></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../troubleshooting/" class="btn btn-neutral float-right" title="Troubleshooting">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../library_folder/" class="btn btn-neutral" title="Library Folder"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../library_folder/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../troubleshooting/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

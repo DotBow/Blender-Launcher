@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>User Interface - Blender Launcher</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "User Interface";
+    var mkdocs_page_input_path = "user_interface.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Blender Launcher</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Blender Launcher</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">User Interface</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#main-window">Main Window</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#library-tab">Library Tab</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#library-build-context-menu">Library Build Context Menu</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#downloads-tab">Downloads Tab</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../library_folder/">Library Folder</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../settings/">Settings</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../troubleshooting/">Troubleshooting</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../development/">Development</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../feature_request/">Feature Request</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Blender Launcher</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>User Interface</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="user-interface">User Interface</h1>
+<h2 id="main-window">Main Window</h2>
+<p><strong>Main Window</strong> is a face of Blender Launcher where all main features can be accessed.</p>
+<p>The top horizontal menu bar contains following buttons from left to right:</p>
+<ol>
+<li>Settings Menu</li>
+<li>Wiki link</li>
+<li>Minimize to taskbar</li>
+<li>Minimize to tray</li>
+</ol>
+<p><strong>Main Window</strong> layout consists of two main tabs:</p>
+<ul>
+<li><strong>Library</strong> - list of local builds ready to use</li>
+<li><strong>Downloads</strong> - list of available official builds</li>
+</ul>
+<p>The bottom status bar shows following information from left to right:</p>
+<ol>
+<li>Status of application</li>
+<li>Blender Launcher version number</li>
+</ol>
+<h2 id="library-tab">Library Tab</h2>
+<p>Library tab is a place where all local builds are shown based on category. \
+Each category contains a list of items which represents a build information. \
+Library build item shows following information from left to right:</p>
+<ol>
+<li>Version number including subversion or phase (Alpha, Beta)</li>
+<li>Branch name</li>
+<li>Date and time of build commit target \
+Note: builder.blender.org shows when build was uploaded to server</li>
+<li>Commit hash number</li>
+<li>Number of running instances</li>
+<li>Favorite indicator</li>
+</ol>
+<p>Double clicking on library build item will automatically Launch build.</p>
+<h3 id="library-build-context-menu">Library Build Context Menu</h3>
+<p>Build context menu can be accessed via right click on build item. \
+It contains following features:</p>
+<ul>
+<li><strong>Mark As Favorite</strong> - set selected build as favorite so it can be accessed from tray icon.</li>
+<li><strong>Register Extension [Windows only]</strong> - silently register blend-file extension (show thumbnails in file explorer and use selected build as default to open .*blend files).</li>
+<li><strong>Create Shortcut</strong> - create shortcut for selected build on desktop.</li>
+<li><strong>Create Symlink</strong> - create <a href="https://en.wikipedia.org/wiki/Symbolic_link">symbolic link</a> for selected build pointing to <strong>%Library Folder%/blender_symlink</strong>.</li>
+<li><strong>Show Folder</strong> - reveal folder containing selected build in system file explorer.</li>
+<li><strong>Install Template</strong> - install template for selected build (check <a href="Library-Folder#template">template</a> for more details).</li>
+<li><strong>Delete From Drive</strong> - delete selected build from drive and remove it from Blender Launcher.</li>
+</ul>
+<h2 id="downloads-tab">Downloads Tab</h2>
+<p>Downloads tab is a place where all available official builds are shown based on category. \
+Each category contains a list of items which represents a build information. \
+Downloadable build item shows following information from left to right:</p>
+<ol>
+<li>Version number</li>
+<li>Branch name</li>
+<li>Upload date and time of build to server</li>
+<li>Commit hash number</li>
+</ol>
+<p>Double clicking on downloadable build item will automatically start downloading.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../library_folder/" class="btn btn-neutral float-right" title="Library Folder">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../installation/" class="btn btn-neutral" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../installation/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../library_folder/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
