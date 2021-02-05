@@ -20,6 +20,7 @@ from threads.remover import Remover
 from threads.template_installer import TemplateInstaller
 from windows.dialog_window import DialogWindow
 
+from widgets.base_line_edit import BaseLineEdit
 from widgets.base_menu_widget import BaseMenuWidget
 from widgets.build_state_widget import BuildStateWidget
 from widgets.datetime_widget import DateTimeWidget
@@ -42,6 +43,7 @@ class LibraryWidget(QWidget):
         self.build_info = None
         self.child_widget = None
         self.parent_widget = parent_widget
+        self.build_info_writer = None
 
         self.parent.quit_signal.connect(self.list_widget_deleted)
         self.destroyed.connect(lambda: self._destroyed())
@@ -106,12 +108,12 @@ class LibraryWidget(QWidget):
             self.layout.addWidget(self.branchLabel, stretch=1)
 
             if self.parent_widget is not None:
-                self.lineEdit = QLineEdit()
+                self.lineEdit = BaseLineEdit()
                 self.lineEdit.setMaxLength(256)
                 self.lineEdit.setContextMenuPolicy(Qt.NoContextMenu)
-                self.lineEdit.inputRejected.connect(
+                self.lineEdit.escapePressed.connect(
                     self.rename_branch_rejected)
-                self.lineEdit.editingFinished.connect(
+                self.lineEdit.returnPressed.connect(
                     self.rename_branch_accepted)
                 self.layout.addWidget(self.lineEdit, stretch=1)
                 self.lineEdit.hide()
@@ -372,10 +374,16 @@ class LibraryWidget(QWidget):
         self.branchLabel.show()
 
     def write_build_info(self):
-        self.build_info_writer = BuildInfoReader(
-            self.link, build_info=self.build_info,
-            mode=BuildInfoReader.Mode.WRITE)
-        self.build_info_writer.start()
+        if self.build_info_writer is None:
+            self.build_info_writer = BuildInfoReader(
+                self.link, build_info=self.build_info,
+                mode=BuildInfoReader.Mode.WRITE)
+            self.build_info_writer.finished.connect(
+                self.build_info_writer_finished)
+            self.build_info_writer.start()
+
+    def build_info_writer_finished(self):
+        self.build_info_writer = None
 
     @QtCore.pyqtSlot()
     def ask_remove_from_drive(self):
