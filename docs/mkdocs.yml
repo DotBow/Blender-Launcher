@@ -1,0 +1,17 @@
+site_name: Blender Launcher
+site_description: Standalone client for managing official builds of Blender 3D
+nav:
+    - index.md
+    - installation.md
+    - user_interface.md
+    - library_folder.md
+    - settings.md
+    - troubleshooting.md
+    - development.md
+    - feature_request.md
+docs_dir: mkdocs
+site_dir: site
+theme: readthedocs
+markdown_extensions:
+    - smarty
+    - admonition
