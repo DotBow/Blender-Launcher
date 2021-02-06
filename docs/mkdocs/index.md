@@ -1,17 +1,23 @@
-# Blender Launcher
+# Introduction
 
 <p align="center">
 <img width="800" height="525" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/blender_launcher_cover.png">
 </p>
 
-<details>
-<summary>Screenshots</summary>
-<p align="center">
-<img width="800" height="525" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_01.png">
-<img width="800" height="525" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_02.png">
-<img width="400" height="282" src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/tray_icon.png">
-</p>
-</details>
+??? quote "Screenshots"
+
+    <figure>
+      <img src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_01.png"/>
+      <figcaption>Downloads</figcaption>
+    </figure>
+    <figure>
+      <img src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_02.png"/>
+      <figcaption>Library</figcaption>
+    </figure>
+    <figure>
+      <img src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/tray_icon.png"/>
+      <figcaption>Tray Icon</figcaption>
+    </figure>
 
 ## What is it?
 
@@ -56,4 +62,4 @@ Core features:
 
 ***
 
-:sparkling_heart: Thanx for using Blender Launcher! Have a good day!
+:octicons-heart-fill-24:{: .heart } Thanx for using Blender Launcher! Have a good day!

@@ -35,20 +35,37 @@ Note: builder.blender.org shows when build was uploaded to server
 1. Number of running instances
 1. Favorite indicator
 
-Double clicking on library build item will automatically Launch build.
+!!! tip
 
-### Library Build Context Menu
+    ++"2x Left Button"++ on library build item will automatically Launch build
 
-Build context menu can be accessed via right click on build item. \
-It contains following features:
+## Library Build Context Menu
 
-* **Mark As Favorite** - set selected build as favorite so it can be accessed from tray icon.
-* **Register Extension [Windows only]** - silently register blend-file extension (show thumbnails in file explorer and use selected build as default to open .*blend files).
-* **Create Shortcut** - create shortcut for selected build on desktop.
-* **Create Symlink** - create [symbolic link](https://en.wikipedia.org/wiki/Symbolic_link) for selected build pointing to **%Library Folder%/blender_symlink**.
-* **Show Folder** - reveal folder containing selected build in system file explorer.
-* **Install Template** - install template for selected build (check [template](Library-Folder#template) for more details).
-* **Delete From Drive** - delete selected build from drive and remove it from Blender Launcher.
+Build context menu can be accessed via right click on build item.
+
+#### Mark As Favorite
+:   Set selected build as favorite so it can be accessed from tray icon.
+
+#### Mark As Favorite
+:   Set selected build as favorite so it can be accessed from tray icon.
+
+#### Register Extension [Windows only]
+:   Silently register blend-file extension (show thumbnails in file explorer and use selected build as default to open .*blend files).
+
+#### Create Shortcut
+:   Create shortcut for selected build on desktop.
+
+#### Create Symlink
+:   Create [symbolic link](https://en.wikipedia.org/wiki/Symbolic_link) for selected build pointing to **%Library Folder%/blender_symlink**.
+
+#### Show
+:   Reveal folder containing selected build in system file explorer.
+
+#### Install Template
+:   Install template for selected build (check [template](Library-Folder#template) for more details).
+
+#### Delete From Drive
+:   Delete selected build from drive and remove it from Blender Launcher.
 
 ## Downloads Tab
 

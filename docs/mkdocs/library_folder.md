@@ -11,16 +11,17 @@ It is recommended to create a new directory on a non system drive or inside user
 
 **Library Folder** has the following structure:
 
-<pre>
-|-- %Library Folder%
-    |-- bl_symlink
-    |-- .temp
-    |-- custom
-    |-- daily
-    |-- experimental
-    |-- stable
-    |-- template
-</pre>
+```
+.
+└─ %Library Folder%
+    ├─ bl_symlink
+    ├─ .temp
+    ├─ custom
+    ├─ daily
+    ├─ experimental
+    ├─ stable
+    └─ template
+```
 
 ### bl_symlink
 
@@ -35,19 +36,20 @@ It is recommended to create a new directory on a non system drive or inside user
 **custom** folder is used to store builds downloaded by user manually (e.g. from [GraphicAll](https://blender.community/c/graphicall/)). \
 To use custom builds with Blender Launcher they must be placed inside **custom** folder manually:
 
-<pre>
-|-- %Library Folder%
-    |-- custom
+```
+.
+└─ %Library Folder%
+    └─ custom
+        ├─ %custom blender build 1%
+        │   ├─ ...
+        │   ├─ blender.exe
+        │   └─ ...
         |-- %custom blender build 1%
-            |-- ...
-            |-- blender.exe
-            |-- ...
-        |-- %custom blender build 1%
-            |-- ...
-            |-- blender.exe
-            |-- ...
-        |-- ...
-</pre>
+        │   ├─ ...
+        │   ├─ blender.exe
+        │   └─ ...
+        └─ ...
+```
 
 ### daily
 
@@ -63,19 +65,20 @@ To use custom builds with Blender Launcher they must be placed inside **custom**
 
 ### template
 
-**template** folder is used to store custom Blender preferences and scripts (e.g. [HEAVYPOLY config](https://github.com/HEAVYPOLY/HEAVYPOLY_Blender)). \
+**template** folder is used to store custom Blender preferences and scripts (e.g. [HEAVYPOLY config](https://github.com/HEAVYPOLY/HEAVYPOLY_Blender)).<br/>
 Template represents a file structure similar to one existing in Blender build (e.g. blender-2.91.0-windows64\2.91):
 
-<pre>
-|-- %Library Folder%
-    |-- template
-        |-- ...
-        |-- config
-        |-- datafiles
-        |-- scripts
-            |-- ...
-            |-- addons
-            |-- startup
-            |-- ...
-        |-- ...
-</pre>
+```
+.
+└─ %Library Folder%
+    └─ template
+        ├─ ...
+        ├─ config
+        ├─ datafiles
+        ├─ scripts
+        │   ├─ ...
+        │   ├─ addons
+        │   ├─ startup
+        │   └─ ...
+        └─...
+```

@@ -14,32 +14,46 @@ All actions should be performed under repository root folder.
 
 1. Install pipenv package
 
-``$ pip install pipenv``
+```
+pip install pipenv --dev
+```
 
 2. Install dependencies
 
-``$ pipenv install`` or ``$ pipenv sync``
+```
+pipenv install
+```
 
 3. Enter the virtual environment
 
-```$ pipenv shell```
+```
+pipenv shell
+```
 
 ### Running Blender Launcher as Python script (i.e. executing main.py)
 
-``$ pipenv run start``
+```
+pipenv run start
+```
 
-### Building Blender Launcher executable file for Windows
+### Building Blender Launcher executable
 
-1. Run batch file
+=== "Windows"
 
-``$ .\build_win.bat``
+    1. Run batch file
 
-2. Look for bundled app under _"Blender-Launcher\dist"_ folder
+    ```
+    .\build_win.bat
+    ```
 
-### Building Blender Launcher executable file for Linux
+    2. Look for bundled app under _"Blender-Launcher\dist"_ folder
 
-1. Run shell script file
+=== "Linux"
 
-``$ . build_linux.sh``
+    1. Run shell script file
 
-2. Look for bundled app under _"Blender-Launcher\dist"_ folder
+    ```
+    . build_linux.sh
+    ```
+
+    2. Look for bundled app under _"Blender-Launcher\dist"_ folder

@@ -11,7 +11,36 @@ nav:
     - feature_request.md
 docs_dir: mkdocs
 site_dir: site
-theme: readthedocs
+theme:
+    name: material
+    palette:
+        scheme: slate
+        primary: blue
+        accent: indigo
+    features:
+        - navigation.instant
 markdown_extensions:
     - smarty
     - admonition
+    - pymdownx.tabbed
+    - pymdownx.superfences
+    - pymdownx.highlight
+    - pymdownx.inlinehilite
+    - pymdownx.snippets
+    - pymdownx.details
+    - attr_list
+    - pymdownx.caret
+    - pymdownx.mark
+    - pymdownx.tilde
+    - pymdownx.smartsymbols
+    - pymdownx.keys
+    - def_list
+    - pymdownx.critic:
+        mode: view
+    - pymdownx.betterem:
+        smart_enable: all
+    - pymdownx.emoji:
+        emoji_index: !!python/name:materialx.emoji.twemoji
+        emoji_generator: !!python/name:materialx.emoji.to_svg
+extra_css:
+    - stylesheets/extra.css
