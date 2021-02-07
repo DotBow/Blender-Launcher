@@ -9,6 +9,7 @@ nav:
     - troubleshooting.md
     - development.md
     - feature_request.md
+    - changelog.md
 docs_dir: mkdocs
 site_dir: site
 theme:
@@ -19,6 +20,8 @@ theme:
         accent: indigo
     features:
         - navigation.instant
+    favicon: icons/favicon.svg
+    logo: icons/favicon.svg
 markdown_extensions:
     - smarty
     - admonition
@@ -42,10 +45,12 @@ markdown_extensions:
     - pymdownx.emoji:
         emoji_index: !!python/name:materialx.emoji.twemoji
         emoji_generator: !!python/name:materialx.emoji.to_svg
+    - toc:
+        permalink: #
 extra_css:
     - stylesheets/extra.css
 repo_url: https://github.com/DotBow/Blender-Launcher
-copyright: Copyright &copy; 2021 Oleg Stepanov | Blender Launcher GPL-3.0 License
+copyright: Copyright &copy; 2021 Oleg Stepanov │ Blender Launcher GPL-3.0 License
 extra:
     social:
         - icon: fontawesome/brands/github

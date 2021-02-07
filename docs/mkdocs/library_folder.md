@@ -2,10 +2,9 @@
 
 **Library Folder** - a directory on hard drive where all downloaded builds are stored.
 
-## Important Note
+!!! warning
 
-Don't create **Library Folder** inside UAC protected folders like **Program Files**. \
-It is recommended to create a new directory on a non system drive or inside user folder like **Documents** to avoid any file collisions and have a nice structure.
+    Don't create **Library Folder** inside UAC protected folders like **Program Files**. It is recommended to create a new directory on a non system drive or inside user folder like **Documents** to avoid any file collisions and have a nice structure.
 
 ## Structure
 
@@ -44,7 +43,7 @@ To use custom builds with Blender Launcher they must be placed inside **custom**
         │   ├─ ...
         │   ├─ blender.exe
         │   └─ ...
-        |-- %custom blender build 1%
+        ├─ %custom blender build 2%
         │   ├─ ...
         │   ├─ blender.exe
         │   └─ ...
@@ -66,7 +65,7 @@ To use custom builds with Blender Launcher they must be placed inside **custom**
 ### template
 
 **template** folder is used to store custom Blender preferences and scripts (e.g. [HEAVYPOLY config](https://github.com/HEAVYPOLY/HEAVYPOLY_Blender)).<br/>
-Template represents a file structure similar to one existing in Blender build (e.g. blender-2.91.0-windows64\2.91):
+Template represents a file structure similar to one existing in Blender build (e.g. ``blender-2.91.0-windows64\2.91``):
 
 ```
 .
