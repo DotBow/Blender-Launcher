@@ -45,3 +45,14 @@ markdown_extensions:
 extra_css:
     - stylesheets/extra.css
 repo_url: https://github.com/DotBow/Blender-Launcher
+copyright: Copyright &copy; 2021 Oleg Stepanov | Blender Launcher GPL-3.0 License
+extra:
+    social:
+        - icon: fontawesome/brands/github
+          link: https://github.com/dotbow
+        - icon: fontawesome/brands/twitter
+          link: https://twitter.com/velvetdotbow
+        - icon: fontawesome/brands/artstation
+          link: https://www.artstation.com/dotbow
+        - icon: fontawesome/solid/paper-plane
+          link: mailto:stepanovoleg.dev@gmail.com
