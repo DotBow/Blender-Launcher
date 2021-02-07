@@ -282,9 +282,11 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.NewVersionButton = QPushButton()
         self.NewVersionButton.hide()
         self.NewVersionButton.clicked.connect(self.show_update_window)
-        self.statusbarVersion = QLabel(self.version)
+        self.statusbarVersion = QPushButton(self.version)
+        self.statusbarVersion.clicked.connect(self.show_changelog)
         self.statusbarVersion.setToolTip(
-            "The version of Blender Launcher that is currently run")
+            "The version of Blender Launcher that is currently run. "
+            "Press to check changelog.")
         self.StatusBar.addPermanentWidget(self.statusbarLabel, 1)
         self.StatusBar.addPermanentWidget(self.NewVersionButton)
         self.StatusBar.addPermanentWidget(self.statusbarVersion)
@@ -332,6 +334,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 self._show()
         else:
             self._show()
+
+    def show_changelog(self):
+        current_ver = re.sub(r'\D', '', self.version)
+        url = "https://dotbow.github.io/Blender-Launcher/changelog/#{0}".format(
+            current_ver)
+        webbrowser.open(url)
 
     def toggle_sync_library_and_downloads_pages(self, is_sync):
         if is_sync:
@@ -625,7 +633,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         if text is not None:
             self.text = text
 
-        self.statusbarLabel.setText("{0} | {1}".format(self.status, self.text))
+        self.statusbarLabel.setText("{0} │ {1}".format(self.status, self.text))
 
     def set_version(self, latest_tag):
         latest_ver = re.sub(r'\D', '', latest_tag)
