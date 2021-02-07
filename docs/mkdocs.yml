@@ -50,6 +50,7 @@ markdown_extensions:
 extra_css:
     - stylesheets/extra.css
 repo_url: https://github.com/DotBow/Blender-Launcher
+edit_uri: ""
 copyright: Copyright &copy; 2021 Oleg Stepanov │ Blender Launcher GPL-3.0 License
 extra:
     social:
