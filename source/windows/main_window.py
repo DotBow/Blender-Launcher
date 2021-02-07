@@ -132,10 +132,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.SettingsButton.setIconSize(QSize(20, 20))
         self.SettingsButton.setFixedSize(36, 32)
         self.SettingsButton.setToolTip("Show settings window")
-        self.WikiButton = QPushButton(self.icon_wiki, "")
-        self.WikiButton.setIconSize(QSize(20, 20))
-        self.WikiButton.setFixedSize(36, 32)
-        self.WikiButton.setToolTip("Open documentation")
+        self.DocsButton = QPushButton(self.icon_wiki, "")
+        self.DocsButton.setIconSize(QSize(20, 20))
+        self.DocsButton.setFixedSize(36, 32)
+        self.DocsButton.setToolTip("Open documentation")
         self.MinimizeButton = QPushButton(self.icon_minimize, "")
         self.MinimizeButton.setIconSize(QSize(20, 20))
         self.MinimizeButton.setFixedSize(36, 32)
@@ -146,13 +146,13 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.HeaderLabel.setAlignment(Qt.AlignCenter)
 
         self.HeaderLayout.addWidget(self.SettingsButton, 0, Qt.AlignLeft)
-        self.HeaderLayout.addWidget(self.WikiButton, 0, Qt.AlignLeft)
+        self.HeaderLayout.addWidget(self.DocsButton, 0, Qt.AlignLeft)
         self.HeaderLayout.addWidget(self.HeaderLabel, 1)
         self.HeaderLayout.addWidget(self.MinimizeButton, 0, Qt.AlignRight)
         self.HeaderLayout.addWidget(self.CloseButton, 0, Qt.AlignRight)
 
         self.SettingsButton.setProperty("HeaderButton", True)
-        self.WikiButton.setProperty("HeaderButton", True)
+        self.DocsButton.setProperty("HeaderButton", True)
         self.MinimizeButton.setProperty("HeaderButton", True)
         self.CloseButton.setProperty("HeaderButton", True)
         self.CloseButton.setProperty("CloseButton", True)
@@ -270,8 +270,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         # Connect buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
-        self.WikiButton.clicked.connect(lambda: webbrowser.open(
-            "https://github.com/DotBow/Blender-Launcher/wiki"))
+        self.DocsButton.clicked.connect(lambda: webbrowser.open(
+            "https://dotbow.github.io/Blender-Launcher"))
         self.MinimizeButton.clicked.connect(self.showMinimized)
         self.CloseButton.clicked.connect(self.close)
 
