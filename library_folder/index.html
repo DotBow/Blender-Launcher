@@ -16,7 +16,7 @@
     
     
       
-        <title>Library Folder - Blender Launcher</title>
+        <title>Library folder - Blender Launcher</title>
       
     
     
@@ -97,7 +97,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              Library Folder
+              Library folder
             
           </span>
         </div>
@@ -137,7 +137,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/DotBow/Blender-Launcher/" title="Go to repository" class="md-source">
+<a href="https://github.com/DotBow/Blender-Launcher" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -181,7 +181,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/DotBow/Blender-Launcher/" title="Go to repository" class="md-source">
+<a href="https://github.com/DotBow/Blender-Launcher" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -203,7 +203,7 @@
   
     <li class="md-nav__item">
       <a href=".." class="md-nav__link">
-        Introduction
+        Home
       </a>
     </li>
   
@@ -233,7 +233,7 @@
   
     <li class="md-nav__item">
       <a href="../user_interface/" class="md-nav__link">
-        User Interface
+        User interface
       </a>
     </li>
   
@@ -256,12 +256,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Library Folder
+          Library folder
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Library Folder
+        Library folder
       </a>
       
         
@@ -401,7 +401,7 @@
   
     <li class="md-nav__item">
       <a href="../feature_request/" class="md-nav__link">
-        Feature Request
+        Feature request
       </a>
     </li>
   
@@ -520,16 +520,14 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/DotBow/Blender-Launcher/edit/master/docs/library_folder.md" title="Edit this page" class="md-content__button md-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
-                  </a>
                 
-                
-                <h1 id="library-folder">Library Folder</h1>
+                <style>body {text-align: justify}</style>
+
+<h1 id="library-folder">Library Folder</h1>
 <p><strong>Library Folder</strong> - a directory on hard drive where all downloaded builds are stored.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Don&rsquo;t create <strong>Library Folder</strong> inside UAC protected folders like <strong>Program Files</strong>. It is recommended to create a new directory on a non system drive or inside user folder like <strong>Documents</strong> to avoid any file collisions and have a nice structure.</p>
+<p>Don&rsquo;t create <strong>Library Folder</strong> inside UAC protected folders like <code>Program Files</code>. It is recommended to create a new directory on a non system drive or inside user folder like <code>Documents</code> to avoid any file collisions and have a nice structure.</p>
 </div>
 <h2 id="structure">Structure</h2>
 <p><strong>Library Folder</strong> has the following structure:</p>
@@ -543,12 +541,18 @@
     ├─ stable
     └─ template
 </code></pre></div>
-<h3 id="bl_symlink">bl_symlink</h3>
-<p><strong>bl_symlink</strong> is a symbolic link that creates via <a href="User-Interface#library-build-context-menu">library build context menu</a>.</p>
-<h3 id="temp">.temp</h3>
-<p><strong>.temp</strong> folder is used to store downloaded *.zip and *.tar files.</p>
-<h3 id="custom">custom</h3>
-<p><strong>custom</strong> folder is used to store builds downloaded by user manually (e.g. from <a href="https://blender.community/c/graphicall/">GraphicAll</a>). \
+<h3 id="bl_symlink"><code>bl_symlink</code></h3>
+<dl>
+<dd><strong>bl_symlink</strong> is a symbolic link that creates via <a href="User-Interface#library-build-context-menu">library build context menu</a>.</dd>
+</dl>
+<h3 id="temp"><code>.temp</code></h3>
+<dl>
+<dd><strong>.temp</strong> folder is used to store downloaded *.zip and *.tar files.</dd>
+</dl>
+<h3 id="custom"><code>custom</code></h3>
+<dl>
+<dd>
+<p><strong>custom</strong> folder is used to store builds downloaded by user manually (e.g. from <a href="https://blender.community/c/graphicall/">GraphicAll</a>).<br>
 To use custom builds with Blender Launcher they must be placed inside <strong>custom</strong> folder manually:</p>
 <div class="highlight"><pre><span></span><code>.
 └─ %Library Folder%
@@ -563,13 +567,23 @@ To use custom builds with Blender Launcher they must be placed inside <strong>cu
         │   └─ ...
         └─ ...
 </code></pre></div>
-<h3 id="daily">daily</h3>
-<p><strong>daily</strong> folder is used to store <a href="https://builder.blender.org/download/">daily builds</a>.</p>
-<h3 id="experimental">experimental</h3>
-<p><strong>experimental</strong> folder is used to store <a href="https://builder.blender.org/download/branches/">experimental branches builds</a>.</p>
-<h3 id="stable">stable</h3>
-<p><strong>stable</strong> folder is used to store <a href="https://download.blender.org/release/">stable builds</a>.</p>
-<h3 id="template">template</h3>
+</dd>
+</dl>
+<h3 id="daily"><code>daily</code></h3>
+<dl>
+<dd><strong>daily</strong> folder is used to store <a href="https://builder.blender.org/download/">daily builds</a>.</dd>
+</dl>
+<h3 id="experimental"><code>experimental</code></h3>
+<dl>
+<dd><strong>experimental</strong> folder is used to store <a href="https://builder.blender.org/download/branches/">experimental branches builds</a>.</dd>
+</dl>
+<h3 id="stable"><code>stable</code></h3>
+<dl>
+<dd><strong>stable</strong> folder is used to store <a href="https://download.blender.org/release/">stable builds</a>.</dd>
+</dl>
+<h3 id="template"><code>template</code></h3>
+<dl>
+<dd>
 <p><strong>template</strong> folder is used to store custom Blender preferences and scripts (e.g. <a href="https://github.com/HEAVYPOLY/HEAVYPOLY_Blender">HEAVYPOLY config</a>).<br/>
 Template represents a file structure similar to one existing in Blender build (e.g. <code>blender-2.91.0-windows64\2.91</code>):</p>
 <div class="highlight"><pre><span></span><code>.
@@ -585,6 +599,8 @@ Template represents a file structure similar to one existing in Blender build (e
         │   └─ ...
         └─...
 </code></pre></div>
+</dd>
+</dl>
                 
               
               
@@ -612,7 +628,7 @@ Template represents a file structure similar to one existing in Blender build (e
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                User Interface
+                User interface
               </div>
             </div>
           </a>
