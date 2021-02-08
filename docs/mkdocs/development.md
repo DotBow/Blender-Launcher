@@ -1,3 +1,5 @@
+<style>body {text-align: justify}</style>
+
 # Development
 
 ## Requirements
@@ -8,9 +10,9 @@
 
 ## Using Pipenv
 
-!!! info
+!!! info "Note"
 
-    All actions should be performed under repository root folder (i.e. ``/Blender-Launcher``)
+    All actions should be performed under repository root folder i.e. ``/Blender-Launcher``!
 
 ### Preparing virtual environment
 

@@ -1,3 +1,5 @@
+<style>body {text-align: justify}</style>
+
 # Troubleshooting
 
 ## First step
@@ -21,5 +23,4 @@ Before creating an issue, check following:
 
 ## How to report a bug
 
-To report a bug, use an [issue template](https://github.com/DotBow/Blender-Launcher/issues/new?assignees=DotBow&labels=bug&template=bug_report.md&title=).<br/>
-Consider attaching a ``BL.log`` file if it exists near ``Blender Launcher.exe``.
+To report a bug, use an [issue template](https://github.com/DotBow/Blender-Launcher/issues/new?assignees=DotBow&labels=bug&template=bug_report.md&title=). Consider attaching a ``BL.log`` file if it exists near ``Blender Launcher.exe``.

@@ -1,25 +1,28 @@
+<style>body {text-align: justify}</style>
+
 # Settings
 
 ## Settings Window
 
-To open the **Settings Window** use button with gear icon on top left of the **Main Window**.\
-All changes saved automatically.
+To open the **Settings Window** use button with gear icon on top left of the **Main Window**. All changes saved automatically.
 
 ## Library Folder
 
-**Library Folder** - a directory on hard drive, where all downloaded builds are stored. \
-For detailed information check [Library Folder](wiki#Library-Folder) page.
+**Library Folder** - a directory on hard drive, where all downloaded builds are stored. For detailed information check [Library Folder](library_folder.md) page.
 
 ## System
 
 ### Taskbar Icon Color
 
-Determines the color of the **Blender Launcher** icon in taskbar so it is both readable in light and dark system themes. \
-To apply changes application should be restarted.
+Determines the color of the **Blender Launcher** icon in taskbar so it is both readable in light and dark system themes. To apply changes application should be restarted.
 
 ### Launch When System Starts [Windows only]
 
 Determines if **Blender Launcher** will run when system starts.
+
+### Show Tray Icon
+
+Toggles visibility of tray icon. If option is disabled, **Blender Launcher** will shut down after closing its **Main Window**.
 
 ### Launch Minimized To Tray
 
@@ -27,18 +30,21 @@ Determines if **Main Window** will pop up when user execute **Blender Launcher**
 
 ## Interface
 
+### Default Tab
+
+Set what tab of will be opened when **Blender Launcher** starts.
+
 ### Default Library Page
 
-Determines what page of Library tab will be opened when **Blender Launcher** starts.
+Sets what page of Library tab will be opened when **Blender Launcher** starts.
 
 ### Default Downloads Page
 
-Determines what page of Downloads tab will be opened when **Blender Launcher** starts.
+Sets what page of Downloads tab will be opened when **Blender Launcher** starts.
 
 ### Enable High DPI Scaling
 
-Determines if **Blender Launcher** user interface will automatically scale based on the monitor's pixel density. \
-To apply changes application should be restarted.
+Determines if **Blender Launcher** user interface will automatically scale based on the monitor's pixel density. To apply changes application should be restarted.
 
 ## Notifications
 
@@ -66,7 +72,8 @@ Installs template on newly added build to Library tab.
 
 ### Startup Arguments
 
-Adds specific instructions as if Blender was launching from the command line (after the blender executable i.e. ``blender [args …]``).<br/>
+Adds specific instructions as if Blender was launching from the command line (after the blender executable i.e. ``blender [args …]``).
+
 For example, adding ``-W`` (force opening Blender in fullscreen mode) argument internally will produce following command:
 
 ```
@@ -77,7 +84,8 @@ List of commands can be found on Blender manual [Command Line Arguments](https:/
 
 ### Bash Arguments [Linux only]
 
-Adds specific instructions as if Blender was launching from the command line (before the blender executable i.e. ``[args …] blender``).<br/>
+Adds specific instructions as if Blender was launching from the command line (before the blender executable i.e. ``[args …] blender``).
+
 For example, adding ``env __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia`` (force Blender to use dedicated graphics card) arguments internally will produce following command:
 
 ```

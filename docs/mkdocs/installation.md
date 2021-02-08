@@ -1,3 +1,5 @@
+<style>body {text-align: justify}</style>
+
 # Installation
 
 ## Installing Blender Launcher
@@ -36,7 +38,7 @@
 
 !!! info "Linux Users"
 
-    - Make sure that OS GLIBC version is 2.27 or higher otherwise try to build **Blender Launcher** from source manually following [Development](https://github.com/DotBow/Blender-Launcher/wiki/Development) Wiki page.
+    - Make sure that OS GLIBC version is 2.27 or higher otherwise try to build **Blender Launcher** from source manually following [Development](development.md) documentation page.
     - Consider installing [TopIcons Plus](https://extensions.gnome.org/extension/1031/topicons/) extension for proper tray icon support.
 
 !!! info "Blender Version Manager Users"
