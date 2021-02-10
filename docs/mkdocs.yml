@@ -60,5 +60,5 @@ extra:
           link: https://twitter.com/velvetdotbow
         - icon: fontawesome/brands/artstation
           link: https://www.artstation.com/dotbow
-        - icon: fontawesome/solid/paper-plane
+        - icon: fontawesome/solid/envelope
           link: mailto:stepanovoleg.dev@gmail.com

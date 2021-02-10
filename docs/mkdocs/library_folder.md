@@ -34,8 +34,7 @@
 
 ### `custom`
 
-:   **custom** folder is used to store builds downloaded by user manually (e.g. from [GraphicAll](https://blender.community/c/graphicall/)).<br>
-    To use custom builds with Blender Launcher they must be placed inside **custom** folder manually:
+:   **custom** folder is used to store builds downloaded by user manually (e.g. from [GraphicAll](https://blender.community/c/graphicall/)). To use custom builds with Blender Launcher they must be placed inside **custom** folder manually:
 
     ```
     .
@@ -66,8 +65,7 @@
 
 ### `template`
 
-:   **template** folder is used to store custom Blender preferences and scripts (e.g. [HEAVYPOLY config](https://github.com/HEAVYPOLY/HEAVYPOLY_Blender)).<br/>
-    Template represents a file structure similar to one existing in Blender build (e.g. `blender-2.91.0-windows64\2.91`):
+:   **template** folder is used to store custom Blender preferences and scripts (e.g. [HEAVYPOLY config](https://github.com/HEAVYPOLY/HEAVYPOLY_Blender)). Template represents a file structure similar to one existing in Blender build (e.g. `blender-2.91.0-windows64\2.91`):
 
     ```
     .

@@ -56,9 +56,9 @@ Core features:
 * :fontawesome-solid-rocket: Follow [Installation](installation.md#installing-blender-launcher) instructions and notes
 * :fontawesome-solid-comments: Use Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client) to ask questions and make proposals
 
-## How to say thanks to a developer?
+## How to thank the developer?
 
-* :fontawesome-solid-laugh-beam: The best reward is always feedback and a happy user face!
+* :fontawesome-solid-laugh-beam:{: .emoji } The best reward is always feedback and a happy user face!
 * :fontawesome-solid-hand-holding-usd: Buy Blender Launcher on [Gumroad](https://gum.co/Blender-Launcher) for 4$ or more
 
 ***
