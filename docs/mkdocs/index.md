@@ -2,24 +2,30 @@
 
 # Introduction
 
-<figure>
-  <img src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/blender_launcher_cover.png"/>
-</figure>
+![Blender Launcher Text Cover](imgs/cover.png)
 
-??? quote "Screenshots"
+??? image "Screenshots"
 
     <figure>
-      <img src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_01.png"/>
-      <figcaption>Downloads</figcaption>
+      <img src="/imgs/library_stable.png"/>
+      <figcaption>Library Tab, Stable Page</figcaption>
     </figure>
     <figure>
-      <img src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/screenshot_02.png"/>
-      <figcaption>Library</figcaption>
+      <img src="/imgs/downloads_daily.png"/>
+      <figcaption>Downloads Tab, Daily Page</figcaption>
     </figure>
     <figure>
-      <img src="https://raw.githubusercontent.com/DotBow/Blender-Launcher/master/wiki/tray_icon.png"/>
+      <img src="/imgs/user_favorites.png"/>
+      <figcaption>User Tab, Favorites Page</figcaption>
+    </figure>
+    <figure>
+      <img src="/imgs/tray.png"/>
       <figcaption>Tray Icon</figcaption>
     </figure>
+
+??? question "About"
+
+    Documentation purpose is to help present in-depth information about Blender Launcher in a useful way. It is always under construction so feel free to ask questions on Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client).
 
 ## What is it?
 

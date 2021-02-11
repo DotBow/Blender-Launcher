@@ -6,6 +6,13 @@
 
 To open the **Settings Window** use button with gear icon on top left of the **Main Window**. All changes saved automatically.
 
+??? image "Screenshots"
+
+    <figure>
+      <img src="/imgs/settings_window.png"/>
+      <figcaption>Settings Window</figcaption>
+    </figure>
+
 ## Library Folder
 
 **Library Folder** - a directory on hard drive, where all downloaded builds are stored. For detailed information check [Library Folder](library_folder.md) page.

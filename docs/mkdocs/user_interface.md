@@ -13,11 +13,27 @@ The top horizontal menu bar contains following buttons from left to right:
 1. Minimize to taskbar
 1. Minimize to tray
 
-**Main Window** layout consists of three main tabs:
+**Main Window** layout consists of three main tabs with corresponding pages:
 
 * **Library** - list of local builds ready to use
+    * **Stable**
+    * **Daily**
+    * **Experimental**
 * **Downloads** - list of available official builds
+    * **Stable**
+    * **Daily**
+    * **Experimental**
 * **User** - list of favorite and custom builds defined by user
+    * **Favorites**
+    * **Custom**
+
+!!! tip
+
+    Use ++"Scroll Wheel"++ while hovering tabs to quickly switch between them.
+
+!!! note
+
+    By default Library and Downloads pages will be automatically matched between each over. To change this behaviour toggle [Sync Library & Downloads Pages](settings.md#sync-library-downloads-pages) checkbox in settings.
 
 The bottom status bar shows following information from left to right:
 
@@ -28,15 +44,25 @@ The bottom status bar shows following information from left to right:
 
 Library tab is a place where all local builds are shown based on category. Each category contains a list of items which represents a build information. Library build item shows following information from left to right:
 
+1. Launch button
+
+    !!! note
+
+        Play icon :fontawesome-solid-play: on the right side of button indicates that build set to [quick launch](#add-to-quick-launch).
+
 1. Version number including subversion or phase (Alpha, Beta)
 1. Branch name
-1. Date and time of build commit target<br>
-   Note: builder.blender.org shows when build was uploaded to server
+1. Date and time of build commit target
+
+    !!! note
+
+        Take in mind that [builder.blender.org](https://builder.blender.org/download/) shows when build was uploaded to server.
+
 1. Number of running instances / new build indicator
 
 !!! tip
 
-    ++"2x Left Button"++ on library build item will automatically launch build
+    ++"2x Left Button"++ on library build item will automatically launch build.
 
 ### Library Build Context Menu
 
@@ -78,14 +104,15 @@ Build context menu can be accessed via right click on build item.
 
 Downloads tab is a place where all available official builds are shown based on category. Each category contains a list of items which represents a build information. Downloadable build item shows following information from left to right:
 
-1. Version number
+1. Download button
+1. Version number including subversion or phase (Alpha, Beta)
 1. Branch name
 1. Upload date and time of build to server
 1. New build indicator
 
 !!! tip
 
-    ++"2x Left Button"++ on downloadable build item will automatically start downloading
+    ++"2x Left Button"++ on downloadable build item will automatically start downloading.
 
 ## User Tab
 
@@ -101,4 +128,4 @@ Favorites page contains builds added from Library tab using context menu `Add To
 
 ### Custom Page
 
-Custom page contains builds that placed under [`custom`](library_folder.md#custom) directory of [`library folder`](library_folder.md). It acts the same way as the Library tab build item.
+Custom page contains builds that placed under [`custom`](library_folder.md#custom) directory of [`library folder`](library_folder.md). It acts the same way as the Library tab build item. After adding new builds inside `custom` folder make sure to press `Reload` button on the top right corner of page to force Blender Launcher read it from disk and show in list.
