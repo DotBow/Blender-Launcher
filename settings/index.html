@@ -363,6 +363,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#sync-library-downloads-pages" class="md-nav__link">
+    Sync Library &amp; Downloads Pages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#default-library-page" class="md-nav__link">
     Default Library Page
   </a>
@@ -632,6 +639,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#sync-library-downloads-pages" class="md-nav__link">
+    Sync Library &amp; Downloads Pages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#default-library-page" class="md-nav__link">
     Default Library Page
   </a>
@@ -756,37 +770,70 @@
 <h1 id="settings">Settings</h1>
 <h2 id="settings-window">Settings Window</h2>
 <p>To open the <strong>Settings Window</strong> use button with gear icon on top left of the <strong>Main Window</strong>. All changes saved automatically.</p>
+<details class="image"><summary>Screenshots</summary><p><figure>
+  <img src="/imgs/settings_window.png"/>
+  <figcaption>Settings Window</figcaption>
+</figure></p>
+</details>
 <h2 id="library-folder">Library Folder</h2>
 <p><strong>Library Folder</strong> - a directory on hard drive, where all downloaded builds are stored. For detailed information check <a href="../library_folder/">Library Folder</a> page.</p>
 <h2 id="system">System</h2>
 <h3 id="taskbar-icon-color">Taskbar Icon Color</h3>
-<p>Determines the color of the <strong>Blender Launcher</strong> icon in taskbar so it is both readable in light and dark system themes. To apply changes application should be restarted.</p>
+<dl>
+<dd>Determines the color of the <strong>Blender Launcher</strong> icon in taskbar so it is both readable in light and dark system themes. To apply changes application should be restarted.</dd>
+</dl>
 <h3 id="launch-when-system-starts-windows-only">Launch When System Starts [Windows only]</h3>
-<p>Determines if <strong>Blender Launcher</strong> will run when system starts.</p>
+<dl>
+<dd>Determines if <strong>Blender Launcher</strong> will run when system starts.</dd>
+</dl>
 <h3 id="show-tray-icon">Show Tray Icon</h3>
-<p>Toggles visibility of tray icon. If option is disabled, <strong>Blender Launcher</strong> will shut down after closing its <strong>Main Window</strong>.</p>
+<dl>
+<dd>Toggles visibility of tray icon. If option is disabled, <strong>Blender Launcher</strong> will shut down after closing its <strong>Main Window</strong>.</dd>
+</dl>
 <h3 id="launch-minimized-to-tray">Launch Minimized To Tray</h3>
-<p>Determines if <strong>Main Window</strong> will pop up when user execute <strong>Blender Launcher</strong> or only tray icon will be shown.</p>
+<dl>
+<dd>Determines if <strong>Main Window</strong> will pop up when user execute <strong>Blender Launcher</strong> or only tray icon will be shown.</dd>
+</dl>
 <h2 id="interface">Interface</h2>
 <h3 id="default-tab">Default Tab</h3>
-<p>Set what tab of will be opened when <strong>Blender Launcher</strong> starts.</p>
+<dl>
+<dd>Set what tab of will be opened when <strong>Blender Launcher</strong> starts.</dd>
+</dl>
+<h3 id="sync-library-downloads-pages">Sync Library &amp; Downloads Pages</h3>
+<dl>
+<dd>Determines if pages of Library and Downloads tabs will be automatically matched between each over.</dd>
+</dl>
 <h3 id="default-library-page">Default Library Page</h3>
-<p>Sets what page of Library tab will be opened when <strong>Blender Launcher</strong> starts.</p>
+<dl>
+<dd>Sets what page of Library tab will be opened when <strong>Blender Launcher</strong> starts.</dd>
+</dl>
 <h3 id="default-downloads-page">Default Downloads Page</h3>
-<p>Sets what page of Downloads tab will be opened when <strong>Blender Launcher</strong> starts.</p>
+<dl>
+<dd>Sets what page of Downloads tab will be opened when <strong>Blender Launcher</strong> starts.</dd>
+</dl>
 <h3 id="enable-high-dpi-scaling">Enable High DPI Scaling</h3>
-<p>Determines if <strong>Blender Launcher</strong> user interface will automatically scale based on the monitor&rsquo;s pixel density. To apply changes application should be restarted.</p>
+<dl>
+<dd>Determines if <strong>Blender Launcher</strong> user interface will automatically scale based on the monitor&rsquo;s pixel density. To apply changes application should be restarted.</dd>
+</dl>
 <h2 id="notifications">Notifications</h2>
 <h3 id="when-new-builds-are-available">When New Builds Are Available</h3>
-<p>Show OS notifications when new new builds of Blender are available in Downloads tab.</p>
+<dl>
+<dd>Show OS notifications when new new builds of Blender are available in Downloads tab.</dd>
+</dl>
 <h3 id="when-downloading-finished">When Downloading Finished</h3>
-<p>Show OS notifications when build finished downloading and added to Library tab.</p>
+<dl>
+<dd>Show OS notifications when build finished downloading and added to Library tab.</dd>
+</dl>
 <h2 id="new-build-actions">New Build Actions</h2>
 <p>Actions that will be performed on newly added build to Library tab right after downloading is finished.</p>
 <h3 id="mark-as-favorite">Mark As Favorite</h3>
-<p>Mark every newly added build to Library tab as favorite depending on branch type.</p>
+<dl>
+<dd>Mark every newly added build to Library tab as favorite depending on branch type.</dd>
+</dl>
 <h3 id="install-template">Install Template</h3>
-<p>Installs template on newly added build to Library tab.</p>
+<dl>
+<dd>Installs template on newly added build to Library tab.</dd>
+</dl>
 <h2 id="blender-launching">Blender Launching</h2>
 <h3 id="startup-arguments">Startup Arguments</h3>
 <p>Adds specific instructions as if Blender was launching from the command line (after the blender executable i.e. <code>blender [args …]</code>).</p>
@@ -895,7 +942,7 @@
       
       
       <a href="mailto:stepanovoleg.dev@gmail.com" target="_blank" rel="noopener" title="" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg>
       </a>
     
   </div>

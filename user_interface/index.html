@@ -274,9 +274,10 @@
     Library Tab
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Library Tab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#library-build-context-menu" class="md-nav__link">
     Library Build Context Menu
   </a>
@@ -344,6 +345,11 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#downloads-tab" class="md-nav__link">
@@ -356,6 +362,39 @@
   <a href="#user-tab" class="md-nav__link">
     User Tab
   </a>
+  
+    <nav class="md-nav" aria-label="User Tab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#favorites-page" class="md-nav__link">
+    Favorites Page
+  </a>
+  
+    <nav class="md-nav" aria-label="Favorites Page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rename-branch" class="md-nav__link">
+    Rename Branch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-page" class="md-nav__link">
+    Custom Page
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -493,9 +532,10 @@
     Library Tab
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Library Tab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#library-build-context-menu" class="md-nav__link">
     Library Build Context Menu
   </a>
@@ -563,6 +603,11 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#downloads-tab" class="md-nav__link">
@@ -575,6 +620,39 @@
   <a href="#user-tab" class="md-nav__link">
     User Tab
   </a>
+  
+    <nav class="md-nav" aria-label="User Tab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#favorites-page" class="md-nav__link">
+    Favorites Page
+  </a>
+  
+    <nav class="md-nav" aria-label="Favorites Page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rename-branch" class="md-nav__link">
+    Rename Branch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-page" class="md-nav__link">
+    Custom Page
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -603,12 +681,34 @@
 <li>Minimize to taskbar</li>
 <li>Minimize to tray</li>
 </ol>
-<p><strong>Main Window</strong> layout consists of three main tabs:</p>
+<p><strong>Main Window</strong> layout consists of three main tabs with corresponding pages:</p>
 <ul>
-<li><strong>Library</strong> - list of local builds ready to use</li>
-<li><strong>Downloads</strong> - list of available official builds</li>
-<li><strong>User</strong> - list of favorite and custom builds defined by user</li>
+<li><strong>Library</strong> - list of local builds ready to use<ul>
+<li><strong>Stable</strong></li>
+<li><strong>Daily</strong></li>
+<li><strong>Experimental</strong></li>
 </ul>
+</li>
+<li><strong>Downloads</strong> - list of available official builds<ul>
+<li><strong>Stable</strong></li>
+<li><strong>Daily</strong></li>
+<li><strong>Experimental</strong></li>
+</ul>
+</li>
+<li><strong>User</strong> - list of favorite and custom builds defined by user<ul>
+<li><strong>Favorites</strong></li>
+<li><strong>Custom</strong></li>
+</ul>
+</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Use <span class="keys"><kbd>Scroll Wheel</kbd></span> while hovering tabs to quickly switch between them.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default Library and Downloads pages will be automatically matched between each over. To change this behaviour toggle <a href="../settings/#sync-library-downloads-pages">Sync Library &amp; Downloads Pages</a> checkbox in settings.</p>
+</div>
 <p>The bottom status bar shows following information from left to right:</p>
 <ol>
 <li>Status of application</li>
@@ -617,18 +717,33 @@
 <h2 id="library-tab">Library Tab</h2>
 <p>Library tab is a place where all local builds are shown based on category. Each category contains a list of items which represents a build information. Library build item shows following information from left to right:</p>
 <ol>
-<li>Version number including subversion or phase (Alpha, Beta)</li>
+<li>
+<p>Launch button</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Play icon <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"/></svg></span> on the right side of button indicates that build set to <a href="#add-to-quick-launch">quick launch</a>.</p>
+</div>
+</li>
+<li>
+<p>Version number including subversion or phase (Alpha, Beta)</p>
+</li>
 <li>Branch name</li>
-<li>Date and time of build commit target<br>
-   Note: builder.blender.org shows when build was uploaded to server</li>
-<li>Number of running instances</li>
-<li>Favorite indicator</li>
+<li>
+<p>Date and time of build commit target</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Take in mind that <a href="https://builder.blender.org/download/">builder.blender.org</a> shows when build was uploaded to server.</p>
+</div>
+</li>
+<li>
+<p>Number of running instances / new build indicator</p>
+</li>
 </ol>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><span class="keys"><kbd>2x Left Button</kbd></span> on library build item will automatically launch build</p>
+<p><span class="keys"><kbd>2x Left Button</kbd></span> on library build item will automatically launch build.</p>
 </div>
-<h2 id="library-build-context-menu">Library Build Context Menu</h2>
+<h3 id="library-build-context-menu">Library Build Context Menu</h3>
 <p>Build context menu can be accessed via right click on build item.</p>
 <h4 id="add-to-quick-launch">Add To Quick Launch</h4>
 <dl>
@@ -663,20 +778,28 @@
 <dd>Delete selected build from drive and remove it from Blender Launcher.</dd>
 </dl>
 <h2 id="downloads-tab">Downloads Tab</h2>
-<p>Downloads tab is a place where all available official builds are shown based on category. \
-Each category contains a list of items which represents a build information. \
-Downloadable build item shows following information from left to right:</p>
+<p>Downloads tab is a place where all available official builds are shown based on category. Each category contains a list of items which represents a build information. Downloadable build item shows following information from left to right:</p>
 <ol>
-<li>Version number</li>
+<li>Download button</li>
+<li>Version number including subversion or phase (Alpha, Beta)</li>
 <li>Branch name</li>
 <li>Upload date and time of build to server</li>
-<li>Commit hash number</li>
+<li>New build indicator</li>
 </ol>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><span class="keys"><kbd>2x Left Button</kbd></span> on downloadable build item will automatically start downloading</p>
+<p><span class="keys"><kbd>2x Left Button</kbd></span> on downloadable build item will automatically start downloading.</p>
 </div>
 <h2 id="user-tab">User Tab</h2>
+<p>User tab is a place where favorite and custom builds can be defined.</p>
+<h3 id="favorites-page">Favorites Page</h3>
+<p>Favorites page contains builds added from Library tab using context menu <code>Add To Favorites</code> action. It has the same context menu as Library tab build item except possibility to rename branch title:</p>
+<h4 id="rename-branch">Rename Branch</h4>
+<dl>
+<dd>Rename branch title (<span class="keys"><kbd class="key-enter">Enter</kbd></span> to submit new title, <span class="keys"><kbd class="key-escape">Esc</kbd></span> to reject editing).</dd>
+</dl>
+<h3 id="custom-page">Custom Page</h3>
+<p>Custom page contains builds that placed under <a href="../library_folder/#custom"><code>custom</code></a> directory of <a href="../library_folder/"><code>library folder</code></a>. It acts the same way as the Library tab build item. After adding new builds inside <code>custom</code> folder make sure to press <code>Reload</code> button on the top right corner of page to force Blender Launcher read it from disk and show in list.</p>
                 
               
               
@@ -773,7 +896,7 @@ Downloadable build item shows following information from left to right:</p>
       
       
       <a href="mailto:stepanovoleg.dev@gmail.com" target="_blank" rel="noopener" title="" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg>
       </a>
     
   </div>
