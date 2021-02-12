@@ -1,4 +1,4 @@
-# Blender Launcher
+# Blender Launcher │ [Documentation](https://dotbow.github.io/Blender-Launcher) │ [Releases](https://github.com/DotBow/Blender-Launcher/releases)
 
 ![Blender Launcher Cover](docs/mkdocs/imgs/cover.png)
 
