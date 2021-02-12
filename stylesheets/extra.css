@@ -23,17 +23,17 @@
 
 .md-typeset .admonition.image,
 .md-typeset details.image {
-    border-color: rgb(68, 138, 255);
+    border-color: rgb(0, 176, 255);
 }
 
 .md-typeset .image > .admonition-title,
 .md-typeset .image > summary {
-        background-color: rgba(68, 138, 255, 0.1);
+        background-color: rgba(0, 176, 255, 0.1);
 }
 
 .md-typeset .image > .admonition-title::before,
 .md-typeset .image > summary::before {
-    background-color: rgb(68, 138, 255);
+    background-color: rgb(0, 176, 255);
     -webkit-mask-image: var(--md-admonition-icon--image);
             mask-image: var(--md-admonition-icon--image);
 }
