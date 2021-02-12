@@ -7,19 +7,19 @@
 ??? image "Screenshots"
 
     <figure>
-      <img src="/imgs/library_stable.png"/>
+      <img src="imgs/library_stable.png"/>
       <figcaption>Library Tab, Stable Page</figcaption>
     </figure>
     <figure>
-      <img src="/imgs/downloads_daily.png"/>
+      <img src="imgs/downloads_daily.png"/>
       <figcaption>Downloads Tab, Daily Page</figcaption>
     </figure>
     <figure>
-      <img src="/imgs/user_favorites.png"/>
+      <img src="imgs/user_favorites.png"/>
       <figcaption>User Tab, Favorites Page</figcaption>
     </figure>
     <figure>
-      <img src="/imgs/tray.png"/>
+      <img src="imgs/tray.png"/>
       <figcaption>Tray Icon</figcaption>
     </figure>
 

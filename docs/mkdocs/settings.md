@@ -9,7 +9,7 @@ To open the **Settings Window** use button with gear icon on top left of the **M
 ??? image "Screenshots"
 
     <figure>
-      <img src="/imgs/settings_window.png"/>
+      <img src="../imgs/settings_window.png"/>
       <figcaption>Settings Window</figcaption>
     </figure>
 

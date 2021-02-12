@@ -42,6 +42,13 @@ The bottom status bar shows following information from left to right:
 
 ## Library Tab
 
+??? image "Screenshots"
+
+    <figure>
+      <img src="../imgs/library_daily.png"/>
+      <figcaption>Library Tab, Daily Page</figcaption>
+    </figure>
+
 Library tab is a place where all local builds are shown based on category. Each category contains a list of items which represents a build information. Library build item shows following information from left to right:
 
 1. Launch button
@@ -65,6 +72,13 @@ Library tab is a place where all local builds are shown based on category. Each 
     ++"2x Left Button"++ on library build item will automatically launch build.
 
 ### Library Build Context Menu
+
+??? image "Screenshots"
+
+    <figure>
+      <img src="../imgs/library_context_menu.png"/>
+      <figcaption>Library Build Context Menu</figcaption>
+    </figure>
 
 Build context menu can be accessed via right click on build item.
 
@@ -102,6 +116,13 @@ Build context menu can be accessed via right click on build item.
 
 ## Downloads Tab
 
+??? image "Screenshots"
+
+    <figure>
+      <img src="../imgs/downloads_experimental.png"/>
+      <figcaption>Downloads Tab, Experimental Page</figcaption>
+    </figure>
+
 Downloads tab is a place where all available official builds are shown based on category. Each category contains a list of items which represents a build information. Downloadable build item shows following information from left to right:
 
 1. Download button
@@ -120,6 +141,13 @@ User tab is a place where favorite and custom builds can be defined.
 
 ### Favorites Page
 
+??? image "Screenshots"
+
+    <figure>
+      <img src="../imgs/user_favorites.png"/>
+      <figcaption>User Tab, Favorites Page</figcaption>
+    </figure>
+
 Favorites page contains builds added from Library tab using context menu `Add To Favorites` action. It has the same context menu as Library tab build item except possibility to rename branch title:
 
 #### Rename Branch
@@ -127,5 +155,12 @@ Favorites page contains builds added from Library tab using context menu `Add To
 :   Rename branch title (++return++ to submit new title, ++esc++ to reject editing).
 
 ### Custom Page
+
+??? image "Screenshots"
+
+    <figure>
+      <img src="../imgs/user_custom.png"/>
+      <figcaption>User Tab, Custom Page</figcaption>
+    </figure>
 
 Custom page contains builds that placed under [`custom`](library_folder.md#custom) directory of [`library folder`](library_folder.md). It acts the same way as the Library tab build item. After adding new builds inside `custom` folder make sure to press `Reload` button on the top right corner of page to force Blender Launcher read it from disk and show in list.
