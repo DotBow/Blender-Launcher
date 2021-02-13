@@ -75,6 +75,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.started = True
         self.latest_tag = ""
         self.new_downloads = False
+        self.platform = get_platform()
 
         # Icon cache
         self.icon_settings = QIcon(":resources/icons/settings.svg")
@@ -382,13 +383,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
                 return
 
-        platform = get_platform()
         cwd = Path.cwd()
 
-        if platform == 'Windows':
+        if self.platform == 'Windows':
             bl_exe = "Blender Launcher.exe"
             blu_exe = "Blender Launcher Updater.exe"
-        elif platform == 'Linux':
+        elif self.platform == 'Linux':
             bl_exe = "Blender Launcher"
             blu_exe = "Blender Launcher Updater"
 
@@ -399,9 +399,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 open(dist.as_posix(), 'wb') as f2:
             copyfileobj(f1, f2)
 
-        if platform == 'Windows':
+        if self.platform == 'Windows':
             _popen([dist.as_posix(), '-update', self.latest_tag])
-        elif platform == 'Linux':
+        elif self.platform == 'Linux':
             os.chmod(dist.as_posix(), 0o744)
             _popen('nohup "{0}" -update {1}'.format(dist.as_posix(),
                                                     self.latest_tag))
@@ -409,17 +409,15 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.destroy()
 
     def _show(self):
-        platform = get_platform()
-
         if self.isMinimized():
             self.showNormal()
 
-        if platform == "Windows":
+        if self.platform == "Windows":
             self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
             self.show()
             self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
             self.show()
-        elif platform == "Linux":
+        elif self.platform == "Linux":
             self.show()
             self.activateWindow()
 
