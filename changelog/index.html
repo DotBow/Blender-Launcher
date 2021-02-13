@@ -413,23 +413,39 @@
                 
                 <style>body {text-align: justify}</style>
 
-<h1 id="changelog">Changelog</h1>
-<h2 id="1100">1.10.0</h2>
+<h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
+<h2 id="1100">1.10.0<a class="headerlink" href="#1100" title="Permanent link">&para;</a></h2>
 <p><a class="md-button md-button--primary" href="https://github.com/DotBow/Blender-Launcher/releases/tag/v1.10.0">Download Blender Launcher v1.10.0 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm76.45 211.36l-96.42 95.7c-6.65 6.61-17.39 6.61-24.04 0l-96.42-95.7C73.42 337.29 80.54 320 94.82 320H160v-80c0-8.84 7.16-16 16-16h32c8.84 0 16 7.16 16 16v80h65.18c14.28 0 21.4 17.29 11.27 27.36zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"/></svg></span></a></p>
 <p>Follow <a href="../installation/#installing-blender-launcher">Installation</a> and <a href="../installation/#updating-blender-launcher">Update</a> instructions on <a href="https://dotbow.github.io/Blender-Launcher">Documentation</a>.<br>
 Please, read about <a href="../troubleshooting/">how to report a bug</a> before creating an issue.</p>
-<p><strong>Fixed:</strong></p>
+<details class="summary"><summary>Release Notes</summary><p><strong>Fixed:</strong></p>
 <ul>
-<li>&hellip;</li>
+<li>Symlink doesn&rsquo;t work if associated folder was deleted</li>
+<li>Small internal fixes and improvements</li>
 </ul>
 <p><strong>New:</strong></p>
 <ul>
-<li>&hellip;</li>
+<li>Refactored <strong>Main Window</strong> tabs and pages design</li>
+<li>Refactored list design with better alignments matched between tabs and pages</li>
+<li>Branch labels properly cropped when no enough space is available</li>
+<li>Show build phase (Alpha, Beta) for daily builds in downloads tab</li>
+<li>New <strong>Favorites</strong> tab that contains builds added from <strong>Library</strong> tab using context menu <code>Add To Favorites</code> action</li>
+<li>Branch renaming support for <strong>Favorites</strong> tab</li>
+<li><strong>Favorite</strong> build renamed to <strong>Quick Launch</strong> and marks with play icon on the <code>Launch</code> button and <code>Blender</code> tray context menu action</li>
+<li>New builds now marks with dot icon instead of &ldquo;New&rdquo; label</li>
+<li>New option to disable tray icon and quit <strong>Blender Launcher</strong> on close</li>
+<li>Context menus automatically positioned under first available option</li>
+<li>Refactored automatic update system for better stability [#41]</li>
 </ul>
 <p><strong>Other:</strong></p>
 <ul>
-<li>&hellip;</li>
+<li><strong>Wiki</strong> was deprecated in favor of new <a href="https://dotbow.github.io/Blender-Launcher">Documentation</a> site</li>
+<li>Reading local builds now is more stable and fast</li>
+<li>.blinfo file version update due to new <strong>Favorites</strong> tab - expect reloading all existing builds information at first start</li>
+<li><strong>PyInstaller</strong> version updated to 4.2</li>
+<li>Added development packages to virtual environment</li>
 </ul>
+</details>
                 
               
               
