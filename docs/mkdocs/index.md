@@ -2,7 +2,7 @@
 
 # Introduction
 
-![Blender Launcher Text Cover](imgs/cover.png)
+![Blender Launcher Cover](imgs/cover.png)
 
 ??? image "Screenshots"
 
@@ -26,6 +26,8 @@
 ??? question "About"
 
     Documentation purpose is to help present in-depth information about Blender Launcher in a useful way. It is always under construction so feel free to ask questions on Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client).
+
+[Download Latest Release :fontawesome-solid-file-download:](https://github.com/DotBow/Blender-Launcher/releases/latest){: .md-button .md-button--primary .md-button-center }
 
 ## What is it?
 
