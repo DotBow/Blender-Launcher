@@ -46,7 +46,7 @@ markdown_extensions:
         emoji_index: !!python/name:materialx.emoji.twemoji
         emoji_generator: !!python/name:materialx.emoji.to_svg
     - toc:
-        permalink: #
+        permalink: true
 extra_css:
     - stylesheets/extra.css
 repo_url: https://github.com/DotBow/Blender-Launcher
