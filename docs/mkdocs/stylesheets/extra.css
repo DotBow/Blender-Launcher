@@ -38,3 +38,8 @@
             mask-image: var(--md-admonition-icon--image);
 }
 /* end image admonition*/
+
+.md-button-center {
+    width: 100%;
+    text-align: center;
+}
