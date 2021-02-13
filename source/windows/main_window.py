@@ -322,6 +322,11 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.tray_icon.activated.connect(self.tray_icon_activated)
         self.tray_icon.messageClicked.connect(self._show)
 
+        # Linux doesn't handle QSystemTrayIcon.Context activation reason,
+        # so add context menu as regular one
+        if self.platform == "Linux":
+            self.tray_icon.setContextMenu(self.tray_menu)
+
         # Forse style update
         if polish is True:
             self.style().unpolish(self.app)
