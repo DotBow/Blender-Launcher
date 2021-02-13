@@ -1,13 +1,20 @@
-# Blender Launcher │ [Documentation](https://dotbow.github.io/Blender-Launcher) │ [Releases](https://github.com/DotBow/Blender-Launcher/releases)
+# Blender Launcher │ [Documentation](https://dotbow.github.io/Blender-Launcher) │ [Latest Release](https://github.com/DotBow/Blender-Launcher/releases/latest)
 
 ![Blender Launcher Cover](docs/mkdocs/imgs/cover.png)
 
 <details>
 <summary>Screenshots</summary>
+<p></p>
 <p align="center">
 <img src="docs/mkdocs/imgs/library_stable.png">
+</p>
+<p align="center">
 <img src="docs/mkdocs/imgs/downloads_daily.png">
+</p>
+<p align="center">
 <img src="docs/mkdocs/imgs/user_favorites.png">
+</p>
+<p align="center">
 <img src="docs/mkdocs/imgs/tray.png">
 </p>
 </details>
