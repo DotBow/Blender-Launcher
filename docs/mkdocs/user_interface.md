@@ -108,7 +108,7 @@ Build context menu can be accessed via right click on build item.
 
 #### Install Template
 
-:   Install template for selected build (check [template](Library-Folder#template) for more details).
+:   Install template for selected build (check [template](library_folder.md#template) for more details).
 
 #### Delete From Drive
 
