@@ -82,4 +82,4 @@
             └─...
     ```
 
-    More detailed information avaliable on Blender manual [Application Templates](https://docs.blender.org/manual/en/dev/advanced/app_templates.html) page.
+    More detailed information available on Blender manual [Application Templates](https://docs.blender.org/manual/en/dev/advanced/app_templates.html) page.
