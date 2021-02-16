@@ -51,8 +51,8 @@ Core features:
 ## How to start using it?
 
 * :floppy_disk: Download [latest version](https://github.com/DotBow/Blender-Launcher/releases/latest) from [releases page](https://github.com/DotBow/Blender-Launcher/releases)
-* :rocket: Follow [Installation](https://github.com/DotBow/Blender-Launcher/wiki/Installation) instructions and notes on [Wiki](https://github.com/DotBow/Blender-Launcher/wiki)
-* :speech_balloon: Use [Blender Artists Community thread](https://blenderartists.org/t/blender-launcher-standalone-software-client) to ask questions and make proposals
+* :rocket: Follow [Installation](https://dotbow.github.io/Blender-Launcher/installation/#installing-blender-launcher) instructions on [Documentation](https://dotbow.github.io/Blender-Launcher) site
+* :speech_balloon: Use Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client) to ask questions and make proposals
 
 ## How to thank the developer?
 
@@ -61,4 +61,4 @@ Core features:
 
 ***
 
-:sparkling_heart: Thanx for using Blender Launcher! Have a good day!
+:sparkling_heart: Thanx for using Blender Launcher! Have a nice day!
