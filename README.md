@@ -21,23 +21,23 @@
 
 ## What is it?
 
-Blender Launcher is a standalone software client that provides with management of downloading and storing stable, daily and experimental builds of [Blender 3D](https://www.blender.org/). It is a free open source project available for 64-bit Windows and Linux (GLIBC 2.27 and higher) operating systems.
+Blender Launcher is a standalone software client that provides management for stable, daily and experimental builds of [Blender 3D](https://www.blender.org/). It is a free open source project available for 64-bit Windows and Linux (GLIBC 2.27 and higher) operating systems.
 
-## Why I need it?
+## Why do I need it?
 
-The goal of Blender Launcher is to make it easier to stay up to date with latest features and improvements of Blender 3D while feeling safe using a stable releases. Been a minimalistic portable application it is a nice tool for organizing and daily use of evolving free and open source 3D creation suite.
+The goal of Blender Launcher is to make it easier to stay up to date with the latest features and improvements of Blender 3D together with the security of stable releases. Being a minimalistic portable application it is a nice tool for organizing the evolving free and open source 3D creation suite.
 
-## What features it has?
+## What features does it have?
 
-Compared to it [predecessor](https://github.com/DotBow/Blender-Version-Manager) Blender Launcher introduces number of major improvements:
+Compared to its [predecessor](https://github.com/DotBow/Blender-Version-Manager) Blender Launcher introduces a number of major improvements:
 
-* Rewritten from ground up code for better stability and extensibility
+* Rewritten from the ground up for better stability and extensibility
 * All official builds are available:
     * [Stable releases](https://download.blender.org/release/)
     * [Daily builds](https://builder.blender.org/download/)
     * [Experimental branches](https://builder.blender.org/download/branches/)
 * Faster starting times by caching data
-* High DPI displays support
+* Support for high DPI displays
 
 Core features:
 
