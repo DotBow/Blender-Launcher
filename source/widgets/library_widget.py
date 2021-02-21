@@ -72,7 +72,7 @@ class LibraryWidget(QWidget):
     def draw(self, build_info):
         if self.parent_widget is None:
             if self.parent.library_drawer is not None:
-                self.parent.library_drawer.release_build()
+                self.parent.library_drawer.build_released.emit()
 
             if build_info is None:
                 self.infoLabel.setText(
