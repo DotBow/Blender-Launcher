@@ -30,13 +30,14 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_taskbar_icon_color, tabs,
                               taskbar_icon_colors)
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFileDialog, QFormLayout,
-                             QHBoxLayout, QLabel, QLineEdit, QMainWindow,
-                             QPushButton, QWidget)
+from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFormLayout, QHBoxLayout,
+                             QLabel, QLineEdit, QMainWindow, QPushButton,
+                             QWidget)
 from ui.settings_window_ui import Ui_SettingsWindow
 
 from windows.base_window import BaseWindow
 from windows.dialog_window import DialogWindow
+from windows.file_dialog_window import FileDialogWindow
 
 
 class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
@@ -280,9 +281,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def set_library_folder(self):
         library_folder = str(get_library_folder())
-        new_library_folder = QFileDialog.getExistingDirectory(
-            self, "Select Library Folder", library_folder,
-            options=QFileDialog.DontUseNativeDialog | QFileDialog.ShowDirsOnly)
+        new_library_folder = FileDialogWindow()._getExistingDirectory(
+            self, "Select Library Folder", library_folder)
 
         if new_library_folder and (library_folder != new_library_folder):
             if set_library_folder(new_library_folder) is True:

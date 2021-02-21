@@ -23,9 +23,9 @@ from modules.settings import (create_library_folders,
 from PyQt5.QtCore import QSize, Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
 from PyQt5.QtNetwork import QLocalServer
-from PyQt5.QtWidgets import (QAction, QFileDialog, QHBoxLayout, QLabel,
-                             QMainWindow, QPushButton, QSystemTrayIcon,
-                             QTabWidget, QVBoxLayout, QWidget)
+from PyQt5.QtWidgets import (QAction, QHBoxLayout, QLabel, QMainWindow,
+                             QPushButton, QSystemTrayIcon, QTabWidget,
+                             QVBoxLayout, QWidget)
 from threads.library_drawer import LibraryDrawer
 from threads.remover import Remover
 from threads.scraper import Scraper
@@ -38,6 +38,7 @@ from widgets.library_widget import LibraryWidget
 
 from windows.base_window import BaseWindow
 from windows.dialog_window import DialogIcon, DialogWindow
+from windows.file_dialog_window import FileDialogWindow
 from windows.settings_window import SettingsWindow
 
 
@@ -107,9 +108,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def set_library_folder(self):
         library_folder = Path.cwd().as_posix()
-        new_library_folder = QFileDialog.getExistingDirectory(
-            self, "Select Library Folder", library_folder,
-            options=QFileDialog.DontUseNativeDialog | QFileDialog.ShowDirsOnly)
+        new_library_folder = FileDialogWindow()._getExistingDirectory(
+            self, "Select Library Folder", library_folder)
 
         if (new_library_folder):
             if set_library_folder(new_library_folder) is True:
