@@ -519,7 +519,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def reload_custom_builds(self):
         self.UserCustomListWidget._clear()
-        self.library_drawer = LibraryDrawer()
+        self.library_drawer = LibraryDrawer(folders=['custom'])
         self.library_drawer.build_found.connect(self.draw_to_library)
         self.library_drawer.start()
 
