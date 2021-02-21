@@ -8,7 +8,7 @@ from modules._platform import get_platform
 from windows.main_window import BlenderLauncher
 from windows.update_window import BlenderLauncherUpdater
 
-version = "1.10.0"
+version = "1.11.0"
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(stream=sys.stdout)
 logger.addHandler(handler)
