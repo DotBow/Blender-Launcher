@@ -324,7 +324,7 @@ class LibraryWidget(QWidget):
             self.observer.finished.connect(self.observer_finished)
             self.observer.start()
 
-        self.observer.append_proc(proc)
+        self.observer.append_proc.emit(proc)
 
     def proc_count_changed(self, count):
         self.build_state_widget.setCount(count)

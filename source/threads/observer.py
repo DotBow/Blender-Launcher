@@ -5,11 +5,13 @@ class Observer(QThread):
     started = pyqtSignal()
     finished = pyqtSignal()
     count_changed = pyqtSignal('PyQt_PyObject')
+    append_proc = pyqtSignal('PyQt_PyObject')
 
     def __init__(self, parent):
         QThread.__init__(self)
         self.parent = parent
         self.processes = []
+        self.append_proc.connect(self.handle_append_proc)
 
     def run(self):
         self.started.emit()
@@ -31,6 +33,6 @@ class Observer(QThread):
 
         return
 
-    def append_proc(self, proc):
+    def handle_append_proc(self, proc):
         self.processes.append(proc)
         self.count_changed.emit(len(self.processes))
