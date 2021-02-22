@@ -4,6 +4,5 @@ PYTHONOPTIMIZE=2 pyinstaller \
 --noupx \
 --onefile \
 --windowed \
---icon="source/resources/icons/desktop.ico" \
 --name="Blender Launcher" \
 source/main.py
