@@ -89,6 +89,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.icon_delete = QIcon(":resources/icons/delete.svg")
         self.filled_circle = QIcon(":resources/icons/filled_circle.svg")
         self.icon_quick_launch = QIcon(":resources/icons/quick_launch.svg")
+        self.icon_download = QIcon(":resources/icons/download.svg")
+        self.icon_file = QIcon(":resources/icons/file.svg")
         self.icon_taskbar = QIcon(taskbar_icon_paths[get_taskbar_icon_color()])
 
         # Setup window
