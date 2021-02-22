@@ -143,8 +143,11 @@ class DownloadWidget(QWidget):
         self.progress_end = 1
 
         self.extractor.start()
+        self.build_state_widget.setExtract()
 
     def init_template_installer(self, dist):
+        self.build_state_widget.setExtract(False)
+
         if get_install_template():
             self.template_installer = TemplateInstaller(
                 self.parent.manager, dist)
@@ -162,6 +165,7 @@ class DownloadWidget(QWidget):
         self.cancelButton.show()
         self.downloadButton.hide()
         self.h_layout1.setContentsMargins(0, 10, 0, 0)
+        self.build_state_widget.setDownload()
 
     def download_cancelled(self):
         self.item.setSelected(True)
@@ -172,6 +176,7 @@ class DownloadWidget(QWidget):
         self.downloader.wait()
         self.downloadButton.show()
         self.h_layout1.setContentsMargins(0, 0, 0, 0)
+        self.build_state_widget.setDownload(False)
 
     def set_progress_bar(self, value, format):
         self.progressBar.setFormat("")
@@ -193,6 +198,8 @@ class DownloadWidget(QWidget):
                 "Blender {0} download finished!".format(name),
                 type=MessageType.DOWNLOADFINISHED)
             self.destroy()
+
+        self.build_state_widget.setDownload(False)
 
     def set_indent(self, indent):
         self.subversionLabel.setIndent(indent)
