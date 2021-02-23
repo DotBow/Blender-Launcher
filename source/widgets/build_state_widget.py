@@ -32,7 +32,6 @@ class BuildStateWidget(QWidget):
         self.layout.addWidget(self.extractIcon)
 
         self.active_icon = self.fakeIcon
-        self.setDownload()
 
     def IconButton(self, icon=None, text="", prop="Icon"):
         button = QPushButton(text)
