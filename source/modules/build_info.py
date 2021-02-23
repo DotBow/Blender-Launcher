@@ -20,11 +20,9 @@ class BuildInfo:
         self.link_type = link_type
         self.link = link
 
-        if "Candidate" in subversion:
-            subversion = subversion.replace("Candidate", "")
-
-        if "rc" in subversion:
-            subversion = subversion.replace("rc", " RC ").strip()
+        if any(w in subversion.lower()
+               for w in ['release', 'candidate', 'rc']):
+            subversion = re.sub('[a-zA-Z ]+', " RC ", subversion).rstrip()
 
         self.subversion = subversion
         self.build_hash = build_hash
