@@ -138,7 +138,8 @@ class BuildStateWidget(QWidget):
         for widget in self.list_widget.widgets:
             build_state_widget = widget.build_state_widget
 
-            if build_state_widget.anim is not None:
+            if (build_state_widget.anim is not None) and \
+                    (build_state_widget != self):
                 self.anim.start()
                 self.anim.setCurrentTime(build_state_widget.anim.currentTime())
                 return
