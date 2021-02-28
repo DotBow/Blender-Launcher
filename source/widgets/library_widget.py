@@ -10,10 +10,10 @@ from modules.settings import (get_bash_arguments,
                               get_library_folder, get_mark_as_favorite,
                               set_favorite_path)
 from modules.shortcut import create_shortcut
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QAction, QApplication, QHBoxLayout, QLabel,
-                             QLineEdit, QPushButton, QWidget)
+                             QPushButton, QWidget)
 from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
@@ -225,8 +225,6 @@ class LibraryWidget(QWidget):
 
         if self.build_info.is_favorite and self.parent_widget is None:
             self.add_to_favorites()
-
-        self.list_widget.resize()
 
     def context_menu(self):
         if len(self.list_widget.selectedItems()) > 1:
@@ -563,6 +561,10 @@ class LibraryWidget(QWidget):
             os.startfile(folder.as_posix())
         elif platform == 'Linux':
             subprocess.call(["xdg-open", folder.as_posix()])
+
+    def resizeEvent(self, a0: QtGui.QResizeEvent) -> None:
+        self.list_widget.resize_signal.emit()
+        return super().resizeEvent(a0)
 
     def set_indent(self, indent):
         self.subversionLabel.setIndent(indent)

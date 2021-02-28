@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QAbstractItemView, QListWidget
 
 class BaseListWidget(QListWidget):
     subversion_indent_changed = pyqtSignal('PyQt_PyObject')
+    resize_signal = pyqtSignal()
 
     def __init__(self, parent=None, extended_selection=False):
         super().__init__()
@@ -20,6 +21,8 @@ class BaseListWidget(QListWidget):
 
         if extended_selection is True:
             self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+
+        self.resize_signal.connect(self.resize)
 
     def add_item(self, item, widget):
         item.setSizeHint(widget.sizeHint())

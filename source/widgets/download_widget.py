@@ -3,6 +3,7 @@ from pathlib import Path
 
 from modules.enums import MessageType
 from modules.settings import get_install_template, get_library_folder
+from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QPushButton,
                              QVBoxLayout, QWidget)
@@ -94,7 +95,6 @@ class DownloadWidget(QWidget):
         self.h_layout.addWidget(self.build_state_widget)
 
         self.setLayout(self.h_layout)
-        self.list_widget.resize()
 
     def mouseDoubleClickEvent(self, event):
         if self.state != DownloadState.DOWNLOADING:
@@ -200,6 +200,10 @@ class DownloadWidget(QWidget):
             self.destroy()
 
         self.build_state_widget.setDownload(False)
+
+    def resizeEvent(self, a0: QtGui.QResizeEvent) -> None:
+        self.list_widget.resize_signal.emit()
+        return super().resizeEvent(a0)
 
     def set_indent(self, indent):
         self.subversionLabel.setIndent(indent)
