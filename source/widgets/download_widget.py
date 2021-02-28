@@ -72,7 +72,8 @@ class DownloadWidget(QWidget):
 
         self.branchLabel = ElidedTextLabel(branch_name)
         self.commitTimeLabel = DateTimeWidget(self.build_info.commit_time)
-        self.build_state_widget = BuildStateWidget(self.parent)
+        self.build_state_widget = BuildStateWidget(
+            self.parent, self.list_widget)
 
         self.h_layout1.addWidget(self.subversionLabel)
 
@@ -199,7 +200,7 @@ class DownloadWidget(QWidget):
                 type=MessageType.DOWNLOADFINISHED)
             self.destroy()
 
-        self.build_state_widget.setDownload(False)
+        self.build_state_widget.setExtract(False)
 
     def resizeEvent(self, a0: QtGui.QResizeEvent) -> None:
         self.list_widget.resize_signal.emit()

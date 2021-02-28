@@ -3,9 +3,11 @@ from PyQt5.QtWidgets import QHBoxLayout, QPushButton, QWidget
 
 
 class BuildStateWidget(QWidget):
-    def __init__(self, parent):
+    def __init__(self, parent, list_widget):
         super().__init__()
         self.parent = parent
+        self.list_widget = list_widget
+        self.anim = None
 
         self.layout = QHBoxLayout(self)
         self.layout.setContentsMargins(0, 0, 4, 0)
@@ -76,7 +78,10 @@ class BuildStateWidget(QWidget):
             self.active_icon.hide()
             self.fakeIcon.show()
             self.active_icon = self.fakeIcon
-            self.anim.deleteLater()
+
+            if self.anim is not None:
+                self.anim.deleteLater()
+                self.anim = None
 
     def setExtract(self, show=True):
         if show:
@@ -88,7 +93,10 @@ class BuildStateWidget(QWidget):
             self.active_icon.hide()
             self.fakeIcon.show()
             self.active_icon = self.fakeIcon
-            self.anim.deleteLater()
+
+            if self.anim is not None:
+                self.anim.deleteLater()
+                self.anim = None
 
     def download_anim(self):
         self.anim = QPropertyAnimation(self.downloadIcon, b"geometry")
@@ -101,11 +109,12 @@ class BuildStateWidget(QWidget):
         self.anim.setEndValue(QRect(
             geometry.x(), geometry.height() * 1.25,
             geometry.width(), geometry.height()))
-        self.anim.start()
+
+        self.start_anim()
 
     def extract_anim(self):
         self.anim = QPropertyAnimation(self.extractIcon, b"geometry")
-        self.anim.setDuration(2000)
+        self.anim.setDuration(1000)
         self.anim.setLoopCount(-1)
         self.anim.setEasingCurve(QEasingCurve.OutCubic)
         geometry = self.extractIcon.geometry()
@@ -113,13 +122,25 @@ class BuildStateWidget(QWidget):
             geometry.x(), geometry.height() * 1.25,
             geometry.width(), geometry.height()))
         self.anim.setKeyValueAt(0.3, QRect(
-            geometry.x(), geometry.y() + geometry.height() * 0.25,
+            geometry.x(), geometry.y() + geometry.height() * 0.15,
             geometry.width(), geometry.height()))
         self.anim.setKeyValueAt(0.7, QRect(
-            geometry.x(), geometry.y() + geometry.height() * 0.25,
+            geometry.x(), geometry.y() + geometry.height() * 0.15,
             geometry.width(), geometry.height()))
         self.anim.setEndValue(QRect(
             geometry.x() + geometry.width() * 1.25,
-            geometry.y() + geometry.height() * 0.25,
+            geometry.y() + geometry.height() * 0.15,
             geometry.width(), geometry.height()))
+
+        self.start_anim()
+
+    def start_anim(self):
+        for widget in self.list_widget.widgets:
+            build_state_widget = widget.build_state_widget
+
+            if build_state_widget.anim is not None:
+                self.anim.start()
+                self.anim.setCurrentTime(build_state_widget.anim.currentTime())
+                return
+
         self.anim.start()

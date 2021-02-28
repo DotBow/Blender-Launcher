@@ -99,7 +99,8 @@ class LibraryWidget(QWidget):
         self.commitTimeLabel = DateTimeWidget(self.build_info.commit_time)
         self.list_widget.subversion_indent_changed.connect(self.set_indent)
 
-        self.build_state_widget = BuildStateWidget(self.parent)
+        self.build_state_widget = BuildStateWidget(
+            self.parent, self.list_widget)
 
         self.layout.addWidget(self.launchButton)
         self.layout.addWidget(self.subversionLabel)
