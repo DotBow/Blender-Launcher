@@ -9,6 +9,7 @@ class FileDialogWindow(QFileDialog):
         options = (
             QFileDialog.DontUseNativeDialog |
             QFileDialog.ShowDirsOnly |
-            QFileDialog.HideNameFilterDetails)
+            QFileDialog.HideNameFilterDetails |
+            QFileDialog.DontUseCustomDirectoryIcons)
         return self.getExistingDirectory(
             parent, title, dir, options)
