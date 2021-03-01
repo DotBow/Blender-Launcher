@@ -2,6 +2,30 @@
 
 # Changelog
 
+## 1.11.0
+
+[Download Blender Launcher v1.11.0 :fontawesome-solid-file-download:](https://github.com/DotBow/Blender-Launcher/releases/tag/v1.11.0){: .md-button .md-button--primary }
+
+Follow [Installation](installation.md#installing-blender-launcher) and [Update](installation.md#updating-blender-launcher) instructions on [Documentation](https://dotbow.github.io/Blender-Launcher).<br>
+Please, read about [how to report a bug](troubleshooting.md) before creating an issue.
+
+??? summary "Release Notes"
+
+    **Fixed:**
+
+    - Fix release candidate title conversion to RC [unreported]
+    - Custom page reload feature forces to draw all builds which leads to duplicates [unreported]
+    - Fix crashing - library drawer and observer threads [unreported]
+    - Fix alignment with 'RC' and 'Alpha' subversion labels [#56](https://github.com/DotBow/Blender-Launcher/issues/56)
+
+    **New:**
+
+    - Add animated icons to get back visualization of download and extract processes
+
+    **Other:**
+
+    - Move dialog creation into separate class, disable custom icons and set view to list by default
+
 ## 1.10.0
 
 [Download Blender Launcher v1.10.0 :fontawesome-solid-file-download:](https://github.com/DotBow/Blender-Launcher/releases/tag/v1.10.0){: .md-button .md-button--primary }
@@ -28,7 +52,7 @@ Please, read about [how to report a bug](troubleshooting.md) before creating an 
     - New builds now marks with dot icon instead of "New" label
     - New option to disable tray icon and quit **Blender Launcher** on close
     - Context menus automatically positioned under first available option
-    - Refactored automatic update system for better stability [#41]
+    - Refactored automatic update system for better stability [#41](https://github.com/DotBow/Blender-Launcher/issues/41)
 
     **Other:**
 
