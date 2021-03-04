@@ -505,8 +505,15 @@
 </li>
 <li>
 <p>Install dependencies</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Minimum set of packages for building executable</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>pipenv install
+</code></pre></div>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">All set of packages including development tools</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code>pipenv install --dev
 </code></pre></div>
+</div>
+</div>
 </li>
 <li>
 <p>Enter the virtual environment</p>
@@ -522,7 +529,7 @@
 <p class="admonition-title">Warning</p>
 <p>Executable for target platform must be built under this exclusive platform!</p>
 </div>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Windows</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Windows</label><div class="tabbed-content">
 <ol>
 <li>
 <p>Run batch file</p>
@@ -534,7 +541,7 @@
 </li>
 </ol>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Linux</label><div class="tabbed-content">
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Linux</label><div class="tabbed-content">
 <ol>
 <li>
 <p>Run shell script file</p>
