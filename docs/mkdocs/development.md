@@ -24,9 +24,17 @@
 
 1. Install dependencies
 
-    ```
-    pipenv install --dev
-    ```
+    === "Minimum set of packages for building executable"
+
+        ```
+        pipenv install
+        ```
+
+    === "All set of packages including development tools"
+
+        ```
+        pipenv install --dev
+        ```
 
 1. Enter the virtual environment
 
