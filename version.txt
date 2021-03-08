@@ -29,10 +29,10 @@ VSVersionInfo(
       [
       StringTable(
         u'04090000',
-        [StringStruct(u'CompanyName', u'Oleg Stepanov'),
+        [StringStruct(u'CompanyName', u'Oleg Stepanov (DotBow)'),
         StringStruct(u'FileDescription', u'Blender Launcher'),
         StringStruct(u'FileVersion', u'1.12.0'),
-        StringStruct(u'LegalCopyright', u'GPLv3 © 2021 Oleg Stepanov'),
+        StringStruct(u'LegalCopyright', u'GPLv3 © 2021 Oleg Stepanov (DotBow)'),
         StringStruct(u'OriginalFilename', u'Blender Launcher.exe'),
         StringStruct(u'ProductName', u'Blender Launcher'),
         StringStruct(u'ProductVersion', u'1.12.0')])
