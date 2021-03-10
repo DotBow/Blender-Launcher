@@ -673,7 +673,21 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.destroy()
 
     def new_connection(self):
+        self.socket = self.server.nextPendingConnection()
+        self.socket.readyRead.connect(self.read_socket_data)
         self._show()
+
+    def read_socket_data(self):
+        data = self.socket.readAll()
+
+        if str(data, encoding='ascii') != self.version:
+            self.dlg = DialogWindow(
+                parent=self, title="Warning",
+                text="An attempt to launch a different version<br>\
+                      of Blender Launcher was detected!<br>\
+                      Please, terminate currently running<br>\
+                      version to proceed this action!",
+                accept_text="OK", cancel_text=None, icon=DialogIcon.WARNING)
 
     def dragEnterEvent(self, e):
         if e.mimeData().hasFormat('text/plain'):

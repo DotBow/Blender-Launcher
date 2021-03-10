@@ -1,6 +1,7 @@
 import logging
 import sys
 
+from PyQt5.QtCore import QByteArray
 from PyQt5.QtNetwork import QLocalSocket
 from PyQt5.QtWidgets import QApplication
 
@@ -48,6 +49,9 @@ def main():
         BlenderLauncher(app=app, version=version)
         app.exec_()
         return
+    else:
+        socket.write(QByteArray(version.encode()))
+        socket.waitForBytesWritten()
 
 
 if __name__ == '__main__':
