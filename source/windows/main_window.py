@@ -52,8 +52,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     close_signal = pyqtSignal()
     quit_signal = pyqtSignal()
 
-    def __init__(self, app, version):
-        super(BlenderLauncher, self).__init__(app=app, version=version)
+    def __init__(self, app, version, library_folder=None):
+        super(BlenderLauncher, self).__init__(
+            app=app, version=version)
         self.setupUi(self)
         self.setAcceptDrops(True)
 
@@ -97,6 +98,21 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.setWindowTitle("Blender Launcher")
         self.app.setWindowIcon(self.icon_taskbar)
 
+        # Set library folder from command line arguments
+        if library_folder:
+            if set_library_folder(library_folder) is True:
+                create_library_folders(get_library_folder())
+                self.draw(True)
+            else:
+                self.dlg = DialogWindow(
+                    parent=self, title="Warning",
+                    text="Passed path is not a valid folder or<br>\
+                    it doesn't have write permissions!",
+                    accept_text="Quit", cancel_text=None)
+                self.dlg.accepted.connect(lambda: self.app.quit())
+
+            return
+
         # Check library folder
         if is_library_folder_valid() is False:
             self.dlg = DialogWindow(
@@ -119,7 +135,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             else:
                 self.dlg = DialogWindow(
                     parent=self, title="Warning",
-                    text="Selected folder doesn't have write permissions!",
+                    text="Selected folder is not valid or<br>\
+                    doesn't have write permissions!",
                     accept_text="Retry", cancel_text=None)
                 self.dlg.accepted.connect(self.set_library_folder)
         else:
