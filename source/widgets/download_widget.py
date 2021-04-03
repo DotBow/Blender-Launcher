@@ -71,7 +71,8 @@ class DownloadWidget(QWidget):
             branch_name = self.build_info.branch.replace('-', ' ').title()
 
         self.branchLabel = ElidedTextLabel(branch_name)
-        self.commitTimeLabel = DateTimeWidget(self.build_info.commit_time)
+        self.commitTimeLabel = DateTimeWidget(
+            self.build_info.commit_time, self.build_info.build_hash)
         self.build_state_widget = BuildStateWidget(
             self.parent, self.list_widget)
 
