@@ -12,14 +12,14 @@ QCheckBox::indicator:unchecked {
 
 QComboBox {
 	background-color:#1F1F1F;
-	color: #FFFFFF;
+	color: #E6E6E6;
 	border: 1px solid #444444;
 	padding: 1px 1px 1px 3px;
 }
 
 QComboBox QAbstractItemView {
 	background-color:#1F1F1F;
-	color: #FFFFFF;
+	color: #E6E6E6;
 	border: 1px solid #444444;
 	outline: 0;
 }
@@ -44,12 +44,12 @@ QComboBox::down-arrow {
 
 QFileDialog {
 	background-color: #232323;
-	color: #FFFFFF;
+	color: #E6E6E6;
 }
 
 QHeaderView {
 	background-color: #282828;
-	color: #FFFFFF;
+	color: #E6E6E6;
 }
 
 QHeaderView::section {
@@ -58,7 +58,7 @@ QHeaderView::section {
 }
 
 QLabel {
-	color: #FFFFFF;
+	color: #E6E6E6;
 }
 
 QLabel[Header=true] {
@@ -73,18 +73,18 @@ QLabel:disabled {
 
 QLineEdit {
 	background-color:#1F1F1F;
-	color: #FFFFFF;
+	color: #E6E6E6;
 	border: 1px solid #444444;
 	padding: 1px;
 }
 
 QLineEdit[text=\"\"] {
-	color: #FFFFFF;
+	color: #E6E6E6;
 }
 
 QListView {
 	background-color: #282828;
-	color: #FFFFFF;
+	color: #E6E6E6;
 	border: 1px solid #444444;
 	outline: 0;
 }
@@ -102,7 +102,7 @@ QListView::item:selected {
 }
 
 QListView::item:selected:!active {
-	color: #FFFFFF;
+	color: #E6E6E6;
 }
 
 QListWidget {
@@ -138,7 +138,7 @@ QMainWindow {
 QMenu
 {
 	background-color: #1F1F1F;
-	color: #FFFFFF;
+	color: #E6E6E6;
 	padding: 0px;
 }
 
@@ -172,7 +172,7 @@ QMenu::separator
 
 QProgressBar
 {
-	color: #FFFFFF;
+	color: #E6E6E6;
 	background-color: #2C2C2C;
 	border: 1px solid #585858;
 	height: 100%;
@@ -184,14 +184,14 @@ QProgressBar::chunk
 }
 
 QPushButton {
-	color: #FFFFFF;
+	color: #E6E6E6;
 	background-color: #232323;
 	border: none;
 	padding: 4px;
 }
 
 QPushButton:hover {
-	color: #FFFFFF;
+	color: #E6E6E6;
 	background-color: #343434;
 	border: none;
 }
@@ -335,7 +335,7 @@ QSplitter::handle {
 }
 
 QStatusBar {
-	color: #FFFFFF;
+	color: #E6E6E6;
 }
 
 QStatusBar::item
@@ -354,7 +354,7 @@ QTabBar::tab:hover {
 
 QTabBar::tab::selected {
 	background-color: #424242;
-	color: #FFFFFF;
+	color: #E6E6E6;
 }
 
 QTabWidget::pane {
@@ -380,22 +380,22 @@ QToolBox {
 
 QToolBox::tab {
 	background-color: #424242;
-	color: #FFFFFF;
+	color: #E6E6E6;
 }
 
 QToolBox::tab:hover {
 	background-color: #4F4F4F;
-	color: #FFFFFF;
+	color: #E6E6E6;
 }
 
 QToolBox::tab:selected:hover {
 	background-color: #424242;
-	color: #FFFFFF;
+	color: #E6E6E6;
 }
 
 QTreeView {
 	background-color: #282828;
-	color: #FFFFFF;
+	color: #E6E6E6;
 	border: 1px solid #444444;
 	outline: 0;
 }
@@ -409,7 +409,7 @@ QTreeView::item:selected {
 }
 
 QTreeView::item:selected:!active {
-	color: #FFFFFF;
+	color: #E6E6E6;
 }
 
 QWidget[ToolBoxWidget=true] {

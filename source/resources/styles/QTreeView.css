@@ -1,6 +1,6 @@
 QTreeView {
 	background-color: #282828;
-	color: #FFFFFF;
+	color: #E6E6E6;
 	border: 1px solid #444444;
 	outline: 0;
 }
@@ -14,6 +14,6 @@ QTreeView::item:selected {
 }
 
 QTreeView::item:selected:!active {
-	color: #FFFFFF;
+	color: #E6E6E6;
 }
 
