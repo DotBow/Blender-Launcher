@@ -144,11 +144,13 @@ QMenu
 
 QMenu::item
 {
+	color: #E6E6E6;
 	padding: 6px 10px 6px 6px;
 }
 
 QMenu::item::selected
 {
+	color: #FFFFFF;
 	background-color: #5076B2;
 }
 
@@ -191,7 +193,7 @@ QPushButton {
 }
 
 QPushButton:hover {
-	color: #E6E6E6;
+	color: #FFFFFF;
 	background-color: #343434;
 	border: none;
 }
@@ -344,17 +346,18 @@ QStatusBar::item
 }
 
 QTabBar::tab {
-	background-color: #2B2B2B;
 	color: #989898;
+	background-color: #2B2B2B;
 }
 
 QTabBar::tab:hover {
+	color: #FFFFFF;
 	background-color: #343434;
 }
 
 QTabBar::tab::selected {
+	color: #FFFFFF;
 	background-color: #424242;
-	color: #E6E6E6;
 }
 
 QTabWidget::pane {

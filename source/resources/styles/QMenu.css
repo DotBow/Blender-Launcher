@@ -7,11 +7,13 @@ QMenu
 
 QMenu::item
 {
+	color: #E6E6E6;
 	padding: 6px 10px 6px 6px;
 }
 
 QMenu::item::selected
 {
+	color: #FFFFFF;
 	background-color: #5076B2;
 }
 
