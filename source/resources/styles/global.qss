@@ -198,6 +198,14 @@ QPushButton:hover {
 	border: none;
 }
 
+QPushButton[TextOnly=true] {
+	background-color: transparent;
+}
+
+QPushButton[TextOnly=true]:hover {
+	background-color: transparent;
+}
+
 QPushButton[HeaderButton=true] {
 	background-color: #232323;
 	border: none;

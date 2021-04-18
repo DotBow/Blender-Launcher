@@ -6,6 +6,7 @@ class DateTimeWidget(QPushButton):
     def __init__(self, datetime, build_hash):
         super().__init__()
         self.setFixedWidth(120)
+        self.setProperty("TextOnly", True)
 
         self.layout = QHBoxLayout(self)
         self.layout.setContentsMargins(0, 0, 0, 0)
