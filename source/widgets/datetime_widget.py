@@ -1,3 +1,4 @@
+from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QHBoxLayout, QLabel, QPushButton
 
@@ -15,16 +16,21 @@ class DateTimeWidget(QPushButton):
         datetime_parts = datetime.rsplit('-', 1)
         date_parts = datetime_parts[0].rsplit('-')
 
+        self.LeftArrowLabel = QLabel("◂")
+        self.LeftArrowLabel.setVisible(False)
         self.DayLabel = QLabel(date_parts[0])
         self.MonthLabel = QLabel(date_parts[1])
         self.MonthLabel.setFixedWidth(32)
         self.MonthLabel.setAlignment(Qt.AlignCenter)
         self.YearLabel = QLabel(date_parts[2] + ", ")
         self.TimeLabel = QLabel(datetime_parts[1])
+        self.RightArrowLabel = QLabel("▸")
+        self.RightArrowLabel.setVisible(False)
 
         self.BuildHashLabel = QLabel(build_hash)
         self.BuildHashLabel.hide()
 
+        self.layout.addWidget(self.LeftArrowLabel)
         self.layout.addStretch()
         self.layout.addWidget(self.DayLabel)
         self.layout.addWidget(self.MonthLabel)
@@ -32,6 +38,7 @@ class DateTimeWidget(QPushButton):
         self.layout.addWidget(self.TimeLabel)
         self.layout.addWidget(self.BuildHashLabel)
         self.layout.addStretch()
+        self.layout.addWidget(self.RightArrowLabel)
 
         self.setCursor(Qt.PointingHandCursor)
         self.setToolTip("Press to show build hash number")
@@ -48,3 +55,13 @@ class DateTimeWidget(QPushButton):
             self.setToolTip("Press to show date and time")
         else:
             self.setToolTip("Press to show build hash number")
+
+    def enterEvent(self, event: QtCore.QEvent) -> None:
+        self.LeftArrowLabel.setVisible(True)
+        self.RightArrowLabel.setVisible(True)
+        return super().enterEvent(event)
+
+    def leaveEvent(self, event: QtCore.QEvent) -> None:
+        self.LeftArrowLabel.setVisible(False)
+        self.RightArrowLabel.setVisible(False)
+        return super().leaveEvent(event)
