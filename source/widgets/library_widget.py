@@ -94,7 +94,7 @@ class LibraryWidget(QWidget):
         self.launchButton.setProperty("LaunchButton", True)
 
         self.subversionLabel = QLabel()
-        self.subversionLabel.setFixedWidth(80)
+        self.subversionLabel.setFixedWidth(85)
         self.branchLabel = ElidedTextLabel()
         self.commitTimeLabel = DateTimeWidget(
             self.build_info.commit_time, self.build_info.build_hash)

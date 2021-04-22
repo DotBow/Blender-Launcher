@@ -62,7 +62,7 @@ class DownloadWidget(QWidget):
         self.h_layout1.setContentsMargins(0, 0, 0, 0)
 
         self.subversionLabel = QLabel(self.build_info.subversion)
-        self.subversionLabel.setFixedWidth(80)
+        self.subversionLabel.setFixedWidth(85)
         self.list_widget.subversion_indent_changed.connect(self.set_indent)
 
         if self.build_info.branch == 'lts':
