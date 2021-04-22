@@ -282,6 +282,7 @@ class LibraryWidget(QWidget):
 
     @QtCore.pyqtSlot()
     def launch(self):
+        self.list_widget.clearSelection()
         self.item.setSelected(True)
 
         if self.parent_widget is not None:
