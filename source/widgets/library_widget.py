@@ -412,7 +412,7 @@ class LibraryWidget(QWidget):
             return
 
         path = Path(get_library_folder()) / self.link
-        self.remover = Remover(path)
+        self.remover = Remover(path, self.parent)
         self.remover.started.connect(self.remover_started)
         self.remover.finished.connect(self.remover_finished)
         self.remover.start()

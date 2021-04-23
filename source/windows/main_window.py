@@ -78,6 +78,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.latest_tag = ""
         self.new_downloads = False
         self.platform = get_platform()
+        self.remover_count = 0
 
         # Icon cache
         self.icon_settings = QIcon(":resources/icons/settings.svg")
@@ -678,7 +679,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def clear_temp(self):
         temp_folder = Path(get_library_folder()) / ".temp"
-        self.remover = Remover(temp_folder)
+        self.remover = Remover(temp_folder, self.parent)
         self.remover.start()
 
     def closeEvent(self, event):
