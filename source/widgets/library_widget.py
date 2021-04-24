@@ -10,16 +10,17 @@ from modules.settings import (get_bash_arguments,
                               get_library_folder, get_mark_as_favorite,
                               set_favorite_path)
 from modules.shortcut import create_shortcut
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QAction, QApplication, QHBoxLayout, QLabel,
-                             QPushButton, QWidget)
+                             QPushButton)
 from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
 from threads.template_installer import TemplateInstaller
 from windows.dialog_window import DialogWindow
 
+from widgets.base_build_widget import BaseBuildWidget
 from widgets.base_line_edit import BaseLineEdit
 from widgets.base_menu_widget import BaseMenuWidget
 from widgets.build_state_widget import BuildStateWidget
@@ -28,7 +29,7 @@ from widgets.elided_text_label import ElidedTextLabel
 from widgets.left_icon_button_widget import LeftIconButtonWidget
 
 
-class LibraryWidget(QWidget):
+class LibraryWidget(BaseBuildWidget):
     def __init__(self, parent, item, link, list_widget,
                  show_branch=True, show_new=False, parent_widget=None):
         super().__init__()
@@ -564,13 +565,6 @@ class LibraryWidget(QWidget):
             os.startfile(folder.as_posix())
         elif platform == 'Linux':
             subprocess.call(["xdg-open", folder.as_posix()])
-
-    def resizeEvent(self, a0: QtGui.QResizeEvent) -> None:
-        self.list_widget.resize_signal.emit()
-        return super().resizeEvent(a0)
-
-    def set_indent(self, indent):
-        self.subversionLabel.setIndent(indent)
 
     def list_widget_deleted(self):
         self.list_widget = None

@@ -3,14 +3,14 @@ from pathlib import Path
 
 from modules.enums import MessageType
 from modules.settings import get_install_template, get_library_folder
-from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QPushButton,
-                             QVBoxLayout, QWidget)
+                             QVBoxLayout)
 from threads.downloader import Downloader
 from threads.extractor import Extractor
 from threads.template_installer import TemplateInstaller
 
+from widgets.base_build_widget import BaseBuildWidget
 from widgets.build_state_widget import BuildStateWidget
 from widgets.datetime_widget import DateTimeWidget
 from widgets.elided_text_label import ElidedTextLabel
@@ -21,7 +21,7 @@ class DownloadState(Enum):
     DOWNLOADING = 2
 
 
-class DownloadWidget(QWidget):
+class DownloadWidget(BaseBuildWidget):
     def __init__(self, parent, list_widget, item, build_info,
                  show_branch=True, show_new=False):
         super().__init__()
@@ -202,13 +202,6 @@ class DownloadWidget(QWidget):
             self.destroy()
 
         self.build_state_widget.setExtract(False)
-
-    def resizeEvent(self, a0: QtGui.QResizeEvent) -> None:
-        self.list_widget.resize_signal.emit()
-        return super().resizeEvent(a0)
-
-    def set_indent(self, indent):
-        self.subversionLabel.setIndent(indent)
 
     def destroy(self):
         if self.state == DownloadState.WAITING:
