@@ -13,15 +13,18 @@ class BaseMenuWidget(QMenu):
         self.screen_size = QDesktopWidget().screenGeometry()
 
     def _show(self):
-        cursor = QCursor.pos()
-        cursor.setX(cursor.x() - self.action_height * 0.5)
-
         actions = self.actions()
         actions_count = sum((a.isVisible() and not a.isSeparator())
                             for a in actions)
 
+        if actions_count == 0:
+            return
+
         menu_height = actions_count * self.action_height
         reverse = False
+
+        cursor = QCursor.pos()
+        cursor.setX(cursor.x() - self.action_height * 0.5)
 
         if cursor.y() > (self.screen_size.height() - menu_height):
             reverse = True
