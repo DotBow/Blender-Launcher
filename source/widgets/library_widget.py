@@ -32,7 +32,7 @@ from widgets.left_icon_button_widget import LeftIconButtonWidget
 class LibraryWidget(BaseBuildWidget):
     def __init__(self, parent, item, link, list_widget,
                  show_branch=True, show_new=False, parent_widget=None):
-        super().__init__()
+        super(LibraryWidget, self).__init__(parent=parent)
 
         self.parent = parent
         self.item = item
@@ -140,12 +140,6 @@ class LibraryWidget(BaseBuildWidget):
         self.branchLabel._setText(branch_name)
 
         # Context menu
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.customContextMenuRequested.connect(self.context_menu)
-
-        self.menu = BaseMenuWidget()
-        self.menu.setFont(self.parent.font)
-
         self.menu_extended = BaseMenuWidget()
         self.menu_extended.setFont(self.parent.font)
 
@@ -185,9 +179,6 @@ class LibraryWidget(BaseBuildWidget):
 
         self.installTemplateAction = QAction("Install Template")
         self.installTemplateAction.triggered.connect(self.install_template)
-
-        self.showReleaseNotesAction = QAction("Show Release Notes")
-        self.showReleaseNotesAction.triggered.connect(self.show_release_notes)
 
         self.menu.addAction(self.addToQuickLaunchAction)
         self.menu.addAction(self.addToFavoritesAction)

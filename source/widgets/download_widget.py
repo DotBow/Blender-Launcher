@@ -24,7 +24,7 @@ class DownloadState(Enum):
 class DownloadWidget(BaseBuildWidget):
     def __init__(self, parent, list_widget, item, build_info,
                  show_branch=True, show_new=False):
-        super().__init__()
+        super(DownloadWidget, self).__init__(parent=parent)
         self.parent = parent
         self.list_widget = list_widget
         self.item = item
@@ -97,6 +97,12 @@ class DownloadWidget(BaseBuildWidget):
         self.h_layout.addWidget(self.build_state_widget)
 
         self.setLayout(self.h_layout)
+
+        if self.build_info.branch in "stable lts":
+            self.menu.addAction(self.showReleaseNotesAction)
+
+    def context_menu(self):
+        self.menu._show()
 
     def mouseDoubleClickEvent(self, event):
         if self.state != DownloadState.DOWNLOADING:
