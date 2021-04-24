@@ -9,13 +9,13 @@ flake8 = "*"
 rope = "*"
 mkdocs = "*"
 mkdocs-material = "*"
-pyqt5-tools = "==5.15.1.1.7.4"
+pyqt5-tools = "==5.15.2.3.0.2"
 
 [packages]
-pyinstaller = "==4.2"
+pyinstaller = "==4.3"
 beautifulsoup4 = "==4.9.3"
-pyqt5 = "==5.15.1"
-urllib3 = "==1.25.11"
+pyqt5 = "==5.15.4"
+urllib3 = "==1.26.4"
 pywin32 = {version = "*", os_name = "=='nt'"}
 
 [scripts]
