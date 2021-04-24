@@ -186,6 +186,9 @@ class LibraryWidget(BaseBuildWidget):
         self.installTemplateAction = QAction("Install Template")
         self.installTemplateAction.triggered.connect(self.install_template)
 
+        self.showReleaseNotesAction = QAction("Show Release Notes")
+        self.showReleaseNotesAction.triggered.connect(self.show_release_notes)
+
         self.menu.addAction(self.addToQuickLaunchAction)
         self.menu.addAction(self.addToFavoritesAction)
         self.menu.addAction(self.removeFromFavoritesAction)
@@ -204,6 +207,10 @@ class LibraryWidget(BaseBuildWidget):
         self.menu.addAction(self.createSymlinkAction)
         self.menu.addAction(self.installTemplateAction)
         self.menu.addSeparator()
+
+        if self.branch in "stable lts":
+            self.menu.addAction(self.showReleaseNotesAction)
+
         self.menu.addAction(self.showFolderAction)
         self.menu.addAction(self.deleteAction)
 
