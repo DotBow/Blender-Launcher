@@ -504,10 +504,11 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 self.dlg.accepted.connect(self.destroy)
                 return
 
-        self.quit_signal.emit()
         self.destroy()
 
     def destroy(self):
+        self.quit_signal.emit()
+
         if self.timer is not None:
             self.timer.cancel()
 
