@@ -8,6 +8,24 @@
 
     Don't create **Library Folder** inside UAC protected folders like `Program Files`. It is recommended to create a new directory on a non system drive or inside user folder like `Documents` to avoid any file collisions and have a nice structure.
 
+## Changing Library Folder
+
+On first launch Blender Launcher will ask for choosing **Library Folder**. After it can be changed in [Library Folder](settings.md#library-folder) section of [Settings Window](settings.md).
+
+There is known issue related to Qt and some Linux distributions like Mint where it fails to show folder browser dialog window. To pass this issue it is possible to set **Library Folder** via command line arguments:
+
+=== "Linux"
+
+    ```
+    Blender\ Launcher -set-library-folder "%PATH%"
+    ```
+
+=== "Windows"
+
+    ```
+    "Blender Launcher.exe" -set-library-folder "%PATH%"
+    ```
+
 ## Structure
 
 **Library Folder** has the following structure:
