@@ -106,6 +106,10 @@ Build context menu can be accessed via right click on build item.
 
 :   Create [symbolic link](https://en.wikipedia.org/wiki/Symbolic_link) for selected build pointing to `%Library Folder%/blender_symlink`.
 
+#### Show Release Notes [Stable and LTS builds only]
+
+:   Reveal page with release notes for selected build in web browser.
+
 #### Show Folder
 
 :   Reveal folder containing selected build in system file explorer.
@@ -138,6 +142,14 @@ Downloads tab is a place where all available official builds are shown based on 
 !!! tip
 
     ++"2x Left Button"++ on downloadable build item will automatically start downloading.
+
+### Download Build Context Menu
+
+Build context menu can be accessed via right click on build item.
+
+#### Show Release Notes [Stable and LTS builds only]
+
+:   Reveal page with release notes for selected build in web browser.
 
 ## User Tab
 
