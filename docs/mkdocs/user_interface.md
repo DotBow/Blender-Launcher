@@ -94,6 +94,10 @@ Build context menu can be accessed via right click on build item.
 
 :   Silently register blend-file extension (show thumbnails in file explorer and use selected build as default to open `*.blend` files).
 
+    !!! warning "Known Issues"
+
+        Registering may fail if `*.blend` files not already associated with Blender or associated with different unrelated application.
+
 #### Create Shortcut
 
 :   Create shortcut for selected build on desktop.
