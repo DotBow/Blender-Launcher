@@ -65,11 +65,15 @@ Library tab is a place where all local builds are shown based on category. Each 
 
         Take in mind that [builder.blender.org](https://builder.blender.org/download/) shows when build was uploaded to server.
 
+    !!! tip
+
+        ++"Left Button"++ click on date and time label will show hash number and vice versa.
+
 1. Number of running instances / new build indicator
 
 !!! tip
 
-    ++"2x Left Button"++ on library build item will automatically launch build.
+    ++"2x Left Button"++ click on library build item will automatically launch build.
 
 ### Library Build Context Menu
 
@@ -137,11 +141,16 @@ Downloads tab is a place where all available official builds are shown based on 
 1. Version number including subversion or phase (Alpha, Beta)
 1. Branch name
 1. Upload date and time of build to server
+
+    !!! tip
+
+        ++"Left Button"++ click on date and time label will show hash number and vice versa.
+
 1. New build indicator
 
 !!! tip
 
-    ++"2x Left Button"++ on downloadable build item will automatically start downloading.
+    ++"2x Left Button"++ click on downloadable build item will automatically start downloading.
 
 ### Download Build Context Menu
 
