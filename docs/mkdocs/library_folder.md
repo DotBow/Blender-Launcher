@@ -17,7 +17,7 @@ There is known issue related to Qt and some Linux distributions like Mint where 
 === "Linux"
 
     ```
-    Blender\ Launcher -set-library-folder "%PATH%"
+    ./Blender\ Launcher -set-library-folder "%PATH%"
     ```
 
 === "Windows"
