@@ -2,6 +2,35 @@
 
 # Changelog
 
+## 1.12.0
+
+[Download Blender Launcher v1.12.0 :fontawesome-solid-file-download:](https://github.com/DotBow/Blender-Launcher/releases/tag/v1.12.0){: .md-button .md-button--primary }
+
+Follow [Installation](installation.md#installing-blender-launcher) and [Update](installation.md#updating-blender-launcher) instructions on [Documentation](https://dotbow.github.io/Blender-Launcher).<br>
+Please, read about [how to report a bug](troubleshooting.md) before creating an issue.
+
+??? summary "Release Notes"
+
+    **Fixed:**
+
+    - Subversion label doesn't fit five-digit version numbers [#62](https://github.com/DotBow/Blender-Launcher/issues/62)
+    - Select only active widget when launching build
+    - Runtime error when application terminates on update or when `Show Tray Icon` option is disabled
+
+    **New:**
+
+    - Added `Show Release Notes` context menu action for Stable and LTS builds to reveal page with release notes for selected build in web browser
+    - Hash number display can be accessed by clicking on **Commit Time**/**Upload Time** label of build item
+    - **Library Folder** now can be set via command line arguments [#52](https://github.com/DotBow/Blender-Launcher/issues/52)<br>
+    Read about how to use it on [Changing Library Folder](library_folder.md#changing-library-folder) section
+    - BL will warn the user when different version of the application is launched [#44](https://github.com/DotBow/Blender-Launcher/issues/44)
+
+    **Other:**
+
+    - Multiple builds deletion stability improvements
+    - PyInstaller version updated to 4.3 [Windows]
+    - UI polishing
+
 ## 1.11.0
 
 [Download Blender Launcher v1.11.0 :fontawesome-solid-file-download:](https://github.com/DotBow/Blender-Launcher/releases/tag/v1.11.0){: .md-button .md-button--primary }
