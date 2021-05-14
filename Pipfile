@@ -9,7 +9,7 @@ flake8 = "*"
 rope = "*"
 mkdocs = "*"
 mkdocs-material = "*"
-pyqt5-tools = "==5.15.2.3.0.2"
+pyqt5-tools = {version = "==5.15.4.3.0.3", os_name = "=='nt'"}
 
 [packages]
 pyinstaller = "==4.3"
@@ -22,4 +22,4 @@ pywin32 = {version = "*", os_name = "=='nt'"}
 start = "python source/main.py"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
