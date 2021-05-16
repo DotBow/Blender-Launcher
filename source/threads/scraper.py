@@ -74,6 +74,12 @@ class Scraper(QThread):
 
                 if build_info is not None:
                     self.links.emit(build_info)
+        elif platform == 'macOS':
+            for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+macOS.+dmg')):
+                build_info = self.new_blender_build(tag, url, branch_type)
+
+                if build_info is not None:
+                    self.links.emit(build_info)
 
         r.release_conn()
         r.close()
