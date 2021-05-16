@@ -22,7 +22,6 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
                  icon=DialogIcon.WARNING):
         super(DialogWindow, self).__init__(parent=parent)
 
-        self.setWindowFlag(Qt.SubWindow)
         self.setupUi(self)
         self.setWindowTitle(title)
 
