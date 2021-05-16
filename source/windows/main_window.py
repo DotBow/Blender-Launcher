@@ -442,7 +442,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.show()
             self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
             self.show()
-        elif self.platform == "Linux":
+        elif self.platform in {"Linux", "macOS"}:
             self.show()
             self.activateWindow()
 
