@@ -44,7 +44,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def __init__(self, parent):
         super(SettingsWindow, self).__init__(parent=parent)
 
-        self.setWindowFlag(Qt.SubWindow)
         self.setupUi(self)
         platform = get_platform()
 
