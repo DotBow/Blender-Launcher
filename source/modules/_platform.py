@@ -11,7 +11,7 @@ def get_platform():
         'linux': 'Linux',
         'linux1': 'Linux',
         'linux2': 'Linux',
-        'darwin': 'OSX',
+        'darwin': 'macOS',
         'win32': 'Windows'
     }
 
