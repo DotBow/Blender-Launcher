@@ -49,7 +49,7 @@ class BuildInfo:
         if self.link_type == 'link':
             if self.platform == 'Linux':
                 return Path(self.link).with_suffix('').stem
-            elif self.platform == 'Windows':
+            elif self.platform in {'Windows', 'macOS'}:
                 return Path(self.link).stem
         elif self.link_type == 'path':
             return Path(self.link).name
