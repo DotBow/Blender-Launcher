@@ -30,7 +30,7 @@ def set_locale():
 
     if platform == 'Windows':
         setlocale(LC_ALL, 'eng_usa')
-    elif platform == 'Linux':
+    elif platform in {'Linux', 'macOS'}:
         setlocale(LC_ALL, 'en_US.UTF-8')
 
 
