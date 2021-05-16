@@ -4,10 +4,9 @@ from pathlib import Path
 from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
-from PyQt5.QtCore import QThread, pyqtSignal
-
 from modules._platform import get_platform, set_locale
 from modules.build_info import BuildInfo
+from PyQt5.QtCore import QThread, pyqtSignal
 
 
 class Scraper(QThread):
@@ -63,23 +62,17 @@ class Scraper(QThread):
         soup = BeautifulSoup(content, 'html.parser')
 
         if platform == 'Windows':
-            for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+win.+64.+zip')):
-                build_info = self.new_blender_build(tag, url, branch_type)
-
-                if build_info is not None:
-                    self.links.emit(build_info)
+            filter = r'blender-.+win.+64.+zip'
         elif platform == 'Linux':
-            for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+lin.+64.+tar')):
-                build_info = self.new_blender_build(tag, url, branch_type)
-
-                if build_info is not None:
-                    self.links.emit(build_info)
+            filter = r'blender-.+lin.+64.+tar'
         elif platform == 'macOS':
-            for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+macOS.+dmg')):
-                build_info = self.new_blender_build(tag, url, branch_type)
+            filter = r'blender-.+macOS.+dmg'
 
-                if build_info is not None:
-                    self.links.emit(build_info)
+        for tag in soup.find_all(limit=_limit, href=re.compile(filter)):
+            build_info = self.new_blender_build(tag, url, branch_type)
+
+            if build_info is not None:
+                self.links.emit(build_info)
 
         r.release_conn()
         r.close()
