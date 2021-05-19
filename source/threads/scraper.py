@@ -54,7 +54,7 @@ class Scraper(QThread):
 
         # Experimental Branches
         self.scrap_download_links(
-            "https://builder.blender.org/download/branches", 'experimental')
+            "https://builder.blender.org/download/experimental", 'experimental')
 
     def scrap_download_links(self, url, branch_type, _limit=None):
         platform = get_platform()
