@@ -72,7 +72,7 @@ class Scraper(QThread):
                 if build_info is not None:
                     self.links.emit(build_info)
         elif platform == 'Linux':
-            for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+lin.+64.+tar$')):
+            for tag in soup.find_all(limit=_limit, href=re.compile(r'blender-.+lin.+64.+tar')):
                 build_info = self.new_blender_build(tag, url, branch_type)
 
                 if build_info is not None:
