@@ -91,7 +91,7 @@ class Scraper(QThread):
         build_hash = None
 
         stem = Path(link).stem
-        match = re.findall(r'-\w{12}-', stem)
+        match = re.findall(r'\w{12}', stem)
 
         if match:
             build_hash = match[-1].replace('-', '')
