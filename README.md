@@ -21,7 +21,7 @@
 
 ## What is it?
 
-Blender Launcher is a standalone software client that provides management for stable, daily and experimental builds of [Blender 3D](https://www.blender.org/). It is a free open source project available for 64-bit Windows and Linux (GLIBC 2.27 and higher) operating systems.
+Blender Launcher is a standalone software client that provides management for stable, daily and experimental builds of [Blender 3D](https://www.blender.org/). It is a free open source project available for 64-bit Windows and Linux (GLIBC 2.31 and higher) operating systems.
 
 ## Why do I need it?
 
