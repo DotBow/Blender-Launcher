@@ -117,7 +117,7 @@ class BuildInfoReader(QThread):
                     "blender-", "").replace("-linux64", "").rsplit('-', 2)
 
             if subfolder == 'experimental':
-                branch = folder_parts[0]
+                branch = re.findall(r'\+(.+?)\.', name)[0]
             elif subfolder == 'stable':
                 branch = "stable"
                 subversion = folder_parts[0]
