@@ -53,7 +53,10 @@ class Scraper(QThread):
 
         # Experimental Branches
         self.scrap_download_links(
-            "https://builder.blender.org/download/branches", 'experimental')
+            "https://builder.blender.org/download/experimental", 'experimental')
+
+        self.scrap_download_links(
+            "https://builder.blender.org/download/patch", 'experimental')
 
     def scrap_download_links(self, url, branch_type, _limit=None):
         platform = get_platform()
@@ -62,7 +65,7 @@ class Scraper(QThread):
         soup = BeautifulSoup(content, 'html.parser')
 
         if platform == 'Windows':
-            filter = r'blender-.+win.+64.+zip'
+            filter = r'blender-.+win.+64.+zip$'
         elif platform == 'Linux':
             filter = r'blender-.+lin.+64.+tar'
         elif platform == 'macOS':
@@ -90,7 +93,7 @@ class Scraper(QThread):
         build_hash = None
 
         stem = Path(link).stem
-        match = re.findall(r'-\w{12}-', stem)
+        match = re.findall(r'\w{12}', stem)
 
         if match:
             build_hash = match[-1].replace('-', '')
