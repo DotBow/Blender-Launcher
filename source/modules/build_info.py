@@ -108,19 +108,11 @@ class BuildInfoReader(QThread):
             branch = "daily"
         elif subfolder == 'custom':
             branch = name
-        else:
-            if self.platform == 'Windows':
-                folder_parts = name.replace(
-                    "blender-", "").replace("-windows64", "").rsplit('-', 2)
-            elif self.platform == 'Linux':
-                folder_parts = name.replace(
-                    "blender-", "").replace("-linux64", "").rsplit('-', 2)
-
-            if subfolder == 'experimental':
-                branch = re.findall(r'\+(.+?)\.', name)[0]
-            elif subfolder == 'stable':
-                branch = "stable"
-                subversion = folder_parts[0]
+        elif subfolder == 'experimental':
+            branch = re.search(r'\+(.+?)\.', name).group(1)
+        elif subfolder == 'stable':
+            branch = "stable"
+            subversion = re.search(r'-(\d{1}\.(.+?))-', name).group(1)
 
         build_info = BuildInfo(
             'path',
