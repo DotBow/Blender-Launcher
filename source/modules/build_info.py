@@ -89,6 +89,8 @@ class BuildInfoReader(QThread):
             blender_exe = "blender.exe"
         elif self.platform == 'Linux':
             blender_exe = "blender"
+        elif self.platform == 'macOS':
+            blender_exe = "Blender/Blender.app/Contents/MacOS/Blender"
 
         exe_path = self.path / blender_exe
         version = _check_output([exe_path.as_posix(), "-v"])

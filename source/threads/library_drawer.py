@@ -24,6 +24,8 @@ class LibraryDrawer(QThread):
             blender_exe = "blender.exe"
         elif get_platform() == 'Linux':
             blender_exe = "blender"
+        elif get_platform() == 'macOS':
+            blender_exe = "Blender/Blender.app/Contents/MacOS/Blender"
 
         for folder in self.folders:
             path = library_folder / folder
