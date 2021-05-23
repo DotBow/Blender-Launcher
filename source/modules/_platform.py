@@ -75,7 +75,7 @@ def _check_call(args):
 
         returncode = check_call(args, creationflags=CREATE_NO_WINDOW,
                                 shell=True, stderr=DEVNULL, stdin=DEVNULL)
-    elif platform == 'Linux':
+    elif platform in {'Linux', 'macOS'}:
         returncode = check_call(
             args, shell=False, stderr=DEVNULL, stdin=DEVNULL)
 
