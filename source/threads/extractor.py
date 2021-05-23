@@ -2,6 +2,7 @@ import tarfile
 import zipfile
 from pathlib import Path
 
+from modules._platform import _check_call
 from PyQt5.QtCore import QThread, pyqtSignal
 
 
@@ -33,6 +34,7 @@ class Extractor(QThread):
                 self.progress_changed.emit(progress, "Extracting: %p%")
 
             zf.close()
+            self.finished.emit(self.dist / folder)
         elif suffixes[-2] == '.tar':
             tar = tarfile.open(self.source)
             folder = tar.getnames()[0].split('/')[0]
@@ -46,6 +48,17 @@ class Extractor(QThread):
                 self.progress_changed.emit(progress,  "Extracting: %p%")
 
             tar.close()
+            self.finished.emit(self.dist / folder)
+        elif suffixes[-1] == '.dmg':
+            _check_call(["hdiutil", "mount", self.source.as_posix()])
+            dist = self.dist / self.source.stem
 
-        self.finished.emit(self.dist / folder)
+            if not dist.is_dir():
+                dist.mkdir()
+
+            _check_call(["cp", "-R", "/Volumes/Blender", dist.as_posix()])
+            _check_call(["hdiutil", "unmount", "/Volumes/Blender"])
+
+            self.finished.emit(dist)
+
         return
