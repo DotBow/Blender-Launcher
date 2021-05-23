@@ -101,15 +101,16 @@ class Scraper(QThread):
         match = re.search(r'-\d\.[a-zA-Z0-9.]+-', stem)
         subversion = match.group(0).replace('-', '')
 
-        if branch_type == 'experimental':
-            build_var = tag.find_next("span", class_="build-var").get_text()
-            branch = re.compile("branch", re.IGNORECASE).sub("", build_var)
-        elif branch_type == 'daily':
-            branch = 'daily'
-            build_var = tag.find_next("span", class_="build-var").get_text()
-            subversion = "{0} {1}".format(subversion, build_var)
-        else:
+        if branch_type == 'stable':
             branch = 'stable'
+        else:
+            build_var = tag.find_next("span", class_="build-var").get_text()
+
+            if branch_type == 'experimental':
+                branch = build_var
+            elif branch_type == 'daily':
+                branch = 'daily'
+                subversion = "{0} {1}".format(subversion, build_var)
 
         if commit_time is None:
             set_locale()
