@@ -102,7 +102,7 @@ def _check_output(args):
 
         output = check_output(args, creationflags=CREATE_NO_WINDOW,
                               shell=True, stderr=DEVNULL, stdin=DEVNULL)
-    elif platform == 'Linux':
+    elif platform in {'Linux', 'macOS'}:
         output = check_output(args, shell=False, stderr=DEVNULL, stdin=DEVNULL)
 
     return output
