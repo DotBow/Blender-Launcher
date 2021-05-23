@@ -19,6 +19,7 @@ class Scraper(QThread):
         QThread.__init__(self)
         self.parent = parent
         self.manager = man
+        self.platform = get_platform()
 
     def run(self):
         try:
@@ -59,16 +60,15 @@ class Scraper(QThread):
             "https://builder.blender.org/download/patch", 'experimental')
 
     def scrap_download_links(self, url, branch_type, _limit=None):
-        platform = get_platform()
         r = self.manager.request('GET', url)
         content = r.data
         soup = BeautifulSoup(content, 'html.parser')
 
-        if platform == 'Windows':
+        if self.platform == 'Windows':
             filter = r'blender-.+win.+64.+zip$'
-        elif platform == 'Linux':
+        elif self.platform == 'Linux':
             filter = r'blender-.+lin.+64.+tar'
-        elif platform == 'macOS':
+        elif self.platform == 'macOS':
             filter = r'blender-.+(macOS|darwin).+dmg'
 
         for tag in soup.find_all(limit=_limit, href=re.compile(filter)):
