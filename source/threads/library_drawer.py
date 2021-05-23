@@ -1,9 +1,8 @@
 from pathlib import Path
 
-from PyQt5.QtCore import QThread, pyqtSignal
-
 from modules._platform import get_platform
 from modules.settings import get_library_folder
+from PyQt5.QtCore import QThread, pyqtSignal
 
 
 class LibraryDrawer(QThread):
@@ -19,12 +18,13 @@ class LibraryDrawer(QThread):
 
     def run(self):
         library_folder = Path(get_library_folder())
+        platform = get_platform()
 
-        if get_platform() == 'Windows':
+        if platform == 'Windows':
             blender_exe = "blender.exe"
-        elif get_platform() == 'Linux':
+        elif platform == 'Linux':
             blender_exe = "blender"
-        elif get_platform() == 'macOS':
+        elif platform == 'macOS':
             blender_exe = "Blender/Blender.app/Contents/MacOS/Blender"
 
         for folder in self.folders:
