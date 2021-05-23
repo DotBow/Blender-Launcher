@@ -80,6 +80,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.platform = get_platform()
         self.remover_count = 0
 
+        if self.platform == "macOS":
+            self.app.aboutToQuit.connect(self._aboutToQuit)
+
         # Icon cache
         self.icon_settings = QIcon(":resources/icons/settings.svg")
         self.icon_wiki = QIcon(":resources/icons/wiki.svg")
@@ -485,6 +488,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.quick_launch()
         elif reason == QSystemTrayIcon.Context:
             self.tray_menu._show()
+
+    def _aboutToQuit(self):
+        self.quit()
 
     def quit(self):
         download_widgets = []
