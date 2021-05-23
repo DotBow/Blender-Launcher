@@ -102,3 +102,6 @@ docs/site
 
 # mypy
 .mypy_cache/
+
+# VS Code
+.vscode
