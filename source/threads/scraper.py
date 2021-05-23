@@ -69,7 +69,7 @@ class Scraper(QThread):
         elif platform == 'Linux':
             filter = r'blender-.+lin.+64.+tar'
         elif platform == 'macOS':
-            filter = r'blender-.+macOS.+dmg'
+            filter = r'blender-.+(macOS|darwin).+dmg'
 
         for tag in soup.find_all(limit=_limit, href=re.compile(filter)):
             build_info = self.new_blender_build(tag, url, branch_type)
