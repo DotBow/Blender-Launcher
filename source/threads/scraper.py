@@ -67,9 +67,9 @@ class Scraper(QThread):
         if self.platform == 'Windows':
             filter = r'blender-.+win.+64.+zip$'
         elif self.platform == 'Linux':
-            filter = r'blender-.+lin.+64.+tar'
+            filter = r'blender-.+lin.+64.+tar$'
         elif self.platform == 'macOS':
-            filter = r'blender-.+(macOS|darwin).+dmg'
+            filter = r'blender-.+(macOS|darwin).+dmg$'
 
         for tag in soup.find_all(limit=_limit, href=re.compile(filter)):
             build_info = self.new_blender_build(tag, url, branch_type)
@@ -104,7 +104,18 @@ class Scraper(QThread):
         if branch_type == 'stable':
             branch = 'stable'
         else:
-            build_var = tag.find_next("span", class_="build-var").get_text()
+            build_var = ""
+            tag = tag.find_next("span", class_="build-var")
+
+            # For some reason tag can be None on macOS
+            if tag is not None:
+                build_var = tag.get_text()
+
+            if self.platform == 'macOS':
+                if 'arm64' in link:
+                    build_var = "{0} │ {1}".format(build_var, 'Arm')
+                elif 'x86_64' in link:
+                    build_var = "{0} │ {1}".format(build_var, 'Intel')
 
             if branch_type == 'experimental':
                 branch = build_var
