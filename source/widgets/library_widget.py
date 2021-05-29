@@ -221,6 +221,10 @@ class LibraryWidget(BaseBuildWidget):
         self.setEnabled(True)
         self.list_widget.sortItems()
 
+        # It fixes the issue with indenting widgets on first
+        # opened tab at launch
+        self.list_widget.resize()
+
         if self.build_info.is_favorite and self.parent_widget is None:
             self.add_to_favorites()
 
