@@ -94,12 +94,23 @@ class LibraryWidget(BaseBuildWidget):
         self.launchButton.setFixedWidth(85)
         self.launchButton.setProperty("LaunchButton", True)
 
-        self.subversionLabel = QLabel()
+        if self.branch == 'lts':
+            branch_name = "LTS"
+        elif (self.parent_widget is not None) and self.build_info.custom_name:
+            branch_name = self.build_info.custom_name
+        elif self.branch == 'daily':
+            branch_name = self.build_info.subversion.split(" ")[1]
+        else:
+            branch_name = re.sub(
+                r'(\-|\_)', ' ', self.build_info.branch).title()
+
+        sub = self.build_info.subversion.split(" ")
+        self.subversionLabel = QLabel(sub[0])
         self.subversionLabel.setFixedWidth(85)
-        self.branchLabel = ElidedTextLabel()
+        self.list_widget.subversion_indent_changed.connect(self.set_indent)
+        self.branchLabel = ElidedTextLabel(branch_name)
         self.commitTimeLabel = DateTimeWidget(
             self.build_info.commit_time, self.build_info.build_hash)
-        self.list_widget.subversion_indent_changed.connect(self.set_indent)
 
         self.build_state_widget = BuildStateWidget(
             self.parent, self.list_widget)
@@ -124,17 +135,6 @@ class LibraryWidget(BaseBuildWidget):
 
         self.launchButton.clicked.connect(self.launch)
         self.launchButton.setCursor(Qt.PointingHandCursor)
-        self.subversionLabel.setText(self.build_info.subversion)
-
-        if self.branch == 'lts':
-            branch_name = "LTS"
-        elif (self.parent_widget is not None) and self.build_info.custom_name:
-            branch_name = self.build_info.custom_name
-        else:
-            branch_name = re.sub(
-                r'(\-|\_)', ' ', self.build_info.branch).title()
-
-        self.branchLabel._setText(branch_name)
 
         # Context menu
         self.menu_extended = BaseMenuWidget()
@@ -415,7 +415,7 @@ class LibraryWidget(BaseBuildWidget):
 
     # TODO Clear icon if build in quick launch
     def remover_started(self):
-        self.launchButton._setText("Deleting")
+        self.launchButton.setText("Deleting")
         self.setEnabled(False)
         self.item.setFlags(self.item.flags() & ~Qt.ItemIsSelectable)
 
