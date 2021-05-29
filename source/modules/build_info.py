@@ -21,8 +21,9 @@ class BuildInfo:
         self.link = link
 
         if any(w in subversion.lower()
-               for w in ['release', 'candidate', 'rc']):
-            subversion = re.sub('[a-zA-Z ]+', " RC ", subversion).rstrip()
+               for w in ['release', 'rc']):
+            subversion = re.sub(
+                '[a-zA-Z ]+', " Candidate ", subversion).rstrip()
 
         self.subversion = subversion
         self.build_hash = build_hash
@@ -40,8 +41,6 @@ class BuildInfo:
     def __eq__(self, other):
         if (self is None) or (other is None):
             return False
-        elif (self.build_hash is not None) and (other.build_hash is not None):
-            return self.build_hash == other.build_hash
         else:
             return self.get_name() == other.get_name()
 
