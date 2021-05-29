@@ -99,12 +99,12 @@ class LibraryWidget(BaseBuildWidget):
         elif (self.parent_widget is not None) and self.build_info.custom_name:
             branch_name = self.build_info.custom_name
         elif self.branch == 'daily':
-            branch_name = self.build_info.subversion.split(" ")[1]
+            branch_name = self.build_info.subversion.split(" ", 1)[1]
         else:
             branch_name = re.sub(
                 r'(\-|\_)', ' ', self.build_info.branch).title()
 
-        sub = self.build_info.subversion.split(" ")
+        sub = self.build_info.subversion.split(" ", 1)
         self.subversionLabel = QLabel(sub[0])
         self.subversionLabel.setFixedWidth(85)
         self.list_widget.subversion_indent_changed.connect(self.set_indent)

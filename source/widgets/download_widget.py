@@ -65,12 +65,13 @@ class DownloadWidget(BaseBuildWidget):
         if self.build_info.branch == 'lts':
             branch_name = "LTS"
         elif self.build_info.branch == 'daily':
-            branch_name = self.build_info.subversion.split(" ")[1]
+            branch_name = self.build_info.subversion.split(" ", 1)[1]
         else:
             branch_name = re.sub(
                 r'(\-|\_)', ' ', self.build_info.branch).title()
 
-        self.subversionLabel = QLabel(self.build_info.subversion.split(" ")[0])
+        self.subversionLabel = QLabel(
+            self.build_info.subversion.split(" ", 1)[0])
         self.subversionLabel.setFixedWidth(85)
         self.list_widget.subversion_indent_changed.connect(self.set_indent)
         self.branchLabel = ElidedTextLabel(branch_name)
