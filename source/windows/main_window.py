@@ -229,7 +229,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             page_name="LibraryDailyListWidget",
             time_label="Commit Time",
             info_text="Nothing to show yet",
-            show_branch=False,
             extended_selection=True)
         self.LibraryDailyListWidget = \
             self.LibraryToolBox.add_page_widget(page, "Daily")
@@ -255,8 +254,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             parent=self,
             page_name="DownloadsDailyListWidget",
             time_label="Upload Time",
-            info_text="No new builds available",
-            show_branch=False)
+            info_text="No new builds available")
         self.DownloadsDailyListWidget = \
             self.DownloadsToolBox.add_page_widget(page, "Daily")
 
@@ -605,8 +603,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                     return
 
     def draw_to_downloads(self, build_info, show_new=True):
-        show_branch = True
-
         if self.started:
             show_new = False
 
@@ -621,7 +617,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         elif branch == 'daily':
             downloads_list_widget = self.DownloadsDailyListWidget
             library_list_widget = self.LibraryDailyListWidget
-            show_branch = False
         else:
             downloads_list_widget = self.DownloadsExperimentalListWidget
             library_list_widget = self.LibraryExperimentalListWidget
@@ -631,19 +626,17 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             item = BaseListWidgetItem(build_info.commit_time)
             widget = DownloadWidget(
                 self, downloads_list_widget, item,
-                build_info, show_branch, show_new)
+                build_info, show_new)
             downloads_list_widget.add_item(item, widget)
             self.new_downloads = True
 
     def draw_to_library(self, path, show_new=False):
         branch = Path(path).parent.name
-        show_branch = True
 
         if (branch == 'stable') or (branch == 'lts'):
             list_widget = self.LibraryStableListWidget
         elif branch == 'daily':
             list_widget = self.LibraryDailyListWidget
-            show_branch = False
         elif branch == 'experimental':
             list_widget = self.LibraryExperimentalListWidget
         elif branch == 'custom':
@@ -653,7 +646,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         item = BaseListWidgetItem()
         widget = LibraryWidget(self, item, path, list_widget,
-                               show_branch, show_new)
+                               show_new)
         list_widget.insert_item(item, widget)
 
     def set_status(self, status=None, text=None):

@@ -16,8 +16,7 @@ class SortingType(Enum):
 
 class BasePageWidget(QWidget):
     def __init__(self, parent, page_name, time_label, info_text,
-                 show_branch=True, show_reload=False,
-                 extended_selection=False):
+                 show_reload=False, extended_selection=False):
         super().__init__()
         self.name = page_name
 
@@ -86,12 +85,7 @@ class BasePageWidget(QWidget):
 
         self.HeaderLayout.addWidget(self.fakeLabel)
         self.HeaderLayout.addWidget(self.subversionLabel)
-
-        if show_branch:
-            self.HeaderLayout.addWidget(self.branchLabel, stretch=1)
-        else:
-            self.HeaderLayout.addStretch()
-
+        self.HeaderLayout.addWidget(self.branchLabel, stretch=1)
         self.HeaderLayout.addWidget(self.commitTimeLabel)
         self.HeaderLayout.addSpacing(34)
 

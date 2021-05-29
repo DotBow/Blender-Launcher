@@ -31,14 +31,13 @@ from widgets.left_icon_button_widget import LeftIconButtonWidget
 
 class LibraryWidget(BaseBuildWidget):
     def __init__(self, parent, item, link, list_widget,
-                 show_branch=True, show_new=False, parent_widget=None):
+                 show_new=False, parent_widget=None):
         super(LibraryWidget, self).__init__(parent=parent)
 
         self.parent = parent
         self.item = item
         self.link = link
         self.list_widget = list_widget
-        self.show_branch = show_branch
         self.show_new = show_new
         self.observer = None
         self.build_info = None
@@ -106,22 +105,18 @@ class LibraryWidget(BaseBuildWidget):
 
         self.layout.addWidget(self.launchButton)
         self.layout.addWidget(self.subversionLabel)
+        self.layout.addWidget(self.branchLabel, stretch=1)
 
-        if self.show_branch:
-            self.layout.addWidget(self.branchLabel, stretch=1)
-
-            if self.parent_widget is not None:
-                self.lineEdit = BaseLineEdit()
-                self.lineEdit.setMaxLength(256)
-                self.lineEdit.setContextMenuPolicy(Qt.NoContextMenu)
-                self.lineEdit.escapePressed.connect(
-                    self.rename_branch_rejected)
-                self.lineEdit.returnPressed.connect(
-                    self.rename_branch_accepted)
-                self.layout.addWidget(self.lineEdit, stretch=1)
-                self.lineEdit.hide()
-        else:
-            self.layout.addStretch()
+        if self.parent_widget is not None:
+            self.lineEdit = BaseLineEdit()
+            self.lineEdit.setMaxLength(256)
+            self.lineEdit.setContextMenuPolicy(Qt.NoContextMenu)
+            self.lineEdit.escapePressed.connect(
+                self.rename_branch_rejected)
+            self.lineEdit.returnPressed.connect(
+                self.rename_branch_accepted)
+            self.layout.addWidget(self.lineEdit, stretch=1)
+            self.lineEdit.hide()
 
         self.layout.addWidget(self.commitTimeLabel)
         self.layout.addWidget(self.build_state_widget)

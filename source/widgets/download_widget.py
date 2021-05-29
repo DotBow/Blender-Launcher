@@ -23,7 +23,7 @@ class DownloadState(Enum):
 
 class DownloadWidget(BaseBuildWidget):
     def __init__(self, parent, list_widget, item, build_info,
-                 show_branch=True, show_new=False):
+                 show_new=False):
         super(DownloadWidget, self).__init__(parent=parent)
         self.parent = parent
         self.list_widget = list_widget
@@ -77,12 +77,7 @@ class DownloadWidget(BaseBuildWidget):
             self.parent, self.list_widget)
 
         self.h_layout1.addWidget(self.subversionLabel)
-
-        if show_branch:
-            self.h_layout1.addWidget(self.branchLabel, stretch=1)
-        else:
-            self.h_layout1.addStretch()
-
+        self.h_layout1.addWidget(self.branchLabel, stretch=1)
         self.h_layout1.addWidget(self.commitTimeLabel)
 
         if self.show_new:
