@@ -1,3 +1,4 @@
+import re
 from enum import Enum
 from pathlib import Path
 
@@ -68,7 +69,8 @@ class DownloadWidget(BaseBuildWidget):
         if self.build_info.branch == 'lts':
             branch_name = "LTS"
         else:
-            branch_name = self.build_info.branch.replace('-', ' ').title()
+            branch_name = re.sub(
+                r'(\-|\_)', ' ', self.build_info.branch).title()
 
         self.branchLabel = ElidedTextLabel(branch_name)
         self.commitTimeLabel = DateTimeWidget(

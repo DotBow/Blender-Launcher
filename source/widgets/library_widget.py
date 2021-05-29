@@ -1,4 +1,5 @@
 import os
+import re
 import subprocess
 from pathlib import Path
 
@@ -130,7 +131,8 @@ class LibraryWidget(BaseBuildWidget):
         elif (self.parent_widget is not None) and self.build_info.custom_name:
             branch_name = self.build_info.custom_name
         else:
-            branch_name = self.branch.replace('-', ' ').title()
+            branch_name = re.sub(
+                r'(\-|\_)', ' ', self.build_info.branch).title()
 
         self.branchLabel._setText(branch_name)
 
