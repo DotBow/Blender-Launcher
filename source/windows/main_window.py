@@ -79,6 +79,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.new_downloads = False
         self.platform = get_platform()
         self.remover_count = 0
+        self.renamer_count = 0
 
         # Icon cache
         self.icon_settings = QIcon(":resources/icons/settings.svg")
