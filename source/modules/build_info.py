@@ -120,7 +120,6 @@ class BuildInfoReader(QThread):
                 branch = folder_parts[0]
             elif subfolder == 'stable':
                 branch = "stable"
-                subversion = folder_parts[0]
 
         build_info = BuildInfo(
             'path',
