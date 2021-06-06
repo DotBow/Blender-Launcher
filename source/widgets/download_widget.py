@@ -1,6 +1,8 @@
 import re
 from enum import Enum
 from pathlib import Path
+from threads.renamer import Renamer
+from modules.build_info import BuildInfoReader
 
 from modules.enums import MessageType
 from modules.settings import get_install_template, get_library_folder
@@ -32,6 +34,7 @@ class DownloadWidget(BaseBuildWidget):
         self.build_info = build_info
         self.show_new = show_new
         self.state = DownloadState.WAITING
+        self.build_dir = None
 
         self.progress_start = 0
         self.progress_end = 1
@@ -154,17 +157,18 @@ class DownloadWidget(BaseBuildWidget):
 
     def init_template_installer(self, dist):
         self.build_state_widget.setExtract(False)
+        self.build_dir = dist
 
         if get_install_template():
             self.template_installer = TemplateInstaller(
-                self.parent.manager, dist)
+                self.parent.manager, self.build_dir)
             self.template_installer.progress_changed.connect(
                 self.set_progress_bar)
             self.template_installer.finished.connect(
-                lambda: self.download_finished(dist))
+                lambda: self.download_get_info())
             self.template_installer.start()
         else:
-            self.download_finished(dist)
+            self.download_get_info()
 
     def download_started(self):
         self.set_progress_bar(0, "Downloading: %p%")
@@ -191,11 +195,29 @@ class DownloadWidget(BaseBuildWidget):
             value + self.progress_start
         self.progressBar.setValue(value * 100)
 
-    def download_finished(self, dist=None):
+
+    def download_get_info(self):
+        self.build_info_reader = BuildInfoReader(self.build_dir)
+        self.build_info_reader.finished.connect(self.download_rename)
+        self.build_info_reader.start()
+
+    def download_rename(self, build_info):
+        new_name = 'blender-{}-{}'.format(
+            build_info.subversion,
+            build_info.build_hash
+        )
+        self.build_renamer = Renamer(self.build_dir, new_name)
+        self.build_renamer.finished.connect(self.download_finished)
+        self.build_renamer.start()
+
+    def download_finished(self, path):
         self.state = DownloadState.WAITING
 
-        if dist is not None:
-            self.parent.draw_to_library(dist, True)
+        if path is None:
+            path = self.build_dir
+
+        if path is not None:
+            self.parent.draw_to_library(path, True)
             self.parent.clear_temp()
             name = "{0} {1} {2}".format(
                 self.subversionLabel.text(),
