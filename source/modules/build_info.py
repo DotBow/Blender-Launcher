@@ -113,7 +113,6 @@ class BuildInfoReader(QThread):
             branch = re.search(r'\+(.+?)\.', name).group(1)
         elif subfolder == 'stable':
             branch = "stable"
-            subversion = re.search(r'-(\d{1}\.(.+?))-', name).group(1)
 
         build_info = BuildInfo(
             'path',
