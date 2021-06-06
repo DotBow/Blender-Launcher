@@ -42,16 +42,7 @@ class BuildInfo:
         if (self is None) or (other is None):
             return False
         else:
-            return self.get_name() == other.get_name()
-
-    def get_name(self):
-        if self.link_type == 'link':
-            if self.platform == 'Linux':
-                return Path(self.link).with_suffix('').stem
-            elif self.platform in {'Windows', 'macOS'}:
-                return Path(self.link).stem
-        elif self.link_type == 'path':
-            return Path(self.link).name
+            return self.subversion == other.subversion
 
 
 class BuildInfoReader(QThread):
