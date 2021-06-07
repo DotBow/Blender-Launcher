@@ -41,6 +41,8 @@ class BuildInfo:
     def __eq__(self, other):
         if (self is None) or (other is None):
             return False
+        elif (self.build_hash is not None) and (other.build_hash is not None):
+            return self.build_hash == other.build_hash
         else:
             return self.subversion == other.subversion
 
