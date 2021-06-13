@@ -41,17 +41,10 @@ class BuildInfo:
     def __eq__(self, other):
         if (self is None) or (other is None):
             return False
+        elif (self.build_hash is not None) and (other.build_hash is not None):
+            return self.build_hash == other.build_hash
         else:
-            return self.get_name() == other.get_name()
-
-    def get_name(self):
-        if self.link_type == 'link':
-            if self.platform == 'Linux':
-                return Path(self.link).with_suffix('').stem
-            elif self.platform in {'Windows', 'macOS'}:
-                return Path(self.link).stem
-        elif self.link_type == 'path':
-            return Path(self.link).name
+            return self.subversion == other.subversion
 
 
 class BuildInfoReader(QThread):
@@ -113,7 +106,6 @@ class BuildInfoReader(QThread):
             branch = re.search(r'\+(.+?)\.', name).group(1)
         elif subfolder == 'stable':
             branch = "stable"
-            subversion = re.search(r'-(\d{1}\.(.+?))-', name).group(1)
 
         build_info = BuildInfo(
             'path',
