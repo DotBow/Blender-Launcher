@@ -195,7 +195,6 @@ class DownloadWidget(BaseBuildWidget):
             value + self.progress_start
         self.progressBar.setValue(value * 100)
 
-
     def download_get_info(self):
         self.build_info_reader = BuildInfoReader(self.build_dir)
         self.build_info_reader.finished.connect(self.download_rename)
@@ -206,6 +205,7 @@ class DownloadWidget(BaseBuildWidget):
             build_info.subversion,
             build_info.build_hash
         )
+
         self.build_renamer = Renamer(self.build_dir, new_name)
         self.build_renamer.finished.connect(self.download_finished)
         self.build_renamer.start()
