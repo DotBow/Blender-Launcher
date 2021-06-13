@@ -196,13 +196,20 @@ class DownloadWidget(BaseBuildWidget):
         self.progressBar.setValue(value * 100)
 
     def download_get_info(self):
-        self.build_info_reader = BuildInfoReader(self.build_dir)
+        if self.parent.platform == 'Linux':
+            archive_name = Path(self.build_info.link).with_suffix('').stem
+        elif self.parent.platform in {'Windows', 'macOS'}:
+            archive_name = Path(self.build_info.link).stem
+
+        self.build_info_reader = BuildInfoReader(
+            self.build_dir, archive_name=archive_name)
         self.build_info_reader.finished.connect(self.download_rename)
         self.build_info_reader.start()
 
     def download_rename(self, build_info):
-        new_name = 'blender-{}-{}'.format(
+        new_name = 'blender-{}+{}.{}'.format(
             build_info.subversion,
+            build_info.branch,
             build_info.build_hash
         )
 

@@ -51,11 +51,12 @@ class BuildInfoReader(QThread):
     Mode = Enum('Mode', 'READ WRITE', start=1)
     finished = pyqtSignal('PyQt_PyObject')
 
-    def __init__(self, path, build_info=None, mode=Mode.READ):
+    def __init__(self, path, build_info=None, archive_name=None, mode=Mode.READ):
         QThread.__init__(self)
         self.path = Path(path)
         self.build_info = build_info
         self.mode = mode
+        self.archive_name = archive_name
         self.platform = get_platform()
 
     def run(self):
@@ -96,7 +97,11 @@ class BuildInfoReader(QThread):
         subversion = re.search("Blender " + "(.*)", version)[1].rstrip()
 
         subfolder = self.path.parent.name
-        name = self.path.name
+
+        if self.archive_name is None:
+            name = self.path.name
+        else:
+            name = self.archive_name
 
         if subfolder == 'daily':
             branch = "daily"
