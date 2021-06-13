@@ -10,7 +10,7 @@ class Renamer(QThread):
     def __init__(self, src_path, dst_name, parent=None):
         QThread.__init__(self)
         self.src_path = src_path
-        self.dst_name = dst_name
+        self.dst_name = (dst_name.lower()).replace(' ', '-')
         self.parent = parent
 
     def run(self):
