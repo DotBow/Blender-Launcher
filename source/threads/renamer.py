@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from PyQt5.QtCore import QThread, pyqtSignal
@@ -25,7 +24,7 @@ class Renamer(QThread):
 
         try:
             dst = Path(self.src_path).parent / self.dst_name
-            os.rename(self.src_path, dst)
+            self.src_path.rename(dst)
             self.finished.emit(dst)
         except OSError as e:
             self.finished.emit(None)
