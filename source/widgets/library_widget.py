@@ -575,8 +575,9 @@ class LibraryWidget(BaseBuildWidget):
 
     def _destroyed(self):
         if self.list_widget is not None:
-            self.list_widget.subversion_indent_changed.disconnect(
-                self.set_indent)
+            if self.is_damaged is False:
+                self.list_widget.subversion_indent_changed.disconnect(
+                    self.set_indent)
 
         if self.parent.favorite == self:
             self.parent.favorite = None
