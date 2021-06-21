@@ -51,7 +51,8 @@ class BuildInfoReader(QThread):
     Mode = Enum('Mode', 'READ WRITE', start=1)
     finished = pyqtSignal('PyQt_PyObject')
 
-    def __init__(self, path, build_info=None, archive_name=None, mode=Mode.READ):
+    def __init__(self, path, build_info=None,
+                 archive_name=None, mode=Mode.READ):
         QThread.__init__(self)
         self.path = Path(path)
         self.build_info = build_info
