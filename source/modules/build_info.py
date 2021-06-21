@@ -10,7 +10,7 @@ from modules._platform import _check_output, get_platform, set_locale
 
 
 class BuildInfo:
-    file_version = "1.1"
+    file_version = "1.2"
     # https://www.blender.org/download/lts/
     lts_tags = ('2.83', '2.93', '3.3', '3.7')
 
