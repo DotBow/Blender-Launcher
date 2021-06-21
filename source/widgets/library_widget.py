@@ -45,6 +45,7 @@ class LibraryWidget(BaseBuildWidget):
         self.child_widget = None
         self.parent_widget = parent_widget
         self.build_info_writer = None
+        self.is_damaged = False
 
         self.parent.quit_signal.connect(self.list_widget_deleted)
         self.destroyed.connect(lambda: self._destroyed())
@@ -81,6 +82,7 @@ class LibraryWidget(BaseBuildWidget):
                 self.launchButton.setText("Delete")
                 self.launchButton.clicked.connect(self.ask_remove_from_drive)
                 self.setEnabled(True)
+                self.is_damaged = True
                 return
 
             for i in reversed(range(self.layout.count())):
@@ -229,6 +231,9 @@ class LibraryWidget(BaseBuildWidget):
             self.add_to_favorites()
 
     def context_menu(self):
+        if self.is_damaged:
+            return
+
         if len(self.list_widget.selectedItems()) > 1:
             self.menu_extended._show()
             return
