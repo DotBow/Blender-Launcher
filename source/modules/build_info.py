@@ -163,17 +163,18 @@ class BuildInfoReader(QThread):
             self.write_build_info(build_info)
             return build_info
         else:
-            blinfo = data['blinfo'][0]
+            return self.build_info_from_json(data['blinfo'][0])
 
-            build_info = BuildInfo(
-                'path',
-                self.path.as_posix(),
-                blinfo['subversion'],
-                blinfo['build_hash'],
-                blinfo['commit_time'],
-                blinfo['branch'],
-                blinfo['custom_name'],
-                blinfo['is_favorite']
-            )
+    def build_info_from_json(self, blinfo):
+        build_info = BuildInfo(
+            'path',
+            self.path.as_posix(),
+            blinfo['subversion'],
+            blinfo['build_hash'],
+            blinfo['commit_time'],
+            blinfo['branch'],
+            blinfo['custom_name'],
+            blinfo['is_favorite']
+        )
 
-            return build_info
+        return build_info
