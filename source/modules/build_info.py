@@ -149,21 +149,21 @@ class BuildInfoReader(QThread):
     def read_build_info(self):
         path = self.path / '.blinfo'
 
-        if not path.is_file():
-            build_info = self.read_blender_version()
-            self.write_build_info(build_info)
-            return build_info
+        if path.is_file():
+            with open(path, 'r', encoding='utf-8') as file:
+                data = json.load(file)
 
-        with open(path, 'r', encoding='utf-8') as file:
-            data = json.load(file)
-
-        if ('file_version' not in data) or \
-                (data['file_version'] != BuildInfo.file_version):
-            build_info = self.read_blender_version()
-            self.write_build_info(build_info)
-            return build_info
+            if ('file_version' not in data) or \
+                    (data['file_version'] != BuildInfo.file_version):
+                build_info = self.read_blender_version()
+                self.write_build_info(build_info)
+                return build_info
+            else:
+                return self.build_info_from_json(data['blinfo'][0])
         else:
-            return self.build_info_from_json(data['blinfo'][0])
+            build_info = self.read_blender_version()
+            self.write_build_info(build_info)
+            return build_info
 
     def build_info_from_json(self, blinfo):
         build_info = BuildInfo(
