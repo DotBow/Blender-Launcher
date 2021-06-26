@@ -2,6 +2,29 @@
 
 # Changelog
 
+## 1.12.1
+
+[Download Blender Launcher v1.12.1 :fontawesome-solid-file-download:](https://github.com/DotBow/Blender-Launcher/releases/tag/v1.12.1){: .md-button .md-button--primary }
+
+Follow [Installation](installation.md#installing-blender-launcher) and [Update](installation.md#updating-blender-launcher) instructions on [Documentation](https://dotbow.github.io/Blender-Launcher).<br>
+Please, read about [how to report a bug](troubleshooting.md) before creating an issue.
+
+??? summary "Release Notes"
+
+    **Fixed:**
+
+    - Daily and Experimental builds messed up after massive site changes [#65](https://github.com/DotBow/Blender-Launcher/issues/65)
+
+    **Other:**
+
+    - Minimum GLIBC version raised to 2.31
+    - Python version updated to 3.9
+
+    **Known issues:**
+
+    - New naming conventions may break branch labels for experimental builds
+
+
 ## 1.12.0
 
 [Download Blender Launcher v1.12.0 :fontawesome-solid-file-download:](https://github.com/DotBow/Blender-Launcher/releases/tag/v1.12.0){: .md-button .md-button--primary }
