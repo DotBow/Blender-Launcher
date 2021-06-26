@@ -76,7 +76,7 @@ class BuildInfoReader(QThread):
 
         return
 
-    def read_blender_version(self):
+    def read_blender_version(self, old_build_info=None):
         set_locale()
 
         if self.platform == 'Windows':
@@ -109,7 +109,15 @@ class BuildInfoReader(QThread):
         elif subfolder == 'custom':
             branch = name
         elif subfolder == 'experimental':
-            branch = re.search(r'\+(.+?)\.', name).group(1)
+            # Sensitive data! Requires proper folder naming!
+            match = re.search(r'\+(.+?)\.', name)
+
+            # Fix for naming conventions changes after 1.12.0 release
+            if match is None:
+                if old_build_info is not None:
+                    branch = old_build_info.branch
+            else:
+                branch = match.group(1)
         elif subfolder == 'stable':
             branch = "stable"
 
@@ -149,17 +157,22 @@ class BuildInfoReader(QThread):
     def read_build_info(self):
         path = self.path / '.blinfo'
 
+        # Check if build information is already present
         if path.is_file():
             with open(path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
 
+            build_info = self.build_info_from_json(data['blinfo'][0])
+
+            # Check if file version changed
             if ('file_version' not in data) or \
                     (data['file_version'] != BuildInfo.file_version):
-                build_info = self.read_blender_version()
-                self.write_build_info(build_info)
-                return build_info
+                new_build_info = self.read_blender_version(build_info)
+                self.write_build_info(new_build_info)
+                return new_build_info
             else:
-                return self.build_info_from_json(data['blinfo'][0])
+                return build_info
+        # Generating new build information
         else:
             build_info = self.read_blender_version()
             self.write_build_info(build_info)
