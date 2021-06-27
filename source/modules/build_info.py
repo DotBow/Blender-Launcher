@@ -121,13 +121,23 @@ class BuildInfoReader(QThread):
         elif subfolder == 'stable':
             branch = "stable"
 
+        # Recover user defined favorites builds information
+        custom_name = ""
+        is_favorite = False
+
+        if old_build_info is not None:
+            custom_name = old_build_info.custom_name
+            is_favorite = old_build_info.is_favorite
+
         build_info = BuildInfo(
             'path',
             self.path.as_posix(),
             subversion,
             build_hash,
             commit_time,
-            branch
+            branch,
+            custom_name,
+            is_favorite
         )
 
         return build_info
