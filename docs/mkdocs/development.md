@@ -5,8 +5,16 @@
 ## Requirements
 
 - Linux or Windows x64
-- Python 3.8
+- Python 3.9
 - Pipenv
+
+!!! warning
+
+    To use different Python version change requirements inside `Pipfile` and use following command to apply changes:
+
+    ```
+    pipenv lock
+    ```
 
 ## Using Pipenv
 
