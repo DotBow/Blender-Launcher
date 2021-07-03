@@ -2,9 +2,32 @@
 
 # Changelog
 
+## 1.13.0
+
+[:fontawesome-brands-windows: Windows x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.13.0/Blender_Launcher_v1.13.0_Windows_x64.zip){: .md-button .md-button--primary }
+[:fontawesome-brands-linux: Linux x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.13.0/Blender_Launcher_v1.13.0_Linux_x64.zip){: .md-button .md-button--primary }
+
+Follow [Installation](installation.md#installing-blender-launcher) and [Update](installation.md#updating-blender-launcher) instructions on [Documentation](https://dotbow.github.io/Blender-Launcher).<br>
+Please, read about [how to report a bug](troubleshooting.md) before creating an issue.
+
+??? summary "Release Notes"
+
+    **Fixed:**
+
+    - Site and naming convention changes broke proper build recognition and display [#70](https://github.com/DotBow/Blender-Launcher/issues/41)
+
+    **New:**
+
+    - Internal MacOS support (not builds yet)
+
+    **Known issues:**
+
+    - There is still might be some broken builds due to convention changes when migrating from 1.12.1 to 1.13.0 which should be removed manually from the Library Folder (folders named `blender-windows64`)
+
 ## 1.12.1
 
-[Download Blender Launcher v1.12.1 :fontawesome-solid-file-download:](https://github.com/DotBow/Blender-Launcher/releases/tag/v1.12.1){: .md-button .md-button--primary }
+[:fontawesome-brands-windows: Windows x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.12.1/Blender_Launcher_v1.12.1_Windows_x64.zip){: .md-button .md-button--primary }
+[:fontawesome-brands-linux: Linux x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.12.1/Blender_Launcher_v1.12.1_Linux_x64.zip){: .md-button .md-button--primary }
 
 Follow [Installation](installation.md#installing-blender-launcher) and [Update](installation.md#updating-blender-launcher) instructions on [Documentation](https://dotbow.github.io/Blender-Launcher).<br>
 Please, read about [how to report a bug](troubleshooting.md) before creating an issue.
@@ -24,10 +47,10 @@ Please, read about [how to report a bug](troubleshooting.md) before creating an 
 
     - New naming conventions may break branch labels for experimental builds
 
-
 ## 1.12.0
 
-[Download Blender Launcher v1.12.0 :fontawesome-solid-file-download:](https://github.com/DotBow/Blender-Launcher/releases/tag/v1.12.0){: .md-button .md-button--primary }
+[:fontawesome-brands-windows: Windows x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.12.0/Blender_Launcher_v1.12.0_Windows_x64.zip){: .md-button .md-button--primary }
+[:fontawesome-brands-linux: Linux x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.12.0/Blender_Launcher_v1.12.0_Linux_x64.zip){: .md-button .md-button--primary }
 
 Follow [Installation](installation.md#installing-blender-launcher) and [Update](installation.md#updating-blender-launcher) instructions on [Documentation](https://dotbow.github.io/Blender-Launcher).<br>
 Please, read about [how to report a bug](troubleshooting.md) before creating an issue.
@@ -56,7 +79,8 @@ Please, read about [how to report a bug](troubleshooting.md) before creating an 
 
 ## 1.11.0
 
-[Download Blender Launcher v1.11.0 :fontawesome-solid-file-download:](https://github.com/DotBow/Blender-Launcher/releases/tag/v1.11.0){: .md-button .md-button--primary }
+[:fontawesome-brands-windows: Windows x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.11.0/Blender_Launcher_v1.11.0_Windows_x64.zip){: .md-button .md-button--primary }
+[:fontawesome-brands-linux: Linux x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.11.0/Blender_Launcher_v1.11.0_Linux_x64.zip){: .md-button .md-button--primary }
 
 Follow [Installation](installation.md#installing-blender-launcher) and [Update](installation.md#updating-blender-launcher) instructions on [Documentation](https://dotbow.github.io/Blender-Launcher).<br>
 Please, read about [how to report a bug](troubleshooting.md) before creating an issue.
@@ -80,7 +104,8 @@ Please, read about [how to report a bug](troubleshooting.md) before creating an 
 
 ## 1.10.0
 
-[Download Blender Launcher v1.10.0 :fontawesome-solid-file-download:](https://github.com/DotBow/Blender-Launcher/releases/tag/v1.10.0){: .md-button .md-button--primary }
+[:fontawesome-brands-windows: Windows x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.10.0/Blender_Launcher_v1.10.0_Windows_x64.zip){: .md-button .md-button--primary }
+[:fontawesome-brands-linux: Linux x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.10.0/Blender_Launcher_v1.10.0_Linux_x64.zip){: .md-button .md-button--primary }
 
 Follow [Installation](installation.md#installing-blender-launcher) and [Update](installation.md#updating-blender-launcher) instructions on [Documentation](https://dotbow.github.io/Blender-Launcher).<br>
 Please, read about [how to report a bug](troubleshooting.md) before creating an issue.
