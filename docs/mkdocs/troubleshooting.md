@@ -25,4 +25,4 @@ Before creating an issue, check following:
 
 To report a bug, use an [issue template](https://github.com/DotBow/Blender-Launcher/issues/new?assignees=DotBow&labels=bug&template=bug_report.md&title=). Consider attaching a `BL.log` file if it exists near `Blender Launcher.exe`.
 
-[Submit an issue :fontawesome-solid-bug:](https://github.com/DotBow/Blender-Launcher/issues/new?assignees=DotBow&labels=bug&template=bug_report.md&title=){: .md-button .md-button--primary }
+[:fontawesome-solid-bug: Submit an issue](https://github.com/DotBow/Blender-Launcher/issues/new?assignees=DotBow&labels=bug&template=bug_report.md&title=){: .md-button .md-button--primary }
