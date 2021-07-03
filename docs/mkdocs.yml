@@ -7,8 +7,8 @@ nav:
     - Library Folder: library_folder.md
     - Settings: settings.md
     - Troubleshooting: troubleshooting.md
-    - Development: development.md
     - Feature Request: feature_request.md
+    - Development: development.md
     - Changelog: changelog.md
 docs_dir: mkdocs
 site_dir: site
