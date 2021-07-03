@@ -106,3 +106,10 @@ def _check_output(args):
         output = check_output(args, shell=False, stderr=DEVNULL, stdin=DEVNULL)
 
     return output
+
+
+def is_frozen():
+    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+        return True
+    else:
+        return False
