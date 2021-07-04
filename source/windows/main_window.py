@@ -8,7 +8,7 @@ from shutil import copyfileobj
 from time import localtime, strftime
 
 from items.base_list_widget_item import BaseListWidgetItem
-from modules._platform import _popen, get_platform, set_locale
+from modules._platform import _popen, get_platform, set_locale, is_frozen
 from modules.enums import MessageType
 from modules.settings import (create_library_folders,
                               get_default_downloads_page,
@@ -355,12 +355,16 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.style().polish(self.app)
 
         # Show window
-        if get_show_tray_icon():
-            self.tray_icon.show()
+        if is_frozen():
+            if get_show_tray_icon():
+                self.tray_icon.show()
 
-            if get_launch_minimized_to_tray() is False:
+                if get_launch_minimized_to_tray() is False:
+                    self._show()
+            else:
                 self._show()
         else:
+            self.tray_icon.show()
             self._show()
 
     def show_changelog(self):
