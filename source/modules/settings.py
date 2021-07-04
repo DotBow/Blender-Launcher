@@ -338,3 +338,11 @@ def get_show_tray_icon():
 
 def set_show_tray_icon(is_checked):
     get_settings().setValue('show_tray_icon', is_checked)
+
+
+def get_launch_blender_no_console():
+    return get_settings().value('launch_blender_no_console', type=bool)
+
+
+def set_launch_blender_no_console(is_checked):
+    get_settings().setValue('launch_blender_no_console', is_checked)

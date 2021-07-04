@@ -8,6 +8,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_enable_high_dpi_scaling,
                               get_enable_new_builds_notifications,
                               get_install_template,
+                              get_launch_blender_no_console,
                               get_launch_minimized_to_tray,
                               get_launch_when_system_starts,
                               get_library_folder, get_mark_as_favorite,
@@ -22,6 +23,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_enable_high_dpi_scaling,
                               set_enable_new_builds_notifications,
                               set_install_template,
+                              set_launch_blender_no_console,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
                               set_library_folder, set_mark_as_favorite,
@@ -190,6 +192,12 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.InstallTemplate.clicked.connect(self.toggle_install_template)
         self.InstallTemplate.setChecked(get_install_template())
 
+        # Run Blender using blender-launcher.exe
+        self.LaunchBlenderNoConsole = QCheckBox()
+        self.LaunchBlenderNoConsole.clicked.connect(
+            self.toggle_launch_blender_no_console)
+        self.LaunchBlenderNoConsole.setChecked(get_launch_blender_no_console())
+
         # Layout
         SettingsLayoutContainer = QWidget(self)
         SettingsLayoutContainer.setProperty('FormLayout', True)
@@ -252,13 +260,18 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Blender Launching:"))
-        layout = SettingsFormLayout(120)
-        layout._addRow("Startup Arguments",
-                       self.BlenderStartupArguments)
+        layout = SettingsFormLayout(220)
+
+        if platform == 'Windows':
+            layout._addRow("Hide Console On Startup",
+                           self.LaunchBlenderNoConsole)
+
+        layout.addRow(QLabel("Startup Arguments:"))
+        layout.addRow(self.BlenderStartupArguments)
 
         if platform == 'Linux':
-            layout._addRow("Bash Arguments",
-                           self.BashArguments)
+            layout.addRow(QLabel("Bash Arguments:"))
+            layout.addRow(self.BashArguments)
 
         SettingsLayout.addRow(layout)
 
@@ -359,6 +372,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def toggle_install_template(self, is_checked):
         set_install_template(is_checked)
+
+    def toggle_launch_blender_no_console(self, is_checked):
+        set_launch_blender_no_console(is_checked)
 
     def toggle_show_tray_icon(self, is_checked):
         set_show_tray_icon(is_checked)
