@@ -8,6 +8,7 @@ from modules._platform import _call, _popen, get_platform
 from modules.build_info import BuildInfoReader
 from modules.settings import (get_bash_arguments,
                               get_blender_startup_arguments, get_favorite_path,
+                              get_launch_blender_no_console,
                               get_library_folder, get_mark_as_favorite,
                               set_favorite_path)
 from modules.shortcut import create_shortcut
@@ -303,7 +304,13 @@ class LibraryWidget(BaseBuildWidget):
         blender_args = get_blender_startup_arguments()
 
         if platform == 'Windows':
-            b3d_exe = library_folder / self.link / "blender.exe"
+            if get_launch_blender_no_console():
+                if Path.exists(library_folder / self.link / "blender-launcher.exe"):
+                    b3d_exe = library_folder / self.link / "blender-launcher.exe"
+                else:
+                    b3d_exe = library_folder / self.link / "blender.exe"
+            else:
+                b3d_exe = library_folder / self.link / "blender.exe"
 
             if blender_args == "":
                 proc = _popen(b3d_exe.as_posix())
