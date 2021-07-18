@@ -664,6 +664,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.statusbarLabel.setText("{0} │ {1}".format(self.status, self.text))
 
     def set_version(self, latest_tag):
+        if "dev" in self.version:
+            return
+
         latest_ver = re.sub(r'\D', '', latest_tag)
         current_ver = re.sub(r'\D', '', self.version)
 
