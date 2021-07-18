@@ -40,6 +40,11 @@ def main():
         app.exec_()
         return
 
+    if "-debug" in sys.argv:
+        logging.root.setLevel(logging.INFO)
+    else:
+        logging.root.setLevel(logging.WARNING)
+
     socket = QLocalSocket()
     socket.connectToServer("blender-launcher-server")
     is_running = socket.waitForConnected()
