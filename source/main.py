@@ -12,10 +12,12 @@ from windows.update_window import BlenderLauncherUpdater
 version = "1.14.0-dev"
 
 _format = '%(asctime)s - %(message)s'
-logging.basicConfig(filename="Blender Launcher.log", format=_format)
+logging.basicConfig(format=_format,
+                    handlers=[
+                        logging.FileHandler("Blender Launcher.log"),
+                        logging.StreamHandler(stream=sys.stdout)
+                    ])
 logger = logging.getLogger(__name__)
-handler = logging.StreamHandler(stream=sys.stdout)
-logger.addHandler(handler)
 
 
 def handle_exception(exc_type, exc_value, exc_traceback):
