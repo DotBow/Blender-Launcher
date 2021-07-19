@@ -14,7 +14,6 @@ version = "1.14.0-dev"
 _format = '%(asctime)s - %(message)s'
 logging.basicConfig(filename="Blender Launcher.log", format=_format)
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 handler = logging.StreamHandler(stream=sys.stdout)
 logger.addHandler(handler)
 
