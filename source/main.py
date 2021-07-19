@@ -10,7 +10,11 @@ from windows.main_window import BlenderLauncher
 from windows.update_window import BlenderLauncherUpdater
 
 version = "1.14.0-dev"
+
+_format = '%(asctime)s - %(message)s'
+logging.basicConfig(filename="Blender Launcher.log", format=_format)
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 handler = logging.StreamHandler(stream=sys.stdout)
 logger.addHandler(handler)
 
@@ -20,8 +24,6 @@ def handle_exception(exc_type, exc_value, exc_traceback):
         sys.__excepthook__(exc_type, exc_value, exc_traceback)
         return
 
-    _format = '%(asctime)s - %(message)s'
-    logging.basicConfig(filename="Blender Launcher.log", format=_format)
     logger.error("{0} - Blender Launcher {1}".format(get_platform(), version),
                  exc_info=(exc_type, exc_value, exc_traceback))
 
@@ -57,7 +59,8 @@ def main():
             library_folder = sys.argv[-1]
 
         BlenderLauncher(app=app, version=version,
-                        library_folder=library_folder)
+                        library_folder=library_folder,
+                        logger=logger)
         app.exec_()
         return
     else:
