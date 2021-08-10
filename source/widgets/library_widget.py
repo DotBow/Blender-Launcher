@@ -431,7 +431,7 @@ class LibraryWidget(BaseBuildWidget):
 
     # TODO Clear icon if build in quick launch
     def remover_started(self):
-        self.launchButton.setText("Deleting")
+        self.launchButton._setText("Deleting")
         self.setEnabled(False)
         self.item.setFlags(self.item.flags() & ~Qt.ItemIsSelectable)
 
