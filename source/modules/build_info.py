@@ -108,7 +108,7 @@ class BuildInfoReader(QThread):
             branch = "daily"
 
             # If branch from console is empty, it is probably stable release
-            if len(subversion.split(' ')) == 0:
+            if len(subversion.split(' ')) == 1:
                 subversion += " Stable"
         elif subfolder == 'custom':
             branch = name
