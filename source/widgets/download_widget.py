@@ -239,6 +239,4 @@ class DownloadWidget(BaseBuildWidget):
 
     def destroy(self):
         if self.state == DownloadState.WAITING:
-            self.list_widget.subversion_indent_changed.disconnect(
-                self.set_indent)
             self.list_widget.remove_item(self.item)
