@@ -110,7 +110,7 @@ class LibraryWidget(BaseBuildWidget):
         sub = self.build_info.subversion.split(" ", 1)
         self.subversionLabel = QLabel(sub[0])
         self.subversionLabel.setFixedWidth(85)
-        self.list_widget.subversion_indent_changed.connect(self.set_indent)
+        self.subversionLabel.setIndent(21)
         self.branchLabel = ElidedTextLabel(branch_name)
         self.commitTimeLabel = DateTimeWidget(
             self.build_info.commit_time, self.build_info.build_hash)
@@ -223,10 +223,6 @@ class LibraryWidget(BaseBuildWidget):
 
         self.setEnabled(True)
         self.list_widget.sortItems()
-
-        # It fixes the issue with indenting widgets on first
-        # opened tab at launch
-        self.list_widget.resize()
 
         if self.build_info.is_favorite and self.parent_widget is None:
             self.add_to_favorites()

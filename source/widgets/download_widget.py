@@ -76,7 +76,7 @@ class DownloadWidget(BaseBuildWidget):
         self.subversionLabel = QLabel(
             self.build_info.subversion.split(" ", 1)[0])
         self.subversionLabel.setFixedWidth(85)
-        self.list_widget.subversion_indent_changed.connect(self.set_indent)
+        self.subversionLabel.setIndent(21)
         self.branchLabel = ElidedTextLabel(branch_name)
         self.commitTimeLabel = DateTimeWidget(
             self.build_info.commit_time, self.build_info.build_hash)

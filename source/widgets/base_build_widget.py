@@ -2,7 +2,7 @@ import abc
 import re
 import webbrowser
 
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QAction, QWidget
 
@@ -26,13 +26,6 @@ class BaseBuildWidget(QWidget):
     @abc.abstractmethod
     def context_menu(self):
         pass
-
-    def resizeEvent(self, a0: QtGui.QResizeEvent) -> None:
-        self.list_widget.resize_signal.emit()
-        return super().resizeEvent(a0)
-
-    def set_indent(self, indent):
-        self.subversionLabel.setIndent(indent)
 
     @QtCore.pyqtSlot()
     def show_release_notes(self):

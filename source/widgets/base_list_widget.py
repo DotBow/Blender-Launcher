@@ -1,12 +1,9 @@
-from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFontMetrics
 from PyQt5.QtWidgets import QAbstractItemView, QListWidget
 
 
 class BaseListWidget(QListWidget):
-    subversion_indent_changed = pyqtSignal('PyQt_PyObject')
-    resize_signal = pyqtSignal()
-
     def __init__(self, parent=None, extended_selection=False):
         super().__init__()
         self.parent = parent
@@ -21,8 +18,6 @@ class BaseListWidget(QListWidget):
 
         if extended_selection is True:
             self.setSelectionMode(QAbstractItemView.ExtendedSelection)
-
-        self.resize_signal.connect(self.resize)
 
     def add_item(self, item, widget):
         item.setSizeHint(widget.sizeHint())
@@ -43,7 +38,6 @@ class BaseListWidget(QListWidget):
         row = self.row(item)
         self.takeItem(row)
         self.count_changed()
-        self.resize()
 
     def count_changed(self):
         if self.count() > 0:
@@ -70,20 +64,6 @@ class BaseListWidget(QListWidget):
                 return True
 
         return False
-
-    def resize(self):
-        widths = []
-
-        for widget in self.widgets:
-            if not hasattr(widget, 'subversionLabel'):
-                return
-            else:
-                text = widget.subversionLabel.text()
-                widths.append(self.metrics.width(text))
-
-        if len(widths) > 0:
-            indent = int((80 - max(widths)) * 0.5)
-            self.subversion_indent_changed.emit(indent)
 
     def _clear(self):
         self.clear()
