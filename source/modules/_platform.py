@@ -57,9 +57,9 @@ def _popen(args):
 
     if platform == 'Windows':
         DETACHED_PROCESS = 0x00000008
-        proc = Popen(args, shell=True, stdin=None, stdout=DEVNULL,
-                     stderr=STDOUT, close_fds=True,
-                     creationflags=DETACHED_PROCESS, start_new_session=True)
+        proc = Popen(args, shell=True, stdin=None, stdout=None, stderr=None,
+                     close_fds=True, creationflags=DETACHED_PROCESS,
+                     start_new_session=True)
     elif platform == 'Linux':
         proc = Popen(args, shell=True, stdout=None, stderr=None,
                      close_fds=True,  preexec_fn=os.setpgrp,
