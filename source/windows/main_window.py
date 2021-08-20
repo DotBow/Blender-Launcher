@@ -52,7 +52,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     close_signal = pyqtSignal()
     quit_signal = pyqtSignal()
 
-    def __init__(self, app, version, logger, library_folder=None):
+    def __init__(self, app, version, logger, argv):
         super(BlenderLauncher, self).__init__(
             app=app, version=version)
         self.setupUi(self)
@@ -67,6 +67,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app = app
         self.version = version
         self.logger = logger
+        self.argv = argv
         self.favorite = None
         self.status = "Ready"
         self.text = "OK"
@@ -105,7 +106,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app.setWindowIcon(self.icon_taskbar)
 
         # Set library folder from command line arguments
-        if library_folder:
+        if "-set-library-folder" in self.argv:
+            library_folder = self.argv[-1]
+
             if set_library_folder(library_folder) is True:
                 create_library_folders(get_library_folder())
                 self.draw(True)

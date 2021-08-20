@@ -54,14 +54,8 @@ def main():
 
     if not is_running:
         socket.close()
-        library_folder = None
-
-        if "-set-library-folder" in sys.argv:
-            library_folder = sys.argv[-1]
-
         BlenderLauncher(app=app, version=version,
-                        library_folder=library_folder,
-                        logger=logger)
+                        argv=sys.argv, logger=logger)
         app.exec_()
         return
     else:
