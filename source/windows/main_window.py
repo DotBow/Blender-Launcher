@@ -548,7 +548,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         self.library_drawer = LibraryDrawer()
         self.library_drawer.build_found.connect(self.draw_to_library)
-        self.library_drawer.finished.connect(self.draw_downloads)
+
+        if "-offline" not in self.argv:
+            self.library_drawer.finished.connect(self.draw_downloads)
+
         self.library_drawer.start()
 
     def reload_custom_builds(self):
