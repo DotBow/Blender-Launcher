@@ -27,7 +27,7 @@ class BasePageWidget(QWidget):
         # Placeholder Widget
         self.PlaceholderWidget = QWidget()
         self.PlaceholderWidget.setProperty("ToolBoxWidget", True)
-        self.PlaceholderLayout = QHBoxLayout(self.PlaceholderWidget)
+        self.PlaceholderLayout = QVBoxLayout(self.PlaceholderWidget)
         self.PlaceholderLayout.setContentsMargins(0, 0, 0, 0)
 
         self.InfoPixmap = QPixmap(":resources/icons/info.svg")
@@ -45,9 +45,24 @@ class BasePageWidget(QWidget):
             self, extended_selection=extended_selection)
         self.list_widget.hide()
 
+        self.InfoLayout = QHBoxLayout()
+        self.InfoLayout.setContentsMargins(0, 0, 0, 0)
+
+        self.InfoLayout.addStretch()
+        self.InfoLayout.addWidget(self.InfoPixmapLabel)
+        self.InfoLayout.addLayout(self.InfoLabelLayout)
+        self.InfoLayout.addStretch()
+
         self.PlaceholderLayout.addStretch()
-        self.PlaceholderLayout.addWidget(self.InfoPixmapLabel)
-        self.PlaceholderLayout.addLayout(self.InfoLabelLayout)
+        self.PlaceholderLayout.addLayout(self.InfoLayout)
+
+        if show_reload is True:
+            self.ReloadBtn = QPushButton("Reload")
+            self.ReloadBtn.setToolTip(
+                "Reload Custom builds from disk")
+            self.ReloadBtn.clicked.connect(parent.reload_custom_builds)
+            self.PlaceholderLayout.addWidget(self.ReloadBtn)
+
         self.PlaceholderLayout.addStretch()
 
         # Header Widget
