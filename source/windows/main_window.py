@@ -8,7 +8,7 @@ from shutil import copyfileobj
 from time import localtime, strftime
 
 from items.base_list_widget_item import BaseListWidgetItem
-from modules._platform import _popen, get_platform, set_locale, is_frozen
+from modules._platform import _popen, get_platform, is_frozen, set_locale
 from modules.enums import MessageType
 from modules.settings import (create_library_folders,
                               get_default_downloads_page,
@@ -40,6 +40,9 @@ from windows.base_window import BaseWindow
 from windows.dialog_window import DialogIcon, DialogWindow
 from windows.file_dialog_window import FileDialogWindow
 from windows.settings_window import SettingsWindow
+
+if get_platform() == 'Windows':
+    from PyQt5.QtWinExtras import QWinThumbnailToolBar, QWinThumbnailToolButton
 
 
 class AppState(Enum):
@@ -458,6 +461,25 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         self.set_status()
         self.show_signal.emit()
+
+        # Add custom toolbar icons
+        if self.platform == 'Windows':
+            self.thumbnail_toolbar = QWinThumbnailToolBar(self)
+            self.thumbnail_toolbar.setWindow(self.windowHandle())
+
+            self.toolbar_quick_launch_btn = QWinThumbnailToolButton(
+                self.thumbnail_toolbar)
+            self.toolbar_quick_launch_btn.setIcon(self.icon_quick_launch)
+            self.toolbar_quick_launch_btn.setToolTip("Quick Launch")
+            self.toolbar_quick_launch_btn.clicked.connect(self.quick_launch)
+            self.thumbnail_toolbar.addButton(self.toolbar_quick_launch_btn)
+
+            self.toolbar_quit_btn = QWinThumbnailToolButton(
+                self.thumbnail_toolbar)
+            self.toolbar_quit_btn.setIcon(self.icon_close)
+            self.toolbar_quit_btn.setToolTip("Quit")
+            self.toolbar_quit_btn.clicked.connect(self.quit)
+            self.thumbnail_toolbar.addButton(self.toolbar_quit_btn)
 
     def show_message(self, message, value=None, type=None):
         if (type == MessageType.DOWNLOADFINISHED and
