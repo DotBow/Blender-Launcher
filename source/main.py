@@ -32,11 +32,27 @@ def handle_exception(exc_type, exc_value, exc_traceback):
 sys.excepthook = handle_exception
 
 
+help = \
+    """
+    Command line arguments sheet:
+
+    -help                        * Show command line arguments sheet
+    -update                      * Run updater instead of the main application
+    -debug                       * Set logging level to WARNING
+    -set-library-folder "%path%" * Set library folder
+    -offline                     * Disable scraper thread
+    """
+
+
 def main():
     app = QApplication(sys.argv)
     app.setStyle('Fusion')
     app.setApplicationVersion(version)
     app.setQuitOnLastWindowClosed(False)
+
+    if "-help" in sys.argv:
+        print(help)
+        return
 
     if "-update" in sys.argv:
         BlenderLauncherUpdater(app=app, version=version, tag=sys.argv[-1])
