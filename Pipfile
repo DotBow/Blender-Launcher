@@ -17,6 +17,7 @@ beautifulsoup4 = "==4.9.3"
 pyqt5 = "==5.15.4"
 urllib3 = "==1.26.5"
 pywin32 = {version = "*", os_name = "=='nt'"}
+pynput = "==1.7.3"
 
 [scripts]
 start = "python source/main.py"
