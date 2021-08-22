@@ -20,6 +20,7 @@ from modules.settings import (create_library_folders,
                               get_sync_library_and_downloads_pages,
                               get_taskbar_icon_color, is_library_folder_valid,
                               set_library_folder, taskbar_icon_paths)
+from pynput import keyboard
 from PyQt5.QtCore import QSize, Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
 from PyQt5.QtNetwork import QLocalServer
@@ -373,6 +374,11 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         else:
             self.tray_icon.show()
             self._show()
+
+        listener = keyboard.Listener(
+            on_press=self.on_press,
+            on_release=self.on_release)
+        listener.start()
 
     def show_changelog(self):
         current_ver = re.sub(r'\D', '', self.version)
@@ -752,3 +758,15 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def dropEvent(self, e):
         print(e.mimeData().text())
+
+    def on_press(self, key):
+        try:
+            print('alphanumeric key {0} pressed'.format(
+                key.char))
+        except AttributeError:
+            print('special key {0} pressed'.format(
+                key))
+
+    def on_release(self, key):
+        print('{0} released'.format(
+            key))
