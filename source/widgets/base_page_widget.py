@@ -61,7 +61,13 @@ class BasePageWidget(QWidget):
             self.ReloadBtn.setToolTip(
                 "Reload Custom builds from disk")
             self.ReloadBtn.clicked.connect(parent.reload_custom_builds)
-            self.PlaceholderLayout.addWidget(self.ReloadBtn)
+
+            self.ReloadBtnLayout = QHBoxLayout()
+            self.ReloadBtnLayout.addStretch()
+            self.ReloadBtnLayout.addWidget(self.ReloadBtn)
+            self.ReloadBtnLayout.addStretch()
+
+            self.PlaceholderLayout.addLayout(self.ReloadBtnLayout)
 
         self.PlaceholderLayout.addStretch()
 
