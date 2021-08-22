@@ -67,7 +67,7 @@ class Scraper(QThread):
         if self.platform == 'Windows':
             filter = r'blender-.+win.+64.+zip$'
         elif self.platform == 'Linux':
-            filter = r'blender-.+lin.+64.+tar'
+            filter = r'blender-.+lin.+64.+tar+(?!.*sha256).*'
         elif self.platform == 'macOS':
             filter = r'blender-.+(macOS|darwin).+dmg$'
 
