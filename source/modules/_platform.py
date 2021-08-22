@@ -63,7 +63,7 @@ def _popen(args):
     elif platform == 'Linux':
         proc = Popen(args, shell=True, stdout=None, stderr=None,
                      close_fds=True,  preexec_fn=os.setpgrp,
-                     env=get_environment(), start_new_session=True)
+                     env=get_environment())
 
     return proc
 
