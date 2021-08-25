@@ -32,6 +32,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_sync_library_and_downloads_pages,
                               set_taskbar_icon_color, tabs,
                               taskbar_icon_colors)
+from PyQt5 import QtGui
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFormLayout, QHBoxLayout,
                              QLabel, QLineEdit, QMainWindow, QPushButton,
@@ -201,6 +202,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         # Quick Launch Key Sequence
         self.QuickLaunchKeySeq = QLineEdit()
+        self.QuickLaunchKeySeq.keyPressEvent = self._keyPressEvent
         self.QuickLaunchKeySeq.setText(
             str(get_quick_launch_key_seq()))
         self.QuickLaunchKeySeq.setContextMenuPolicy(Qt.NoContextMenu)
@@ -396,3 +398,22 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def update_quick_launch_key_seq(self):
         key_seq = self.QuickLaunchKeySeq.text()
         set_quick_launch_key_seq(key_seq)
+
+    def _keyPressEvent(self, e: QtGui.QKeyEvent) -> None:
+        MOD_MASK = (Qt.CTRL | Qt.ALT | Qt.SHIFT | Qt.META)
+        keyname = ''
+        key = e.key()
+        modifiers = int(e.modifiers())
+
+        if (modifiers and modifiers & MOD_MASK == modifiers and
+            key > 0 and key != Qt.Key_Shift and key != Qt.Key_Alt and
+                key != Qt.Key_Control and key != Qt.Key_Meta):
+
+            keyname = QtGui.QKeySequence(modifiers + key).toString()
+        elif not modifiers:
+            keyname = QtGui.QKeySequence(key).toString()
+
+        if keyname != '':
+            self.QuickLaunchKeySeq.setText(keyname.lower())
+
+        return super().keyPressEvent(e)
