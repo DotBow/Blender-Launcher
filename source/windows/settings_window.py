@@ -12,7 +12,8 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_launch_minimized_to_tray,
                               get_launch_when_system_starts,
                               get_library_folder, get_mark_as_favorite,
-                              get_platform, get_show_tray_icon,
+                              get_platform, get_quick_launch_key_seq,
+                              get_show_tray_icon,
                               get_sync_library_and_downloads_pages,
                               get_taskbar_icon_color, library_pages,
                               set_bash_arguments,
@@ -27,7 +28,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
                               set_library_folder, set_mark_as_favorite,
-                              set_show_tray_icon,
+                              set_quick_launch_key_seq, set_show_tray_icon,
                               set_sync_library_and_downloads_pages,
                               set_taskbar_icon_color, tabs,
                               taskbar_icon_colors)
@@ -198,6 +199,15 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             self.toggle_launch_blender_no_console)
         self.LaunchBlenderNoConsole.setChecked(get_launch_blender_no_console())
 
+        # Quick Launch Key Sequence
+        self.QuickLaunchKeySeq = QLineEdit()
+        self.QuickLaunchKeySeq.setText(
+            str(get_quick_launch_key_seq()))
+        self.QuickLaunchKeySeq.setContextMenuPolicy(Qt.NoContextMenu)
+        self.QuickLaunchKeySeq.setCursorPosition(0)
+        self.QuickLaunchKeySeq.editingFinished.connect(
+            self.update_quick_launch_key_seq)
+
         # Layout
         SettingsLayoutContainer = QWidget(self)
         SettingsLayoutContainer.setProperty('FormLayout', True)
@@ -261,6 +271,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         SettingsLayout.addRow(self._QLabel("Blender Launching:"))
         layout = SettingsFormLayout(220)
+
+        layout._addRow("Quick Launch Shortcut", self.QuickLaunchKeySeq)
 
         if platform == 'Windows':
             layout._addRow("Hide Console On Startup",
@@ -380,3 +392,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         set_show_tray_icon(is_checked)
         self.LaunchMinimizedToTrayRow.setEnabled(is_checked)
         self.parent.tray_icon.setVisible(is_checked)
+
+    def update_quick_launch_key_seq(self):
+        key_seq = self.QuickLaunchKeySeq.text()
+        set_quick_launch_key_seq(key_seq)
