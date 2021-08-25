@@ -346,3 +346,16 @@ def get_launch_blender_no_console():
 
 def set_launch_blender_no_console(is_checked):
     get_settings().setValue('launch_blender_no_console', is_checked)
+
+
+def get_quick_launch_key_seq():
+    key_seq = get_settings().value('quick_launch_key_seq')
+
+    if key_seq is None:
+        return "<f11>"
+    else:
+        return key_seq.strip()
+
+
+def set_quick_launch_key_seq(key_seq):
+    get_settings().setValue('quick_launch_key_seq', key_seq.strip())
