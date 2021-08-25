@@ -86,6 +86,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.platform = get_platform()
         self.remover_count = 0
         self.renamer_count = 0
+        self.settings_window = None
 
         if self.platform == "macOS":
             self.app.aboutToQuit.connect(self._aboutToQuit)
@@ -375,8 +376,13 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.tray_icon.show()
             self._show()
 
+        key_seq = get_quick_launch_key_seq()
+        key_seq = key_seq.replace('ctrl', '<ctrl>')
+        key_seq = key_seq.replace('shift', '<shift>')
+        key_seq = key_seq.replace('alt', '<alt>')
+
         listener = keyboard.GlobalHotKeys({
-            get_quick_launch_key_seq(): self.on_activate_quick_launch})
+            key_seq: self.on_activate_quick_launch})
         listener.start()
 
     def on_activate_quick_launch(self):
