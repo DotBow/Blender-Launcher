@@ -414,6 +414,18 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             keyname = QtGui.QKeySequence(key).toString()
 
         if keyname != '':
+            # Remap <Shift + *> keys sequences
+            if 'Shift' in keyname:
+                trans_table = str.maketrans({'~': '`', '!': '1', '@': '2',
+                                             '#': '3', '$': '4', '%': '5',
+                                             '^': '6', '&': '7', '*': '8',
+                                             '(': '9', ')': '0', '_': '-',
+                                             '+': '=', '?': ',', '>': '.',
+                                             '<': '/'})
+                keyname_num = keyname.split('+')[-1]
+                trans = keyname_num.translate(trans_table)
+                keyname = keyname.replace(keyname_num, trans)
+
             self.QuickLaunchKeySeq.setText(keyname.lower())
 
         return super().keyPressEvent(e)
