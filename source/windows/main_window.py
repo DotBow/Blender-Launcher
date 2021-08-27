@@ -392,7 +392,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.listener.start()
 
     def on_activate_quick_launch(self):
-        self.quick_launch()
+        if self.settings_window == None:
+            self.quick_launch()
 
     def show_changelog(self):
         current_ver = re.sub(r'\D', '', self.version)
