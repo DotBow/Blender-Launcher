@@ -274,7 +274,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(self._QLabel("Blender Launching:"))
         layout = SettingsFormLayout(220)
 
-        layout._addRow("Quick Launch Shortcut", self.QuickLaunchKeySeq)
+        layout._addRow("Quick Launch Global Shortcut", self.QuickLaunchKeySeq)
 
         if platform == 'Windows':
             layout._addRow("Hide Console On Startup",
