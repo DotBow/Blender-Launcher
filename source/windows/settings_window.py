@@ -63,7 +63,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.CloseButton.setFixedSize(36, 32)
         self.CloseButton.setProperty("HeaderButton", True)
         self.CloseButton.setProperty("CloseButton", True)
-        self.CloseButton.clicked.connect(self.close)
+        self.CloseButton.clicked.connect(self._close)
         self.HeaderLabel = QLabel("Settings")
         self.HeaderLabel.setAlignment(Qt.AlignCenter)
 
@@ -291,6 +291,10 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         self.resize(self.sizeHint())
         self.show()
+
+    def _close(self):
+        self.parent.settings_window = None
+        self.close()
 
     def _QLabel(self, text):
         label = QLabel(text)
