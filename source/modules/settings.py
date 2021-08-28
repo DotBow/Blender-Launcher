@@ -352,7 +352,7 @@ def get_quick_launch_key_seq():
     key_seq = get_settings().value('quick_launch_key_seq')
 
     if key_seq is None:
-        return "<f11>"
+        return "alt+f11"
     else:
         return key_seq.strip()
 
