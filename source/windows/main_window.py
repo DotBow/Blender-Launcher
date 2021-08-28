@@ -56,6 +56,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     show_signal = pyqtSignal()
     close_signal = pyqtSignal()
     quit_signal = pyqtSignal()
+    quick_launch_fail_signal = pyqtSignal()
 
     def __init__(self, app, version, logger, argv):
         super(BlenderLauncher, self).__init__(
@@ -66,6 +67,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         # Server
         self.server = QLocalServer()
         self.server.listen("blender-launcher-server")
+        self.quick_launch_fail_signal.connect(self.quick_launch_fail)
         self.server.newConnection.connect(self.new_connection)
 
         # Global scope
@@ -397,7 +399,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.listener.start()
 
     def on_activate_quick_launch(self):
-        if self.settings_window == None:
+        if self.settings_window is None:
             self.quick_launch()
 
     def show_changelog(self):
@@ -531,10 +533,13 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         try:
             self.favorite.launch()
         except Exception:
-            self.dlg = DialogWindow(
-                parent=self, text="Add build to Quick Launch via<br>\
-                            context menu to run it from tray",
-                accept_text="OK", cancel_text=None, icon=DialogIcon.INFO)
+            self.quick_launch_fail_signal.emit()
+
+    def quick_launch_fail(self):
+        self.dlg = DialogWindow(
+            parent=self, text="Add build to Quick Launch via<br>\
+                        context menu to run it from tray",
+            accept_text="OK", cancel_text=None, icon=DialogIcon.INFO)
 
     def tray_icon_activated(self, reason):
         if reason == QSystemTrayIcon.Trigger:
