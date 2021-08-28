@@ -1,5 +1,7 @@
+import logging
 import re
 import time
+import traceback
 from pathlib import Path
 from urllib.parse import urljoin
 
@@ -26,6 +28,7 @@ class Scraper(QThread):
             self.get_download_links()
             self.new_bl_version.emit(self.get_latest_tag())
         except Exception:
+            logging.error(traceback.format_exc())
             self.error.emit()
 
         self.manager.clear()
