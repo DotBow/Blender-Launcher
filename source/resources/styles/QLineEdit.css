@@ -9,3 +9,7 @@ QLineEdit[text=\"\"] {
 	color: #E6E6E6;
 }
 
+QLineEdit:disabled {
+	color: #828282;
+}
+

@@ -82,6 +82,10 @@ QLineEdit[text=\"\"] {
 	color: #E6E6E6;
 }
 
+QLineEdit:disabled {
+	color: #828282;
+}
+
 QListView {
 	background-color: #282828;
 	color: #E6E6E6;
