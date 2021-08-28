@@ -288,7 +288,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         sub_layout.addWidget(self.QuickLaunchKeySeq)
         self.QuickLaunchKeySeqRow = layout._addRow(
             "Quick Launch Global Shortcut", sub_layout)
-        self.QuickLaunchKeySeqRow.setEnabled(get_enable_quick_launch_key_seq())
 
         if platform == 'Windows':
             layout._addRow("Hide Console On Startup",
@@ -426,7 +425,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         set_enable_quick_launch_key_seq(is_checked)
         self.EnableQuickLaunchKeySeq.setEnabled(is_checked)
         self.QuickLaunchKeySeq.setEnabled(is_checked)
-        self.QuickLaunchKeySeqRow.setEnabled(is_checked)
 
     def _keyPressEvent(self, e: QtGui.QKeyEvent) -> None:
         MOD_MASK = (Qt.CTRL | Qt.ALT | Qt.SHIFT | Qt.META)
