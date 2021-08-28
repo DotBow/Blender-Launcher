@@ -136,7 +136,7 @@ class LibraryWidget(BaseBuildWidget):
         self.layout.addWidget(self.commitTimeLabel)
         self.layout.addWidget(self.build_state_widget)
 
-        self.launchButton.clicked.connect(self.launch)
+        self.launchButton.clicked.connect(lambda: self.launch(True))
         self.launchButton.setCursor(Qt.PointingHandCursor)
 
         # Context menu
@@ -282,10 +282,10 @@ class LibraryWidget(BaseBuildWidget):
         self.deleteAction.setEnabled(True)
         self.installTemplateAction.setEnabled(True)
 
-    @QtCore.pyqtSlot()
-    def launch(self):
-        self.list_widget.clearSelection()
-        self.item.setSelected(True)
+    def launch(self, update_selection=False):
+        if update_selection is True:
+            self.list_widget.clearSelection()
+            self.item.setSelected(True)
 
         if self.parent_widget is not None:
             self.parent_widget.launch()
