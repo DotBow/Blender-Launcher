@@ -380,6 +380,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.setup_global_hotkeys_listener()
 
     def setup_global_hotkeys_listener(self):
+        if self.listener is not None:
+            self.listener.stop()
+
         key_seq = get_quick_launch_key_seq()
         keys = key_seq.split('+')
 

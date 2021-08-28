@@ -293,6 +293,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.show()
 
     def _close(self):
+        self.parent.setup_global_hotkeys_listener()
         self.parent.settings_window = None
         self.close()
 
