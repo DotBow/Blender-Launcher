@@ -38,7 +38,7 @@ help = \
 
     -help                        * Show command line arguments sheet
     -update                      * Run updater instead of the main application
-    -debug                       * Set logging level to ALL
+    -debug                       * Set logging level to DEBUG
     -set-library-folder "%path%" * Set library folder
     -offline                     * Disable scraper thread
     """
@@ -62,7 +62,7 @@ def main():
     if "-debug" in sys.argv:
         logging.root.setLevel(logging.INFO)
     else:
-        logging.root.setLevel(logging.ALL)
+        logging.root.setLevel(logging.DEBUG)
 
     socket = QLocalSocket()
     socket.connectToServer("blender-launcher-server")
