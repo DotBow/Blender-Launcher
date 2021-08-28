@@ -359,3 +359,16 @@ def get_quick_launch_key_seq():
 
 def set_quick_launch_key_seq(key_seq):
     get_settings().setValue('quick_launch_key_seq', key_seq.strip())
+
+
+def get_enable_quick_launch_key_seq():
+    settings = get_settings()
+
+    if settings.contains('enable_quick_launch_key_seq'):
+        return settings.value('enable_quick_launch_key_seq', type=bool)
+    else:
+        return True
+
+
+def set_enable_quick_launch_key_seq(is_checked):
+    get_settings().setValue('enable_quick_launch_key_seq', is_checked)
