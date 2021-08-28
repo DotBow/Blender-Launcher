@@ -15,6 +15,7 @@ from modules.settings import (create_library_folders,
                               get_default_library_page, get_default_tab,
                               get_enable_download_notifications,
                               get_enable_new_builds_notifications,
+                              get_enable_quick_launch_key_seq,
                               get_launch_minimized_to_tray, get_library_folder,
                               get_quick_launch_key_seq, get_show_tray_icon,
                               get_sync_library_and_downloads_pages,
@@ -377,7 +378,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.tray_icon.show()
             self._show()
 
-        self.setup_global_hotkeys_listener()
+        if get_enable_quick_launch_key_seq() is True:
+            self.setup_global_hotkeys_listener()
 
     def setup_global_hotkeys_listener(self):
         if self.listener is not None:
