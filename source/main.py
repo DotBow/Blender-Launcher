@@ -60,9 +60,9 @@ def main():
         return
 
     if "-debug" in sys.argv:
-        logging.root.setLevel(logging.INFO)
-    else:
         logging.root.setLevel(logging.DEBUG)
+    else:
+        logging.root.setLevel(logging.INFO)
 
     socket = QLocalSocket()
     socket.connectToServer("blender-launcher-server")
