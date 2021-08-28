@@ -7,6 +7,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_enable_download_notifications,
                               get_enable_high_dpi_scaling,
                               get_enable_new_builds_notifications,
+                              get_enable_quick_launch_key_seq,
                               get_install_template,
                               get_launch_blender_no_console,
                               get_launch_minimized_to_tray,
@@ -23,6 +24,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_enable_download_notifications,
                               set_enable_high_dpi_scaling,
                               set_enable_new_builds_notifications,
+                              set_enable_quick_launch_key_seq,
                               set_install_template,
                               set_launch_blender_no_console,
                               set_launch_minimized_to_tray,
@@ -201,7 +203,14 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.LaunchBlenderNoConsole.setChecked(get_launch_blender_no_console())
 
         # Quick Launch Key Sequence
+        self.EnableQuickLaunchKeySeq = QCheckBox()
+        self.EnableQuickLaunchKeySeq.clicked.connect(
+            self.toggle_enable_quick_launch_key_seq)
+        self.EnableQuickLaunchKeySeq.setChecked(
+            get_enable_quick_launch_key_seq())
+
         self.QuickLaunchKeySeq = QLineEdit()
+        self.QuickLaunchKeySeq.setEnabled(get_enable_quick_launch_key_seq())
         self.QuickLaunchKeySeq.keyPressEvent = self._keyPressEvent
         self.QuickLaunchKeySeq.setText(
             str(get_quick_launch_key_seq()))
@@ -274,7 +283,12 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(self._QLabel("Blender Launching:"))
         layout = SettingsFormLayout(220)
 
-        layout._addRow("Quick Launch Global Shortcut", self.QuickLaunchKeySeq)
+        sub_layout = QHBoxLayout()
+        sub_layout.addWidget(self.EnableQuickLaunchKeySeq)
+        sub_layout.addWidget(self.QuickLaunchKeySeq)
+        self.QuickLaunchKeySeqRow = layout._addRow(
+            "Quick Launch Global Shortcut", sub_layout)
+        self.QuickLaunchKeySeqRow.setEnabled(get_enable_quick_launch_key_seq())
 
         if platform == 'Windows':
             layout._addRow("Hide Console On Startup",
@@ -293,7 +307,11 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.show()
 
     def _close(self):
-        self.parent.setup_global_hotkeys_listener()
+        if get_enable_quick_launch_key_seq() is True:
+            self.parent.setup_global_hotkeys_listener()
+        elif self.parent.listener is not None:
+            self.parent.listener.stop()
+
         self.parent.settings_window = None
         self.close()
 
@@ -403,6 +421,12 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def update_quick_launch_key_seq(self):
         key_seq = self.QuickLaunchKeySeq.text()
         set_quick_launch_key_seq(key_seq)
+
+    def toggle_enable_quick_launch_key_seq(self, is_checked):
+        set_enable_quick_launch_key_seq(is_checked)
+        self.EnableQuickLaunchKeySeq.setEnabled(is_checked)
+        self.QuickLaunchKeySeq.setEnabled(is_checked)
+        self.QuickLaunchKeySeqRow.setEnabled(is_checked)
 
     def _keyPressEvent(self, e: QtGui.QKeyEvent) -> None:
         MOD_MASK = (Qt.CTRL | Qt.ALT | Qt.SHIFT | Qt.META)
