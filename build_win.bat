@@ -4,6 +4,8 @@ if exist dist rd /S /Q dist
 if exist "Blender Launcher.spec" del /Q "Blender Launcher.spec"
 
 python -OO -m PyInstaller ^
+--hidden-import "pynput.keyboard._win32" ^
+--hidden-import "pynput.mouse._win32" ^
 --clean ^
 --noconsole ^
 --noupx ^
