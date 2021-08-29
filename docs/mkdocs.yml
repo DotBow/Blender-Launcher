@@ -51,7 +51,7 @@ extra_css:
     - stylesheets/extra.css
 repo_url: https://github.com/DotBow/Blender-Launcher
 edit_uri: ""
-copyright: Copyright &copy; 2021 Oleg Stepanov │ Blender Launcher GPL-3.0 License │ Version 1.12.0
+copyright: Copyright &copy; 2021 Oleg Stepanov │ Blender Launcher GPL-3.0 License │ Version 1.14.0
 extra:
     social:
         - icon: fontawesome/brands/github
