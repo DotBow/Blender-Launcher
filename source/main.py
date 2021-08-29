@@ -5,7 +5,7 @@ from PyQt5.QtCore import QByteArray
 from PyQt5.QtNetwork import QLocalSocket
 from PyQt5.QtWidgets import QApplication
 
-from modules._platform import get_platform
+from modules._platform import get_application_path, get_platform
 from windows.main_window import BlenderLauncher
 from windows.update_window import BlenderLauncherUpdater
 
@@ -14,7 +14,7 @@ version = "1.14.0"
 _format = '%(asctime)s - %(message)s'
 logging.basicConfig(format=_format,
                     handlers=[
-                        logging.FileHandler("Blender Launcher.log"),
+                        logging.FileHandler(get_application_path() / "BL.log"),
                         logging.StreamHandler(stream=sys.stdout)
                     ])
 logger = logging.getLogger(__name__)
