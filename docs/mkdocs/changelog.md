@@ -14,15 +14,26 @@ Please, read about [how to report a bug](troubleshooting.md) before creating an 
 
     **Fixed:**
 
-    -
+    - On Linux scraper not filtering *.sha256 files [#89](https://github.com/DotBow/Blender-Launcher/issues/89)
+    - Daily builds without branch info (stable) was broken
+    - Link to the release notes was broken
+    - When deleting builds button label was duplicated
 
     **New:**
 
-    -
+    - Added `-debug` flag to retrieve additional useful debug information<br>
+    Check [documentation](https://dotbow.github.io/Blender-Launcher/troubleshooting#catching-application-traceback) for how to use it
+    - Blender 3.0 and higher on Windows now supports running via `blender-launcher.exe` without showing console at startup [#75](https://github.com/DotBow/Blender-Launcher/issues/75)<br>
+    Activate `Hide Console On Startup` in settings to enable this feature
+    - Build added to quick launch can be executed via global shortcut [#81](https://github.com/DotBow/Blender-Launcher/issues/81)<br>
+    Activate `Quick Launch Global Shortcut` in settings to enable this feature
+    - Windows taskbar thumbnail now has close and quick launch tool button
+    - Show reload option for custom builds even if there is no any
+    - Subversion indent now is constant
 
     **Known issues:**
 
-    -
+    - When running Blender via `blender-launcher.exe` counting active instances isn't working
 
 ## 1.13.0
 
