@@ -97,7 +97,7 @@ Actions that will be performed on newly added build to Library tab right after d
 
 :   Adds specific instructions as if Blender was launching from the command line (after the blender executable i.e. `blender [args …]`).
 
-:   For example, adding `-W` (force opening Blender in fullscreen mode) argument internally will produce following command:
+:   For example `-W` (force opening Blender in fullscreen mode) argument internally will produce following command:
 
     ```
     %path to blender executable% -W
