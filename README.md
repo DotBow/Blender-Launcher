@@ -57,7 +57,7 @@ Core features:
 ## How to thank the developer?
 
 * :blush: The best reward is always feedback and a happy user face!
-* :dollar: Buy Blender Launcher on [Gumroad](https://gum.co/Blender-Launcher) for 4$ or more
+* :dollar: Buy Blender Launcher on [Gumroad](https://gum.co/Blender-Launcher) for 5$ or more
 
 ***
 
