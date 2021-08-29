@@ -81,24 +81,36 @@ Actions that will be performed on newly added build to Library tab right after d
 
 ## Blender Launching
 
+### Quick Launch Global Shortcut
+
+:   Launches build added to quick launch via user defined key sequence.
+
+### Hide Console On Startup [Windows only]
+
+:   Launch Blender via `blender-launcher.exe` to hide console on startup. Works on Blender version 3.0 and higher.
+
+    !!! warning "Known Issues"
+
+        When using this feature number of running instances will not be shown.
+
 ### Startup Arguments
 
-Adds specific instructions as if Blender was launching from the command line (after the blender executable i.e. `blender [args …]`).
+:   Adds specific instructions as if Blender was launching from the command line (after the blender executable i.e. `blender [args …]`).
 
-For example, adding `-W` (force opening Blender in fullscreen mode) argument internally will produce following command:
+:   For example, adding `-W` (force opening Blender in fullscreen mode) argument internally will produce following command:
 
-```
-%path to blender executable% -W
-```
+    ```
+    %path to blender executable% -W
+    ```
 
-List of commands can be found on Blender manual [Command Line Arguments](https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html) page.
+:   List of commands can be found on Blender manual [Command Line Arguments](https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html) page.
 
 ### Bash Arguments [Linux only]
 
-Adds specific instructions as if Blender was launching from the command line (before the blender executable i.e. `[args …] blender`).
+:   Adds specific instructions as if Blender was launching from the command line (before the blender executable i.e. `[args …] blender`).
 
-For example, adding `env __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia` (force Blender to use dedicated graphics card) arguments internally will produce following command:
+:   For example `env __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia` (force Blender to use dedicated graphics card) arguments internally will produce following command:
 
-```
-env __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia nohup %path to blender executable% %startup arguments%
-```
+    ```
+    env __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia nohup %path to blender executable% %startup arguments%
+    ```
