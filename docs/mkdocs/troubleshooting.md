@@ -2,7 +2,7 @@
 
 # Troubleshooting
 
-## First step
+## First steps
 
 Before creating an issue, check following:
 
@@ -13,6 +13,22 @@ Before creating an issue, check following:
 * If Blender 3D is closing right after running it from Blender Launcher the problem is probably in build itself or in [configuration files](https://docs.blender.org/manual/en/2.83/advanced/blender_directory_layout.html)
 
 * For general questions go to [Blender Artists thread](https://blenderartists.org/t/blender-launcher-standalone-software-client)
+
+## Catching Application Traceback
+
+* By default Blender Launcher logs warnings and errors into `BL.log`. To retrieve additional useful debug information use `-debug` flag:
+
+    === "Windows"
+
+        ```
+        "Blender Launcher.exe" -debug
+        ```
+
+    === "Linux"
+
+        ```
+        ./Blender\ Launcher -debug
+        ```
 
 * On Linux it is possible to retrieve useful debug information using following command:
 
