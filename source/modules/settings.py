@@ -3,7 +3,7 @@ from pathlib import Path
 
 from PyQt5.QtCore import QSettings
 
-from modules._platform import get_platform
+from modules._platform import get_cwd, get_platform
 
 if get_platform() == 'Windows':
     import winreg
@@ -65,7 +65,7 @@ def get_library_folder():
     library_folder = settings.value('library_folder')
 
     if not is_library_folder_valid(library_folder):
-        library_folder = Path.cwd()
+        library_folder = get_cwd()
         settings.setValue('library_folder', library_folder)
 
     return library_folder

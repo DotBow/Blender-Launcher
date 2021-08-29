@@ -8,7 +8,8 @@ from shutil import copyfileobj
 from time import localtime, strftime
 
 from items.base_list_widget_item import BaseListWidgetItem
-from modules._platform import _popen, get_platform, is_frozen, set_locale
+from modules._platform import (_popen, get_cwd, get_platform, is_frozen,
+                               set_locale)
 from modules.enums import MessageType
 from modules.settings import (create_library_folders,
                               get_default_downloads_page,
@@ -143,7 +144,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.draw()
 
     def set_library_folder(self):
-        library_folder = Path.cwd().as_posix()
+        library_folder = get_cwd().as_posix()
         new_library_folder = FileDialogWindow()._getExistingDirectory(
             self, "Select Library Folder", library_folder)
 
@@ -449,7 +450,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
                 return
 
-        cwd = Path.cwd()
+        cwd = get_cwd()
 
         if self.platform == 'Windows':
             bl_exe = "Blender Launcher.exe"

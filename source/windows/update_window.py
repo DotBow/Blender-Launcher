@@ -3,7 +3,7 @@ import tempfile
 from pathlib import Path
 from shutil import copyfileobj
 
-from modules._platform import _popen, get_platform
+from modules._platform import _popen, get_cwd, get_platform
 from PyQt5.QtWidgets import QMainWindow
 from threads.downloader import Downloader
 from threads.extractor import Extractor
@@ -41,7 +41,7 @@ class BlenderLauncherUpdater(QMainWindow, BaseWindow, UpdateWindowUI):
     def run(self, dist):
         platform = get_platform()
         temp = Path(tempfile.gettempdir())
-        cwd = Path.cwd()
+        cwd = get_cwd()
 
         if platform == 'Windows':
             bl_exe = "Blender Launcher.exe"
