@@ -2,6 +2,7 @@ import os
 import platform
 import sys
 from locale import LC_ALL, setlocale
+from pathlib import Path
 from subprocess import (DEVNULL, PIPE, STDOUT, Popen, call, check_call,
                         check_output)
 
@@ -114,3 +115,10 @@ def is_frozen():
         return True
     else:
         return False
+
+
+def get_application_path():
+    if is_frozen():
+        return Path(os.path.dirname(sys.executable))
+    else:
+        return Path.cwd()
