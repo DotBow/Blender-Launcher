@@ -117,7 +117,7 @@ def is_frozen():
         return False
 
 
-def get_application_path():
+def get_cwd():
     if is_frozen():
         return Path(os.path.dirname(sys.executable))
     else:
