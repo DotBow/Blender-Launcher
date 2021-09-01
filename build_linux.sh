@@ -5,6 +5,5 @@ PYTHONOPTIMIZE=2 pyinstaller \
 --noconsole \
 --noupx \
 --onefile \
---windowed \
 --name="Blender Launcher" \
 source/main.py
