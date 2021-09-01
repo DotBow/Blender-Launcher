@@ -16,7 +16,13 @@ Before creating an issue, check following:
 
 ## Catching Application Traceback
 
-* By default Blender Launcher logs warnings and errors into `BL.log`. To retrieve additional useful debug information use `-debug` flag:
+* Starting from version 1.14.0 Blender Launcher ships with separate debugging releases that used to provide deeper and more user friendly way of tracing an issue:
+
+:   1. Download `Blender_Launcher_v%.%.%_%_x64_DEBUG.zip` for your system and reproduce the issue faced in a regular version
+    1. If something goes wrong the popup window with detailed information will be shown
+    1. Copy the text from the window using ++ctrl+c++
+
+* By default Blender Launcher logs warnings and errors into `BL.log`. To retrieve additional useful debug information use `-debug` flag (compatible with debugging releases):
 
     === "Windows"
 
