@@ -38,6 +38,7 @@ Please, read about [how to report a bug](troubleshooting.md) before creating an 
     **Known issues:**
 
     - When running Blender via `blender-launcher.exe` counting active instances isn't working
+    - Global shortcut doesn't support numeric keypad
 
 ## 1.13.0
 
