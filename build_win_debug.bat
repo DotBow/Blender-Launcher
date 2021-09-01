@@ -10,7 +10,7 @@ python -OO -m PyInstaller ^
 --noconsole ^
 --noupx ^
 --onefile ^
---debug=ALL ^
+--debug=all ^
 --icon="source\resources\icons\desktop.ico" ^
 --name="Blender Launcher" ^
 --version-file="version.txt" ^
