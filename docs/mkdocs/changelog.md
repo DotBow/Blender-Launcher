@@ -34,6 +34,7 @@ Please, read about [how to report a bug](troubleshooting.md) before creating an 
     **Other:**
 
     - Added debugging builds for better troubleshooting
+    - PyInstaller version updated to 4.5.1
 
     **Known issues:**
 
