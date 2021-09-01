@@ -31,6 +31,10 @@ Please, read about [how to report a bug](troubleshooting.md) before creating an 
     - Show reload option for custom builds even if there is no any
     - Subversion indent now is constant
 
+    **Other:**
+
+    - Added debugging builds for better troubleshooting
+
     **Known issues:**
 
     - When running Blender via `blender-launcher.exe` counting active instances isn't working
