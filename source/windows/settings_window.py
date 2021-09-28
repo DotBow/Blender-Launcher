@@ -427,7 +427,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.QuickLaunchKeySeq.setEnabled(is_checked)
 
     def _keyPressEvent(self, e: QtGui.QKeyEvent) -> None:
-        MOD_MASK = (Qt.CTRL | Qt.ALT | Qt.SHIFT | Qt.META)
+        MOD_MASK = (Qt.CTRL | Qt.ALT | Qt.SHIFT)
         keyname = ''
         key = e.key()
         modifiers = int(e.modifiers())
@@ -437,7 +437,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
                 key != Qt.Key_Control and key != Qt.Key_Meta):
 
             keyname = QtGui.QKeySequence(modifiers + key).toString()
-        elif not modifiers:
+        elif not modifiers and (key != Qt.Key_Meta):
             keyname = QtGui.QKeySequence(key).toString()
 
         if keyname != '':
