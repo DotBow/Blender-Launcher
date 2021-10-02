@@ -6,4 +6,5 @@ PYTHONOPTIMIZE=2 pyinstaller \
 --noupx \
 --onefile \
 --name="Blender Launcher" \
+--add-binary="source\resources\certificates\custom.pem;files" ^
 source/main.py
