@@ -1,4 +1,9 @@
-from modules._platform import get_platform_full
+import ssl
+import sys
+from pathlib import Path
+from typing import Text
+
+from modules._platform import get_cwd, get_platform_full, is_frozen
 from modules.settings import get_enable_high_dpi_scaling
 from PyQt5.QtCore import QFile, QPoint, Qt, QTextStream
 from PyQt5.QtGui import QFont, QFontDatabase
@@ -23,8 +28,17 @@ class BaseWindow(QWidget):
             _headers = {
                 'user-agent': 'Blender Launcher/{0} ({1})'.format(
                     version, get_platform_full())}
+
+            if is_frozen() is True:
+                cacert = sys._MEIPASS + "/files/custom.pem"
+            else:
+                cacert = (
+                    get_cwd() / "source/resources/certificates/custom.pem").as_posix()
+
             self.manager = PoolManager(
-                num_pools=50, maxsize=10, headers=_headers)
+                num_pools=50, maxsize=10, headers=_headers,
+                cert_reqs=ssl.CERT_REQUIRED,
+                ca_certs=cacert)
 
             # Setup font
             QFontDatabase.addApplicationFont(
