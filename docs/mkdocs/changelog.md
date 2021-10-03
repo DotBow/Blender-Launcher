@@ -2,7 +2,27 @@
 
 # Changelog
 
-## 1.14.0 :fontawesome-solid-star:
+## 1.14.1 :fontawesome-solid-star:
+
+[:fontawesome-brands-windows: Windows x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.14.0/Blender_Launcher_v1.14.0_Windows_x64.zip){: .md-button .md-button--primary }
+[:fontawesome-brands-linux: Linux x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.14.0/Blender_Launcher_v1.14.0_Linux_x64.zip){: .md-button .md-button--primary }
+
+Follow [Installation](installation.md#installing-blender-launcher) and [Update](installation.md#updating-blender-launcher) instructions on [Documentation](https://dotbow.github.io/Blender-Launcher).<br>
+Please, read about [how to report a bug](troubleshooting.md) before creating an issue.
+
+??? summary "Release Notes"
+
+    **Fixed:**
+
+    - Downloads were empty because of the certificate verification failure caused by expired DST Root CA X3 [#100](https://github.com/DotBow/Blender-Launcher/issues/100)
+    - Invalid global shortcut crashes BL [#99](https://github.com/DotBow/Blender-Launcher/issues/99)
+
+    **Known issues:**
+
+    - Using meta key (⊞ Win) as a global shortcut is disable at the moment<br>
+    (Pressing meta key leads to unexpected behavior since it is already mapped to many features in Windows)
+
+## 1.14.0
 
 [:fontawesome-brands-windows: Windows x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.14.0/Blender_Launcher_v1.14.0_Windows_x64.zip){: .md-button .md-button--primary }
 [:fontawesome-brands-linux: Linux x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.14.0/Blender_Launcher_v1.14.0_Linux_x64.zip){: .md-button .md-button--primary }
