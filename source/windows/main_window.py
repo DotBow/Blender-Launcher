@@ -395,8 +395,17 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             if len(key) > 1:
                 key_seq = key_seq.replace(key, '<' + key + '>')
 
-        self.listener = keyboard.GlobalHotKeys({
-            key_seq: self.on_activate_quick_launch})
+        try:
+            self.listener = keyboard.GlobalHotKeys({
+                key_seq: self.on_activate_quick_launch})
+        except Exception:
+            self.dlg = DialogWindow(
+                parent=self, title="Warning",
+                text="Global hotkey sequence was not recognized!<br> \
+                      Try to use another combination of keys",
+                accept_text="OK", cancel_text=None)
+            return
+
         self.listener.start()
 
     def on_activate_quick_launch(self):
