@@ -443,15 +443,11 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         if keyname != '':
             # Remap <Shift + *> keys sequences
             if 'Shift' in keyname:
-                trans_table = str.maketrans({'~': '`', '!': '1', '@': '2',
-                                             '#': '3', '$': '4', '%': '5',
-                                             '^': '6', '&': '7', '*': '8',
-                                             '(': '9', ')': '0', '_': '-',
-                                             '+': '=', '?': ',', '>': '.',
-                                             '<': '/'})
-                keyname_num = keyname.split('+')[-1]
-                trans = keyname_num.translate(trans_table)
-                keyname = keyname.replace(keyname_num, trans)
+                alt_chars = '~!@#$%^&*()_+|{}:"<>?'
+                real_chars = r"`1234567890-=\[];',./"
+                trans_table = str.maketrans(alt_chars, real_chars)
+                trans = keyname[-1].translate(trans_table)
+                keyname = keyname[:-1] + trans
 
             self.QuickLaunchKeySeq.setText(keyname.lower())
 
