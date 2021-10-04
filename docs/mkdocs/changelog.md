@@ -4,8 +4,8 @@
 
 ## 1.14.1 :fontawesome-solid-star:
 
-[:fontawesome-brands-windows: Windows x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.14.0/Blender_Launcher_v1.14.1_Windows_x64.zip){: .md-button .md-button--primary }
-[:fontawesome-brands-linux: Linux x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.14.0/Blender_Launcher_v1.14.1_Linux_x64.zip){: .md-button .md-button--primary }
+[:fontawesome-brands-windows: Windows x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.14.1/Blender_Launcher_v1.14.1_Windows_x64.zip){: .md-button .md-button--primary }
+[:fontawesome-brands-linux: Linux x64](https://github.com/DotBow/Blender-Launcher/releases/download/v1.14.1/Blender_Launcher_v1.14.1_Linux_x64.zip){: .md-button .md-button--primary }
 
 Follow [Installation](installation.md#installing-blender-launcher) and [Update](installation.md#updating-blender-launcher) instructions on [Documentation](https://dotbow.github.io/Blender-Launcher).<br>
 Please, read about [how to report a bug](troubleshooting.md) before creating an issue.
