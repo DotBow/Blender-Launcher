@@ -414,7 +414,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def show_changelog(self):
         current_ver = re.sub(r'\D', '', self.version)
-        url = "https://dotbow.github.io/Blender-Launcher/changelog.html#{0}".format(
+        url = "https://dotbow.github.io/Blender-Launcher/changelog/#{0}".format(
             current_ver)
         webbrowser.open(url)
 
