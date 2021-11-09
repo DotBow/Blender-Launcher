@@ -54,15 +54,15 @@ def main():
         print(help)
         return
 
-    if "-update" in sys.argv:
-        BlenderLauncherUpdater(app=app, version=version, tag=sys.argv[-1])
-        app.exec_()
-        return
-
     if "-debug" in sys.argv:
         logging.root.setLevel(logging.DEBUG)
     else:
         logging.root.setLevel(logging.WARNING)
+
+    if "-update" in sys.argv:
+        BlenderLauncherUpdater(app=app, version=version, tag=sys.argv[-1])
+        app.exec_()
+        return
 
     socket = QLocalSocket()
     socket.connectToServer("blender-launcher-server")
