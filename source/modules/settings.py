@@ -56,6 +56,15 @@ library_subfolders = [
 ]
 
 
+proxy_types = {
+    'None': 0,
+    'HTTP': 1,
+    'HTTPS': 2,
+    'SOCKS4': 3,
+    'SOCKS5': 3
+}
+
+
 def get_settings():
     return QSettings('blender_launcher', 'settings')
 
@@ -372,3 +381,42 @@ def get_enable_quick_launch_key_seq():
 
 def set_enable_quick_launch_key_seq(is_checked):
     get_settings().setValue('enable_quick_launch_key_seq', is_checked)
+
+
+def get_proxy_type():
+    settings = get_settings()
+
+    if settings.contains('proxy_type'):
+        return settings.value('proxy_type', type=int)
+    else:
+        return 0
+
+
+def set_proxy_type(type):
+    get_settings().setValue('proxy_type', proxy_types[type])
+
+
+def get_proxy_host():
+    args = get_settings().value('proxy_host')
+
+    if args is None:
+        return "255.255.255.255"
+    else:
+        return args.strip()
+
+
+def set_proxy_host(args):
+    get_settings().setValue('proxy_host', args.strip())
+
+
+def get_proxy_port():
+    args = get_settings().value('proxy_port')
+
+    if args is None:
+        return "99999"
+    else:
+        return args.strip()
+
+
+def set_proxy_port(args):
+    get_settings().setValue('proxy_port', args.strip())
