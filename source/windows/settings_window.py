@@ -13,11 +13,12 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_launch_minimized_to_tray,
                               get_launch_when_system_starts,
                               get_library_folder, get_mark_as_favorite,
-                              get_platform, get_quick_launch_key_seq,
+                              get_platform, get_proxy_host, get_proxy_port,
+                              get_proxy_type, get_quick_launch_key_seq,
                               get_show_tray_icon,
                               get_sync_library_and_downloads_pages,
                               get_taskbar_icon_color, library_pages,
-                              set_bash_arguments,
+                              proxy_types, set_bash_arguments,
                               set_blender_startup_arguments,
                               set_default_downloads_page,
                               set_default_library_page, set_default_tab,
@@ -30,12 +31,13 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
                               set_library_folder, set_mark_as_favorite,
+                              set_proxy_host, set_proxy_port, set_proxy_type,
                               set_quick_launch_key_seq, set_show_tray_icon,
                               set_sync_library_and_downloads_pages,
                               set_taskbar_icon_color, tabs,
                               taskbar_icon_colors)
 from PyQt5 import QtGui
-from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtCore import QRegExp, QSize, Qt
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFormLayout, QHBoxLayout,
                              QLabel, QLineEdit, QMainWindow, QPushButton,
                              QWidget)
@@ -122,6 +124,30 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             get_taskbar_icon_color())
         self.TaskbarIconColorComboBox.activated[str].connect(
             self.change_taskbar_icon_color)
+
+        # Proxy Type
+        self.ProxyTypeComboBox = QComboBox()
+        self.ProxyTypeComboBox.addItems(proxy_types.keys())
+        self.ProxyTypeComboBox.setCurrentIndex(get_proxy_type())
+        self.ProxyTypeComboBox.activated[str].connect(self.change_proxy_type)
+
+        # Proxy URL
+        self.ProxyHostLineEdit = QLineEdit()
+        self.ProxyHostLineEdit.setText(str(get_proxy_host()))
+        self.ProxyHostLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
+        rx = QRegExp(
+            r"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$")
+        self.host_validator = QtGui.QRegExpValidator(rx, self)
+        self.ProxyHostLineEdit.setValidator(self.host_validator)
+        self.ProxyHostLineEdit.editingFinished.connect(self.update_proxy_host)
+
+        self.ProxyPortLineEdit = QLineEdit()
+        self.ProxyPortLineEdit.setText(str(get_proxy_port()))
+        self.ProxyPortLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
+        rx = QRegExp(r"\d{2,5}")
+        self.port_validator = QtGui.QRegExpValidator(rx, self)
+        self.ProxyPortLineEdit.setValidator(self.port_validator)
+        self.ProxyPortLineEdit.editingFinished.connect(self.update_proxy_port)
 
         # Default Tab
         self.DefaultTabComboBox = QComboBox()
@@ -251,6 +277,15 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.LaunchMinimizedToTrayRow.setEnabled(get_show_tray_icon())
         SettingsLayout.addRow(layout)
 
+        layout._addRow("Proxy Type", self.ProxyTypeComboBox)
+
+        sub_layout = QHBoxLayout()
+        sub_layout.addWidget(self.ProxyHostLineEdit)
+        sub_layout.addWidget(QLabel(" : "))
+        sub_layout.addWidget(self.ProxyPortLineEdit)
+        self.QuickLaunchKeySeqRow = layout._addRow(
+            "Proxy IP", sub_layout)
+
         SettingsLayout.addRow(self._QLabel("Interface:"))
         layout = SettingsFormLayout(220)
         layout._addRow(
@@ -352,6 +387,17 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def toggle_enable_high_dpi_scaling(self, is_checked):
         set_enable_high_dpi_scaling(is_checked)
         self.show_dlg_restart_bl()
+
+    def change_proxy_type(self, type):
+        set_proxy_type(type)
+
+    def update_proxy_host(self):
+        host = self.ProxyHostLineEdit.text()
+        set_proxy_host(host)
+
+    def update_proxy_port(self):
+        port = self.ProxyPortLineEdit.text()
+        set_proxy_port(port)
 
     def change_default_tab(self, tab):
         set_default_tab(tab)
