@@ -469,7 +469,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def toggle_enable_quick_launch_key_seq(self, is_checked):
         set_enable_quick_launch_key_seq(is_checked)
-        self.EnableQuickLaunchKeySeq.setEnabled(is_checked)
         self.QuickLaunchKeySeq.setEnabled(is_checked)
 
     def _keyPressEvent(self, e: QtGui.QKeyEvent) -> None:
