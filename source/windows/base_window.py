@@ -1,14 +1,8 @@
-import ssl
-import sys
-from pathlib import Path
-from typing import Text
-
-from modules._platform import get_cwd, get_platform_full, is_frozen
-from modules.settings import get_enable_high_dpi_scaling
+from modules.connection_manager import ConnectionManager
+from modules.settings import get_enable_high_dpi_scaling, get_proxy_type
 from PyQt5.QtCore import QFile, QPoint, Qt, QTextStream
 from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import QApplication, QWidget
-from urllib3 import PoolManager
 
 if get_enable_high_dpi_scaling():
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
@@ -25,20 +19,10 @@ class BaseWindow(QWidget):
             self.version = version
 
             # Setup pool manager
-            _headers = {
-                'user-agent': 'Blender Launcher/{0} ({1})'.format(
-                    version, get_platform_full())}
-
-            if is_frozen() is True:
-                cacert = sys._MEIPASS + "/files/custom.pem"
-            else:
-                cacert = (
-                    get_cwd() / "source/resources/certificates/custom.pem").as_posix()
-
-            self.manager = PoolManager(
-                num_pools=50, maxsize=10, headers=_headers,
-                cert_reqs=ssl.CERT_REQUIRED,
-                ca_certs=cacert)
+            cm = ConnectionManager(
+                version=version, proxy_type=get_proxy_type())
+            cm.setup()
+            self.manager = cm.manager
 
             # Setup font
             QFontDatabase.addApplicationFont(
