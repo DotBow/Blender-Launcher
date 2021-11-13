@@ -420,3 +420,29 @@ def get_proxy_port():
 
 def set_proxy_port(args):
     get_settings().setValue('proxy_port', args.strip())
+
+
+def get_proxy_user():
+    user = get_settings().value('proxy_user')
+
+    if user is None:
+        return ""
+    else:
+        return user.strip()
+
+
+def set_proxy_user(args):
+    get_settings().setValue('proxy_user', args.strip())
+
+
+def get_proxy_password():
+    password = get_settings().value('proxy_password')
+
+    if password is None:
+        return ""
+    else:
+        return password.strip()
+
+
+def set_proxy_password(args):
+    get_settings().setValue('proxy_password', args.strip())
