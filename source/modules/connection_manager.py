@@ -6,6 +6,13 @@ from urllib3 import PoolManager, ProxyManager
 from modules._platform import get_cwd, get_platform_full, is_frozen
 from modules.settings import get_proxy_host, get_proxy_port
 
+proxy_types_chemes = {
+    1: "http://",
+    2: "https://",
+    3: "socks4a://",
+    4: "socks5h://"
+}
+
 
 class ConnectionManager():
     def __init__(self, version, proxy_type=0) -> None:
@@ -30,17 +37,10 @@ class ConnectionManager():
                 cert_reqs=ssl.CERT_REQUIRED,
                 ca_certs=self.cacert)
         else:  # Use proxy
-            if self.proxy_type == 1:  # HTTP
-                scheme = "http://"
-            elif self.proxy_type == 2:  # HTTPS
-                scheme = "https://"
-            elif self.proxy_type == 3:  # SOCKS4
-                scheme = "socks4a://"
-            elif self.proxy_type == 4:  # SOCKS5
-                scheme = "socks5h://"
-
             ip = get_proxy_host()
             port = get_proxy_port()
+            scheme = proxy_types_chemes[self.proxy_type]
+
             self.manager = ProxyManager(
                 proxy_url="{0}{1}:{2}".format(scheme, ip, port),
                 num_pools=50, maxsize=10, headers=self._headers,
