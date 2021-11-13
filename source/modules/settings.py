@@ -61,7 +61,7 @@ proxy_types = {
     'HTTP': 1,
     'HTTPS': 2,
     'SOCKS4': 3,
-    'SOCKS5': 3
+    'SOCKS5': 4
 }
 
 
