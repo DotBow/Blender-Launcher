@@ -1,10 +1,11 @@
 import ssl
 import sys
 
-from urllib3 import PoolManager, ProxyManager
+from urllib3 import PoolManager, ProxyManager, make_headers
 
 from modules._platform import get_cwd, get_platform_full, is_frozen
-from modules.settings import get_proxy_host, get_proxy_port
+from modules.settings import (get_proxy_host, get_proxy_password,
+                              get_proxy_port, get_proxy_user)
 
 proxy_types_chemes = {
     1: "http://",
@@ -41,8 +42,12 @@ class ConnectionManager():
             port = get_proxy_port()
             scheme = proxy_types_chemes[self.proxy_type]
 
+            auth_headers = make_headers(
+                proxy_basic_auth='{0}:{1}'.format(
+                    get_proxy_user(), get_proxy_password()))
+
             self.manager = ProxyManager(
                 proxy_url="{0}{1}:{2}".format(scheme, ip, port),
                 num_pools=50, maxsize=10, headers=self._headers,
-                cert_reqs=ssl.CERT_REQUIRED,
+                proxy_headers=auth_headers, cert_reqs=ssl.CERT_REQUIRED,
                 ca_certs=self.cacert)
