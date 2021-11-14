@@ -397,12 +397,12 @@ def set_proxy_type(type):
 
 
 def get_proxy_host():
-    args = get_settings().value('proxy_host')
+    host = get_settings().value('proxy_host')
 
-    if args is None:
+    if host is None:
         return "255.255.255.255"
     else:
-        return args.strip()
+        return host.strip()
 
 
 def set_proxy_host(args):
@@ -410,12 +410,12 @@ def set_proxy_host(args):
 
 
 def get_proxy_port():
-    args = get_settings().value('proxy_port')
+    port = get_settings().value('proxy_port')
 
-    if args is None:
+    if port is None:
         return "99999"
     else:
-        return args.strip()
+        return port.strip()
 
 
 def set_proxy_port(args):
