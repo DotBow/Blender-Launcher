@@ -446,3 +446,16 @@ def get_proxy_password():
 
 def set_proxy_password(args):
     get_settings().setValue('proxy_password', args.strip())
+
+
+def get_use_custom_tls_certificates():
+    settings = get_settings()
+
+    if settings.contains('use_custom_tls_certificates'):
+        return settings.value('use_custom_tls_certificates', type=bool)
+    else:
+        return True
+
+
+def set_use_custom_tls_certificates(is_checked):
+    get_settings().setValue('use_custom_tls_certificates', is_checked)
