@@ -13,9 +13,9 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_launch_minimized_to_tray,
                               get_launch_when_system_starts,
                               get_library_folder, get_mark_as_favorite,
-                              get_platform, get_proxy_host, get_proxy_port,
-                              get_proxy_type, get_quick_launch_key_seq,
-                              get_show_tray_icon,
+                              get_platform, get_proxy_host, get_proxy_password,
+                              get_proxy_port, get_proxy_type, get_proxy_user,
+                              get_quick_launch_key_seq, get_show_tray_icon,
                               get_sync_library_and_downloads_pages,
                               get_taskbar_icon_color, library_pages,
                               proxy_types, set_bash_arguments,
@@ -31,7 +31,8 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
                               set_library_folder, set_mark_as_favorite,
-                              set_proxy_host, set_proxy_port, set_proxy_type,
+                              set_proxy_host, set_proxy_password,
+                              set_proxy_port, set_proxy_type, set_proxy_user,
                               set_quick_launch_key_seq, set_show_tray_icon,
                               set_sync_library_and_downloads_pages,
                               set_taskbar_icon_color, tabs,
@@ -148,6 +149,19 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.port_validator = QtGui.QRegExpValidator(rx, self)
         self.ProxyPortLineEdit.setValidator(self.port_validator)
         self.ProxyPortLineEdit.editingFinished.connect(self.update_proxy_port)
+
+        # Proxy authentication
+        self.ProxyUserLineEdit = QLineEdit()
+        self.ProxyUserLineEdit.setText(str(get_proxy_user()))
+        self.ProxyUserLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
+        self.ProxyUserLineEdit.editingFinished.connect(self.update_proxy_user)
+
+        self.ProxyPasswordLineEdit = QLineEdit()
+        self.ProxyPasswordLineEdit.setText(str(get_proxy_password()))
+        self.ProxyPasswordLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
+        self.ProxyPasswordLineEdit.setEchoMode(QLineEdit.Password)
+        self.ProxyPasswordLineEdit.editingFinished.connect(
+            self.update_proxy_password)
 
         # Default Tab
         self.DefaultTabComboBox = QComboBox()
@@ -277,6 +291,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.LaunchMinimizedToTrayRow.setEnabled(get_show_tray_icon())
         SettingsLayout.addRow(layout)
 
+        SettingsLayout.addRow(self._QLabel("Connection:"))
+        layout = SettingsFormLayout(220)
         layout._addRow("Proxy Type", self.ProxyTypeComboBox)
 
         sub_layout = QHBoxLayout()
@@ -285,6 +301,11 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         sub_layout.addWidget(self.ProxyPortLineEdit)
         self.QuickLaunchKeySeqRow = layout._addRow(
             "Proxy IP", sub_layout)
+
+        layout._addRow("Proxy User", self.ProxyUserLineEdit)
+        layout._addRow("Proxy Password", self.ProxyPasswordLineEdit)
+
+        SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Interface:"))
         layout = SettingsFormLayout(220)
@@ -398,6 +419,14 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def update_proxy_port(self):
         port = self.ProxyPortLineEdit.text()
         set_proxy_port(port)
+
+    def update_proxy_user(self):
+        user = self.ProxyUserLineEdit.text()
+        set_proxy_user(user)
+
+    def update_proxy_password(self):
+        password = self.ProxyPasswordLineEdit.text()
+        set_proxy_password(password)
 
     def change_default_tab(self, tab):
         set_default_tab(tab)
