@@ -17,7 +17,8 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_proxy_port, get_proxy_type, get_proxy_user,
                               get_quick_launch_key_seq, get_show_tray_icon,
                               get_sync_library_and_downloads_pages,
-                              get_taskbar_icon_color, library_pages,
+                              get_taskbar_icon_color,
+                              get_use_custom_tls_certificates, library_pages,
                               proxy_types, set_bash_arguments,
                               set_blender_startup_arguments,
                               set_default_downloads_page,
@@ -35,7 +36,8 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_proxy_port, set_proxy_type, set_proxy_user,
                               set_quick_launch_key_seq, set_show_tray_icon,
                               set_sync_library_and_downloads_pages,
-                              set_taskbar_icon_color, tabs,
+                              set_taskbar_icon_color,
+                              set_use_custom_tls_certificates, tabs,
                               taskbar_icon_colors)
 from PyQt5 import QtGui
 from PyQt5.QtCore import QRegExp, QSize, Qt
@@ -125,6 +127,13 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             get_taskbar_icon_color())
         self.TaskbarIconColorComboBox.activated[str].connect(
             self.change_taskbar_icon_color)
+
+        # Custom TLS certificates
+        self.UseCustomCertificatesCheckBox = QCheckBox()
+        self.UseCustomCertificatesCheckBox.clicked.connect(
+            self.toggle_use_custom_tls_certificates)
+        self.UseCustomCertificatesCheckBox.setChecked(
+            get_use_custom_tls_certificates())
 
         # Proxy Type
         self.ProxyTypeComboBox = QComboBox()
@@ -293,6 +302,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         SettingsLayout.addRow(self._QLabel("Connection:"))
         layout = SettingsFormLayout(220)
+        layout._addRow("Use Custom TLS Certificates",
+                       self.UseCustomCertificatesCheckBox)
         layout._addRow("Proxy Type", self.ProxyTypeComboBox)
 
         sub_layout = QHBoxLayout()
@@ -408,6 +419,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def toggle_enable_high_dpi_scaling(self, is_checked):
         set_enable_high_dpi_scaling(is_checked)
         self.show_dlg_restart_bl()
+
+    def toggle_use_custom_tls_certificates(self, is_checked):
+        set_use_custom_tls_certificates(is_checked)
 
     def change_proxy_type(self, type):
         set_proxy_type(type)
