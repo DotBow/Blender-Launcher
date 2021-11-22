@@ -44,24 +44,33 @@ class ConnectionManager():
             port = get_proxy_port()
             scheme = proxy_types_chemes[self.proxy_type]
 
-            if get_use_custom_tls_certificates():
-                _cert_reqs = ssl.CERT_REQUIRED
-            else:
-                _cert_reqs = ssl.CERT_NONE
-
             if self.proxy_type > 2:
-                self.manager = SOCKSProxyManager(
-                    proxy_url="{0}{1}:{2}".format(scheme, ip, port),
-                    num_pools=50, maxsize=10, headers=self._headers,
-                    username=get_proxy_user(), password=get_proxy_password(),
-                    cert_reqs=_cert_reqs, ca_certs=self.cacert)
+                if get_use_custom_tls_certificates():
+                    self.manager = SOCKSProxyManager(
+                        proxy_url="{0}{1}:{2}".format(scheme, ip, port),
+                        num_pools=50, maxsize=10, headers=self._headers,
+                        username=get_proxy_user(),
+                        password=get_proxy_password(),
+                        cert_reqs=ssl.CERT_REQUIRED, ca_certs=self.cacert)
+                else:
+                    self.manager = SOCKSProxyManager(
+                        proxy_url="{0}{1}:{2}".format(scheme, ip, port),
+                        num_pools=50, maxsize=10, headers=self._headers,
+                        username=get_proxy_user(),
+                        password=get_proxy_password())
             else:
                 auth_headers = make_headers(
                     proxy_basic_auth='{0}:{1}'.format(
                         get_proxy_user(), get_proxy_password()))
 
-                self.manager = ProxyManager(
-                    proxy_url="{0}{1}:{2}".format(scheme, ip, port),
-                    num_pools=50, maxsize=10,
-                    headers=self._headers, proxy_headers=auth_headers,
-                    cert_reqs=_cert_reqs, ca_certs=self.cacert)
+                if get_use_custom_tls_certificates():
+                    self.manager = ProxyManager(
+                        proxy_url="{0}{1}:{2}".format(scheme, ip, port),
+                        num_pools=50, maxsize=10,
+                        headers=self._headers, proxy_headers=auth_headers,
+                        cert_reqs=ssl.CERT_REQUIRED, ca_certs=self.cacert)
+                else:
+                    self.manager = ProxyManager(
+                        proxy_url="{0}{1}:{2}".format(scheme, ip, port),
+                        num_pools=50, maxsize=10,
+                        headers=self._headers, proxy_headers=auth_headers)
