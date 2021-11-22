@@ -57,6 +57,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         self.setupUi(self)
         platform = get_platform()
+        self.con_settings_changed = False
 
         self.setWindowTitle("Settings")
 
@@ -378,6 +379,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         elif self.parent.listener is not None:
             self.parent.listener.stop()
 
+        if self.con_settings_changed is True:
+            self.parent.draw_library(clear=True)
+
         self.parent.settings_window = None
         self.close()
 
@@ -422,25 +426,31 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def toggle_use_custom_tls_certificates(self, is_checked):
         set_use_custom_tls_certificates(is_checked)
+        self.con_settings_changed = True
 
     def change_proxy_type(self, type):
         set_proxy_type(type)
+        self.con_settings_changed = True
 
     def update_proxy_host(self):
         host = self.ProxyHostLineEdit.text()
         set_proxy_host(host)
+        self.con_settings_changed = True
 
     def update_proxy_port(self):
         port = self.ProxyPortLineEdit.text()
         set_proxy_port(port)
+        self.con_settings_changed = True
 
     def update_proxy_user(self):
         user = self.ProxyUserLineEdit.text()
         set_proxy_user(user)
+        self.con_settings_changed = True
 
     def update_proxy_password(self):
         password = self.ProxyPasswordLineEdit.text()
         set_proxy_password(password)
+        self.con_settings_changed = True
 
     def change_default_tab(self, tab):
         set_default_tab(tab)
