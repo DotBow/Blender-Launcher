@@ -6,7 +6,8 @@ from urllib3.contrib.socks import SOCKSProxyManager
 
 from modules._platform import get_cwd, get_platform_full, is_frozen
 from modules.settings import (get_proxy_host, get_proxy_password,
-                              get_proxy_port, get_proxy_user)
+                              get_proxy_port, get_proxy_user,
+                              get_use_custom_tls_certificates)
 
 proxy_types_chemes = {
     1: "http://",
@@ -47,15 +48,20 @@ class ConnectionManager():
                 proxy_basic_auth='{0}:{1}'.format(
                     get_proxy_user(), get_proxy_password()))
 
+            if get_use_custom_tls_certificates():
+                _cert_reqs = ssl.CERT_REQUIRED
+            else:
+                _cert_reqs = ssl.CERT_NONE
+
             if self.proxy_type > 2:
                 self.manager = SOCKSProxyManager(
                     proxy_url="{0}{1}:{2}".format(scheme, ip, port),
                     num_pools=50, maxsize=10, headers=self._headers,
                     username=get_proxy_user(), password=get_proxy_password(),
-                    cert_reqs=ssl.CERT_REQUIRED, ca_certs=self.cacert)
+                    cert_reqs=_cert_reqs, ca_certs=self.cacert)
             else:
                 self.manager = ProxyManager(
                     proxy_url="{0}{1}:{2}".format(scheme, ip, port),
                     num_pools=50, maxsize=10,
                     headers=self._headers, proxy_headers=auth_headers,
-                    cert_reqs=ssl.CERT_REQUIRED, ca_certs=self.cacert)
+                    cert_reqs=_cert_reqs, ca_certs=self.cacert)
