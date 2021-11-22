@@ -35,10 +35,14 @@ class ConnectionManager():
 
     def setup(self):
         if self.proxy_type == 0:  # None
-            self.manager = PoolManager(
-                num_pools=50, maxsize=10, headers=self._headers,
-                cert_reqs=ssl.CERT_REQUIRED,
-                ca_certs=self.cacert)
+            if get_use_custom_tls_certificates():
+                self.manager = PoolManager(
+                    num_pools=50, maxsize=10, headers=self._headers,
+                    cert_reqs=ssl.CERT_REQUIRED,
+                    ca_certs=self.cacert)
+            else:
+                self.manager = PoolManager(
+                    num_pools=50, maxsize=10, headers=self._headers)
         else:  # Use proxy
             ip = get_proxy_host()
             port = get_proxy_port()
