@@ -19,10 +19,10 @@ class BaseWindow(QWidget):
             self.version = version
 
             # Setup pool manager
-            cm = ConnectionManager(
+            self.cm = ConnectionManager(
                 version=version, proxy_type=get_proxy_type())
-            cm.setup()
-            self.manager = cm.manager
+            self.cm.setup()
+            self.manager = self.cm.manager
 
             # Setup font
             QFontDatabase.addApplicationFont(

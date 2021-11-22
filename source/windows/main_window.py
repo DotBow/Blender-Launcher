@@ -1,4 +1,5 @@
 import os
+from platform import version
 import re
 import threading
 import webbrowser
@@ -10,6 +11,7 @@ from time import localtime, strftime
 from items.base_list_widget_item import BaseListWidgetItem
 from modules._platform import (_popen, get_cwd, get_platform, is_frozen,
                                set_locale)
+from modules.connection_manager import ConnectionManager
 from modules.enums import MessageType
 from modules.settings import (create_library_folders,
                               get_default_downloads_page,
@@ -17,7 +19,7 @@ from modules.settings import (create_library_folders,
                               get_enable_download_notifications,
                               get_enable_new_builds_notifications,
                               get_enable_quick_launch_key_seq,
-                              get_launch_minimized_to_tray, get_library_folder,
+                              get_launch_minimized_to_tray, get_library_folder, get_proxy_type,
                               get_quick_launch_key_seq, get_show_tray_icon,
                               get_sync_library_and_downloads_pages,
                               get_taskbar_icon_color, is_library_folder_valid,
@@ -595,7 +597,14 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.set_status("Updating", "Reading local builds")
 
         if clear:
-            self.timer.cancel()
+            self.cm = ConnectionManager(
+                version=version, proxy_type=get_proxy_type())
+            self.cm.setup()
+            self.manager = self.cm.manager
+
+            if self.timer is not None:
+                self.timer.cancel()
+
             self.scraper.quit()
             self.DownloadsStableListWidget._clear()
             self.DownloadsDailyListWidget._clear()
