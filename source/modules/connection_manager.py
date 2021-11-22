@@ -44,10 +44,6 @@ class ConnectionManager():
             port = get_proxy_port()
             scheme = proxy_types_chemes[self.proxy_type]
 
-            auth_headers = make_headers(
-                proxy_basic_auth='{0}:{1}'.format(
-                    get_proxy_user(), get_proxy_password()))
-
             if get_use_custom_tls_certificates():
                 _cert_reqs = ssl.CERT_REQUIRED
             else:
@@ -60,6 +56,10 @@ class ConnectionManager():
                     username=get_proxy_user(), password=get_proxy_password(),
                     cert_reqs=_cert_reqs, ca_certs=self.cacert)
             else:
+                auth_headers = make_headers(
+                    proxy_basic_auth='{0}:{1}'.format(
+                        get_proxy_user(), get_proxy_password()))
+
                 self.manager = ProxyManager(
                     proxy_url="{0}{1}:{2}".format(scheme, ip, port),
                     num_pools=50, maxsize=10,
