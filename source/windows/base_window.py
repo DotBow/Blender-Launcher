@@ -19,8 +19,7 @@ class BaseWindow(QWidget):
             self.version = version
 
             # Setup pool manager
-            self.cm = ConnectionManager(
-                version=version, proxy_type=get_proxy_type())
+            self.cm = ConnectionManager(version=version)
             self.cm.setup()
             self.manager = self.cm.manager
 

@@ -6,7 +6,7 @@ from urllib3.contrib.socks import SOCKSProxyManager
 
 from modules._platform import get_cwd, get_platform_full, is_frozen
 from modules.settings import (get_proxy_host, get_proxy_password,
-                              get_proxy_port, get_proxy_user,
+                              get_proxy_port, get_proxy_type, get_proxy_user,
                               get_use_custom_tls_certificates)
 
 proxy_types_chemes = {
@@ -18,9 +18,9 @@ proxy_types_chemes = {
 
 
 class ConnectionManager():
-    def __init__(self, version, proxy_type=0) -> None:
+    def __init__(self, version, proxy_type=get_proxy_type()) -> None:
         self.version = version
-        self.proxy_type = proxy_type
+        self.proxy_type = get_proxy_type()
         self.manager = None
 
         self._headers = {
