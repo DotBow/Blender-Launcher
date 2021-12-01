@@ -11,6 +11,7 @@ class BaseMenuWidget(QMenu):
         self.setWindowFlags(self.windowFlags() | Qt.NoDropShadowWindowHint)
         self.action_height = BaseMenuWidget.action_height
         self.screen_size = QDesktopWidget().screenGeometry()
+        self.setToolTipsVisible(True)
 
     def _show(self):
         actions = self.actions()
