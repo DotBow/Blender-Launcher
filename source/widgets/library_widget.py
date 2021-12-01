@@ -166,6 +166,8 @@ class LibraryWidget(BaseBuildWidget):
             self.removeFromFavoritesAction.setVisible(False)
 
         self.registerExtentionAction = QAction("Register Extension")
+        self.registerExtentionAction.setToolTip(
+            "Use this build for .blend files and to display thumbnails")
         self.registerExtentionAction.triggered.connect(self.register_extension)
 
         self.createShortcutAction = QAction("Create Shortcut")
