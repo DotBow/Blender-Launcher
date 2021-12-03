@@ -459,3 +459,29 @@ def get_use_custom_tls_certificates():
 
 def set_use_custom_tls_certificates(is_checked):
     get_settings().setValue('use_custom_tls_certificates', is_checked)
+
+
+def get_check_for_new_builds_automatically():
+    settings = get_settings()
+
+    if settings.contains('check_for_new_builds_automatically'):
+        return settings.value('check_for_new_builds_automatically', type=bool)
+    else:
+        return True
+
+
+def set_check_for_new_builds_automatically(is_checked):
+    get_settings().setValue('check_for_new_builds_automatically', is_checked)
+
+
+def get_new_builds_check_frequency():
+    settings = get_settings()
+
+    if settings.contains('new_builds_check_frequency'):
+        return settings.value('new_builds_check_frequency', type=int)
+    else:
+        return 600
+
+
+def set_new_builds_check_frequency(frequency):
+    get_settings().setValue('new_builds_check_frequency', frequency)
