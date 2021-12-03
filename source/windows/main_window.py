@@ -1,10 +1,10 @@
 import os
-from platform import version
 import re
 import threading
 import webbrowser
 from enum import Enum
 from pathlib import Path
+from platform import version
 from shutil import copyfileobj
 from time import localtime, strftime
 
@@ -19,7 +19,8 @@ from modules.settings import (create_library_folders,
                               get_enable_download_notifications,
                               get_enable_new_builds_notifications,
                               get_enable_quick_launch_key_seq,
-                              get_launch_minimized_to_tray, get_library_folder, get_proxy_type,
+                              get_launch_minimized_to_tray, get_library_folder,
+                              get_new_builds_check_frequency, get_proxy_type,
                               get_quick_launch_key_seq, get_show_tray_icon,
                               get_sync_library_and_downloads_pages,
                               get_taskbar_icon_color, is_library_folder_valid,
@@ -653,7 +654,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.set_status("Error", "Connection failed at " + utcnow)
         self.app_state = AppState.IDLE
 
-        self.timer = threading.Timer(600.0, self.draw_downloads)
+        self.timer = threading.Timer(
+            get_new_builds_check_frequency(), self.draw_downloads)
         self.timer.start()
 
     def scraper_finished(self):
@@ -675,7 +677,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         for page in self.DownloadsToolBox.pages:
             page.set_info_label_text("No new builds available")
 
-        self.timer = threading.Timer(600.0, self.draw_downloads)
+        self.timer = threading.Timer(
+            get_new_builds_check_frequency(), self.draw_downloads)
         self.timer.start()
         self.started = False
 
