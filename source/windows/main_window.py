@@ -319,6 +319,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.StatusBar.setFont(self.font)
         self.statusbarLabel = QLabel()
         self.statusbarLabel.setIndent(8)
+        self.ForceCheckNewBuilds = QPushButton("Check")
+        self.ForceCheckNewBuilds.hide()
+        self.ForceCheckNewBuilds.clicked.connect(self.draw_downloads)
         self.NewVersionButton = QPushButton()
         self.NewVersionButton.hide()
         self.NewVersionButton.clicked.connect(self.show_update_window)
@@ -327,7 +330,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.statusbarVersion.setToolTip(
             "The version of Blender Launcher that is currently run. "
             "Press to check changelog.")
-        self.StatusBar.addPermanentWidget(self.statusbarLabel, 1)
+        self.StatusBar.addPermanentWidget(self.statusbarLabel)
+        self.StatusBar.addPermanentWidget(self.ForceCheckNewBuilds)
+        self.StatusBar.addPermanentWidget(QLabel(""), 1)
         self.StatusBar.addPermanentWidget(self.NewVersionButton)
         self.StatusBar.addPermanentWidget(self.statusbarVersion)
 
@@ -634,6 +639,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.library_drawer.start()
 
     def draw_downloads(self):
+        self.ForceCheckNewBuilds.hide()
+
         for page in self.DownloadsToolBox.pages:
             page.set_info_label_text("Checking for new builds")
 
@@ -681,6 +688,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             get_new_builds_check_frequency(), self.draw_downloads)
         self.timer.start()
         self.started = False
+        self.ForceCheckNewBuilds.show()
 
     def draw_from_cashed(self, build_info):
         if self.app_state == AppState.IDLE:
