@@ -2,6 +2,7 @@ from layouts.settings_form_layout import SettingsFormLayout
 from modules.settings import (downloads_pages, favorite_pages,
                               get_bash_arguments,
                               get_blender_startup_arguments,
+                              get_check_for_new_builds_automatically,
                               get_default_downloads_page,
                               get_default_library_page, get_default_tab,
                               get_enable_download_notifications,
@@ -13,7 +14,8 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_launch_minimized_to_tray,
                               get_launch_when_system_starts,
                               get_library_folder, get_mark_as_favorite,
-                              get_platform, get_proxy_host, get_proxy_password,
+                              get_new_builds_check_frequency, get_platform,
+                              get_proxy_host, get_proxy_password,
                               get_proxy_port, get_proxy_type, get_proxy_user,
                               get_quick_launch_key_seq, get_show_tray_icon,
                               get_sync_library_and_downloads_pages,
@@ -21,6 +23,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_use_custom_tls_certificates, library_pages,
                               proxy_types, set_bash_arguments,
                               set_blender_startup_arguments,
+                              set_check_for_new_builds_automatically,
                               set_default_downloads_page,
                               set_default_library_page, set_default_tab,
                               set_enable_download_notifications,
@@ -32,18 +35,19 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
                               set_library_folder, set_mark_as_favorite,
-                              set_proxy_host, set_proxy_password,
-                              set_proxy_port, set_proxy_type, set_proxy_user,
+                              set_new_builds_check_frequency, set_proxy_host,
+                              set_proxy_password, set_proxy_port,
+                              set_proxy_type, set_proxy_user,
                               set_quick_launch_key_seq, set_show_tray_icon,
                               set_sync_library_and_downloads_pages,
                               set_taskbar_icon_color,
                               set_use_custom_tls_certificates, tabs,
                               taskbar_icon_colors)
 from PyQt5 import QtGui
-from PyQt5.QtCore import QRegExp, QSize, Qt
+from PyQt5.QtCore import QRegExp, QSize, Qt, QTime
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFormLayout, QHBoxLayout,
                              QLabel, QLineEdit, QMainWindow, QPushButton,
-                             QWidget)
+                             QTimeEdit, QWidget)
 from ui.settings_window_ui import Ui_SettingsWindow
 
 from windows.base_window import BaseWindow
@@ -128,6 +132,17 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             get_taskbar_icon_color())
         self.TaskbarIconColorComboBox.activated[str].connect(
             self.change_taskbar_icon_color)
+
+        # New Builds Check Settings
+        self.CheckForNewBuildsAutomatically = QCheckBox()
+        # self.CheckForNewBuildsAutomatically.clicked.connect(
+        #     self.toggle_check_for_new_builds_automatically)
+        self.EnableHighDpiScalingCheckBox.setChecked(
+            get_check_for_new_builds_automatically())
+
+        self.NewBuildsCheckFrequency = QTimeEdit()
+        self.NewBuildsCheckFrequency.setTime(
+            QTime().fromMSecsSinceStartOfDay(get_new_builds_check_frequency() * 1000))
 
         # Custom TLS certificates
         self.UseCustomCertificatesCheckBox = QCheckBox()
@@ -299,6 +314,13 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             layout._addRow("Launch Minimized To Tray",
                            self.LaunchMinimizedToTrayCheckBox)
         self.LaunchMinimizedToTrayRow.setEnabled(get_show_tray_icon())
+
+        sub_layout = QHBoxLayout()
+        sub_layout.addWidget(self.CheckForNewBuildsAutomatically)
+        sub_layout.addWidget(self.NewBuildsCheckFrequency)
+        self.NewBuildsCheckRow = layout._addRow(
+            "Check For New Builds Automatically", sub_layout)
+
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Connection:"))
@@ -311,8 +333,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         sub_layout.addWidget(self.ProxyHostLineEdit)
         sub_layout.addWidget(QLabel(" : "))
         sub_layout.addWidget(self.ProxyPortLineEdit)
-        self.QuickLaunchKeySeqRow = layout._addRow(
-            "Proxy IP", sub_layout)
+        layout._addRow("Proxy IP", sub_layout)
 
         layout._addRow("Proxy User", self.ProxyUserLineEdit)
         layout._addRow("Proxy Password", self.ProxyPasswordLineEdit)
