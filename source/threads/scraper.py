@@ -139,7 +139,7 @@ class Scraper(QThread):
 
     def scrap_stable_releases(self):
         releases = []
-        url = "https://ftp.nluug.nl/pub/graphics/blender/release/"
+        url = "https://download.blender.org/release/"
         r = self.manager.request('GET', url)
         content = r.data
         soup = BeautifulSoup(content, 'html.parser')
