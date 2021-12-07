@@ -62,6 +62,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.setupUi(self)
         platform = get_platform()
         self.con_settings_changed = False
+        self.new_builds_check_settings_changed = False
 
         self.setWindowTitle("Settings")
 
@@ -135,14 +136,17 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         # New Builds Check Settings
         self.CheckForNewBuildsAutomatically = QCheckBox()
-        # self.CheckForNewBuildsAutomatically.clicked.connect(
-        #     self.toggle_check_for_new_builds_automatically)
-        self.EnableHighDpiScalingCheckBox.setChecked(
+        self.CheckForNewBuildsAutomatically.setChecked(
             get_check_for_new_builds_automatically())
+        self.CheckForNewBuildsAutomatically.clicked.connect(
+            self.toggle_check_for_new_builds_automatically)
 
         self.NewBuildsCheckFrequency = QTimeEdit()
         self.NewBuildsCheckFrequency.setTime(
-            QTime().fromMSecsSinceStartOfDay(get_new_builds_check_frequency() * 1000))
+            QTime().fromMSecsSinceStartOfDay(
+                get_new_builds_check_frequency() * 1000))
+        self.NewBuildsCheckFrequency.editingFinished.connect(
+            self.new_builds_check_frequency_changed)
 
         # Custom TLS certificates
         self.UseCustomCertificatesCheckBox = QCheckBox()
@@ -403,6 +407,21 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         if self.con_settings_changed is True:
             self.parent.draw_library(clear=True)
 
+        if self.new_builds_check_settings_changed is True:
+            self.new_builds_check_settings_changed = False
+            new_builds_check_frequency = \
+                self.NewBuildsCheckFrequency.time().msecsSinceStartOfDay() * 0.001
+
+            if get_new_builds_check_frequency() != new_builds_check_frequency:
+                set_new_builds_check_frequency(new_builds_check_frequency)
+                self.new_builds_check_settings_changed = True
+
+            if get_check_for_new_builds_automatically() != \
+                    self.CheckForNewBuildsAutomatically.isChecked():
+                set_check_for_new_builds_automatically(
+                    self.CheckForNewBuildsAutomatically.isChecked())
+                self.new_builds_check_settings_changed = True
+
         self.parent.settings_window = None
         self.close()
 
@@ -501,6 +520,12 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         if get_taskbar_icon_color() != currentIndex:
             set_taskbar_icon_color(color)
             self.show_dlg_restart_bl()
+
+    def toggle_check_for_new_builds_automatically(self, is_checked):
+        self.new_builds_check_settings_changed = True
+
+    def new_builds_check_frequency_changed(self):
+        self.new_builds_check_settings_changed = True
 
     def toggle_sync_library_and_downloads_pages(self, is_checked):
         set_sync_library_and_downloads_pages(is_checked)
