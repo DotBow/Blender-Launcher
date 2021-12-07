@@ -6,6 +6,8 @@ from PyQt5.QtWidgets import QHBoxLayout, QLabel, QPushButton
 class DateTimeWidget(QPushButton):
     def __init__(self, datetime, build_hash):
         super().__init__()
+        self.build_hash = build_hash
+
         self.setFixedWidth(120)
         self.setProperty("TextOnly", True)
 
@@ -16,33 +18,42 @@ class DateTimeWidget(QPushButton):
         datetime_parts = datetime.rsplit('-', 1)
         date_parts = datetime_parts[0].rsplit('-')
 
-        self.LeftArrowLabel = QLabel("◂")
-        self.LeftArrowLabel.setVisible(False)
         self.DayLabel = QLabel(date_parts[0])
         self.MonthLabel = QLabel(date_parts[1])
         self.MonthLabel.setFixedWidth(32)
         self.MonthLabel.setAlignment(Qt.AlignCenter)
         self.YearLabel = QLabel(date_parts[2] + ", ")
         self.TimeLabel = QLabel(datetime_parts[1])
-        self.RightArrowLabel = QLabel("▸")
-        self.RightArrowLabel.setVisible(False)
 
-        self.BuildHashLabel = QLabel(build_hash)
-        self.BuildHashLabel.hide()
+        if self.build_hash is not None:
+            self.LeftArrowLabel = QLabel("◂")
+            self.LeftArrowLabel.setVisible(False)
+            self.RightArrowLabel = QLabel("▸")
+            self.RightArrowLabel.setVisible(False)
 
-        self.layout.addWidget(self.LeftArrowLabel)
-        self.layout.addStretch()
-        self.layout.addWidget(self.DayLabel)
-        self.layout.addWidget(self.MonthLabel)
-        self.layout.addWidget(self.YearLabel)
-        self.layout.addWidget(self.TimeLabel)
-        self.layout.addWidget(self.BuildHashLabel)
-        self.layout.addStretch()
-        self.layout.addWidget(self.RightArrowLabel)
+            self.BuildHashLabel = QLabel(self.build_hash)
+            self.BuildHashLabel.hide()
 
-        self.setCursor(Qt.PointingHandCursor)
-        self.setToolTip("Press to show build hash number")
-        self.clicked.connect(self.toggle_visibility)
+            self.layout.addWidget(self.LeftArrowLabel)
+            self.layout.addStretch()
+            self.layout.addWidget(self.DayLabel)
+            self.layout.addWidget(self.MonthLabel)
+            self.layout.addWidget(self.YearLabel)
+            self.layout.addWidget(self.TimeLabel)
+            self.layout.addWidget(self.BuildHashLabel)
+            self.layout.addStretch()
+            self.layout.addWidget(self.RightArrowLabel)
+
+            self.setCursor(Qt.PointingHandCursor)
+            self.setToolTip("Press to show build hash number")
+            self.clicked.connect(self.toggle_visibility)
+        else:
+            self.layout.addStretch()
+            self.layout.addWidget(self.DayLabel)
+            self.layout.addWidget(self.MonthLabel)
+            self.layout.addWidget(self.YearLabel)
+            self.layout.addWidget(self.TimeLabel)
+            self.layout.addStretch()
 
     def toggle_visibility(self):
         self.DayLabel.setVisible(not self.DayLabel.isVisible())
@@ -57,11 +68,15 @@ class DateTimeWidget(QPushButton):
             self.setToolTip("Press to show build hash number")
 
     def enterEvent(self, event: QtCore.QEvent) -> None:
-        self.LeftArrowLabel.setVisible(True)
-        self.RightArrowLabel.setVisible(True)
+        if self.build_hash is not None:
+            self.LeftArrowLabel.setVisible(True)
+            self.RightArrowLabel.setVisible(True)
+
         return super().enterEvent(event)
 
     def leaveEvent(self, event: QtCore.QEvent) -> None:
-        self.LeftArrowLabel.setVisible(False)
-        self.RightArrowLabel.setVisible(False)
+        if self.build_hash is not None:
+            self.LeftArrowLabel.setVisible(False)
+            self.RightArrowLabel.setVisible(False)
+
         return super().leaveEvent(event)
