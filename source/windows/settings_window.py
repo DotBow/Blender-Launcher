@@ -304,7 +304,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(self.LibraryFolderLayout)
 
         SettingsLayout.addRow(self._QLabel("System:"))
-        layout = SettingsFormLayout(220)
+        layout = SettingsFormLayout(240)
         layout._addRow(
             "Taskbar Icon Color", self.TaskbarIconColorComboBox)
 
@@ -328,7 +328,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Connection:"))
-        layout = SettingsFormLayout(220)
+        layout = SettingsFormLayout(240)
         layout._addRow("Use Custom TLS Certificates",
                        self.UseCustomCertificatesCheckBox)
         layout._addRow("Proxy Type", self.ProxyTypeComboBox)
@@ -345,7 +345,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Interface:"))
-        layout = SettingsFormLayout(220)
+        layout = SettingsFormLayout(240)
         layout._addRow(
             "Default Tab", self.DefaultTabComboBox)
         layout._addRow(
@@ -360,7 +360,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Notifications:"))
-        layout = SettingsFormLayout(220)
+        layout = SettingsFormLayout(240)
         layout._addRow("When New Builds Are Available",
                        self.EnableNewBuildsNotifications)
         layout._addRow("When Downloading Is Finished",
@@ -368,13 +368,13 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("New Build Actions:"))
-        layout = SettingsFormLayout(220)
+        layout = SettingsFormLayout(240)
         layout._addRow("Mark As Favorite", self.MarkAsFavorite)
         layout._addRow("Install Template", self.InstallTemplate)
         SettingsLayout.addRow(layout)
 
         SettingsLayout.addRow(self._QLabel("Blender Launching:"))
-        layout = SettingsFormLayout(220)
+        layout = SettingsFormLayout(240)
 
         sub_layout = QHBoxLayout()
         sub_layout.addWidget(self.EnableQuickLaunchKeySeq)
