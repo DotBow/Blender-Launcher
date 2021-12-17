@@ -14,6 +14,7 @@ from modules._platform import (_popen, get_cwd, get_platform, is_frozen,
 from modules.connection_manager import ConnectionManager
 from modules.enums import MessageType
 from modules.settings import (create_library_folders,
+                              get_check_for_new_builds_automatically,
                               get_default_downloads_page,
                               get_default_library_page, get_default_tab,
                               get_enable_download_notifications,
@@ -661,9 +662,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.set_status("Error", "Connection failed at " + utcnow)
         self.app_state = AppState.IDLE
 
-        self.timer = threading.Timer(
-            get_new_builds_check_frequency(), self.draw_downloads)
-        self.timer.start()
+        if get_check_for_new_builds_automatically() is True:
+            self.timer = threading.Timer(
+                get_new_builds_check_frequency(), self.draw_downloads)
+            self.timer.start()
 
     def scraper_finished(self):
         if self.new_downloads and not self.started:
@@ -684,10 +686,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         for page in self.DownloadsToolBox.pages:
             page.set_info_label_text("No new builds available")
 
-        self.timer = threading.Timer(
-            get_new_builds_check_frequency(), self.draw_downloads)
-        self.timer.start()
-        self.started = False
+        if get_check_for_new_builds_automatically() is True:
+            self.timer = threading.Timer(
+                get_new_builds_check_frequency(), self.draw_downloads)
+            self.timer.start()
+            self.started = False
+
         self.ForceCheckNewBuilds.show()
 
     def draw_from_cashed(self, build_info):
