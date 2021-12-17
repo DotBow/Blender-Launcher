@@ -404,9 +404,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         elif self.parent.listener is not None:
             self.parent.listener.stop()
 
-        if self.con_settings_changed is True:
-            self.parent.draw_library(clear=True)
-
         if self.new_builds_check_settings_changed is True:
             self.new_builds_check_settings_changed = False
             new_builds_check_frequency = \
@@ -421,6 +418,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
                 set_check_for_new_builds_automatically(
                     self.CheckForNewBuildsAutomatically.isChecked())
                 self.new_builds_check_settings_changed = True
+
+        if self.con_settings_changed or self.new_builds_check_settings_changed:
+            self.parent.draw_library(clear=True)
 
         self.parent.settings_window = None
         self.close()
