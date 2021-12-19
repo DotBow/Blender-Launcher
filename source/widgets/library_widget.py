@@ -182,9 +182,31 @@ class LibraryWidget(BaseBuildWidget):
         self.installTemplateAction = QAction("Install Template")
         self.installTemplateAction.triggered.connect(self.install_template)
 
+        self.debugMenu = BaseMenuWidget("Debug")
+        self.debugMenu.setFont(self.parent.font)
+
+        self.debugLogAction = QAction("Debug Log")
+        self.debugLogAction.triggered.connect(
+            lambda: self.launch(exe="blender_debug_log.cmd"))
+        self.debugFactoryStartupAction = QAction("Factory Startup")
+        self.debugFactoryStartupAction.triggered.connect(
+            lambda: self.launch(exe="blender_factory_startup.cmd"))
+        self.debugGpuTemplateAction = QAction("Debug GPU")
+        self.debugGpuTemplateAction.triggered.connect(
+            lambda: self.launch(exe="blender_debug_gpu.cmd"))
+        self.debugGpuGWTemplateAction = QAction("Debug GPU Glitch Workaround")
+        self.debugGpuGWTemplateAction.triggered.connect(
+            lambda: self.launch(exe="blender_debug_gpu_glitchworkaround.cmd"))
+
+        self.debugMenu.addAction(self.debugLogAction)
+        self.debugMenu.addAction(self.debugFactoryStartupAction)
+        self.debugMenu.addAction(self.debugGpuTemplateAction)
+        self.debugMenu.addAction(self.debugGpuGWTemplateAction)
+
         self.menu.addAction(self.addToQuickLaunchAction)
         self.menu.addAction(self.addToFavoritesAction)
         self.menu.addAction(self.removeFromFavoritesAction)
+        self.menu.addMenu(self.debugMenu)
 
         if self.parent_widget is not None:
             self.renameBranchAction = QAction("Rename Branch")
@@ -284,7 +306,7 @@ class LibraryWidget(BaseBuildWidget):
         self.deleteAction.setEnabled(True)
         self.installTemplateAction.setEnabled(True)
 
-    def launch(self, update_selection=False):
+    def launch(self, update_selection=False, exe=None):
         if update_selection is True:
             self.list_widget.clearSelection()
             self.item.setSelected(True)
@@ -302,20 +324,24 @@ class LibraryWidget(BaseBuildWidget):
         blender_args = get_blender_startup_arguments()
 
         if platform == 'Windows':
-            if get_launch_blender_no_console():
-                if Path.exists(library_folder / self.link / "blender-launcher.exe"):
-                    b3d_exe = library_folder / self.link / "blender-launcher.exe"
+            if exe is not None:
+                b3d_exe = library_folder / self.link / exe
+                proc = _popen(['cmd /C', b3d_exe.as_posix()])
+            else:
+                if get_launch_blender_no_console():
+                    if Path.exists(library_folder / self.link / "blender-launcher.exe"):
+                        b3d_exe = library_folder / self.link / "blender-launcher.exe"
+                    else:
+                        b3d_exe = library_folder / self.link / "blender.exe"
                 else:
                     b3d_exe = library_folder / self.link / "blender.exe"
-            else:
-                b3d_exe = library_folder / self.link / "blender.exe"
 
-            if blender_args == "":
-                proc = _popen(b3d_exe.as_posix())
-            else:
-                args = [b3d_exe.as_posix()]
-                args.extend(blender_args.split(' '))
-                proc = _popen(args)
+                if blender_args == "":
+                    proc = _popen(b3d_exe.as_posix())
+                else:
+                    args = [b3d_exe.as_posix()]
+                    args.extend(blender_args.split(' '))
+                    proc = _popen(args)
         elif platform == 'Linux':
             bash_args = get_bash_arguments()
 
