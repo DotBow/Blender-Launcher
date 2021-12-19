@@ -6,8 +6,8 @@ from PyQt5.QtWidgets import QDesktopWidget, QMenu
 class BaseMenuWidget(QMenu):
     action_height = 30
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, title=""):
+        super().__init__(title=title)
         self.setWindowFlags(self.windowFlags() | Qt.NoDropShadowWindowHint)
         self.action_height = BaseMenuWidget.action_height
         self.screen_size = QDesktopWidget().screenGeometry()
