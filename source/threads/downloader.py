@@ -41,5 +41,4 @@ class Downloader(QThread):
         return
 
     def test(self, p):
-        progress = p / self.size
-        self.progress_changed.emit(progress, "Downloading: %p%")
+        self.progress_changed.emit(p, self.size)

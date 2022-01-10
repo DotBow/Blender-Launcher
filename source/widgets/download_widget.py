@@ -43,6 +43,9 @@ class DownloadWidget(BaseBuildWidget):
         self.progressBar.setFixedHeight(4)
         self.progressBar.hide()
 
+        self.downloadInfo = QLabel("99.0 of 999.0 MB")
+        self.downloadInfo.hide()
+
         self.downloadButton = QPushButton("Download")
         self.downloadButton.setFixedWidth(85)
         self.downloadButton.setProperty("LaunchButton", True)
@@ -56,14 +59,17 @@ class DownloadWidget(BaseBuildWidget):
         self.cancelButton.setCursor(Qt.PointingHandCursor)
         self.cancelButton.hide()
 
-        self.h_layout = QHBoxLayout()
-        self.h_layout.setContentsMargins(2, 2, 0, 2)
+        self.main_hl = QHBoxLayout()
+        self.main_hl.setContentsMargins(2, 2, 0, 2)
 
-        self.v_layout = QVBoxLayout()
-        self.v_layout.setContentsMargins(0, 0, 0, 0)
+        self.sub_vl = QVBoxLayout()
+        self.sub_vl.setContentsMargins(0, 0, 0, 0)
 
-        self.h_layout1 = QHBoxLayout()
-        self.h_layout1.setContentsMargins(0, 0, 0, 0)
+        self.build_info_hl = QHBoxLayout()
+        self.build_info_hl.setContentsMargins(0, 0, 0, 0)
+
+        self.download_info_hl = QHBoxLayout()
+        self.download_info_hl.setContentsMargins(0, 0, 0, 0)
 
         if self.build_info.branch == 'lts':
             branch_name = "LTS"
@@ -83,22 +89,25 @@ class DownloadWidget(BaseBuildWidget):
         self.build_state_widget = BuildStateWidget(
             self.parent, self.list_widget)
 
-        self.h_layout1.addWidget(self.subversionLabel)
-        self.h_layout1.addWidget(self.branchLabel, stretch=1)
-        self.h_layout1.addWidget(self.commitTimeLabel)
+        self.build_info_hl.addWidget(self.subversionLabel)
+        self.build_info_hl.addWidget(self.branchLabel, stretch=1)
+        self.build_info_hl.addWidget(self.commitTimeLabel)
 
         if self.show_new:
             self.build_state_widget.setNewBuild(True)
 
-        self.v_layout.addLayout(self.h_layout1)
-        self.v_layout.addWidget(self.progressBar)
+        self.download_info_hl.addWidget(self.downloadInfo)
+        self.download_info_hl.addWidget(self.progressBar)
 
-        self.h_layout.addWidget(self.downloadButton)
-        self.h_layout.addWidget(self.cancelButton)
-        self.h_layout.addLayout(self.v_layout)
-        self.h_layout.addWidget(self.build_state_widget)
+        self.sub_vl.addLayout(self.build_info_hl)
+        self.sub_vl.addLayout(self.download_info_hl)
 
-        self.setLayout(self.h_layout)
+        self.main_hl.addWidget(self.downloadButton)
+        self.main_hl.addWidget(self.cancelButton)
+        self.main_hl.addLayout(self.sub_vl)
+        self.main_hl.addWidget(self.build_state_widget)
+
+        self.setLayout(self.main_hl)
 
         if self.build_info.branch in "stable lts":
             self.menu.addAction(self.showReleaseNotesAction)
@@ -171,29 +180,34 @@ class DownloadWidget(BaseBuildWidget):
             self.download_get_info()
 
     def download_started(self):
-        self.set_progress_bar(0, "Downloading: %p%")
+        self.set_progress_bar(0, 99)
         self.progressBar.show()
+        self.downloadInfo.show()
         self.cancelButton.show()
         self.downloadButton.hide()
-        self.h_layout1.setContentsMargins(0, 10, 0, 0)
+        self.build_info_hl.setContentsMargins(0, 10, 0, 0)
         self.build_state_widget.setDownload()
 
     def download_cancelled(self):
         self.item.setSelected(True)
         self.state = DownloadState.WAITING
         self.progressBar.hide()
+        self.downloadInfo.hide()
         self.cancelButton.hide()
         self.downloader.terminate()
         self.downloader.wait()
         self.downloadButton.show()
-        self.h_layout1.setContentsMargins(0, 0, 0, 0)
+        self.build_info_hl.setContentsMargins(0, 0, 0, 0)
         self.build_state_widget.setDownload(False)
 
-    def set_progress_bar(self, value, format):
+    def set_progress_bar(self, p, size):
         self.progressBar.setFormat("")
+        value = p / size
         value = (self.progress_end - self.progress_start) * \
             value + self.progress_start
         self.progressBar.setValue(value * 100)
+        self.downloadInfo.setText(
+            "{:.1f} of {:.1f} MB".format(p / 1048576, size / 1048576))
 
     def download_get_info(self):
         if self.parent.platform == 'Linux':
