@@ -18,7 +18,8 @@ class Extractor(QThread):
         self.dist = Path(dist)
 
     def run(self):
-        self.progress_changed.emit(0, "Extracting: %p%")
+        # TODO Set proper progress params!
+        self.progress_changed.emit(0, 0, 1)
         suffixes = self.source.suffixes
 
         if suffixes[-1] == ".zip":
