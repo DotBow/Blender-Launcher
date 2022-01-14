@@ -134,7 +134,7 @@ class Scraper(QThread):
 
         r.release_conn()
         r.close()
-        return BuildInfo('link', link, subversion,
+        return BuildInfo(link, subversion,
                          build_hash, commit_time, branch)
 
     def scrap_stable_releases(self):

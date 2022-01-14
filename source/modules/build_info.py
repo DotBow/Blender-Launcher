@@ -14,10 +14,9 @@ class BuildInfo:
     # https://www.blender.org/download/lts/
     lts_tags = ('2.83', '2.93', '3.3', '3.7')
 
-    def __init__(self, link_type, link, subversion,
+    def __init__(self, link, subversion,
                  build_hash, commit_time, branch,
                  custom_name="", is_favorite=False):
-        self.link_type = link_type
         self.link = link
 
         if any(w in subversion.lower()
@@ -134,7 +133,6 @@ class BuildInfoReader(QThread):
             is_favorite = old_build_info.is_favorite
 
         build_info = BuildInfo(
-            'path',
             self.path.as_posix(),
             subversion,
             build_hash,
@@ -194,7 +192,6 @@ class BuildInfoReader(QThread):
 
     def build_info_from_json(self, blinfo):
         build_info = BuildInfo(
-            'path',
             self.path.as_posix(),
             blinfo['subversion'],
             blinfo['build_hash'],
