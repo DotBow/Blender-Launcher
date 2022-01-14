@@ -16,7 +16,8 @@ class BuildInfo:
 
     def __init__(self, link_type, link, subversion,
                  build_hash, commit_time, branch,
-                 custom_name="", is_favorite=False):
+                 custom_name="", is_favorite=False,
+                 file_size=None):
         self.link_type = link_type
         self.link = link
 
@@ -35,6 +36,7 @@ class BuildInfo:
         self.branch = branch
         self.custom_name = custom_name
         self.is_favorite = is_favorite
+        self.file_size = file_size
 
         self.platform = get_platform()
 
