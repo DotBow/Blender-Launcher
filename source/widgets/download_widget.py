@@ -202,7 +202,7 @@ class DownloadWidget(BaseBuildWidget):
 
     def set_progress_bar(self, p, size):
         self.progressBar.setFormat("")
-        value = p / size
+        value = (p / size) if size != 0 else 0
         value = (self.progress_end - self.progress_start) * \
             value + self.progress_start
         self.progressBar.setValue(value * 100)
