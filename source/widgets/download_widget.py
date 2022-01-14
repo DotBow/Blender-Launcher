@@ -40,6 +40,8 @@ class DownloadWidget(BaseBuildWidget):
         self.progress_end = 1
 
         self.progressBar = QProgressBar()
+        self.progressBar.setFormat("")
+        self.progressBar.setMinimum(0)
         self.progressBar.setFixedHeight(4)
         self.progressBar.hide()
 
@@ -200,14 +202,14 @@ class DownloadWidget(BaseBuildWidget):
         self.build_info_hl.setContentsMargins(0, 0, 0, 0)
         self.build_state_widget.setDownload(False)
 
-    def set_progress_bar(self, p, size):
-        self.progressBar.setFormat("")
-        value = (p / size) if size != 0 else 0
-        value = (self.progress_end - self.progress_start) * \
-            value + self.progress_start
-        self.progressBar.setValue(value * 100)
+    def set_progress_bar(self, step, max):
+        step = step / 1048576
+        max = max / 1048576
+        self.progressBar.setMaximum(max)
+        self.progressBar.setValue(step)
+        self.progressBar.repaint()
         self.downloadInfo.setText(
-            "{:.1f} of {:.1f} MB".format(p / 1048576, size / 1048576))
+            "{:.1f} of {:.1f} MB".format(step, max))
 
     def download_get_info(self):
         if self.parent.platform == 'Linux':
