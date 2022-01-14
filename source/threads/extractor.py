@@ -18,8 +18,7 @@ class Extractor(QThread):
         self.dist = Path(dist)
 
     def run(self):
-        # TODO Set proper progress params!
-        self.progress_changed.emit(0, 0, 1)
+        self.progress_changed.emit(0, 0)
         suffixes = self.source.suffixes
 
         if suffixes[-1] == ".zip":
@@ -31,8 +30,7 @@ class Extractor(QThread):
             for file in zf.infolist():
                 zf.extract(file, self.dist)
                 extracted_size += file.file_size
-                progress = extracted_size / uncompress_size
-                self.progress_changed.emit(progress, "Extracting: %p%")
+                self.progress_changed.emit(extracted_size, uncompress_size)
 
             zf.close()
             self.finished.emit(self.dist / folder)
@@ -45,8 +43,7 @@ class Extractor(QThread):
             for member in tar.getmembers():
                 tar.extract(member, path=self.dist)
                 extracted_size += member.size
-                progress = extracted_size / uncompress_size
-                self.progress_changed.emit(progress,  "Extracting: %p%")
+                self.progress_changed.emit(extracted_size, uncompress_size)
 
             tar.close()
             self.finished.emit(self.dist / folder)
