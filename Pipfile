@@ -18,6 +18,8 @@ pyqt5 = "==5.15.4"
 urllib3 = {version = "==1.26.5", extras = ["socks"]}
 pywin32 = {version = "*", os_name = "=='nt'"}
 pynput = "==1.7.3"
+lxml = "*"
+cchardet = "*"
 
 [scripts]
 start = "python source/main.py"
