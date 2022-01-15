@@ -5,7 +5,7 @@ import traceback
 from pathlib import Path
 from urllib.parse import urljoin
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, SoupStrainer
 from modules._platform import get_platform, set_locale
 from modules.build_info import BuildInfo
 from PyQt5.QtCore import QThread, pyqtSignal
@@ -62,10 +62,16 @@ class Scraper(QThread):
         self.scrap_download_links(
             "https://builder.blender.org/download/patch", 'experimental')
 
-    def scrap_download_links(self, url, branch_type, _limit=None):
+    def scrap_download_links(self, url, branch_type, _limit=None, stable=False):
         r = self.manager.request('GET', url)
         content = r.data
-        soup = BeautifulSoup(content, 'html.parser')
+
+        if stable is True:
+            soup = BeautifulSoup(content, 'html.parser',
+                                 parse_only=SoupStrainer('a', href=True))
+        else:
+            soup = BeautifulSoup(content, 'html.parser',
+                                 parse_only=SoupStrainer('a', attrs={'ga_cat': 'download'}))
 
         if self.platform == 'Windows':
             filter = r'blender-.+win.+64.+zip$'
@@ -152,7 +158,7 @@ class Scraper(QThread):
                 releases.append(urljoin(url, release['href']))
 
         for release in releases:
-            self.scrap_download_links(release, 'stable')
+            self.scrap_download_links(release, 'stable', stable=True)
 
         r.release_conn()
         r.close()
