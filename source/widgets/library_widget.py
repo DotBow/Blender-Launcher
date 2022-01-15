@@ -242,7 +242,7 @@ class LibraryWidget(BaseBuildWidget):
                 self.add_to_quick_launch()
             elif get_mark_as_favorite() == 3:
                 self.add_to_quick_launch()
-        elif get_favorite_path() == self.link:
+        elif get_favorite_path() == self.link.as_posix():
             self.add_to_quick_launch()
 
         self.setEnabled(True)
@@ -485,7 +485,7 @@ class LibraryWidget(BaseBuildWidget):
                 (self.parent.favorite.link != self.link):
             self.parent.favorite.remove_from_quick_launch()
 
-        set_favorite_path(self.link)
+        set_favorite_path(self.link.as_posix())
         self.parent.favorite = self
 
         self.launchButton.setIcon(self.parent.icon_quick_launch)
