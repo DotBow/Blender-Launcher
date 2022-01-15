@@ -105,3 +105,6 @@ docs/site
 
 # VS Code
 .vscode
+
+# Application related settings
+Blender Launcher.ini
