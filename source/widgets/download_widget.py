@@ -36,9 +36,6 @@ class DownloadWidget(BaseBuildWidget):
         self.state = DownloadState.WAITING
         self.build_dir = None
 
-        self.progress_start = 0
-        self.progress_end = 1
-
         self.progressBar = QProgressBar()
         self.progressBar.setFormat("")
         self.progressBar.setMinimum(0)
@@ -159,10 +156,6 @@ class DownloadWidget(BaseBuildWidget):
         self.extractor = Extractor(self.parent.manager, source, dist)
         self.extractor.progress_changed.connect(self.set_progress_bar)
         self.extractor.finished.connect(self.init_template_installer)
-
-        self.progress_start = 0.5
-        self.progress_end = 1
-
         self.extractor.start()
         self.build_state_widget.setExtract()
 
