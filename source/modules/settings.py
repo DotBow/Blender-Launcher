@@ -66,7 +66,7 @@ proxy_types = {
 
 
 def get_settings():
-    return QSettings('blender_launcher', 'settings')
+    return QSettings('Blender Launcher.ini', QSettings.IniFormat)
 
 
 def get_library_folder():
