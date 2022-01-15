@@ -5,6 +5,8 @@ import traceback
 from pathlib import Path
 from urllib.parse import urljoin
 
+import cchardet
+import lxml
 from bs4 import BeautifulSoup, SoupStrainer
 from modules._platform import get_platform, set_locale
 from modules.build_info import BuildInfo
@@ -33,7 +35,6 @@ class Scraper(QThread):
 
         self.manager.clear()
         self.finished.emit()
-        return
 
     def get_latest_tag(self):
         r = self.manager.request(
@@ -67,10 +68,10 @@ class Scraper(QThread):
         content = r.data
 
         if stable is True:
-            soup = BeautifulSoup(content, 'html.parser',
+            soup = BeautifulSoup(content, 'lxml',
                                  parse_only=SoupStrainer('a', href=True))
         else:
-            soup = BeautifulSoup(content, 'html.parser',
+            soup = BeautifulSoup(content, 'lxml',
                                  parse_only=SoupStrainer('a', attrs={'ga_cat': 'download'}))
 
         if self.platform == 'Windows':
@@ -148,7 +149,7 @@ class Scraper(QThread):
         url = "https://download.blender.org/release/"
         r = self.manager.request('GET', url)
         content = r.data
-        soup = BeautifulSoup(content, 'html.parser')
+        soup = BeautifulSoup(content, 'lxml')
 
         for release in soup.find_all(href=re.compile(r'Blender\d+\.\d+')):
             href = release['href']
