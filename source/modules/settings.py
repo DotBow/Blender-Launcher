@@ -386,18 +386,18 @@ def set_enable_quick_launch_key_seq(is_checked):
 def get_proxy_type():
     settings = get_settings()
 
-    if settings.contains('proxy_type'):
-        return settings.value('proxy_type', type=int)
+    if settings.contains('proxy/type'):
+        return settings.value('proxy/type', type=int)
     else:
         return 0
 
 
 def set_proxy_type(type):
-    get_settings().setValue('proxy_type', proxy_types[type])
+    get_settings().setValue('proxy/type', proxy_types[type])
 
 
 def get_proxy_host():
-    host = get_settings().value('proxy_host')
+    host = get_settings().value('proxy/host')
 
     if host is None:
         return "255.255.255.255"
@@ -406,11 +406,11 @@ def get_proxy_host():
 
 
 def set_proxy_host(args):
-    get_settings().setValue('proxy_host', args.strip())
+    get_settings().setValue('proxy/host', args.strip())
 
 
 def get_proxy_port():
-    port = get_settings().value('proxy_port')
+    port = get_settings().value('proxy/port')
 
     if port is None:
         return "99999"
@@ -419,11 +419,11 @@ def get_proxy_port():
 
 
 def set_proxy_port(args):
-    get_settings().setValue('proxy_port', args.strip())
+    get_settings().setValue('proxy/port', args.strip())
 
 
 def get_proxy_user():
-    user = get_settings().value('proxy_user')
+    user = get_settings().value('proxy/user')
 
     if user is None:
         return ""
@@ -432,11 +432,11 @@ def get_proxy_user():
 
 
 def set_proxy_user(args):
-    get_settings().setValue('proxy_user', args.strip())
+    get_settings().setValue('proxy/user', args.strip())
 
 
 def get_proxy_password():
-    password = get_settings().value('proxy_password')
+    password = get_settings().value('proxy/password')
 
     if password is None:
         return ""
@@ -445,7 +445,7 @@ def get_proxy_password():
 
 
 def set_proxy_password(args):
-    get_settings().setValue('proxy_password', args.strip())
+    get_settings().setValue('proxy/password', args.strip())
 
 
 def get_use_custom_tls_certificates():
