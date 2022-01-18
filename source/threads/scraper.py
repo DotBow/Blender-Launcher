@@ -25,6 +25,17 @@ class Scraper(QThread):
         self.manager = man
         self.platform = get_platform()
 
+        if self.platform == 'Windows':
+            filter = r'blender-.+win.+64.+zip$'
+        elif self.platform == 'Linux':
+            filter = r'blender-.+lin.+64.+tar+(?!.*sha256).*'
+        elif self.platform == 'macOS':
+            filter = r'blender-.+(macOS|darwin).+dmg$'
+
+        self.b3d_link = re.compile(filter)
+        self.hash = re.compile(r'\w{12}')
+        self.subversion = re.compile(r'-\d\.[a-zA-Z0-9.]+-')
+
     def run(self):
         try:
             self.get_download_links()
@@ -74,14 +85,7 @@ class Scraper(QThread):
             soup = BeautifulSoup(content, 'lxml',
                                  parse_only=SoupStrainer('a', attrs={'ga_cat': 'download'}))
 
-        if self.platform == 'Windows':
-            filter = r'blender-.+win.+64.+zip$'
-        elif self.platform == 'Linux':
-            filter = r'blender-.+lin.+64.+tar+(?!.*sha256).*'
-        elif self.platform == 'macOS':
-            filter = r'blender-.+(macOS|darwin).+dmg$'
-
-        for tag in soup.find_all(limit=_limit, href=re.compile(filter)):
+        for tag in soup.find_all(limit=_limit, href=re.compile(self.b3d_link)):
             build_info = self.new_blender_build(tag, url, branch_type)
 
             if build_info is not None:
@@ -103,12 +107,12 @@ class Scraper(QThread):
         build_hash = None
 
         stem = Path(link).stem
-        match = re.findall(r'\w{12}', stem)
+        match = re.findall(self.hash, stem)
 
         if match:
             build_hash = match[-1].replace('-', '')
 
-        match = re.search(r'-\d\.[a-zA-Z0-9.]+-', stem)
+        match = re.search(self.subversion, stem)
         subversion = match.group(0).replace('-', '')
 
         if branch_type == 'stable':
@@ -150,13 +154,16 @@ class Scraper(QThread):
         content = r.data
         soup = BeautifulSoup(content, 'lxml')
 
-        for release in soup.find_all(href=re.compile(r'Blender\d+\.\d+')):
+        b3d_link = re.compile(r'Blender\d+\.\d+')
+        subversion = re.compile(r'\d+\.\d+')
+
+        for release in soup.find_all(href=b3d_link):
             href = release['href']
-            match = re.search(r'\d+\.\d+', href)
+            match = re.search(subversion, href)
 
             if (float(match.group(0)) >= 2.79):
                 self.scrap_download_links(
-                    urljoin(url, release['href']), 'stable', stable=True)
+                    urljoin(url, href), 'stable', stable=True)
 
         r.release_conn()
         r.close()
