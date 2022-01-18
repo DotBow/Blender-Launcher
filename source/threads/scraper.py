@@ -145,7 +145,6 @@ class Scraper(QThread):
                          build_hash, commit_time, branch)
 
     def scrap_stable_releases(self):
-        releases = []
         url = "https://download.blender.org/release/"
         r = self.manager.request('GET', url)
         content = r.data
@@ -156,10 +155,8 @@ class Scraper(QThread):
             match = re.search(r'\d+\.\d+', href)
 
             if (float(match.group(0)) >= 2.79):
-                releases.append(urljoin(url, release['href']))
-
-        for release in releases:
-            self.scrap_download_links(release, 'stable', stable=True)
+                self.scrap_download_links(
+                    urljoin(url, release['href']), 'stable', stable=True)
 
         r.release_conn()
         r.close()
