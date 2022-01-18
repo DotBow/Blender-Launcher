@@ -79,11 +79,11 @@ class Scraper(QThread):
         content = r.data
 
         if stable is True:
-            soup = BeautifulSoup(content, 'lxml',
-                                 parse_only=SoupStrainer('a', href=True))
+            soup_stainer = SoupStrainer('a', href=True)
         else:
-            soup = BeautifulSoup(content, 'lxml',
-                                 parse_only=SoupStrainer('a', attrs={'ga_cat': 'download'}))
+            soup_stainer = SoupStrainer('a', attrs={'ga_cat': 'download'})
+
+        soup = BeautifulSoup(content, 'lxml', parse_only=soup_stainer)
 
         for tag in soup.find_all(limit=_limit, href=re.compile(self.b3d_link)):
             build_info = self.new_blender_build(tag, url, branch_type)
