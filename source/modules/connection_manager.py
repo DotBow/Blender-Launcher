@@ -1,6 +1,7 @@
 import ssl
 import sys
 
+from PyQt5.QtCore import QObject, pyqtSignal
 from urllib3 import PoolManager, ProxyManager, make_headers
 from urllib3.contrib.socks import SOCKSProxyManager
 
@@ -17,8 +18,11 @@ proxy_types_chemes = {
 }
 
 
-class ConnectionManager():
+class ConnectionManager(QObject):
+    error = pyqtSignal()
+
     def __init__(self, version, proxy_type=get_proxy_type()) -> None:
+        super(ConnectionManager, self).__init__()
         self.version = version
         self.proxy_type = get_proxy_type()
         self.manager = None
@@ -85,3 +89,10 @@ class ConnectionManager():
                         proxy_url="{0}{1}:{2}".format(scheme, ip, port),
                         num_pools=50, maxsize=10,
                         headers=self._headers, proxy_headers=auth_headers)
+
+    def _request(self, _method, _url):
+        try:
+            return self.manager.request(_method, _url)
+        except Exception:
+            self.error.emit()
+            return None

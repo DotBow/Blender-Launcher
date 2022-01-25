@@ -37,19 +37,18 @@ class Scraper(QThread):
         self.subversion = re.compile(r'-\d\.[a-zA-Z0-9.]+-')
 
     def run(self):
-        try:
-            self.get_download_links()
-            self.new_bl_version.emit(self.get_latest_tag())
-        except Exception:
-            logging.error(traceback.format_exc())
-            self.error.emit()
-
-        self.manager.clear()
+        self.get_download_links()
+        self.new_bl_version.emit(self.get_latest_tag())
+        self.manager.manager.clear()
         self.finished.emit()
+        return
 
     def get_latest_tag(self):
-        r = self.manager.request(
+        r = self.manager._request(
             'GET', 'https://github.com/DotBow/Blender-Launcher/releases/latest')
+
+        if r is None:
+            return
 
         url = r.geturl()
         tag = url.rsplit('/', 1)[-1]
@@ -75,7 +74,11 @@ class Scraper(QThread):
             "https://builder.blender.org/download/patch", 'experimental')
 
     def scrap_download_links(self, url, branch_type, _limit=None, stable=False):
-        r = self.manager.request('GET', url)
+        r = self.manager._request('GET', url)
+
+        if r is None:
+            return
+
         content = r.data
 
         if stable is True:
@@ -96,7 +99,10 @@ class Scraper(QThread):
 
     def new_blender_build(self, tag, url, branch_type):
         link = urljoin(url, tag['href']).rstrip('/')
-        r = self.manager.request('HEAD', link)
+        r = self.manager._request('HEAD', link)
+
+        if r is None:
+            return
 
         if r.status != 200:
             return None
@@ -150,7 +156,11 @@ class Scraper(QThread):
 
     def scrap_stable_releases(self):
         url = "https://download.blender.org/release/"
-        r = self.manager.request('GET', url)
+        r = self.manager._request('GET', url)
+
+        if r is None:
+            return
+
         content = r.data
         soup = BeautifulSoup(content, 'lxml')
 

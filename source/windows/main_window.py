@@ -607,6 +607,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.cm = ConnectionManager(
                 version=version, proxy_type=get_proxy_type())
             self.cm.setup()
+            self.cm.error.connect(self.connection_error)
             self.manager = self.cm.manager
 
             if self.timer is not None:
@@ -649,7 +650,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.new_downloads = False
         self.app_state = AppState.CHECKINGBUILDS
         self.set_status("Updating", "Checking for new builds")
-        self.scraper = Scraper(self, self.manager)
+        self.scraper = Scraper(self, self.cm)
         self.scraper.links.connect(self.draw_to_downloads)
         self.scraper.new_bl_version.connect(self.set_version)
         self.scraper.error.connect(self.connection_error)
@@ -657,6 +658,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.scraper.start()
 
     def connection_error(self):
+        print("connection_error")
         set_locale()
         utcnow = strftime(('%H:%M'), localtime())
         self.set_status("Error", "Connection failed at " + utcnow)
