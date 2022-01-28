@@ -9,13 +9,13 @@ flake8 = "*"
 rope = "*"
 mkdocs = "*"
 mkdocs-material = "*"
-pyqt5-tools = {version = "==5.15.4.3.0.3", os_name = "=='nt'"}
+pyqt5-tools = {version = "==5.15.4.3.2", os_name = "=='nt'"}
 
 [packages]
-pyinstaller = "==4.5.1"
-beautifulsoup4 = "==4.9.3"
-pyqt5 = "==5.15.4"
-urllib3 = {version = "==1.26.5", extras = ["socks"]}
+pyinstaller = "==4.8.0"
+beautifulsoup4 = "==4.10.0"
+pyqt5 = "==5.15.6"
+urllib3 = {version = "==1.26.8", extras = ["socks"]}
 pywin32 = {version = "*", os_name = "=='nt'"}
 pynput = "==1.7.3"
 lxml = "*"
