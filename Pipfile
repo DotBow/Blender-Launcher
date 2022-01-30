@@ -23,6 +23,7 @@ cchardet = "*"
 
 [scripts]
 start = "python source/main.py"
+build_style = "python build_style.py"
 
 [requires]
 python_version = "3.9"
