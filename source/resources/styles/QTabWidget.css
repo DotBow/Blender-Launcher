@@ -1,17 +1,16 @@
 QTabWidget::pane {
-	background-color: transparent;
-	border: none;
+    background-color: transparent;
+    border: none;
 }
 
 QTabWidget {
-	background-color: #424242;
+    background-color: #424242;
 }
 
 QTabWidget::tab-bar[North=true] {
-	left: 30px;
+    left: 30px;
 }
 
 QTabWidget::tab-bar[West=true] {
-	left: 0px;
+    left: 0px;
 }
-

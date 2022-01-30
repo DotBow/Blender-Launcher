@@ -1,37 +1,30 @@
-QMenu
-{
-	background-color: #1F1F1F;
-	color: #E6E6E6;
-	padding: 0px;
+QMenu {
+    background-color: #1F1F1F;
+    color: #E6E6E6;
+    padding: 0px;
 }
 
-QMenu::item
-{
-	color: #E6E6E6;
-	padding: 6px 10px 6px 6px;
+QMenu::item {
+    color: #E6E6E6;
+    padding: 6px 10px 6px 6px;
 }
 
-QMenu::item::selected
-{
-	color: #FFFFFF;
-	background-color: #5076B2;
+QMenu::item::selected {
+    color: #FFFFFF;
+    background-color: #5076B2;
 }
 
-QMenu::item:disabled
-{
-	color: #828282;
+QMenu::item:disabled {
+    color: #828282;
 }
 
-QMenu::icon
-{
-	margin: 6px;
+QMenu::icon {
+    margin: 6px;
 }
 
-QMenu::separator
-{
-	background-color: #616161;
-	border: none;
-	height: 1px;
-	margin: 0px 4px 0px 4px;
+QMenu::separator {
+    background-color: #616161;
+    border: none;
+    height: 1px;
+    margin: 0px 4px 0px 4px;
 }
-

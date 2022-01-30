@@ -1,15 +1,14 @@
 QLineEdit {
-	background-color:#1F1F1F;
-	color: #E6E6E6;
-	border: 1px solid #444444;
-	padding: 1px;
+    background-color: #1F1F1F;
+    color: #E6E6E6;
+    border: 1px solid #444444;
+    padding: 1px;
 }
 
 QLineEdit[text=\"\"] {
-	color: #E6E6E6;
-}
+ color: #E6E6E6;
 
+}
 QLineEdit:disabled {
-	color: #828282;
+    color: #828282;
 }
-
