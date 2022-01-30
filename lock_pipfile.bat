@@ -1,2 +1,0 @@
-pipenv lock
-pause
