@@ -180,7 +180,6 @@ class DownloadWidget(BaseBuildWidget):
         self.downloadInfo.show()
         self.cancelButton.show()
         self.downloadButton.hide()
-        self.build_info_hl.setContentsMargins(0, 10, 0, 0)
         self.build_state_widget.setDownload()
 
     def download_cancelled(self):
@@ -192,7 +191,6 @@ class DownloadWidget(BaseBuildWidget):
         self.downloader.terminate()
         self.downloader.wait()
         self.downloadButton.show()
-        self.build_info_hl.setContentsMargins(0, 0, 0, 0)
         self.build_state_widget.setDownload(False)
 
     def set_progress_bar(self, step, max):
