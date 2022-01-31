@@ -42,7 +42,9 @@ class DownloadWidget(BaseBuildWidget):
         self.progressBar.setFixedHeight(4)
         self.progressBar.hide()
 
-        self.downloadInfo = QLabel("99.0 of 999.0 MB")
+        self.downloadInfo = QLabel("999.0 of 999.0 MB")
+        self.downloadInfo.setAlignment(Qt.AlignRight)
+        self.downloadInfo.setFixedWidth(110)
         self.downloadInfo.hide()
 
         self.downloadButton = QPushButton("Download")
