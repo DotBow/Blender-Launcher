@@ -1,4 +1,3 @@
-import resources_rc
 from PyQt5 import QtCore, QtWidgets
 
 
@@ -22,4 +21,3 @@ class Ui_SettingsWindow(object):
         self.CentralLayout.setContentsMargins(1, 1, 1, 1)
         self.CentralLayout.setObjectName("CentralLayout")
         SettingsWindow.setCentralWidget(self.CentralWidget)
-        QtCore.QMetaObject.connectSlotsByName(SettingsWindow)

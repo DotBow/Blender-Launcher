@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QMetaObject, Qt
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QVBoxLayout,
                              QWidget)
 
@@ -30,8 +30,6 @@ class UpdateWindowUI(object):
         self.HeaderLayout.addWidget(self.HeaderLabel)
         self.CentralLayout.addLayout(self.HeaderLayout)
         self.CentralLayout.addWidget(self.ProgressBar)
-
-        QMetaObject.connectSlotsByName(UpdateWindow)
 
     def set_progress_bar(self, value, format):
         self.ProgressBar.setFormat(format)

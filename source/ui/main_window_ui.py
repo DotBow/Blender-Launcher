@@ -1,4 +1,3 @@
-import resources_rc
 from PyQt5 import QtCore, QtWidgets
 
 
@@ -21,4 +20,3 @@ class Ui_MainWindow(object):
         self.StatusBar = QtWidgets.QStatusBar(MainWindow)
         self.StatusBar.setObjectName("StatusBar")
         MainWindow.setStatusBar(self.StatusBar)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)

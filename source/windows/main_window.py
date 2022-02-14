@@ -8,6 +8,7 @@ from platform import version
 from shutil import copyfileobj
 from time import localtime, strftime
 
+import resources_rc
 from items.base_list_widget_item import BaseListWidgetItem
 from modules._platform import (_popen, get_cwd, get_platform, is_frozen,
                                set_locale)

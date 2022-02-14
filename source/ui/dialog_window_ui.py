@@ -1,4 +1,3 @@
-import resources_rc
 from PyQt5 import QtCore, QtWidgets
 
 
@@ -22,4 +21,3 @@ class Ui_DialogWindow(object):
         self.CentralLayout.setSpacing(0)
         self.CentralLayout.setObjectName("CentralLayout")
         DialogWindow.setCentralWidget(self.CentralWidget)
-        QtCore.QMetaObject.connectSlotsByName(DialogWindow)
