@@ -27,10 +27,12 @@ class ConnectionManager(QObject):
         self.proxy_type = proxy_type
         self.manager = None
 
+        # Basic Headers
         self._headers = {
             'user-agent': 'Blender Launcher/{0} ({1})'.format(
                 self.version, get_platform_full())}
 
+        # Get custom certificates file path
         if is_frozen() is True:
             self.cacert = sys._MEIPASS + "/files/custom.pem"
         else:
