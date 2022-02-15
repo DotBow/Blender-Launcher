@@ -24,7 +24,7 @@ class ConnectionManager(QObject):
     def __init__(self, version, proxy_type=get_proxy_type()) -> None:
         super(ConnectionManager, self).__init__()
         self.version = version
-        self.proxy_type = get_proxy_type()
+        self.proxy_type = proxy_type
         self.manager = None
 
         self._headers = {
