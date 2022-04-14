@@ -8,17 +8,6 @@ from modules._platform import get_cwd, get_platform
 if get_platform() == 'Windows':
     import winreg
 
-
-taskbar_icon_colors = {
-    'White': 0,
-    'Black': 1
-}
-
-taskbar_icon_paths = {
-    0: ':resources/icons/tray.ico',
-    1: ':resources/icons/tray_black.ico'
-}
-
 tabs = {
     'Library': 0,
     'Downloads': 1,
@@ -248,19 +237,6 @@ def get_default_tab():
 
 def set_default_tab(tab):
     get_settings().setValue('default_tab', tabs[tab])
-
-
-def get_taskbar_icon_color():
-    settings = get_settings()
-
-    if settings.contains('taskbar_icon_color'):
-        return settings.value('taskbar_icon_color', type=int)
-    else:
-        return 0
-
-
-def set_taskbar_icon_color(color):
-    get_settings().setValue('taskbar_icon_color', taskbar_icon_colors[color])
 
 
 def get_list_sorting_type(list_name):

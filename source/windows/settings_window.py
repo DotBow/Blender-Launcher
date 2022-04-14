@@ -19,7 +19,6 @@ from modules.settings import (downloads_pages, favorite_pages,
                               get_proxy_port, get_proxy_type, get_proxy_user,
                               get_quick_launch_key_seq, get_show_tray_icon,
                               get_sync_library_and_downloads_pages,
-                              get_taskbar_icon_color,
                               get_use_custom_tls_certificates, library_pages,
                               proxy_types, set_bash_arguments,
                               set_blender_startup_arguments,
@@ -40,9 +39,7 @@ from modules.settings import (downloads_pages, favorite_pages,
                               set_proxy_type, set_proxy_user,
                               set_quick_launch_key_seq, set_show_tray_icon,
                               set_sync_library_and_downloads_pages,
-                              set_taskbar_icon_color,
-                              set_use_custom_tls_certificates, tabs,
-                              taskbar_icon_colors)
+                              set_use_custom_tls_certificates, tabs)
 from PyQt5 import QtGui
 from PyQt5.QtCore import QRegExp, QSize, Qt, QTime
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFormLayout, QHBoxLayout,
@@ -125,14 +122,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             self.toggle_enable_high_dpi_scaling)
         self.EnableHighDpiScalingCheckBox.setChecked(
             get_enable_high_dpi_scaling())
-
-        # Taskbar Icon Color
-        self.TaskbarIconColorComboBox = QComboBox()
-        self.TaskbarIconColorComboBox.addItems(taskbar_icon_colors.keys())
-        self.TaskbarIconColorComboBox.setCurrentIndex(
-            get_taskbar_icon_color())
-        self.TaskbarIconColorComboBox.activated[str].connect(
-            self.change_taskbar_icon_color)
 
         # New Builds Check Settings
         self.CheckForNewBuildsAutomatically = QCheckBox()
@@ -305,8 +294,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         SettingsLayout.addRow(self._QLabel("System:"))
         layout = SettingsFormLayout(240)
-        layout._addRow(
-            "Taskbar Icon Color", self.TaskbarIconColorComboBox)
 
         if platform == 'Windows':
             layout._addRow("Launch When System Starts",
@@ -513,13 +500,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
     def change_mark_as_favorite(self, page):
         set_mark_as_favorite(page)
-
-    def change_taskbar_icon_color(self, color):
-        currentIndex = self.TaskbarIconColorComboBox.currentIndex()
-
-        if get_taskbar_icon_color() != currentIndex:
-            set_taskbar_icon_color(color)
-            self.show_dlg_restart_bl()
 
     def toggle_check_for_new_builds_automatically(self, is_checked):
         self.new_builds_check_settings_changed = True
