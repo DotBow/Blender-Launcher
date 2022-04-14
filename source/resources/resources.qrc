@@ -1,13 +1,11 @@
 <RCC>
   <qresource prefix="resources">
-    <file>icons/tray_black.ico</file>
+    <file>icons/bl/bl.ico</file>
     <file>icons/drop_down_arrow.svg</file>
     <file>icons/info.svg</file>
     <file>icons/exclamation.svg</file>
     <file>icons/wiki.svg</file>
     <file>icons/delete.svg</file>
-    <file>icons/desktop.ico</file>
-    <file>icons/tray.ico</file>
     <file>icons/folder.svg</file>
     <file>icons/box_checked.svg</file>
     <file>icons/box_unchecked.svg</file>

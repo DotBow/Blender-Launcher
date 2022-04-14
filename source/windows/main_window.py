@@ -25,8 +25,7 @@ from modules.settings import (create_library_folders,
                               get_new_builds_check_frequency, get_proxy_type,
                               get_quick_launch_key_seq, get_show_tray_icon,
                               get_sync_library_and_downloads_pages,
-                              get_taskbar_icon_color, is_library_folder_valid,
-                              set_library_folder, taskbar_icon_paths)
+                              is_library_folder_valid, set_library_folder)
 from pynput import keyboard
 from PyQt5.QtCore import QSize, Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
@@ -114,7 +113,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.icon_quick_launch = QIcon(":resources/icons/quick_launch.svg")
         self.icon_download = QIcon(":resources/icons/download.svg")
         self.icon_file = QIcon(":resources/icons/file.svg")
-        self.icon_taskbar = QIcon(taskbar_icon_paths[get_taskbar_icon_color()])
+        self.icon_taskbar = QIcon(":resources/icons/bl/bl.ico")
 
         # Setup window
         self.setWindowTitle("Blender Launcher")

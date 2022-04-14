@@ -11,7 +11,7 @@ python -OO -m PyInstaller ^
 --noupx ^
 --onefile ^
 --debug=all ^
---icon="source\resources\icons\desktop.ico" ^
+--icon="source\resources\icons\bl\bl.ico" ^
 --name="Blender Launcher" ^
 --version-file="version.txt" ^
 --add-binary="source\resources\icons\winblender.ico;files" ^
