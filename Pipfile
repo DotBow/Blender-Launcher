@@ -20,6 +20,7 @@ pywin32 = {version = "*", os_name = "=='nt'"}
 pynput = "==1.7.3"
 lxml = "*"
 cchardet = "*"
+python-xlib = "*"
 
 [scripts]
 start = "python source/main.py"
