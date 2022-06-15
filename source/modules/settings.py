@@ -453,6 +453,8 @@ def set_check_for_new_builds_automatically(is_checked):
 
 
 def get_new_builds_check_frequency():
+    '''Time in seconds'''
+
     settings = get_settings()
 
     if settings.contains('new_builds_check_frequency'):
