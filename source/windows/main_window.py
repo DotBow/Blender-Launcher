@@ -82,7 +82,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.argv = argv
         self.favorite = None
         self.status = "Ready"
-        self.text = "OK"
         self.app_state = AppState.IDLE
         self.cashed_builds = []
         self.notification_pool = []
@@ -316,12 +315,12 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.MinimizeButton.clicked.connect(self.showMinimized)
         self.CloseButton.clicked.connect(self.close)
 
+        # Status bar
         self.StatusBar.setContentsMargins(0, 0, 0, 2)
         self.StatusBar.setFont(self.font)
         self.statusbarLabel = QLabel()
-        self.statusbarLabel.setIndent(8)
         self.ForceCheckNewBuilds = QPushButton("Check")
-        self.ForceCheckNewBuilds.hide()
+        self.ForceCheckNewBuilds.setEnabled(False)
         self.ForceCheckNewBuilds.clicked.connect(self.draw_downloads)
         self.NewVersionButton = QPushButton()
         self.NewVersionButton.hide()
@@ -331,8 +330,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.statusbarVersion.setToolTip(
             "The version of Blender Launcher that is currently run. "
             "Press to check changelog.")
-        self.StatusBar.addPermanentWidget(self.statusbarLabel)
         self.StatusBar.addPermanentWidget(self.ForceCheckNewBuilds)
+        self.StatusBar.addPermanentWidget(self.statusbarLabel)
         self.StatusBar.addPermanentWidget(QLabel(""), 1)
         self.StatusBar.addPermanentWidget(self.NewVersionButton)
         self.StatusBar.addPermanentWidget(self.statusbarVersion)
@@ -372,7 +371,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         if self.platform == "Linux":
             self.tray_icon.setContextMenu(self.tray_menu)
 
-        # Forse style update
+        # Force style update
         if polish is True:
             self.style().unpolish(self.app)
             self.style().polish(self.app)
@@ -601,7 +600,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app.quit()
 
     def draw_library(self, clear=False):
-        self.set_status("Updating", "Reading local builds")
+        self.set_status("Reading local builds")
 
         if clear:
             self.cm = ConnectionManager(
@@ -641,7 +640,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.library_drawer.start()
 
     def draw_downloads(self):
-        self.ForceCheckNewBuilds.hide()
+        self.set_status("Checking for new builds", False)
 
         for page in self.DownloadsToolBox.pages:
             page.set_info_label_text("Checking for new builds")
@@ -649,7 +648,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.cashed_builds.clear()
         self.new_downloads = False
         self.app_state = AppState.CHECKINGBUILDS
-        self.set_status("Updating", "Checking for new builds")
         self.scraper = Scraper(self, self.cm)
         self.scraper.links.connect(self.draw_to_downloads)
         self.scraper.new_bl_version.connect(self.set_version)
@@ -661,7 +659,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         print("connection_error")
         set_locale()
         utcnow = strftime(('%H:%M'), localtime())
-        self.set_status("Error", "Connection failed at " + utcnow)
+        self.set_status("Error: connection failed at " + utcnow)
         self.app_state = AppState.IDLE
 
         if get_check_for_new_builds_automatically() is True:
@@ -682,7 +680,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         set_locale()
         utcnow = strftime(('%H:%M'), localtime())
-        self.set_status("Ready", "Last check at " + utcnow)
         self.app_state = AppState.IDLE
 
         for page in self.DownloadsToolBox.pages:
@@ -694,7 +691,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.timer.start()
             self.started = False
 
-        self.ForceCheckNewBuilds.show()
+        self.set_status("Last check at " + utcnow, True)
 
     def draw_from_cashed(self, build_info):
         if self.app_state == AppState.IDLE:
@@ -750,14 +747,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                                show_new)
         list_widget.insert_item(item, widget)
 
-    def set_status(self, status=None, text=None):
-        if status is not None:
-            self.status = status
-
-        if text is not None:
-            self.text = text
-
-        self.statusbarLabel.setText("{0} │ {1}".format(self.status, self.text))
+    def set_status(self, status="Unknown", is_force_check_on=True):
+        self.status = status
+        self.ForceCheckNewBuilds.setEnabled(is_force_check_on)
+        self.statusbarLabel.setText("│ {}".format(self.status))
 
     def set_version(self, latest_tag):
         if "dev" in self.version:
