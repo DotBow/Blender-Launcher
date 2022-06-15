@@ -142,6 +142,7 @@ QMainWindow {
 QMenu {
     background-color: #1F1F1F;
     color: #E6E6E6;
+    border: 1px solid #323232;
     padding: 0px;
 }
 
