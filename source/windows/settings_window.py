@@ -44,7 +44,7 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import QRegExp, QSize, Qt, QTime
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFormLayout, QHBoxLayout,
                              QLabel, QLineEdit, QMainWindow, QPushButton,
-                             QTimeEdit, QWidget)
+                             QSpinBox, QWidget)
 from ui.settings_window_ui import Ui_SettingsWindow
 
 from windows.base_window import BaseWindow
@@ -130,10 +130,13 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.CheckForNewBuildsAutomatically.clicked.connect(
             self.toggle_check_for_new_builds_automatically)
 
-        self.NewBuildsCheckFrequency = QTimeEdit()
-        self.NewBuildsCheckFrequency.setTime(
-            QTime().fromMSecsSinceStartOfDay(
-                get_new_builds_check_frequency() * 1000))
+        self.NewBuildsCheckFrequency = QSpinBox()
+        self.NewBuildsCheckFrequency.setToolTip(
+            'Time in minutes between new builds check')
+        self.NewBuildsCheckFrequency.setMaximum(24 * 60)
+        self.NewBuildsCheckFrequency.setMinimum(10)
+        self.NewBuildsCheckFrequency.setValue(
+            get_new_builds_check_frequency() / 60)
         self.NewBuildsCheckFrequency.editingFinished.connect(
             self.new_builds_check_frequency_changed)
 
@@ -394,7 +397,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         if self.new_builds_check_settings_changed is True:
             self.new_builds_check_settings_changed = False
             new_builds_check_frequency = \
-                self.NewBuildsCheckFrequency.time().msecsSinceStartOfDay() * 0.001
+                self.NewBuildsCheckFrequency.value() * 60
 
             if get_new_builds_check_frequency() != new_builds_check_frequency:
                 set_new_builds_check_frequency(new_builds_check_frequency)
