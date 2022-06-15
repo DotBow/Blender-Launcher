@@ -102,11 +102,11 @@ def create_library_folders(library_folder):
 
 
 def get_favorite_path():
-    return get_settings().value('internal/favorite_path')
+    return get_settings().value('Internal/favorite_path')
 
 
 def set_favorite_path(path):
-    get_settings().setValue('internal/favorite_path', path)
+    get_settings().setValue('Internal/favorite_path', path)
 
 
 def get_launch_when_system_starts():
@@ -242,15 +242,15 @@ def set_default_tab(tab):
 def get_list_sorting_type(list_name):
     settings = get_settings()
 
-    if settings.contains("internal/{0}_sorting_type".format(list_name)):
-        return settings.value("internal/{0}_sorting_type".format(list_name), type=int)
+    if settings.contains("Internal/{0}_sorting_type".format(list_name)):
+        return settings.value("Internal/{0}_sorting_type".format(list_name), type=int)
     else:
         return 1
 
 
 def set_list_sorting_type(list_name, sorting_type):
     get_settings().setValue(
-        "internal/{0}_sorting_type".format(list_name), sorting_type.value)
+        "Internal/{0}_sorting_type".format(list_name), sorting_type.value)
 
 
 def get_enable_new_builds_notifications():
