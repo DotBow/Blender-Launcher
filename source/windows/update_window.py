@@ -22,12 +22,15 @@ class BlenderLauncherUpdater(QMainWindow, BaseWindow, UpdateWindowUI):
         self.download()
 
     def download(self):
+        # TODO
+        # This function should not use proxy for downloading new builds!
+
         self.link = "https://github.com/DotBow/Blender-Launcher/releases/download/{0}/Blender_Launcher_{0}_{1}_x64.zip".format(
             self.tag, get_platform())
-        self.downlaoder = Downloader(self.manager, self.link)
-        self.downlaoder.progress_changed.connect(self.set_progress_bar)
-        self.downlaoder.finished.connect(self.extract)
-        self.downlaoder.start()
+        self.downloader = Downloader(self.manager, self.link)
+        self.downloader.progress_changed.connect(self.set_progress_bar)
+        self.downloader.finished.connect(self.extract)
+        self.downloader.start()
 
         self.show()
 
