@@ -1,9 +1,8 @@
 import re
 from enum import Enum
 from pathlib import Path
-from threads.renamer import Renamer
-from modules.build_info import BuildInfoReader
 
+from modules.build_info import BuildInfoReader
 from modules.enums import MessageType
 from modules.settings import get_install_template, get_library_folder
 from PyQt5.QtCore import Qt
@@ -11,9 +10,11 @@ from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QPushButton,
                              QVBoxLayout)
 from threads.downloader import Downloader
 from threads.extractor import Extractor
+from threads.renamer import Renamer
 from threads.template_installer import TemplateInstaller
 
 from widgets.base_build_widget import BaseBuildWidget
+from widgets.base_progress_bar_widget import BaseProgressBarWidget
 from widgets.build_state_widget import BuildStateWidget
 from widgets.datetime_widget import DateTimeWidget
 from widgets.elided_text_label import ElidedTextLabel
@@ -36,13 +37,11 @@ class DownloadWidget(BaseBuildWidget):
         self.state = DownloadState.WAITING
         self.build_dir = None
 
-        self.progressBar = QProgressBar()
-        self.progressBar.setFormat("")
-        self.progressBar.setMinimum(0)
+        self.progressBar = BaseProgressBarWidget()
         self.progressBar.setFixedHeight(4)
         self.progressBar.hide()
 
-        self.downloadInfo = QLabel("999.0 of 999.0 MB")
+        self.downloadInfo = QLabel("0.0 of 0.0 MB")
         self.downloadInfo.setAlignment(Qt.AlignRight)
         self.downloadInfo.setFixedWidth(110)
         self.downloadInfo.hide()
@@ -135,7 +134,8 @@ class DownloadWidget(BaseBuildWidget):
         self.state = DownloadState.DOWNLOADING
         self.downloader = Downloader(self.parent.manager, self.build_info.link)
         self.downloader.started.connect(self.download_started)
-        self.downloader.progress_changed.connect(self.set_progress_bar)
+        self.progressBar.progress_updated.connect(self.set_download_info)
+        self.downloader.progress_changed.connect(self.progressBar.set_progress)
         self.downloader.finished.connect(self.init_extractor)
 
         self.progress_start = 0
@@ -156,7 +156,7 @@ class DownloadWidget(BaseBuildWidget):
             dist = library_folder / 'experimental'
 
         self.extractor = Extractor(self.parent.manager, source, dist)
-        self.extractor.progress_changed.connect(self.set_progress_bar)
+        self.extractor.progress_changed.connect(self.progressBar.set_progress)
         self.extractor.finished.connect(self.init_template_installer)
         self.extractor.start()
         self.build_state_widget.setExtract()
@@ -169,7 +169,7 @@ class DownloadWidget(BaseBuildWidget):
             self.template_installer = TemplateInstaller(
                 self.parent.manager, self.build_dir)
             self.template_installer.progress_changed.connect(
-                self.set_progress_bar)
+                self.progressBar.set_progress)
             self.template_installer.finished.connect(
                 lambda: self.download_get_info())
             self.template_installer.start()
@@ -177,7 +177,6 @@ class DownloadWidget(BaseBuildWidget):
             self.download_get_info()
 
     def download_started(self):
-        self.set_progress_bar(0, 99)
         self.progressBar.show()
         self.downloadInfo.show()
         self.cancelButton.show()
@@ -195,12 +194,7 @@ class DownloadWidget(BaseBuildWidget):
         self.downloadButton.show()
         self.build_state_widget.setDownload(False)
 
-    def set_progress_bar(self, step, max):
-        step = step / 1048576
-        max = max / 1048576
-        self.progressBar.setMaximum(max)
-        self.progressBar.setValue(step)
-        self.progressBar.repaint()
+    def set_download_info(self, step, max):
         self.downloadInfo.setText(
             "{:.1f} of {:.1f} MB".format(step, max))
 
