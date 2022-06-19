@@ -1,13 +1,14 @@
-from modules._copyfileobj import copyfileobj
 from pathlib import Path
 
+from modules._copyfileobj import copyfileobj
 from modules.settings import get_library_folder
 from PyQt5.QtCore import QThread, pyqtSignal
 
 
 class Downloader(QThread):
     started = pyqtSignal()
-    progress_changed = pyqtSignal('PyQt_PyObject', 'PyQt_PyObject')
+    progress_changed = pyqtSignal(
+        'PyQt_PyObject', 'PyQt_PyObject', 'PyQt_PyObject')
     finished = pyqtSignal('PyQt_PyObject')
 
     def __init__(self, manager, link):
@@ -17,7 +18,9 @@ class Downloader(QThread):
         self.size = 0
 
     def run(self):
+        self.progress_changed.emit(0, 0, "Downloading")
         self.started.emit()
+
         temp_folder = Path(get_library_folder()) / ".temp"
 
         # Create temp directory
@@ -32,7 +35,7 @@ class Downloader(QThread):
             self.size = int(r.headers['Content-Length'])
 
             with open(dist, 'wb') as f:
-                copyfileobj(r, f, self.test)
+                copyfileobj(r, f, self.set_progress)
 
         r.release_conn()
         r.close()
@@ -40,5 +43,5 @@ class Downloader(QThread):
         self.finished.emit(dist)
         return
 
-    def test(self, p):
-        self.progress_changed.emit(p, self.size)
+    def set_progress(self, obtained):
+        self.progress_changed.emit(obtained, self.size, "Downloading")

@@ -6,8 +6,7 @@ from modules.build_info import BuildInfoReader
 from modules.enums import MessageType
 from modules.settings import get_install_template, get_library_folder
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QPushButton,
-                             QVBoxLayout)
+from PyQt5.QtWidgets import QHBoxLayout, QLabel, QPushButton, QVBoxLayout
 from threads.downloader import Downloader
 from threads.extractor import Extractor
 from threads.renamer import Renamer
@@ -38,13 +37,11 @@ class DownloadWidget(BaseBuildWidget):
         self.build_dir = None
 
         self.progressBar = BaseProgressBarWidget()
-        self.progressBar.setFixedHeight(4)
+        font = self.parent.font
+        font.setPointSize(8)
+        self.progressBar.setFont(font)
+        self.progressBar.setFixedHeight(16)
         self.progressBar.hide()
-
-        self.downloadInfo = QLabel("0.0 of 0.0 MB")
-        self.downloadInfo.setAlignment(Qt.AlignRight)
-        self.downloadInfo.setFixedWidth(110)
-        self.downloadInfo.hide()
 
         self.downloadButton = QPushButton("Download")
         self.downloadButton.setFixedWidth(85)
@@ -68,8 +65,8 @@ class DownloadWidget(BaseBuildWidget):
         self.build_info_hl = QHBoxLayout()
         self.build_info_hl.setContentsMargins(0, 0, 0, 0)
 
-        self.download_info_hl = QHBoxLayout()
-        self.download_info_hl.setContentsMargins(0, 0, 0, 0)
+        self.progress_bar_hl = QHBoxLayout()
+        self.progress_bar_hl.setContentsMargins(8, 0, 8, 0)
 
         if self.build_info.branch == 'lts':
             branch_name = "LTS"
@@ -81,8 +78,8 @@ class DownloadWidget(BaseBuildWidget):
 
         self.subversionLabel = QLabel(
             self.build_info.subversion.split(" ", 1)[0])
-        self.subversionLabel.setFixedWidth(85)
-        self.subversionLabel.setIndent(21)
+        self.subversionLabel.setFixedWidth(75)
+        self.subversionLabel.setIndent(12)
         self.branchLabel = ElidedTextLabel(branch_name)
         self.commitTimeLabel = DateTimeWidget(
             self.build_info.commit_time, self.build_info.build_hash)
@@ -96,11 +93,10 @@ class DownloadWidget(BaseBuildWidget):
         if self.show_new:
             self.build_state_widget.setNewBuild(True)
 
-        self.download_info_hl.addWidget(self.downloadInfo)
-        self.download_info_hl.addWidget(self.progressBar)
+        self.progress_bar_hl.addWidget(self.progressBar)
 
         self.sub_vl.addLayout(self.build_info_hl)
-        self.sub_vl.addLayout(self.download_info_hl)
+        self.sub_vl.addLayout(self.progress_bar_hl)
 
         self.main_hl.addWidget(self.downloadButton)
         self.main_hl.addWidget(self.cancelButton)
@@ -134,7 +130,6 @@ class DownloadWidget(BaseBuildWidget):
         self.state = DownloadState.DOWNLOADING
         self.downloader = Downloader(self.parent.manager, self.build_info.link)
         self.downloader.started.connect(self.download_started)
-        self.progressBar.progress_updated.connect(self.set_download_info)
         self.downloader.progress_changed.connect(self.progressBar.set_progress)
         self.downloader.finished.connect(self.init_extractor)
 
@@ -178,7 +173,6 @@ class DownloadWidget(BaseBuildWidget):
 
     def download_started(self):
         self.progressBar.show()
-        self.downloadInfo.show()
         self.cancelButton.show()
         self.downloadButton.hide()
         self.build_state_widget.setDownload()
@@ -187,16 +181,11 @@ class DownloadWidget(BaseBuildWidget):
         self.item.setSelected(True)
         self.state = DownloadState.WAITING
         self.progressBar.hide()
-        self.downloadInfo.hide()
         self.cancelButton.hide()
         self.downloader.terminate()
         self.downloader.wait()
         self.downloadButton.show()
         self.build_state_widget.setDownload(False)
-
-    def set_download_info(self, step, max):
-        self.downloadInfo.setText(
-            "{:.1f} of {:.1f} MB".format(step, max))
 
     def download_get_info(self):
         if self.parent.platform == 'Linux':
