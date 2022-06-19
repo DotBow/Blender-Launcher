@@ -1,6 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QProgressBar, QVBoxLayout,
                              QWidget)
+from widgets.base_progress_bar_widget import BaseProgressBarWidget
 
 
 class UpdateWindowUI(object):
@@ -22,13 +23,9 @@ class UpdateWindowUI(object):
         self.HeaderLabel = QLabel("Updating Blender Launcher")
         self.HeaderLabel.setAlignment(Qt.AlignCenter)
 
-        self.ProgressBar = QProgressBar()
-        self.ProgressBar.setAlignment(Qt.AlignCenter)
+        self.ProgressBar = BaseProgressBarWidget()
         self.ProgressBar.setFixedHeight(36)
 
         self.HeaderLayout.addWidget(self.HeaderLabel)
         self.CentralLayout.addLayout(self.HeaderLayout)
         self.CentralLayout.addWidget(self.ProgressBar)
-
-    def set_progress_bar(self, obtained, total):
-        self.ProgressBar.setValue(obtained / total * 100)
