@@ -77,7 +77,7 @@ class BasePageWidget(QWidget):
         self.HeaderWidget.setProperty("ToolBoxWidget", True)
         self.HeaderLayout = QHBoxLayout(self.HeaderWidget)
         self.HeaderLayout.setContentsMargins(2, 0, 0, 0)
-        self.HeaderLayout.setSpacing(0)
+        self.HeaderLayout.setSpacing(2)
 
         if show_reload is True:
             self.fakeLabel = QPushButton("Reload")
@@ -91,7 +91,7 @@ class BasePageWidget(QWidget):
         self.fakeLabel.setFixedWidth(85)
 
         self.subversionLabel = QPushButton("Version")
-        self.subversionLabel.setFixedWidth(85)
+        self.subversionLabel.setFixedWidth(75)
         self.subversionLabel.setProperty("ListHeader", True)
         self.subversionLabel.setCheckable(True)
         self.subversionLabel.clicked.connect(
@@ -99,7 +99,7 @@ class BasePageWidget(QWidget):
         self.branchLabel = QLabel("Branch")
         self.branchLabel.setAlignment(Qt.AlignCenter)
         self.commitTimeLabel = QPushButton(time_label)
-        self.commitTimeLabel.setFixedWidth(120)
+        self.commitTimeLabel.setFixedWidth(118)
         self.commitTimeLabel.setProperty("ListHeader", True)
         self.commitTimeLabel.setCheckable(True)
         self.commitTimeLabel.clicked.connect(
