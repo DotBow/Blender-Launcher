@@ -40,7 +40,7 @@ class DownloadWidget(BaseBuildWidget):
         font = self.parent.font
         font.setPointSize(8)
         self.progressBar.setFont(font)
-        self.progressBar.setFixedHeight(16)
+        self.progressBar.setFixedHeight(18)
         self.progressBar.hide()
 
         self.downloadButton = QPushButton("Download")
@@ -58,15 +58,19 @@ class DownloadWidget(BaseBuildWidget):
 
         self.main_hl = QHBoxLayout()
         self.main_hl.setContentsMargins(2, 2, 0, 2)
+        self.main_hl.setSpacing(0)
 
         self.sub_vl = QVBoxLayout()
         self.sub_vl.setContentsMargins(0, 0, 0, 0)
+        self.main_hl.setSpacing(0)
 
         self.build_info_hl = QHBoxLayout()
         self.build_info_hl.setContentsMargins(0, 0, 0, 0)
+        self.main_hl.setSpacing(0)
 
         self.progress_bar_hl = QHBoxLayout()
-        self.progress_bar_hl.setContentsMargins(8, 0, 8, 0)
+        self.progress_bar_hl.setContentsMargins(16, 0, 8, 0)
+        self.main_hl.setSpacing(0)
 
         if self.build_info.branch == 'lts':
             branch_name = "LTS"
@@ -78,8 +82,8 @@ class DownloadWidget(BaseBuildWidget):
 
         self.subversionLabel = QLabel(
             self.build_info.subversion.split(" ", 1)[0])
-        self.subversionLabel.setFixedWidth(75)
-        self.subversionLabel.setIndent(12)
+        self.subversionLabel.setFixedWidth(85)
+        self.subversionLabel.setIndent(20)
         self.branchLabel = ElidedTextLabel(branch_name)
         self.commitTimeLabel = DateTimeWidget(
             self.build_info.commit_time, self.build_info.build_hash)

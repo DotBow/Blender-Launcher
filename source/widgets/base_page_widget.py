@@ -76,7 +76,8 @@ class BasePageWidget(QWidget):
         self.HeaderWidget.hide()
         self.HeaderWidget.setProperty("ToolBoxWidget", True)
         self.HeaderLayout = QHBoxLayout(self.HeaderWidget)
-        self.HeaderLayout.setContentsMargins(2, 0, 4, 0)
+        self.HeaderLayout.setContentsMargins(2, 0, 0, 0)
+        self.HeaderLayout.setSpacing(0)
 
         if show_reload is True:
             self.fakeLabel = QPushButton("Reload")
@@ -87,10 +88,10 @@ class BasePageWidget(QWidget):
         else:
             self.fakeLabel = QLabel()
 
-        self.fakeLabel .setFixedWidth(85)
+        self.fakeLabel.setFixedWidth(85)
 
         self.subversionLabel = QPushButton("Version")
-        self.subversionLabel.setFixedWidth(80)
+        self.subversionLabel.setFixedWidth(85)
         self.subversionLabel.setProperty("ListHeader", True)
         self.subversionLabel.setCheckable(True)
         self.subversionLabel.clicked.connect(

@@ -53,6 +53,7 @@ class LibraryWidget(BaseBuildWidget):
 
         self.layout = QHBoxLayout()
         self.layout.setContentsMargins(2, 2, 0, 2)
+        self.layout.setSpacing(0)
         self.setLayout(self.layout)
 
         if self.parent_widget is None:
@@ -110,7 +111,7 @@ class LibraryWidget(BaseBuildWidget):
         sub = self.build_info.subversion.split(" ", 1)
         self.subversionLabel = QLabel(sub[0])
         self.subversionLabel.setFixedWidth(85)
-        self.subversionLabel.setIndent(21)
+        self.subversionLabel.setIndent(20)
         self.branchLabel = ElidedTextLabel(branch_name)
         self.commitTimeLabel = DateTimeWidget(
             self.build_info.commit_time, self.build_info.build_hash)
