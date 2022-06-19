@@ -25,12 +25,10 @@ class UpdateWindowUI(object):
         self.ProgressBar = QProgressBar()
         self.ProgressBar.setAlignment(Qt.AlignCenter)
         self.ProgressBar.setFixedHeight(36)
-        self.set_progress_bar(0, "Downloading: %p%")
 
         self.HeaderLayout.addWidget(self.HeaderLabel)
         self.CentralLayout.addLayout(self.HeaderLayout)
         self.CentralLayout.addWidget(self.ProgressBar)
 
-    def set_progress_bar(self, value, format):
-        self.ProgressBar.setFormat(format)
-        self.ProgressBar.setValue(value * 100)
+    def set_progress_bar(self, obtained, total):
+        self.ProgressBar.setValue(obtained / total * 100)
