@@ -70,7 +70,7 @@ pipenv run start
         .\build_win.bat
         ```
 
-    1. Look for bundled app under `Blender-Launcher\dist` folder
+    1. Look for bundled app under `Blender-Launcher\dist\release` folder
 
 === "Linux"
 
@@ -80,4 +80,4 @@ pipenv run start
         . build_linux.sh
         ```
 
-    1. Look for bundled app under `Blender-Launcher\dist` folder
+    1. Look for bundled app under `Blender-Launcher\dist\release` folder
