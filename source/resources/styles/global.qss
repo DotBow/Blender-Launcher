@@ -268,7 +268,8 @@ QPushButton[Icon=true] {
     border: none;
 }
 
-QPushButton[Count=true] {
+QPushButton[Count=true]:disabled {
+    color: #E6E6E6;
     background-color: #FF7A00;
     border: none;
     border-radius: 12px;
