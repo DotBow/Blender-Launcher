@@ -188,4 +188,4 @@ Favorites page contains builds added from Library tab using context menu `Add To
       <figcaption>User Tab, Custom Page</figcaption>
     </figure>
 
-Custom page contains builds that placed under [`custom`](library_folder.md#custom) directory of [`library folder`](library_folder.md). It acts the same way as the Library tab build item. After adding new builds inside `custom` folder make sure to press `Reload` button on the top right corner of page to force Blender Launcher read it from disk and show in list.
+Custom page contains builds that placed under [`custom`](library_folder.md#custom) directory of [`library folder`](library_folder.md). It acts the same way as the Library tab build item. After adding new builds inside the `custom` folder make sure to press the `Reload` button in the top left corner to force Blender Launcher to read it from the disk and show in the list.
