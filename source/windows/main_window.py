@@ -600,7 +600,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.app.quit()
 
     def draw_library(self, clear=False):
-        self.set_status("Reading local builds")
+        self.set_status("Reading local builds", False)
 
         if clear:
             self.cm = ConnectionManager(
