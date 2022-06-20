@@ -423,9 +423,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.quick_launch()
 
     def show_changelog(self):
-        current_ver = re.sub(r'\D', '', self.version)
-        url = "https://dotbow.github.io/Blender-Launcher/changelog/#{0}".format(
-            current_ver)
+        url = "https://github.com/DotBow/Blender-Launcher/releases/tag/v{0}".format(
+            self.version)
         webbrowser.open(url)
 
     def toggle_sync_library_and_downloads_pages(self, is_sync):
