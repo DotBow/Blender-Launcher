@@ -81,7 +81,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.logger = logger
         self.argv = argv
         self.favorite = None
-        self.status = "Ready"
+        self.status = "Unknown"
+        self.is_force_check_on = False
         self.app_state = AppState.IDLE
         self.cashed_builds = []
         self.notification_pool = []
@@ -751,9 +752,14 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                                show_new)
         list_widget.insert_item(item, widget)
 
-    def set_status(self, status="Unknown", is_force_check_on=True):
-        self.status = status
-        self.ForceCheckNewBuilds.setEnabled(is_force_check_on)
+    def set_status(self, status=None, is_force_check_on=None):
+        if status is not None:
+            self.status = status
+
+        if is_force_check_on is not None:
+            self.is_force_check_on = is_force_check_on
+
+        self.ForceCheckNewBuilds.setEnabled(self.is_force_check_on)
         self.statusbarLabel.setText("│ {}".format(self.status))
 
     def set_version(self, latest_tag):
