@@ -467,8 +467,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
                 return
 
-        cwd = get_cwd()
-
+        # Create copy if 'Blender Launcher.exe' file
+        # to act as an updater program
         if self.platform == 'Windows':
             bl_exe = "Blender Launcher.exe"
             blu_exe = "Blender Launcher Updater.exe"
@@ -476,6 +476,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             bl_exe = "Blender Launcher"
             blu_exe = "Blender Launcher Updater"
 
+        cwd = get_cwd()
         source = cwd / bl_exe
         dist = cwd / blu_exe
 
@@ -483,6 +484,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
                 open(dist.as_posix(), 'wb') as f2:
             copyfileobj(f1, f2)
 
+        # Run 'Blender Launcher Updater.exe' with '-update' flag
         if self.platform == 'Windows':
             _popen([dist.as_posix(), '-update', self.latest_tag])
         elif self.platform == 'Linux':
@@ -490,6 +492,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             _popen('nohup "{0}" -update {1}'.format(dist.as_posix(),
                                                     self.latest_tag))
 
+        # Destroy currently running Blender Launcher instance
+        self.server.close()
         self.destroy()
 
     def _show(self):
