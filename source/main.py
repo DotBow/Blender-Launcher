@@ -11,6 +11,7 @@ from windows.update_window import BlenderLauncherUpdater
 
 version = "1.15.0"
 
+# Setup logging config
 _format = '%(asctime)s - %(message)s'
 logging.basicConfig(format=_format,
                     handlers=[
@@ -21,6 +22,7 @@ logging.basicConfig(format=_format,
 logger = logging.getLogger(__name__)
 
 
+# Setup exception handling
 def handle_exception(exc_type, exc_value, exc_traceback):
     if issubclass(exc_type, KeyboardInterrupt):
         sys.__excepthook__(exc_type, exc_value, exc_traceback)
@@ -33,6 +35,7 @@ def handle_exception(exc_type, exc_value, exc_traceback):
 sys.excepthook = handle_exception
 
 
+# List of available line arguments
 help = \
     """
     Command line arguments sheet:
@@ -46,25 +49,29 @@ help = \
 
 
 def main():
+    # Create an instance of application and set its core properties
     app = QApplication(sys.argv)
     app.setStyle('Fusion')
     app.setApplicationVersion(version)
     app.setQuitOnLastWindowClosed(False)
 
+    # Show list of available line arguments and exit
     if "-help" in sys.argv:
         print(help)
-        return
+        sys.exit()
 
+    # Set logging level, default is 'WARNING'
     if "-debug" in sys.argv:
         logging.root.setLevel(logging.DEBUG)
     else:
         logging.root.setLevel(logging.WARNING)
 
+    # Run updater instead of the main application and exit
     if "-update" in sys.argv:
         BlenderLauncherUpdater(app=app, version=version, tag=sys.argv[-1])
-        app.exec_()
-        return
+        sys.exit(app.exec_())
 
+    # Check if other instances of application is already running
     socket = QLocalSocket()
     socket.connectToServer("blender-launcher-server")
     is_running = socket.waitForConnected()
@@ -73,11 +80,12 @@ def main():
         socket.close()
         BlenderLauncher(app=app, version=version,
                         argv=sys.argv, logger=logger)
-        app.exec_()
-        return
+        sys.exit(app.exec_())
     else:
         socket.write(QByteArray(version.encode()))
         socket.waitForBytesWritten()
+
+    sys.exit()
 
 
 if __name__ == '__main__':
