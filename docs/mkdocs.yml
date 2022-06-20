@@ -9,7 +9,6 @@ nav:
     - Troubleshooting: troubleshooting.md
     - Feature Request: feature_request.md
     - Development: development.md
-    - Changelog: changelog.md
 docs_dir: mkdocs
 site_dir: site
 theme:
