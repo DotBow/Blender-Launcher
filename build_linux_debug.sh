@@ -9,4 +9,5 @@ PYTHONOPTIMIZE=2 pyinstaller \
 --debug=all \
 --name="Blender Launcher" \
 --add-binary="source/resources/certificates/custom.pem:files" \
+--distpath="./dist/debug" \
 source/main.py
