@@ -1,7 +1,4 @@
 import os
-import tempfile
-from pathlib import Path
-from shutil import copyfileobj
 
 from modules._platform import _popen, get_cwd, get_platform
 from PyQt5.QtWidgets import QMainWindow
@@ -11,12 +8,17 @@ from ui.update_window_ui import UpdateWindowUI
 
 from windows.base_window import BaseWindow
 
+link = "https://github.com/DotBow/Blender-Launcher/releases/download/{0}/Blender_Launcher_{0}_{1}_x64.zip"
+
 
 class BlenderLauncherUpdater(QMainWindow, BaseWindow, UpdateWindowUI):
-    def __init__(self, app, version, tag):
+    def __init__(self, app, version, release_tag):
         super(BlenderLauncherUpdater, self).__init__(app=app, version=version)
-        self.tag = tag
         self.setupUi(self)
+
+        self.release_tag = release_tag
+        self.platform = get_platform()
+        self.cwd = get_cwd()
 
         self.show()
         self.download()
@@ -24,44 +26,23 @@ class BlenderLauncherUpdater(QMainWindow, BaseWindow, UpdateWindowUI):
     def download(self):
         # TODO
         # This function should not use proxy for downloading new builds!
-        self.link = "https://github.com/DotBow/Blender-Launcher/releases/download/{0}/Blender_Launcher_{0}_{1}_x64.zip".format(
-            self.tag, get_platform())
+        self.link = link.format(self.release_tag, self.platform)
         self.downloader = Downloader(self.manager, self.link)
         self.downloader.progress_changed.connect(self.ProgressBar.set_progress)
         self.downloader.finished.connect(self.extract)
         self.downloader.start()
 
-        self.show()
-
     def extract(self, source):
-        dist = tempfile.gettempdir()
-        self.extractor = Extractor(self.manager, source, dist)
+        self.extractor = Extractor(self.manager, source, self.cwd)
         self.extractor.progress_changed.connect(self.ProgressBar.set_progress)
-        self.extractor.finished.connect(self.run)
+        self.extractor.finished.connect(self.finish)
         self.extractor.start()
 
-    def run(self, dist):
-        # Copy 'Blender Launcher.exe' from temp folder to working directory
-        platform = get_platform()
-
-        if platform == 'Windows':
-            bl_exe = "Blender Launcher.exe"
-        elif platform == 'Linux':
-            bl_exe = "Blender Launcher"
-
-        temp = Path(tempfile.gettempdir())
-        source = (temp / bl_exe).as_posix()
-
-        cwd = get_cwd()
-        dist = (cwd / bl_exe).as_posix()
-
-        with open(source, 'rb') as f1, open(dist, 'wb') as f2:
-            copyfileobj(f1, f2)
-
+    def finish(self, dist):
         # Launch 'Blender Launcher.exe' and exit
-        if platform == 'Windows':
+        if self.platform == 'Windows':
             _popen([dist])
-        elif platform == 'Linux':
+        elif self.platform == 'Linux':
             os.chmod(dist, 0o744)
             _popen('nohup "' + dist + '"')
 
