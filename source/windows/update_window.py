@@ -41,21 +41,24 @@ class BlenderLauncherUpdater(QMainWindow, BaseWindow, UpdateWindowUI):
         self.extractor.start()
 
     def run(self, dist):
+        # Copy 'Blender Launcher.exe' from temp folder to working directory
         platform = get_platform()
-        temp = Path(tempfile.gettempdir())
-        cwd = get_cwd()
 
         if platform == 'Windows':
             bl_exe = "Blender Launcher.exe"
         elif platform == 'Linux':
             bl_exe = "Blender Launcher"
 
+        temp = Path(tempfile.gettempdir())
         source = (temp / bl_exe).as_posix()
+
+        cwd = get_cwd()
         dist = (cwd / bl_exe).as_posix()
 
         with open(source, 'rb') as f1, open(dist, 'wb') as f2:
             copyfileobj(f1, f2)
 
+        # Launch 'Blender Launcher.exe' and exit
         if platform == 'Windows':
             _popen([dist])
         elif platform == 'Linux':
