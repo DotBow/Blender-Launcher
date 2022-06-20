@@ -18,6 +18,10 @@ proxy_types_chemes = {
 }
 
 
+# TODO
+# It is impossible to kill existing instance of PoolManager
+# and create a new one without restarting application
+
 class ConnectionManager(QObject):
     error = pyqtSignal()
 
