@@ -332,6 +332,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             "The version of Blender Launcher that is currently run. "
             "Press to check changelog.")
         self.StatusBar.addPermanentWidget(self.ForceCheckNewBuilds)
+        self.StatusBar.addPermanentWidget(QLabel("│"))
         self.StatusBar.addPermanentWidget(self.statusbarLabel)
         self.StatusBar.addPermanentWidget(QLabel(""), 1)
         self.StatusBar.addPermanentWidget(self.NewVersionButton)
@@ -760,7 +761,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.is_force_check_on = is_force_check_on
 
         self.ForceCheckNewBuilds.setEnabled(self.is_force_check_on)
-        self.statusbarLabel.setText("│ {}".format(self.status))
+        self.statusbarLabel.setText(self.status)
 
     def set_version(self, latest_tag):
         if "dev" in self.version:
