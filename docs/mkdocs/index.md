@@ -66,8 +66,7 @@ Core features:
 
 ## How to thank the developer?
 
-* :fontawesome-solid-laugh-beam:{: .emoji } The best reward is always feedback and a happy user face!
-* :fontawesome-solid-hand-holding-usd: Buy Blender Launcher on [Gumroad](https://gum.co/Blender-Launcher) for 5$ or more
+* :fontawesome-solid-laugh-beam:{: .emoji } The best reward is feedback and a happy user face!
 
 ***
 
