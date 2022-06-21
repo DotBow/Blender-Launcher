@@ -1,6 +1,6 @@
 # Blender Launcher │ [Documentation](https://dotbow.github.io/Blender-Launcher) │ [Latest Release](https://github.com/DotBow/Blender-Launcher/releases/latest)
 
-![Blender Launcher Cover](docs/mkdocs/imgs/cover.png)
+![Blender Launcher Logo](docs/mkdocs/imgs/bl_logo.png)
 
 <details>
 <summary>Screenshots</summary>
@@ -57,7 +57,6 @@ Core features:
 ## How to thank the developer?
 
 * :blush: The best reward is always feedback and a happy user face!
-* :dollar: Buy Blender Launcher on [Gumroad](https://gum.co/Blender-Launcher) for 5$ or more
 
 ***
 
