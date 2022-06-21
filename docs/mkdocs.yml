@@ -15,14 +15,14 @@ theme:
     name: material
     palette:
         scheme: slate
-        primary: blue
-        accent: indigo
+        primary: black
+        accent: pink
     features:
         - navigation.instant
         - search.suggest
         - search.highlight
-    favicon: icons/favicon.svg
-    logo: icons/favicon.svg
+    favicon: icons/favicon.ico
+    logo: icons/favicon.ico
 markdown_extensions:
     - smarty
     - admonition

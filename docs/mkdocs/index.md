@@ -2,7 +2,7 @@
 
 # Introduction
 
-![Blender Launcher Cover](imgs/cover.png)
+![Blender Launcher Logo](imgs/bl_logo.png)
 
 ??? image "Screenshots"
 
