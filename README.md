@@ -56,7 +56,7 @@ Core features:
 
 ## How to thank the developer?
 
-* :blush: The best reward is always feedback and a happy user face!
+* :blush: The best reward is feedback and a happy user face!
 
 ***
 
