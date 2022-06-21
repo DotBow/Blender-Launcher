@@ -27,7 +27,7 @@
 
     Documentation purpose is to help present in-depth information about Blender Launcher in a useful way. It is always under construction so feel free to ask questions on Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client).
 
-[Download Latest Release :fontawesome-solid-file-download:](https://github.com/DotBow/Blender-Launcher/releases/latest){: .md-button .md-button--primary .md-button-center }
+[Download Latest Release :fontawesome-solid-download:](https://github.com/DotBow/Blender-Launcher/releases/latest){: .md-button .md-button--primary .md-button-center }
 
 ## What is it?
 
@@ -60,13 +60,13 @@ Core features:
 
 ## How to start using it?
 
-* :fontawesome-solid-file-download: Download [latest version](https://github.com/DotBow/Blender-Launcher/releases/latest) from [releases page](https://github.com/DotBow/Blender-Launcher/releases)
+* :fontawesome-solid-download: Download [latest version](https://github.com/DotBow/Blender-Launcher/releases/latest) from [releases page](https://github.com/DotBow/Blender-Launcher/releases)
 * :fontawesome-solid-rocket: Follow [Installation](installation.md#installing-blender-launcher) instructions and notes
-* :fontawesome-solid-comments: Use Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client) to ask questions and make proposals
+* :fontawesome-solid-comment: Use Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client) to ask questions and make proposals
 
 ## How to thank the developer?
 
-* :fontawesome-solid-laugh-beam:{: .emoji } The best reward is feedback and a happy user face!
+* :fontawesome-solid-face-smile:{: .emoji } The best reward is feedback and a happy user face!
 
 ***
 
