@@ -4,13 +4,13 @@
 
 ![Blender Launcher Logo](imgs/bl_logo.png)
 
-??? question "About"
-
-    Documentation purpose is to help present in-depth information about Blender Launcher in a useful way. It is always under construction so feel free to ask questions on Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client).
-
 [:fontawesome-brands-windows: Get for Windows](https://github.com/DotBow/Blender-Launcher/releases/download/v1.15.0/Blender_Launcher_v1.15.0_Windows_x64.zip){: .md-button .md-button--primary .md-button-center}
 [:fontawesome-brands-linux: Get for Linux](https://github.com/DotBow/Blender-Launcher/releases/download/v1.15.0/Blender_Launcher_v1.15.0_Linux_x64.zip){: .md-button .md-button--primary .md-button-center}
 [:fontawesome-solid-download: All Releases](https://github.com/DotBow/Blender-Launcher/releases){: .md-button .md-button--primary .md-button-center style="float: right;"}
+
+??? question "About"
+
+    Documentation purpose is to help present in-depth information about Blender Launcher in a useful way. It is always under construction so feel free to ask questions on Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client).
 
 ## What is it?
 
