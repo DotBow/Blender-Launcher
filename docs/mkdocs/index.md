@@ -4,6 +4,18 @@
 
 ![Blender Launcher Logo](imgs/bl_logo.png)
 
+??? question "About"
+
+    Documentation purpose is to help present in-depth information about Blender Launcher in a useful way. It is always under construction so feel free to ask questions on Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client).
+
+[:fontawesome-brands-windows: Get for Windows](https://github.com/DotBow/Blender-Launcher/releases/download/v1.15.0/Blender_Launcher_v1.15.0_Windows_x64.zip){: .md-button .md-button--primary .md-button-center}
+[:fontawesome-brands-linux: Get for Linux](https://github.com/DotBow/Blender-Launcher/releases/download/v1.15.0/Blender_Launcher_v1.15.0_Linux_x64.zip){: .md-button .md-button--primary .md-button-center}
+[:fontawesome-solid-download: All Releases](https://github.com/DotBow/Blender-Launcher/releases){: .md-button .md-button--primary .md-button-center style="float: right;"}
+
+## What is it?
+
+Blender Launcher is a standalone software client that provides management for stable, daily and experimental builds of [Blender 3D](https://www.blender.org/). It is a free open source project available for 64-bit Windows and Linux (GLIBC 2.27 and higher) operating systems.
+
 ??? image "Screenshots"
 
     <figure>
@@ -22,16 +34,6 @@
       <img src="imgs/tray.png"/>
       <figcaption>Tray Icon</figcaption>
     </figure>
-
-??? question "About"
-
-    Documentation purpose is to help present in-depth information about Blender Launcher in a useful way. It is always under construction so feel free to ask questions on Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client).
-
-[Download Latest Release :fontawesome-solid-download:](https://github.com/DotBow/Blender-Launcher/releases/latest){: .md-button .md-button--primary .md-button-center }
-
-## What is it?
-
-Blender Launcher is a standalone software client that provides management for stable, daily and experimental builds of [Blender 3D](https://www.blender.org/). It is a free open source project available for 64-bit Windows and Linux (GLIBC 2.27 and higher) operating systems.
 
 ## Why do I need it?
 
