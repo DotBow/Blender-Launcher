@@ -36,10 +36,13 @@ class BaseBuildWidget(QWidget):
             ver = re.search(r'\d.\d+', self.build_info.subversion).group(0)
 
             webbrowser.open(
-                "https://wiki.blender.org/wiki/Reference/Release_Notes/{0}".format(ver))
+                "https://wiki.blender.org/wiki/Reference/Release_Notes/{}".format(ver))
         elif self.build_info.branch == "lts":
             # Raw numbers from version
             ver = re.sub(r'\D', '', self.build_info.subversion)
 
             webbrowser.open(
-                "https://www.blender.org/download/lts/#lts-release-{0}".format(ver))
+                "https://www.blender.org/download/lts/#lts-release-{}".format(ver))
+        else:
+            webbrowser.open(
+                "https://developer.blender.org/{}".format(self.build_info.branch))

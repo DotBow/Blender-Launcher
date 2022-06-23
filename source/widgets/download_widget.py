@@ -111,6 +111,12 @@ class DownloadWidget(BaseBuildWidget):
 
         if self.build_info.branch in "stable lts":
             self.menu.addAction(self.showReleaseNotesAction)
+        else:
+            regexp = re.compile(r'D\d{5}')
+
+            if regexp.search(self.build_info.branch):
+                self.showReleaseNotesAction.setText("Show Patch Details")
+                self.menu.addAction(self.showReleaseNotesAction)
 
     def context_menu(self):
         self.menu._show()
