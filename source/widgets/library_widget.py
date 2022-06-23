@@ -142,7 +142,7 @@ class LibraryWidget(BaseBuildWidget):
 
         # Context menu
         self.menu_extended = BaseMenuWidget()
-        self.menu_extended.setFont(self.parent.font)
+        self.menu_extended.setFont(self.parent.font_10)
 
         self.deleteAction = QAction("Delete From Drive", self)
         self.deleteAction.setIcon(self.parent.icon_delete)
@@ -184,7 +184,7 @@ class LibraryWidget(BaseBuildWidget):
         self.installTemplateAction.triggered.connect(self.install_template)
 
         self.debugMenu = BaseMenuWidget("Debug")
-        self.debugMenu.setFont(self.parent.font)
+        self.debugMenu.setFont(self.parent.font_10)
 
         self.debugLogAction = QAction("Debug Log")
         self.debugLogAction.triggered.connect(

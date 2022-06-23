@@ -37,9 +37,7 @@ class DownloadWidget(BaseBuildWidget):
         self.build_dir = None
 
         self.progressBar = BaseProgressBarWidget()
-        font = self.parent.font
-        font.setPointSize(8)
-        self.progressBar.setFont(font)
+        self.progressBar.setFont(self.parent.font_8)
         self.progressBar.setFixedHeight(18)
         self.progressBar.hide()
 

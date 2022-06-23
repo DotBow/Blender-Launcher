@@ -26,9 +26,11 @@ class BaseWindow(QWidget):
             # Setup font
             QFontDatabase.addApplicationFont(
                 ":/resources/fonts/OpenSans-SemiBold.ttf")
-            self.font = QFont("Open Sans SemiBold", 10)
-            self.font.setHintingPreference(QFont.PreferNoHinting)
-            self.app.setFont(self.font)
+            self.font_10 = QFont("Open Sans SemiBold", 10)
+            self.font_10.setHintingPreference(QFont.PreferNoHinting)
+            self.font_8 = QFont("Open Sans SemiBold", 8)
+            self.font_8.setHintingPreference(QFont.PreferNoHinting)
+            self.app.setFont(self.font_10)
 
             # Setup style
             file = QFile(":/resources/styles/global.qss")

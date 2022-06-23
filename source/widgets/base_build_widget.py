@@ -18,7 +18,7 @@ class BaseBuildWidget(QWidget):
         self.customContextMenuRequested.connect(self.context_menu)
 
         self.menu = BaseMenuWidget()
-        self.menu.setFont(self.parent.font)
+        self.menu.setFont(self.parent.font_10)
 
         self.showReleaseNotesAction = QAction("Show Release Notes")
         self.showReleaseNotesAction.triggered.connect(self.show_release_notes)

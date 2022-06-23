@@ -318,7 +318,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         # Status bar
         self.StatusBar.setContentsMargins(0, 0, 0, 2)
-        self.StatusBar.setFont(self.font)
+        self.StatusBar.setFont(self.font_10)
         self.statusbarLabel = QLabel()
         self.ForceCheckNewBuilds = QPushButton("Check")
         self.ForceCheckNewBuilds.setEnabled(False)
@@ -354,7 +354,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         quick_launch_action.triggered.connect(self.quick_launch)
 
         self.tray_menu = BaseMenuWidget()
-        self.tray_menu.setFont(self.font)
+        self.tray_menu.setFont(self.font_10)
         self.tray_menu.addAction(quick_launch_action)
         self.tray_menu.addAction(show_favorites_action)
         self.tray_menu.addAction(show_action)
