@@ -131,6 +131,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             self.toggle_check_for_new_builds_automatically)
 
         self.NewBuildsCheckFrequency = QSpinBox()
+        self.NewBuildsCheckFrequency.setContextMenuPolicy(
+            Qt.NoContextMenu)
         self.NewBuildsCheckFrequency.setToolTip(
             'Time in minutes between new builds check')
         self.NewBuildsCheckFrequency.setMaximum(24 * 60)
