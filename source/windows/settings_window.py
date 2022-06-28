@@ -311,10 +311,10 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.BlenderLaunchingTab = TabWidget(
             self.TabWidget, "Blender Launching")
 
-        # SettingsLayout.addRow(self._QLabel("Library Folder:"))
+        # Library Folder
         self.LibraryFolderTab.layout().addWidget(self.LibraryFolderWidget)
 
-        # SettingsLayout.addRow(self._QLabel("System:"))
+        # System
         layout = SettingsFormWidget(240)
 
         if platform == 'Windows':
@@ -334,10 +334,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.NewBuildsCheckRow = layout._addRow(
             "Check For New Builds Automatically", sub_layout)
 
-        # SettingsLayout.addRow(layout)
         self.SystemTab.layout().addWidget(layout)
 
-        # SettingsLayout.addRow(self._QLabel("Connection:"))
+        # Connection
         layout = SettingsFormWidget(240)
         layout._addRow("Use Custom TLS Certificates",
                        self.UseCustomCertificatesCheckBox)
@@ -353,9 +352,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         layout._addRow("Proxy Password", self.ProxyPasswordLineEdit)
 
         self.ConnectionTab.layout().addWidget(layout)
-        # SettingsLayout.addRow(layout)
 
-        # SettingsLayout.addRow(self._QLabel("Interface:"))
+        # Interface
         layout = SettingsFormWidget(240)
         layout._addRow(
             "Default Tab", self.DefaultTabComboBox)
@@ -370,25 +368,22 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
                        self.EnableHighDpiScalingCheckBox)
 
         self.InterfaceTab.layout().addWidget(layout)
-        # SettingsLayout.addRow(layout)
 
-        # SettingsLayout.addRow(self._QLabel("Notifications:"))
+        # Notifications
         layout = SettingsFormWidget(240)
         layout._addRow("When New Builds Are Available",
                        self.EnableNewBuildsNotifications)
         layout._addRow("When Downloading Is Finished",
                        self.EnableDownloadNotifications)
         self.NotificationsTab.layout().addWidget(layout)
-        # SettingsLayout.addRow(layout)
 
-        # SettingsLayout.addRow(self._QLabel("New Build Actions:"))
+        # New Build Actions
         layout = SettingsFormWidget(240)
         layout._addRow("Mark As Favorite", self.MarkAsFavorite)
         layout._addRow("Install Template", self.InstallTemplate)
         self.NewBuildActionsTab.layout().addWidget(layout)
-        # SettingsLayout.addRow(layout)
 
-        # SettingsLayout.addRow(self._QLabel("Blender Launching:"))
+        # Blender Launching
         layout = SettingsFormWidget(240)
 
         sub_layout = QHBoxLayout()
@@ -401,15 +396,13 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
             layout._addRow("Hide Console On Startup",
                            self.LaunchBlenderNoConsole)
 
-        layout._addRow("Startup Arguments:", self.BlenderStartupArguments)
-        # layout._addRow(self.BlenderStartupArguments)
+        layout._addRow("Startup Arguments:",
+                       self.BlenderStartupArguments, True)
 
         if platform == 'Linux':
-            layout._addRow("Bash Arguments:", self.BashArguments)
-            # layout._addRow(self.BashArguments)
+            layout._addRow("Bash Arguments:", self.BashArguments, True)
 
         self.BlenderLaunchingTab.layout().addWidget(layout)
-        # SettingsLayout.addRow(layout)
 
         self.resize(self.sizeHint())
         self.show()
