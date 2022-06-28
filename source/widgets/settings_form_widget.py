@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QFormLayout, QLabel
+from PyQt5.QtWidgets import QFormLayout, QLabel, QWidget
 
 
-class SettingsFormLayoutRow():
+class SettingsFormWidgetRow():
     def __init__(self, label, widget):
         super().__init__()
         self.label = label
@@ -12,17 +12,18 @@ class SettingsFormLayoutRow():
         self.widget.setEnabled(enabled)
 
 
-class SettingsFormLayout(QFormLayout):
+class SettingsFormWidget(QWidget):
     def __init__(self, label_width):
         super().__init__()
 
-        self.setContentsMargins(6, 0, 6, 0)
-        self.setSpacing(6)
+        self.layout = QFormLayout(self)
+        self.layout.setContentsMargins(6, 0, 6, 0)
+        self.layout.setSpacing(6)
         self.label_width = label_width
 
     def _addRow(self, label_text, widget):
         label = QLabel(label_text)
         label.setFixedWidth(self.label_width)
-        self.addRow(label, widget)
+        self.layout.addRow(label, widget)
 
-        return SettingsFormLayoutRow(label, widget)
+        return SettingsFormWidgetRow(label, widget)
