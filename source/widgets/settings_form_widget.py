@@ -21,9 +21,17 @@ class SettingsFormWidget(QWidget):
         self.layout.setSpacing(6)
         self.label_width = label_width
 
-    def _addRow(self, label_text, widget, new_line=False):
+    def _addRow(self, label_text, widget, new_line=False, height=24):
         label = QLabel(label_text)
         label.setFixedWidth(self.label_width)
+        label.setFixedHeight(height)
+
+        # Check if widget is a sub layout
+        if widget.isWidgetType():
+            widget.setFixedHeight(height)
+        else:
+            for w in widget.children():
+                w.setFixedHeight(height)
 
         if new_line:
             self.layout.addRow(label)
