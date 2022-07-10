@@ -6,6 +6,9 @@ class TabWidget(QWidget):
         super().__init__()
 
         layout = QHBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setContentsMargins(6, 6, 6, 6)
         self.setLayout(layout)
         parent.addTab(self, label)
+
+    def _add_widget(self, widget):
+        self.layout().addWidget(widget)

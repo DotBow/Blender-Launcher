@@ -13,7 +13,7 @@ class SettingsFormWidgetRow():
 
 
 class SettingsFormWidget(QWidget):
-    def __init__(self, label_width):
+    def __init__(self, label_width=240):
         super().__init__()
 
         self.layout = QFormLayout(self)

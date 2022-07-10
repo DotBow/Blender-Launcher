@@ -1,69 +1,26 @@
-from modules.settings import (downloads_pages, favorite_pages,
-                              get_bash_arguments,
-                              get_blender_startup_arguments,
-                              get_check_for_new_builds_automatically,
-                              get_default_downloads_page,
-                              get_default_library_page, get_default_tab,
-                              get_enable_download_notifications,
-                              get_enable_high_dpi_scaling,
-                              get_enable_new_builds_notifications,
+from modules.settings import (get_check_for_new_builds_automatically,
                               get_enable_quick_launch_key_seq,
-                              get_install_template,
-                              get_launch_blender_no_console,
-                              get_launch_minimized_to_tray,
-                              get_launch_when_system_starts,
-                              get_library_folder, get_mark_as_favorite,
-                              get_new_builds_check_frequency, get_platform,
-                              get_proxy_host, get_proxy_password,
-                              get_proxy_port, get_proxy_type, get_proxy_user,
-                              get_quick_launch_key_seq, get_show_tray_icon,
-                              get_sync_library_and_downloads_pages,
-                              get_use_custom_tls_certificates, library_pages,
-                              proxy_types, set_bash_arguments,
-                              set_blender_startup_arguments,
+                              get_new_builds_check_frequency,
                               set_check_for_new_builds_automatically,
-                              set_default_downloads_page,
-                              set_default_library_page, set_default_tab,
-                              set_enable_download_notifications,
-                              set_enable_high_dpi_scaling,
-                              set_enable_new_builds_notifications,
-                              set_enable_quick_launch_key_seq,
-                              set_install_template,
-                              set_launch_blender_no_console,
-                              set_launch_minimized_to_tray,
-                              set_launch_when_system_starts,
-                              set_library_folder, set_mark_as_favorite,
-                              set_new_builds_check_frequency, set_proxy_host,
-                              set_proxy_password, set_proxy_port,
-                              set_proxy_type, set_proxy_user,
-                              set_quick_launch_key_seq, set_show_tray_icon,
-                              set_sync_library_and_downloads_pages,
-                              set_use_custom_tls_certificates, tabs)
-from PyQt5 import QtGui
-from PyQt5.QtCore import QRegExp, QSize, Qt
-from PyQt5.QtWidgets import (QCheckBox, QComboBox, QFormLayout, QHBoxLayout,
-                             QLabel, QLineEdit, QMainWindow, QPushButton,
-                             QSpinBox, QTabWidget, QWidget)
+                              set_new_builds_check_frequency)
+from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtWidgets import (QFormLayout, QHBoxLayout, QLabel, QMainWindow,
+                             QPushButton, QTabWidget, QWidget)
 from ui.settings_window_ui import Ui_SettingsWindow
-from widgets.settings_form_widget import SettingsFormWidget
+from widgets.settings_window import (appearance_tab, blender_builds_tab,
+                                     connection_tab, general_tab)
 from widgets.tab_widget import TabWidget
 
 from windows.base_window import BaseWindow
-from windows.dialog_window import DialogWindow
-from windows.file_dialog_window import FileDialogWindow
 
 
 class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def __init__(self, parent):
         super(SettingsWindow, self).__init__(parent=parent)
-
         self.setupUi(self)
-        platform = get_platform()
-        self.con_settings_changed = False
-        self.new_builds_check_settings_changed = False
-
         self.setWindowTitle("Settings")
 
+        # Header layout
         self.HeaderLayout = QHBoxLayout()
         self.HeaderLayout.setContentsMargins(36, 0, 0, 0)
         self.HeaderLayout.setSpacing(0)
@@ -81,328 +38,28 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.HeaderLayout.addWidget(self.HeaderLabel, 1)
         self.HeaderLayout.addWidget(self.CloseButton, 0, Qt.AlignRight)
 
-        # Library Folder
-        self.LibraryFolderLineEdit = QLineEdit()
-        self.LibraryFolderLineEdit.setText(str(get_library_folder()))
-        self.LibraryFolderLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
-        self.LibraryFolderLineEdit.setReadOnly(True)
-        self.LibraryFolderLineEdit.setCursorPosition(0)
-
-        self.SetLibraryFolderButton = QPushButton(self.parent.icon_folder, "")
-        self.SetLibraryFolderButton.clicked.connect(self.set_library_folder)
-
-        self.LibraryFolderWidget = QWidget()
-        self.LibraryFolderLayout = QHBoxLayout(self.LibraryFolderWidget)
-        self.LibraryFolderLayout.setContentsMargins(6, 0, 6, 0)
-        self.LibraryFolderLayout.setSpacing(0)
-
-        self.LibraryFolderLayout.addWidget(self.LibraryFolderLineEdit)
-        self.LibraryFolderLayout.addWidget(self.SetLibraryFolderButton)
-
-        # Launch When System Starts
-        self.LaunchWhenSystemStartsCheckBox = QCheckBox()
-        self.LaunchWhenSystemStartsCheckBox.setChecked(
-            get_launch_when_system_starts())
-        self.LaunchWhenSystemStartsCheckBox.clicked.connect(
-            self.toggle_launch_when_system_starts)
-
-        # Launch Minimized To Tray
-        self.LaunchMinimizedToTrayCheckBox = QCheckBox()
-        self.LaunchMinimizedToTrayCheckBox.setChecked(
-            get_launch_minimized_to_tray())
-        self.LaunchMinimizedToTrayCheckBox.clicked.connect(
-            self.toggle_launch_minimized_to_tray)
-
-        # Show Tray Icon
-        self.ShowTrayIconCheckBox = QCheckBox()
-        self.ShowTrayIconCheckBox.setChecked(get_show_tray_icon())
-        self.ShowTrayIconCheckBox.clicked.connect(self.toggle_show_tray_icon)
-
-        # High Dpi Scaling
-        self.EnableHighDpiScalingCheckBox = QCheckBox()
-        self.EnableHighDpiScalingCheckBox.clicked.connect(
-            self.toggle_enable_high_dpi_scaling)
-        self.EnableHighDpiScalingCheckBox.setChecked(
-            get_enable_high_dpi_scaling())
-
-        # New Builds Check Settings
-        self.CheckForNewBuildsAutomatically = QCheckBox()
-        self.CheckForNewBuildsAutomatically.setChecked(
-            get_check_for_new_builds_automatically())
-        self.CheckForNewBuildsAutomatically.clicked.connect(
-            self.toggle_check_for_new_builds_automatically)
-
-        self.NewBuildsCheckFrequency = QSpinBox()
-        self.NewBuildsCheckFrequency.setContextMenuPolicy(
-            Qt.NoContextMenu)
-        self.NewBuildsCheckFrequency.setToolTip(
-            'Time in minutes between new builds check')
-        self.NewBuildsCheckFrequency.setMaximum(24 * 60)
-        self.NewBuildsCheckFrequency.setMinimum(10)
-        self.NewBuildsCheckFrequency.setValue(
-            get_new_builds_check_frequency() / 60)
-        self.NewBuildsCheckFrequency.editingFinished.connect(
-            self.new_builds_check_frequency_changed)
-
-        # Custom TLS certificates
-        self.UseCustomCertificatesCheckBox = QCheckBox()
-        self.UseCustomCertificatesCheckBox.clicked.connect(
-            self.toggle_use_custom_tls_certificates)
-        self.UseCustomCertificatesCheckBox.setChecked(
-            get_use_custom_tls_certificates())
-
-        # Proxy Type
-        self.ProxyTypeComboBox = QComboBox()
-        self.ProxyTypeComboBox.addItems(proxy_types.keys())
-        self.ProxyTypeComboBox.setCurrentIndex(get_proxy_type())
-        self.ProxyTypeComboBox.activated[str].connect(self.change_proxy_type)
-
-        # Proxy URL
-        self.ProxyHostLineEdit = QLineEdit()
-        self.ProxyHostLineEdit.setText(str(get_proxy_host()))
-        self.ProxyHostLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
-        rx = QRegExp(
-            r"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$")
-        self.host_validator = QtGui.QRegExpValidator(rx, self)
-        self.ProxyHostLineEdit.setValidator(self.host_validator)
-        self.ProxyHostLineEdit.editingFinished.connect(self.update_proxy_host)
-
-        self.ProxyPortLineEdit = QLineEdit()
-        self.ProxyPortLineEdit.setText(str(get_proxy_port()))
-        self.ProxyPortLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
-        rx = QRegExp(r"\d{2,5}")
-        self.port_validator = QtGui.QRegExpValidator(rx, self)
-        self.ProxyPortLineEdit.setValidator(self.port_validator)
-        self.ProxyPortLineEdit.editingFinished.connect(self.update_proxy_port)
-
-        # Proxy authentication
-        self.ProxyUserLineEdit = QLineEdit()
-        self.ProxyUserLineEdit.setText(str(get_proxy_user()))
-        self.ProxyUserLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
-        self.ProxyUserLineEdit.editingFinished.connect(self.update_proxy_user)
-
-        self.ProxyPasswordLineEdit = QLineEdit()
-        self.ProxyPasswordLineEdit.setText(str(get_proxy_password()))
-        self.ProxyPasswordLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
-        self.ProxyPasswordLineEdit.setEchoMode(QLineEdit.Password)
-        self.ProxyPasswordLineEdit.editingFinished.connect(
-            self.update_proxy_password)
-
-        # Default Tab
-        self.DefaultTabComboBox = QComboBox()
-        self.DefaultTabComboBox.addItems(tabs.keys())
-        self.DefaultTabComboBox.setCurrentIndex(get_default_tab())
-        self.DefaultTabComboBox.activated[str].connect(self.change_default_tab)
-
-        # Sync Library and Downloads pages
-        self.SyncLibraryAndDownloadsPages = QCheckBox()
-        self.SyncLibraryAndDownloadsPages.clicked.connect(
-            self.toggle_sync_library_and_downloads_pages)
-        self.SyncLibraryAndDownloadsPages.setChecked(
-            get_sync_library_and_downloads_pages())
-
-        # Default Library Page
-        self.DefaultLibraryPageComboBox = QComboBox()
-        self.DefaultLibraryPageComboBox.addItems(library_pages.keys())
-        self.DefaultLibraryPageComboBox.setCurrentIndex(
-            get_default_library_page())
-        self.DefaultLibraryPageComboBox.activated[str].connect(
-            self.change_default_library_page)
-
-        # Default Downloads Page
-        self.DefaultDownloadsPageComboBox = QComboBox()
-        self.DefaultDownloadsPageComboBox.addItems(downloads_pages.keys())
-        self.DefaultDownloadsPageComboBox.setCurrentIndex(
-            get_default_downloads_page())
-        self.DefaultDownloadsPageComboBox.activated[str].connect(
-            self.change_default_downloads_page)
-
-        # Notifications
-        self.EnableNewBuildsNotifications = QCheckBox()
-        self.EnableNewBuildsNotifications.clicked.connect(
-            self.toggle_enable_new_builds_notifications)
-        self.EnableNewBuildsNotifications.setChecked(
-            get_enable_new_builds_notifications())
-
-        self.EnableDownloadNotifications = QCheckBox()
-        self.EnableDownloadNotifications.clicked.connect(
-            self.toggle_enable_download_notifications)
-        self.EnableDownloadNotifications.setChecked(
-            get_enable_download_notifications())
-
-        # Mark As Favorite
-        self.MarkAsFavorite = QComboBox()
-        self.MarkAsFavorite.addItems(favorite_pages.keys())
-        self.MarkAsFavorite.setCurrentIndex(
-            get_mark_as_favorite())
-        self.MarkAsFavorite.activated[str].connect(
-            self.change_mark_as_favorite)
-
-        # Blender Startup Arguments
-        self.BlenderStartupArguments = QLineEdit()
-        self.BlenderStartupArguments.setText(
-            str(get_blender_startup_arguments()))
-        self.BlenderStartupArguments.setContextMenuPolicy(Qt.NoContextMenu)
-        self.BlenderStartupArguments.setCursorPosition(0)
-        self.BlenderStartupArguments.editingFinished.connect(
-            self.update_blender_startup_arguments)
-
-        # Command Line Arguments
-        self.BashArguments = QLineEdit()
-        self.BashArguments.setText(
-            str(get_bash_arguments()))
-        self.BashArguments.setContextMenuPolicy(Qt.NoContextMenu)
-        self.BashArguments.setCursorPosition(0)
-        self.BashArguments.editingFinished.connect(
-            self.update_bash_arguments)
-
-        # Install Template
-        self.InstallTemplate = QCheckBox()
-        self.InstallTemplate.clicked.connect(self.toggle_install_template)
-        self.InstallTemplate.setChecked(get_install_template())
-
-        # Run Blender using blender-launcher.exe
-        self.LaunchBlenderNoConsole = QCheckBox()
-        self.LaunchBlenderNoConsole.clicked.connect(
-            self.toggle_launch_blender_no_console)
-        self.LaunchBlenderNoConsole.setChecked(get_launch_blender_no_console())
-
-        # Quick Launch Key Sequence
-        self.EnableQuickLaunchKeySeq = QCheckBox()
-        self.EnableQuickLaunchKeySeq.clicked.connect(
-            self.toggle_enable_quick_launch_key_seq)
-        self.EnableQuickLaunchKeySeq.setChecked(
-            get_enable_quick_launch_key_seq())
-
-        self.QuickLaunchKeySeq = QLineEdit()
-        self.QuickLaunchKeySeq.setEnabled(get_enable_quick_launch_key_seq())
-        self.QuickLaunchKeySeq.keyPressEvent = self._keyPressEvent
-        self.QuickLaunchKeySeq.setText(
-            str(get_quick_launch_key_seq()))
-        self.QuickLaunchKeySeq.setContextMenuPolicy(Qt.NoContextMenu)
-        self.QuickLaunchKeySeq.setCursorPosition(0)
-        self.QuickLaunchKeySeq.editingFinished.connect(
-            self.update_quick_launch_key_seq)
-
-        # Layout
-        SettingsLayoutContainer = QWidget(self)
-        SettingsLayoutContainer.setProperty('FormLayout', True)
-        SettingsLayout = QFormLayout(SettingsLayoutContainer)
-        SettingsLayout.setContentsMargins(0, 0, 0, 6)
-        SettingsLayout.setSpacing(6)
-        SettingsLayout.setRowWrapPolicy(QFormLayout.DontWrapRows)
-        SettingsLayout.setFieldGrowthPolicy(
-            QFormLayout.AllNonFixedFieldsGrow)
-        SettingsLayout.setLabelAlignment(Qt.AlignLeft)
-        self.CentralLayout.addWidget(SettingsLayoutContainer)
-
         # Tab Layout
         self.TabWidget = QTabWidget()
         self.TabWidget.setProperty('North', True)
-        SettingsLayout.addWidget(self.TabWidget)
+        self.CentralLayout.addWidget(self.TabWidget)
 
-        self.LibraryFolderTab = TabWidget(self.TabWidget, "Library Folder")
-        self.SystemTab = TabWidget(self.TabWidget, "System")
+        self.GeneralTab = TabWidget(self.TabWidget, "General")
+        self.GeneralTabWidget = general_tab.GeneralTabWidget(
+            parent=self.parent)
+        self.GeneralTab.layout().addWidget(self.GeneralTabWidget)
+
+        self.AppearanceTab = TabWidget(self.TabWidget, "Appearance")
+        self.AppearanceTabWidget = appearance_tab.AppearanceTabWidget()
+        self.AppearanceTab.layout().addWidget(self.AppearanceTabWidget)
+
         self.ConnectionTab = TabWidget(self.TabWidget, "Connection")
-        self.InterfaceTab = TabWidget(self.TabWidget, "Interface")
-        self.NotificationsTab = TabWidget(self.TabWidget, "Notifications")
-        self.NewBuildActionsTab = TabWidget(
-            self.TabWidget, "New Build Actions")
-        self.BlenderLaunchingTab = TabWidget(
-            self.TabWidget, "Blender Launching")
+        self.ConnectionTabWidget = connection_tab.ConnectionTabWidget()
+        self.ConnectionTab.layout().addWidget(self.ConnectionTabWidget)
 
-        # Library Folder
-        self.LibraryFolderTab.layout().addWidget(self.LibraryFolderWidget)
-
-        # System
-        layout = SettingsFormWidget(240)
-
-        if platform == 'Windows':
-            layout._addRow("Launch When System Starts",
-                           self.LaunchWhenSystemStartsCheckBox)
-
-        layout._addRow("Show Tray Icon",
-                       self.ShowTrayIconCheckBox)
-        self.LaunchMinimizedToTrayRow = \
-            layout._addRow("Launch Minimized To Tray",
-                           self.LaunchMinimizedToTrayCheckBox)
-        self.LaunchMinimizedToTrayRow.setEnabled(get_show_tray_icon())
-
-        sub_layout = QHBoxLayout()
-        sub_layout.addWidget(self.CheckForNewBuildsAutomatically)
-        sub_layout.addWidget(self.NewBuildsCheckFrequency)
-        self.NewBuildsCheckRow = layout._addRow(
-            "Check For New Builds Automatically", sub_layout)
-
-        self.SystemTab.layout().addWidget(layout)
-
-        # Connection
-        layout = SettingsFormWidget(240)
-        layout._addRow("Use Custom TLS Certificates",
-                       self.UseCustomCertificatesCheckBox)
-        layout._addRow("Proxy Type", self.ProxyTypeComboBox)
-
-        sub_layout = QHBoxLayout()
-        sub_layout.addWidget(self.ProxyHostLineEdit)
-        sub_layout.addWidget(QLabel(" : "))
-        sub_layout.addWidget(self.ProxyPortLineEdit)
-        layout._addRow("Proxy IP", sub_layout)
-
-        layout._addRow("Proxy User", self.ProxyUserLineEdit)
-        layout._addRow("Proxy Password", self.ProxyPasswordLineEdit)
-
-        self.ConnectionTab.layout().addWidget(layout)
-
-        # Interface
-        layout = SettingsFormWidget(240)
-        layout._addRow(
-            "Default Tab", self.DefaultTabComboBox)
-        layout._addRow(
-            "Sync Library & Downloads Pages",
-            self.SyncLibraryAndDownloadsPages)
-        layout._addRow(
-            "Default Library Page", self.DefaultLibraryPageComboBox)
-        layout._addRow(
-            "Default Downloads Page", self.DefaultDownloadsPageComboBox)
-        layout._addRow("Enable High DPI Scaling",
-                       self.EnableHighDpiScalingCheckBox)
-
-        self.InterfaceTab.layout().addWidget(layout)
-
-        # Notifications
-        layout = SettingsFormWidget(240)
-        layout._addRow("When New Builds Are Available",
-                       self.EnableNewBuildsNotifications)
-        layout._addRow("When Downloading Is Finished",
-                       self.EnableDownloadNotifications)
-        self.NotificationsTab.layout().addWidget(layout)
-
-        # New Build Actions
-        layout = SettingsFormWidget(240)
-        layout._addRow("Mark As Favorite", self.MarkAsFavorite)
-        layout._addRow("Install Template", self.InstallTemplate)
-        self.NewBuildActionsTab.layout().addWidget(layout)
-
-        # Blender Launching
-        layout = SettingsFormWidget(240)
-
-        sub_layout = QHBoxLayout()
-        sub_layout.addWidget(self.EnableQuickLaunchKeySeq)
-        sub_layout.addWidget(self.QuickLaunchKeySeq)
-        self.QuickLaunchKeySeqRow = layout._addRow(
-            "Quick Launch Global Shortcut", sub_layout)
-
-        if platform == 'Windows':
-            layout._addRow("Hide Console On Startup",
-                           self.LaunchBlenderNoConsole)
-
-        layout._addRow("Startup Arguments:",
-                       self.BlenderStartupArguments, True)
-
-        if platform == 'Linux':
-            layout._addRow("Bash Arguments:", self.BashArguments, True)
-
-        self.BlenderLaunchingTab.layout().addWidget(layout)
+        self.BlenderBuildsTab = TabWidget(self.TabWidget, "Blender Builds")
+        self.BlenderBuildsTabWidget = \
+            blender_builds_tab.BlenderBuildsTabWidget()
+        self.BlenderBuildsTab.layout().addWidget(self.BlenderBuildsTabWidget)
 
         self.resize(self.sizeHint())
         self.show()
@@ -413,188 +70,24 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         elif self.parent.listener is not None:
             self.parent.listener.stop()
 
-        if self.new_builds_check_settings_changed is True:
-            self.new_builds_check_settings_changed = False
+        if self.GeneralTabWidget.new_builds_check_settings_changed is True:
+            self.GeneralTabWidget.new_builds_check_settings_changed = False
             new_builds_check_frequency = \
                 self.NewBuildsCheckFrequency.value() * 60
 
             if get_new_builds_check_frequency() != new_builds_check_frequency:
                 set_new_builds_check_frequency(new_builds_check_frequency)
-                self.new_builds_check_settings_changed = True
+                self.GeneralTabWidget.new_builds_check_settings_changed = True
 
             if get_check_for_new_builds_automatically() != \
                     self.CheckForNewBuildsAutomatically.isChecked():
                 set_check_for_new_builds_automatically(
                     self.CheckForNewBuildsAutomatically.isChecked())
-                self.new_builds_check_settings_changed = True
+                self.GeneralTabWidget.new_builds_check_settings_changed = True
 
-        if self.con_settings_changed or self.new_builds_check_settings_changed:
+        if self.ConnectionTabWidget.con_settings_changed or \
+                self.GeneralTabWidget.new_builds_check_settings_changed:
             self.parent.draw_library(clear=True)
 
         self.parent.settings_window = None
         self.close()
-
-    def _QLabel(self, text):
-        label = QLabel(text)
-        label.setIndent(6)
-        label.setProperty('Header', True)
-        return label
-
-    def show_dlg_restart_bl(self):
-        self.dlg = DialogWindow(
-            parent=self.parent, title="Warning",
-            text="Restart Blender Launcher in<br> \
-                  order to apply this setting!",
-            accept_text="OK", cancel_text=None)
-
-    def set_library_folder(self):
-        library_folder = str(get_library_folder())
-        new_library_folder = FileDialogWindow()._getExistingDirectory(
-            self, "Select Library Folder", library_folder)
-
-        if new_library_folder and (library_folder != new_library_folder):
-            if set_library_folder(new_library_folder) is True:
-                self.LibraryFolderLineEdit.setText(new_library_folder)
-                self.parent.draw_library(clear=True)
-            else:
-                self.dlg = DialogWindow(
-                    parent=self.parent, title="Warning",
-                    text="Selected folder doesn't have write permissions!",
-                    accept_text="Retry", cancel_text=None)
-                self.dlg.accepted.connect(self.set_library_folder)
-
-    def toggle_launch_when_system_starts(self, is_checked):
-        set_launch_when_system_starts(is_checked)
-
-    def toggle_launch_minimized_to_tray(self, is_checked):
-        set_launch_minimized_to_tray(is_checked)
-
-    def toggle_enable_high_dpi_scaling(self, is_checked):
-        set_enable_high_dpi_scaling(is_checked)
-        self.show_dlg_restart_bl()
-
-    def toggle_use_custom_tls_certificates(self, is_checked):
-        set_use_custom_tls_certificates(is_checked)
-        self.con_settings_changed = True
-
-    def change_proxy_type(self, type):
-        set_proxy_type(type)
-        self.con_settings_changed = True
-
-    def update_proxy_host(self):
-        host = self.ProxyHostLineEdit.text()
-        set_proxy_host(host)
-        self.con_settings_changed = True
-
-    def update_proxy_port(self):
-        port = self.ProxyPortLineEdit.text()
-        set_proxy_port(port)
-        self.con_settings_changed = True
-
-    def update_proxy_user(self):
-        user = self.ProxyUserLineEdit.text()
-        set_proxy_user(user)
-        self.con_settings_changed = True
-
-    def update_proxy_password(self):
-        password = self.ProxyPasswordLineEdit.text()
-        set_proxy_password(password)
-        self.con_settings_changed = True
-
-    def change_default_tab(self, tab):
-        set_default_tab(tab)
-
-    def change_default_library_page(self, page):
-        set_default_library_page(page)
-
-        if get_sync_library_and_downloads_pages():
-            index = self.DefaultLibraryPageComboBox.currentIndex()
-            self.DefaultDownloadsPageComboBox.setCurrentIndex(index)
-            set_default_downloads_page(page)
-
-    def change_default_downloads_page(self, page):
-        set_default_downloads_page(page)
-
-        if get_sync_library_and_downloads_pages():
-            index = self.DefaultDownloadsPageComboBox.currentIndex()
-            self.DefaultLibraryPageComboBox.setCurrentIndex(index)
-            set_default_library_page(page)
-
-    def change_mark_as_favorite(self, page):
-        set_mark_as_favorite(page)
-
-    def toggle_check_for_new_builds_automatically(self, is_checked):
-        self.new_builds_check_settings_changed = True
-
-    def new_builds_check_frequency_changed(self):
-        self.new_builds_check_settings_changed = True
-
-    def toggle_sync_library_and_downloads_pages(self, is_checked):
-        set_sync_library_and_downloads_pages(is_checked)
-        self.parent.toggle_sync_library_and_downloads_pages(is_checked)
-
-        if is_checked:
-            index = self.DefaultLibraryPageComboBox.currentIndex()
-            self.DefaultDownloadsPageComboBox.setCurrentIndex(index)
-            text = self.DefaultLibraryPageComboBox.currentText()
-            set_default_downloads_page(text)
-
-    def toggle_enable_download_notifications(self, is_checked):
-        set_enable_download_notifications(is_checked)
-
-    def toggle_enable_new_builds_notifications(self, is_checked):
-        set_enable_new_builds_notifications(is_checked)
-
-    def update_blender_startup_arguments(self):
-        args = self.BlenderStartupArguments.text()
-        set_blender_startup_arguments(args)
-
-    def update_bash_arguments(self):
-        args = self.BashArguments.text()
-        set_bash_arguments(args)
-
-    def toggle_install_template(self, is_checked):
-        set_install_template(is_checked)
-
-    def toggle_launch_blender_no_console(self, is_checked):
-        set_launch_blender_no_console(is_checked)
-
-    def toggle_show_tray_icon(self, is_checked):
-        set_show_tray_icon(is_checked)
-        self.LaunchMinimizedToTrayRow.setEnabled(is_checked)
-        self.parent.tray_icon.setVisible(is_checked)
-
-    def update_quick_launch_key_seq(self):
-        key_seq = self.QuickLaunchKeySeq.text()
-        set_quick_launch_key_seq(key_seq)
-
-    def toggle_enable_quick_launch_key_seq(self, is_checked):
-        set_enable_quick_launch_key_seq(is_checked)
-        self.QuickLaunchKeySeq.setEnabled(is_checked)
-
-    def _keyPressEvent(self, e: QtGui.QKeyEvent) -> None:
-        MOD_MASK = (Qt.CTRL | Qt.ALT | Qt.SHIFT)
-        keyname = ''
-        key = e.key()
-        modifiers = int(e.modifiers())
-
-        if (modifiers and modifiers & MOD_MASK == modifiers and
-            key > 0 and key != Qt.Key_Shift and key != Qt.Key_Alt and
-                key != Qt.Key_Control and key != Qt.Key_Meta):
-
-            keyname = QtGui.QKeySequence(modifiers + key).toString()
-        elif not modifiers and (key != Qt.Key_Meta):
-            keyname = QtGui.QKeySequence(key).toString()
-
-        if keyname != '':
-            # Remap <Shift + *> keys sequences
-            if 'Shift' in keyname:
-                alt_chars = '~!@#$%^&*()_+|{}:"<>?'
-                real_chars = r"`1234567890-=\[];',./"
-                trans_table = str.maketrans(alt_chars, real_chars)
-                trans = keyname[-1].translate(trans_table)
-                keyname = keyname[:-1] + trans
-
-            self.QuickLaunchKeySeq.setText(keyname.lower())
-
-        return super().keyPressEvent(e)
