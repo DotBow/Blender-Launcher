@@ -4,8 +4,8 @@ from modules.settings import (get_check_for_new_builds_automatically,
                               set_check_for_new_builds_automatically,
                               set_new_builds_check_frequency)
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtWidgets import (QFormLayout, QHBoxLayout, QLabel, QMainWindow,
-                             QPushButton, QTabWidget, QWidget)
+from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QMainWindow, QPushButton,
+                             QTabWidget)
 from ui.settings_window_ui import Ui_SettingsWindow
 from widgets.settings_window import (appearance_tab, blender_builds_tab,
                                      connection_tab, general_tab)
@@ -40,7 +40,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         # Tab Layout
         self.TabWidget = QTabWidget()
-        self.TabWidget.setProperty('North', True)
+        self.TabWidget.setProperty('Center', True)
         self.CentralLayout.addWidget(self.TabWidget)
 
         self.GeneralTab = TabWidget(self.TabWidget, "General")

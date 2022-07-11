@@ -386,6 +386,10 @@ QTabWidget::tab-bar[West=true] {
     left: 0px;
 }
 
+QTabWidget::tab-bar[Center=true] {
+    alignment: center;
+}
+
 QToolBox {
     border: none;
 }
