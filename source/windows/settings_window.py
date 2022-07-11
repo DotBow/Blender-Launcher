@@ -71,23 +71,28 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         elif self.parent.listener is not None:
             self.parent.listener.stop()
 
-        if self.GeneralTabWidget.new_builds_check_settings_changed is True:
-            self.GeneralTabWidget.new_builds_check_settings_changed = False
+        new_builds_check_settings_changed = \
+            self.GeneralTabWidget.new_builds_check_settings_changed
+        is_check_for_new_builds_automatically = \
+            self.GeneralTabWidget.CheckForNewBuildsAutomatically.isChecked()
+
+        if new_builds_check_settings_changed is True:
+            new_builds_check_settings_changed = False
             new_builds_check_frequency = \
-                self.NewBuildsCheckFrequency.value() * 60
+                self.GeneralTabWidget.NewBuildsCheckFrequency.value() * 60
 
             if get_new_builds_check_frequency() != new_builds_check_frequency:
                 set_new_builds_check_frequency(new_builds_check_frequency)
-                self.GeneralTabWidget.new_builds_check_settings_changed = True
+                new_builds_check_settings_changed = True
 
             if get_check_for_new_builds_automatically() != \
-                    self.CheckForNewBuildsAutomatically.isChecked():
+                    is_check_for_new_builds_automatically:
                 set_check_for_new_builds_automatically(
-                    self.CheckForNewBuildsAutomatically.isChecked())
-                self.GeneralTabWidget.new_builds_check_settings_changed = True
+                    is_check_for_new_builds_automatically)
+                new_builds_check_settings_changed = True
 
         if self.ConnectionTabWidget.con_settings_changed or \
-                self.GeneralTabWidget.new_builds_check_settings_changed:
+                new_builds_check_settings_changed:
             self.parent.draw_library(clear=True)
 
         self.parent.settings_window = None
