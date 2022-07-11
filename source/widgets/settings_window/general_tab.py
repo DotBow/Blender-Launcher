@@ -67,6 +67,8 @@ class GeneralTabWidget(SettingsFormWidget):
             self.toggle_check_for_new_builds_automatically)
 
         self.NewBuildsCheckFrequency = QSpinBox()
+        self.NewBuildsCheckFrequency.setEnabled(
+            get_check_for_new_builds_automatically())
         self.NewBuildsCheckFrequency.setContextMenuPolicy(
             Qt.NoContextMenu)
         self.NewBuildsCheckFrequency.setToolTip(
@@ -136,6 +138,7 @@ class GeneralTabWidget(SettingsFormWidget):
         self.parent.tray_icon.setVisible(is_checked)
 
     def toggle_check_for_new_builds_automatically(self, is_checked):
+        self.NewBuildsCheckFrequency.setEnabled(is_checked)
         self.new_builds_check_settings_changed = True
 
     def new_builds_check_frequency_changed(self):
