@@ -13,8 +13,9 @@ from widgets.settings_form_widget import SettingsFormWidget
 
 
 class AppearanceTabWidget(SettingsFormWidget):
-    def __init__(self):
+    def __init__(self, parent):
         super().__init__()
+        self.parent = parent
 
         # Default Tab
         self.DefaultTabComboBox = QComboBox()

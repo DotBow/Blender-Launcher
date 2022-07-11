@@ -49,7 +49,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.GeneralTab.layout().addWidget(self.GeneralTabWidget)
 
         self.AppearanceTab = TabWidget(self.TabWidget, "Appearance")
-        self.AppearanceTabWidget = appearance_tab.AppearanceTabWidget()
+        self.AppearanceTabWidget = appearance_tab.AppearanceTabWidget(
+            parent=self.parent)
         self.AppearanceTab.layout().addWidget(self.AppearanceTabWidget)
 
         self.ConnectionTab = TabWidget(self.TabWidget, "Connection")
