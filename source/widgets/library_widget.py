@@ -14,8 +14,7 @@ from modules.settings import (get_bash_arguments,
 from modules.shortcut import create_shortcut
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QAction, QApplication, QHBoxLayout, QLabel,
-                             QPushButton)
+from PyQt5.QtWidgets import QAction, QApplication, QHBoxLayout, QLabel
 from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
@@ -60,7 +59,7 @@ class LibraryWidget(BaseBuildWidget):
             self.setEnabled(False)
             self.infoLabel = QLabel("Loading build information...")
 
-            self.launchButton = QPushButton("Launch")
+            self.launchButton = LeftIconButtonWidget("Launch")
             self.launchButton.setFixedWidth(85)
             self.launchButton.setProperty("CancelButton", True)
 
