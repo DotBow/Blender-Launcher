@@ -78,12 +78,12 @@ QLineEdit {
     padding: 1px;
 }
 
-QLineEdit[text=\"\"] {
- color: #E6E6E6;
-
-}
 QLineEdit:disabled {
     color: #828282;
+}
+
+QLineEdit[text=\"\"] {
+    color: #E6E6E6;
 }
 
 QListView {
@@ -340,6 +340,21 @@ QSizeGrip {
     image: url(:resources/icons/size_grip.svg);
     width: 16px;
     height: 16px;
+}
+
+QSpinBox {
+    background-color: #1F1F1F;
+    color: #E6E6E6;
+    border: 1px solid #444444;
+    padding: 1px;
+}
+
+QSpinBox:disabled {
+    color: #828282;
+}
+
+QSpinBox[text=\"\"] {
+    color: #E6E6E6;
 }
 
 QSplitter::handle {
