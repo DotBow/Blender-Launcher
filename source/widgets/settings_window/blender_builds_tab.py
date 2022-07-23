@@ -20,6 +20,9 @@ class BlenderBuildsTabWidget(SettingsFormWidget):
     def __init__(self):
         super().__init__()
 
+        # Global scope
+        enable_quick_launch_key_seq = get_enable_quick_launch_key_seq()
+
         # Mark As Favorite
         self.MarkAsFavorite = QComboBox()
         self.MarkAsFavorite.addItems(favorite_pages.keys())
@@ -62,10 +65,10 @@ class BlenderBuildsTabWidget(SettingsFormWidget):
         self.EnableQuickLaunchKeySeq.clicked.connect(
             self.toggle_enable_quick_launch_key_seq)
         self.EnableQuickLaunchKeySeq.setChecked(
-            get_enable_quick_launch_key_seq())
+            enable_quick_launch_key_seq)
 
         self.QuickLaunchKeySeq = QLineEdit()
-        self.QuickLaunchKeySeq.setEnabled(get_enable_quick_launch_key_seq())
+        self.QuickLaunchKeySeq.setEnabled(enable_quick_launch_key_seq)
         self.QuickLaunchKeySeq.keyPressEvent = self._keyPressEvent
         self.QuickLaunchKeySeq.setText(
             str(get_quick_launch_key_seq()))

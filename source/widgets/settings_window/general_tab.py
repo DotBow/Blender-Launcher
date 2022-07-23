@@ -4,10 +4,14 @@ from modules.settings import (get_check_for_new_builds_automatically,
                               get_launch_when_system_starts,
                               get_library_folder,
                               get_new_builds_check_frequency, get_platform,
-                              get_show_tray_icon, set_enable_high_dpi_scaling,
+                              get_show_tray_icon,
+                              set_check_for_new_builds_automatically,
+                              set_enable_high_dpi_scaling,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
-                              set_library_folder, set_show_tray_icon)
+                              set_library_folder,
+                              set_new_builds_check_frequency,
+                              set_show_tray_icon)
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QCheckBox, QHBoxLayout, QLineEdit, QPushButton,
                              QSpinBox, QWidget)
@@ -20,7 +24,12 @@ class GeneralTabWidget(SettingsFormWidget):
     def __init__(self, parent):
         super().__init__()
         self.parent = parent
-        self.new_builds_check_settings_changed = False
+
+        # Global scope
+        check_for_new_builds_automatically = \
+            get_check_for_new_builds_automatically()
+        new_builds_check_frequency = get_new_builds_check_frequency() / 60
+        enable_high_dpi_scaling = get_enable_high_dpi_scaling()
 
         # Library Folder
         self.LibraryFolderLineEdit = QLineEdit()
@@ -62,7 +71,7 @@ class GeneralTabWidget(SettingsFormWidget):
         # New Builds Check Settings
         self.CheckForNewBuildsAutomatically = QCheckBox()
         self.CheckForNewBuildsAutomatically.setChecked(
-            get_check_for_new_builds_automatically())
+            check_for_new_builds_automatically)
         self.CheckForNewBuildsAutomatically.clicked.connect(
             self.toggle_check_for_new_builds_automatically)
 
@@ -76,7 +85,7 @@ class GeneralTabWidget(SettingsFormWidget):
         self.NewBuildsCheckFrequency.setMaximum(24 * 60)
         self.NewBuildsCheckFrequency.setMinimum(10)
         self.NewBuildsCheckFrequency.setValue(
-            get_new_builds_check_frequency() / 60)
+            new_builds_check_frequency)
         self.NewBuildsCheckFrequency.editingFinished.connect(
             self.new_builds_check_frequency_changed)
 
@@ -85,7 +94,7 @@ class GeneralTabWidget(SettingsFormWidget):
         self.EnableHighDpiScalingCheckBox.clicked.connect(
             self.toggle_enable_high_dpi_scaling)
         self.EnableHighDpiScalingCheckBox.setChecked(
-            get_enable_high_dpi_scaling())
+            enable_high_dpi_scaling)
 
         # Layout
         self._addRow("Library Folder",
@@ -138,11 +147,12 @@ class GeneralTabWidget(SettingsFormWidget):
         self.parent.tray_icon.setVisible(is_checked)
 
     def toggle_check_for_new_builds_automatically(self, is_checked):
+        set_check_for_new_builds_automatically(is_checked)
         self.NewBuildsCheckFrequency.setEnabled(is_checked)
-        self.new_builds_check_settings_changed = True
 
     def new_builds_check_frequency_changed(self):
-        self.new_builds_check_settings_changed = True
+        set_new_builds_check_frequency(
+            self.NewBuildsCheckFrequency.value() * 60)
 
     def toggle_enable_high_dpi_scaling(self, is_checked):
         set_enable_high_dpi_scaling(is_checked)
