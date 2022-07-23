@@ -45,6 +45,8 @@ help = \
     -debug                       * Set logging level to DEBUG
     -set-library-folder "%path%" * Set library folder
     -offline                     * Disable scraper thread
+    -instanced                   * Do not check if other BL instance is
+                                   running, used for restarting app
     """
 
 
