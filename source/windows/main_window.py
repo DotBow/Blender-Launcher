@@ -822,3 +822,17 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
     def dropEvent(self, e):
         print(e.mimeData().text())
+
+    def restart_app(self):
+        ''' Launch 'Blender Launcher.exe' and exit '''
+        cwd = get_cwd()
+
+        if self.platform == 'Windows':
+            exe = (cwd / "Blender Launcher.exe").as_posix()
+            _popen([exe, '-instanced'])
+        elif self.platform == 'Linux':
+            exe = (cwd / "Blender Launcher").as_posix()
+            os.chmod(exe, 0o744)
+            _popen('nohup "' + exe + ' -instanced')
+
+        self.destroy()

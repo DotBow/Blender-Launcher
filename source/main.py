@@ -68,7 +68,14 @@ def main():
 
     # Run updater instead of the main application and exit
     if "-update" in sys.argv:
-        BlenderLauncherUpdater(app=app, version=version, release_tag=sys.argv[-1])
+        BlenderLauncherUpdater(app=app, version=version,
+                               release_tag=sys.argv[-1])
+        sys.exit(app.exec_())
+
+    # Do not check for other instances running
+    if "-instanced" in sys.argv:
+        BlenderLauncher(app=app, version=version,
+                        argv=sys.argv, logger=logger)
         sys.exit(app.exec_())
 
     # Check if other instances of application is already running
