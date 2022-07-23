@@ -25,12 +25,6 @@ class GeneralTabWidget(SettingsFormWidget):
         super().__init__()
         self.parent = parent
 
-        # Global scope
-        check_for_new_builds_automatically = \
-            get_check_for_new_builds_automatically()
-        new_builds_check_frequency = get_new_builds_check_frequency() / 60
-        enable_high_dpi_scaling = get_enable_high_dpi_scaling()
-
         # Library Folder
         self.LibraryFolderLineEdit = QLineEdit()
         self.LibraryFolderLineEdit.setText(str(get_library_folder()))
@@ -71,7 +65,7 @@ class GeneralTabWidget(SettingsFormWidget):
         # New Builds Check Settings
         self.CheckForNewBuildsAutomatically = QCheckBox()
         self.CheckForNewBuildsAutomatically.setChecked(
-            check_for_new_builds_automatically)
+            get_check_for_new_builds_automatically())
         self.CheckForNewBuildsAutomatically.clicked.connect(
             self.toggle_check_for_new_builds_automatically)
 
@@ -85,7 +79,7 @@ class GeneralTabWidget(SettingsFormWidget):
         self.NewBuildsCheckFrequency.setMaximum(24 * 60)
         self.NewBuildsCheckFrequency.setMinimum(10)
         self.NewBuildsCheckFrequency.setValue(
-            new_builds_check_frequency)
+            get_new_builds_check_frequency() / 60)
         self.NewBuildsCheckFrequency.editingFinished.connect(
             self.new_builds_check_frequency_changed)
 
@@ -94,7 +88,7 @@ class GeneralTabWidget(SettingsFormWidget):
         self.EnableHighDpiScalingCheckBox.clicked.connect(
             self.toggle_enable_high_dpi_scaling)
         self.EnableHighDpiScalingCheckBox.setChecked(
-            enable_high_dpi_scaling)
+            get_enable_high_dpi_scaling())
 
         # Layout
         self._addRow("Library Folder",
@@ -156,11 +150,3 @@ class GeneralTabWidget(SettingsFormWidget):
 
     def toggle_enable_high_dpi_scaling(self, is_checked):
         set_enable_high_dpi_scaling(is_checked)
-        self.show_dlg_restart_bl()
-
-    def show_dlg_restart_bl(self):
-        self.dlg = DialogWindow(
-            parent=self.parent, title="Warning",
-            text="Restart Blender Launcher in<br> \
-                  order to apply this setting!",
-            accept_text="OK", cancel_text=None)

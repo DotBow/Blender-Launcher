@@ -1,8 +1,11 @@
 from modules.settings import (get_check_for_new_builds_automatically,
+                              get_enable_high_dpi_scaling,
                               get_enable_quick_launch_key_seq,
-                              get_new_builds_check_frequency,
-                              set_check_for_new_builds_automatically,
-                              set_new_builds_check_frequency)
+                              get_new_builds_check_frequency, get_proxy_host,
+                              get_proxy_password, get_proxy_port,
+                              get_proxy_type, get_proxy_user,
+                              get_quick_launch_key_seq,
+                              get_use_custom_tls_certificates)
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QMainWindow, QPushButton,
                              QTabWidget)
@@ -12,6 +15,7 @@ from widgets.settings_window import (appearance_tab, blender_builds_tab,
 from widgets.tab_widget import TabWidget
 
 from windows.base_window import BaseWindow
+from windows.dialog_window import DialogWindow
 
 
 class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
@@ -19,6 +23,23 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         super(SettingsWindow, self).__init__(parent=parent)
         self.setupUi(self)
         self.setWindowTitle("Settings")
+
+        # Global scope for breaking settings
+        self.old_enable_quick_launch_key_seq = get_enable_quick_launch_key_seq()
+        self.old_quick_launch_key_seq = get_quick_launch_key_seq()
+
+        self.old_use_custom_tls_certificates = get_use_custom_tls_certificates()
+        self.old_proxy_type = get_proxy_type()
+        self.old_proxy_host = get_proxy_host()
+        self.old_proxy_port = get_proxy_port()
+        self.old_proxy_user = get_proxy_user()
+        self.old_proxy_password = get_proxy_password()
+
+        self.old_check_for_new_builds_automatically = \
+            get_check_for_new_builds_automatically()
+        self.old_new_builds_check_frequency = get_new_builds_check_frequency()
+
+        self.old_enable_high_dpi_scaling = get_enable_high_dpi_scaling()
 
         # Header layout
         self.HeaderLayout = QHBoxLayout()
@@ -66,34 +87,87 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.show()
 
     def _close(self):
-        if get_enable_quick_launch_key_seq() is True:
-            self.parent.setup_global_hotkeys_listener()
-        elif self.parent.listener is not None:
-            self.parent.listener.stop()
+        self.pending_to_restart = []
 
-        new_builds_check_settings_changed = \
-            self.GeneralTabWidget.new_builds_check_settings_changed
-        is_check_for_new_builds_automatically = \
-            self.GeneralTabWidget.CheckForNewBuildsAutomatically.isChecked()
+        """Update quick launch key"""
+        enable_quick_launch_key_seq = get_enable_quick_launch_key_seq()
+        quick_launch_key_seq = get_quick_launch_key_seq()
 
-        if new_builds_check_settings_changed is True:
-            new_builds_check_settings_changed = False
-            new_builds_check_frequency = \
-                self.GeneralTabWidget.NewBuildsCheckFrequency.value() * 60
+        # Quick launch was enabled or disabled
+        if self.old_enable_quick_launch_key_seq != enable_quick_launch_key_seq:
+            # Restart hotkeys listener
+            if enable_quick_launch_key_seq is True:
+                self.parent.setup_global_hotkeys_listener()
+            # Stop hotkeys listener
+            elif self.parent.listener is not None:
+                self.parent.listener.stop()
+        # Only key sequence was changed
+        elif self.old_quick_launch_key_seq != quick_launch_key_seq:
+            # Restart hotkeys listener
+            if enable_quick_launch_key_seq is True:
+                self.parent.setup_global_hotkeys_listener()
 
-            if get_new_builds_check_frequency() != new_builds_check_frequency:
-                set_new_builds_check_frequency(new_builds_check_frequency)
-                new_builds_check_settings_changed = True
+        """Update connection"""
+        use_custom_tls_certificates = get_use_custom_tls_certificates()
+        proxy_type = get_proxy_type()
+        proxy_host = get_proxy_host()
+        proxy_port = get_proxy_port()
+        proxy_user = get_proxy_user()
+        proxy_password = get_proxy_password()
 
-            if get_check_for_new_builds_automatically() != \
-                    is_check_for_new_builds_automatically:
-                set_check_for_new_builds_automatically(
-                    is_check_for_new_builds_automatically)
-                new_builds_check_settings_changed = True
+        # Restart app if any of the connection settings changed
+        if self.old_use_custom_tls_certificates != \
+                use_custom_tls_certificates or \
+                self.old_proxy_type != proxy_type or \
+                self.old_proxy_host != proxy_host or \
+                self.old_proxy_port != proxy_port or \
+                self.old_proxy_user != proxy_user or \
+                self.old_proxy_password != proxy_password:
+            self.pending_to_restart.append("Connection Settings")
 
-        if self.ConnectionTabWidget.con_settings_changed or \
-                new_builds_check_settings_changed:
+        """Update build check frequency"""
+        check_for_new_builds_automatically = \
+            get_check_for_new_builds_automatically()
+        new_builds_check_frequency = get_new_builds_check_frequency()
+
+        # Restart scraper if any of the build check settings changed
+        if self.old_check_for_new_builds_automatically != \
+                check_for_new_builds_automatically or \
+                self.old_new_builds_check_frequency != \
+                new_builds_check_frequency:
             self.parent.draw_library(clear=True)
 
+        """Update high DPI scaling"""
+        enable_high_dpi_scaling = get_enable_high_dpi_scaling()
+
+        if self.old_enable_high_dpi_scaling != enable_high_dpi_scaling:
+            self.pending_to_restart.append("High DPI Scaling: {}→{}".format(
+                self.old_enable_high_dpi_scaling, enable_high_dpi_scaling))
+
+        """Ask for app restart if needed else destroy self"""
+        if len(self.pending_to_restart) != 0:
+            self.show_dlg_restart_bl()
+        else:
+            self._destroy()
+
+    def show_dlg_restart_bl(self):
+        pending_to_restart = ""
+
+        for str in self.pending_to_restart:
+            pending_to_restart += "<br>- " + str
+
+        self.dlg = DialogWindow(
+            parent=self.parent, title="Warning",
+            text="Restart Blender Launcher in<br> \
+                  order to apply following settings:{}".
+            format(pending_to_restart),
+            accept_text="Restart Now", cancel_text="Ignore")
+        self.dlg.accepted.connect(self.restart_app)
+        self.dlg.cancelled.connect(self._destroy)
+
+    def restart_app(self):
+        self.parent.restart_app()
+
+    def _destroy(self):
         self.parent.settings_window = None
         self.close()

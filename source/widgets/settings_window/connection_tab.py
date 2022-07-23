@@ -15,31 +15,23 @@ class ConnectionTabWidget(SettingsFormWidget):
     def __init__(self):
         super().__init__()
 
-        # Global scope
-        use_custom_tls_certificates = get_use_custom_tls_certificates()
-        proxy_type = get_proxy_type()
-        proxy_host = get_proxy_host()
-        proxy_port = get_proxy_port()
-        proxy_user = get_proxy_user()
-        proxy_password = get_proxy_password()
-
         # Custom TLS certificates
         self.UseCustomCertificatesCheckBox = QCheckBox()
         self.UseCustomCertificatesCheckBox.clicked.connect(
             self.toggle_use_custom_tls_certificates)
         self.UseCustomCertificatesCheckBox.setChecked(
-            use_custom_tls_certificates)
+            get_use_custom_tls_certificates())
 
         # Proxy Type
         self.ProxyTypeComboBox = QComboBox()
         self.ProxyTypeComboBox.addItems(proxy_types.keys())
-        self.ProxyTypeComboBox.setCurrentIndex(proxy_type)
+        self.ProxyTypeComboBox.setCurrentIndex(get_proxy_type())
         self.ProxyTypeComboBox.activated[str].connect(self.change_proxy_type)
 
         # Proxy URL
         # Host
         self.ProxyHostLineEdit = QLineEdit()
-        self.ProxyHostLineEdit.setText(proxy_host)
+        self.ProxyHostLineEdit.setText(get_proxy_host())
         self.ProxyHostLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
         rx = QRegExp(
             r"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$")
@@ -49,7 +41,7 @@ class ConnectionTabWidget(SettingsFormWidget):
 
         # Port
         self.ProxyPortLineEdit = QLineEdit()
-        self.ProxyPortLineEdit.setText(proxy_port)
+        self.ProxyPortLineEdit.setText(get_proxy_port())
         self.ProxyPortLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
         rx = QRegExp(r"\d{2,5}")
         self.port_validator = QtGui.QRegExpValidator(rx, self)
@@ -59,13 +51,13 @@ class ConnectionTabWidget(SettingsFormWidget):
         # Proxy authentication
         # User
         self.ProxyUserLineEdit = QLineEdit()
-        self.ProxyUserLineEdit.setText(proxy_user)
+        self.ProxyUserLineEdit.setText(get_proxy_user())
         self.ProxyUserLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
         self.ProxyUserLineEdit.editingFinished.connect(self.update_proxy_user)
 
         # Password
         self.ProxyPasswordLineEdit = QLineEdit()
-        self.ProxyPasswordLineEdit.setText(proxy_password)
+        self.ProxyPasswordLineEdit.setText(get_proxy_password())
         self.ProxyPasswordLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
         self.ProxyPasswordLineEdit.setEchoMode(QLineEdit.Password)
         self.ProxyPasswordLineEdit.editingFinished.connect(
