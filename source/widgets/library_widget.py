@@ -225,6 +225,12 @@ class LibraryWidget(BaseBuildWidget):
 
         if self.branch in "stable lts":
             self.menu.addAction(self.showReleaseNotesAction)
+        else:
+            regexp = re.compile(r'D\d{5}')
+
+            if regexp.search(self.branch):
+                self.showReleaseNotesAction.setText("Show Patch Details")
+                self.menu.addAction(self.showReleaseNotesAction)
 
         self.menu.addAction(self.showFolderAction)
         self.menu.addAction(self.deleteAction)
