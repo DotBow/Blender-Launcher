@@ -5,7 +5,7 @@ from modules.settings import (get_check_for_new_builds_automatically,
                               get_proxy_password, get_proxy_port,
                               get_proxy_type, get_proxy_user,
                               get_quick_launch_key_seq,
-                              get_use_custom_tls_certificates)
+                              get_use_custom_tls_certificates, proxy_types)
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QMainWindow, QPushButton,
                              QTabWidget)
@@ -116,14 +116,31 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         proxy_password = get_proxy_password()
 
         # Restart app if any of the connection settings changed
-        if self.old_use_custom_tls_certificates != \
-                use_custom_tls_certificates or \
-                self.old_proxy_type != proxy_type or \
-                self.old_proxy_host != proxy_host or \
-                self.old_proxy_port != proxy_port or \
-                self.old_proxy_user != proxy_user or \
-                self.old_proxy_password != proxy_password:
-            self.pending_to_restart.append("Connection Settings")
+        if self.old_use_custom_tls_certificates != use_custom_tls_certificates:
+            self.pending_to_restart.append("Use Custom TLS Certificates: {}🠆{}".format(
+                "ON" if self.old_use_custom_tls_certificates else "OFF",
+                "ON" if use_custom_tls_certificates else "OFF"))
+
+        if self.old_proxy_type != proxy_type:
+            r_proxy_types = dict(zip(proxy_types.values(), proxy_types.keys()))
+
+            self.pending_to_restart.append("Proxy Type: {}🠆{}".format(
+                r_proxy_types[self.old_proxy_type], r_proxy_types[proxy_type]))
+
+        if self.old_proxy_host != proxy_host:
+            self.pending_to_restart.append("Proxy Host: {}🠆{}".format(
+                self.old_proxy_host, proxy_host))
+
+        if self.old_proxy_port != proxy_port:
+            self.pending_to_restart.append("Proxy Port: {}🠆{}".format(
+                self.old_proxy_port, proxy_port))
+
+        if self.old_proxy_user != proxy_user:
+            self.pending_to_restart.append("Proxy User: {}🠆{}".format(
+                self.old_proxy_user, proxy_user))
+
+        if self.old_proxy_password != proxy_password:
+            self.pending_to_restart.append("Proxy Password")
 
         """Update build check frequency"""
         check_for_new_builds_automatically = \
@@ -141,8 +158,9 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         enable_high_dpi_scaling = get_enable_high_dpi_scaling()
 
         if self.old_enable_high_dpi_scaling != enable_high_dpi_scaling:
-            self.pending_to_restart.append("High DPI Scaling: {}→{}".format(
-                self.old_enable_high_dpi_scaling, enable_high_dpi_scaling))
+            self.pending_to_restart.append("High DPI Scaling: {}🠆{}".format(
+                "ON" if self.old_enable_high_dpi_scaling else "OFF",
+                "ON" if enable_high_dpi_scaling else "OFF"))
 
         """Ask for app restart if needed else destroy self"""
         if len(self.pending_to_restart) != 0:
