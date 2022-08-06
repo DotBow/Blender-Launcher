@@ -451,7 +451,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         return False
 
-    def show_update_window(self):
+    def is_downloading_idle(self):
         download_widgets = []
 
         download_widgets.extend(self.DownloadsStableListWidget.items())
@@ -459,14 +459,20 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         download_widgets.extend(self.DownloadsExperimentalListWidget.items())
 
         for widget in download_widgets:
-            if widget.state == DownloadState.DOWNLOADING:
-                self.dlg = DialogWindow(
-                    parent=self, title="Warning",
-                    text="In order to update Blender Launcher<br> \
-                          complete all active downloads!",
-                    accept_text="OK", cancel_text=None)
+            if widget.state != DownloadState.IDLE:
+                return False
 
-                return
+        return True
+
+    def show_update_window(self):
+        if not self.is_downloading_idle():
+            self.dlg = DialogWindow(
+                parent=self, title="Warning",
+                text="In order to update Blender Launcher<br> \
+                        complete all active downloads!",
+                accept_text="OK", cancel_text=None)
+
+            return
 
         # Create copy if 'Blender Launcher.exe' file
         # to act as an updater program
@@ -576,22 +582,15 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.quit()
 
     def quit(self):
-        download_widgets = []
+        if not self.is_downloading_idle():
+            self.dlg = DialogWindow(
+                parent=self, title="Warning",
+                text="Active downloads in progress!<br>\
+                        Are you sure you want to quit?",
+                accept_text="Yes", cancel_text="No")
 
-        download_widgets.extend(self.DownloadsStableListWidget.items())
-        download_widgets.extend(self.DownloadsDailyListWidget.items())
-        download_widgets.extend(self.DownloadsExperimentalListWidget.items())
-
-        for widget in download_widgets:
-            if widget.state == DownloadState.DOWNLOADING:
-                self.dlg = DialogWindow(
-                    parent=self, title="Warning",
-                    text="Active downloads in progress!<br>\
-                          Are you sure you want to quit?",
-                    accept_text="Yes", cancel_text="No")
-
-                self.dlg.accepted.connect(self.destroy)
-                return
+            self.dlg.accepted.connect(self.destroy)
+            return
 
         self.destroy()
 
