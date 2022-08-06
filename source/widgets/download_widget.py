@@ -20,8 +20,11 @@ from widgets.elided_text_label import ElidedTextLabel
 
 
 class DownloadState(Enum):
-    WAITING = 1
+    IDLE = 1
     DOWNLOADING = 2
+    EXTRACTING = 3
+    READING = 4
+    RENAMING = 5
 
 
 class DownloadWidget(BaseBuildWidget):
@@ -33,7 +36,7 @@ class DownloadWidget(BaseBuildWidget):
         self.item = item
         self.build_info = build_info
         self.show_new = show_new
-        self.state = DownloadState.WAITING
+        self.state = DownloadState.IDLE
         self.build_dir = None
 
         self.progressBar = BaseProgressBarWidget()
@@ -147,6 +150,7 @@ class DownloadWidget(BaseBuildWidget):
         self.downloader.start()
 
     def init_extractor(self, source):
+        self.state = DownloadState.EXTRACTING
         self.cancelButton.setEnabled(False)
         library_folder = Path(get_library_folder())
 
@@ -187,7 +191,7 @@ class DownloadWidget(BaseBuildWidget):
 
     def download_cancelled(self):
         self.item.setSelected(True)
-        self.state = DownloadState.WAITING
+        self.state = DownloadState.IDLE
         self.progressBar.hide()
         self.cancelButton.hide()
         self.downloader.terminate()
@@ -196,6 +200,7 @@ class DownloadWidget(BaseBuildWidget):
         self.build_state_widget.setDownload(False)
 
     def download_get_info(self):
+        self.state = DownloadState.READING
         if self.parent.platform == 'Linux':
             archive_name = Path(self.build_info.link).with_suffix('').stem
         elif self.parent.platform in {'Windows', 'macOS'}:
@@ -207,6 +212,7 @@ class DownloadWidget(BaseBuildWidget):
         self.build_info_reader.start()
 
     def download_rename(self, build_info):
+        self.state = DownloadState.RENAMING
         new_name = 'blender-{}+{}.{}'.format(
             build_info.subversion,
             build_info.branch,
@@ -218,7 +224,7 @@ class DownloadWidget(BaseBuildWidget):
         self.build_renamer.start()
 
     def download_finished(self, path):
-        self.state = DownloadState.WAITING
+        self.state = DownloadState.IDLE
 
         if path is None:
             path = self.build_dir
@@ -238,5 +244,5 @@ class DownloadWidget(BaseBuildWidget):
         self.build_state_widget.setExtract(False)
 
     def destroy(self):
-        if self.state == DownloadState.WAITING:
+        if self.state == DownloadState.IDLE:
             self.list_widget.remove_item(self.item)
