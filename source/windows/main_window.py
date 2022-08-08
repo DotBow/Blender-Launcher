@@ -832,6 +832,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         elif self.platform == 'Linux':
             exe = (cwd / "Blender Launcher").as_posix()
             os.chmod(exe, 0o744)
-            _popen('nohup "' + exe + ' -instanced')
+            _popen('nohup "' + exe + '" -instanced')
 
         self.destroy()
