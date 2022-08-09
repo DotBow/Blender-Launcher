@@ -12,12 +12,12 @@ mkdocs-material = "*"
 pyqt5-tools = {version = "==5.15.4.3.2", os_name = "=='nt'"}
 
 [packages]
-pyinstaller = "==5.0.0"
-beautifulsoup4 = "==4.10.0"
+pyinstaller = "==5.3.0"
+beautifulsoup4 = "==4.11.1"
 pyqt5 = "==5.15.6"
-urllib3 = {version = "==1.26.8", extras = ["socks"]}
+urllib3 = {version = "==1.26.11", extras = ["socks"]}
 pywin32 = {version = "*", os_name = "=='nt'"}
-pynput = "==1.7.3"
+pynput = "==1.7.6"
 lxml = "*"
 cchardet = "*"
 python-xlib = "*"
