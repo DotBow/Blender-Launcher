@@ -73,6 +73,32 @@ class Scraper(QThread):
         self.scrap_download_links(
             "https://builder.blender.org/download/patch", 'experimental')
 
+        # Bforartists stable builds
+        self.scrap_bforartists_stable()
+
+    def scrap_bforartists_stable(self):
+        # This will return only the first page of releases!
+        url = "https://github.com/Bforartists/Bforartists/releases"
+        r = self.manager._request('GET', url)
+
+        if r is None:
+            return
+
+        content = r.data
+        soup_stainer = SoupStrainer('a', href=True)
+        soup = BeautifulSoup(content, 'lxml', parse_only=soup_stainer)
+
+        if self.platform == 'Windows':
+            filter = r'download.+bforartists.+zip$'
+        elif self.platform == 'Linux':
+            filter = r'download.+bforartists.+linux+'
+
+        pattern = re.compile(filter, re.IGNORECASE)
+
+        for tag in soup.find_all(limit=None, href=pattern):
+            link = urljoin("https://github.com", tag['href']).rstrip('/')
+            print(link)
+
     def scrap_download_links(self, url, branch_type, _limit=None, stable=False):
         r = self.manager._request('GET', url)
 
