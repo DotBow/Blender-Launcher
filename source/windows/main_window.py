@@ -263,6 +263,15 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         page = BasePageWidget(
             parent=self,
+            page_name="LibraryBforartistsStableListWidget",
+            time_label="Commit Time",
+            info_text="Nothing to show yet",
+            extended_selection=True)
+        self.LibraryBforartistsStableListWidget = \
+            self.LibraryToolBox.add_page_widget(page, "Bforartists Stable")
+
+        page = BasePageWidget(
+            parent=self,
             page_name="DownloadsStableListWidget",
             time_label="Upload Time",
             info_text="No new builds available")
@@ -285,6 +294,15 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.DownloadsExperimentalListWidget = \
             self.DownloadsToolBox.add_page_widget(
                 page, "Experimental")
+
+        page = BasePageWidget(
+            parent=self,
+            page_name="DownloadsBforartistsStableListWidget",
+            time_label="Upload Time",
+            info_text="No new builds available")
+        self.DownloadsBforartistsStableListWidget = \
+            self.DownloadsToolBox.add_page_widget(
+                page, "Bforartists Stable")
 
         page = BasePageWidget(
             parent=self,
@@ -719,6 +737,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         elif branch == 'daily':
             downloads_list_widget = self.DownloadsDailyListWidget
             library_list_widget = self.LibraryDailyListWidget
+        elif branch == 'bforartists':
+            downloads_list_widget = self.DownloadsBforartistsStableListWidget
+            library_list_widget = self.LibraryBforartistsStableListWidget
         else:
             downloads_list_widget = self.DownloadsExperimentalListWidget
             library_list_widget = self.LibraryExperimentalListWidget

@@ -159,6 +159,8 @@ class DownloadWidget(BaseBuildWidget):
             dist = library_folder / 'stable'
         elif self.build_info.branch == 'daily':
             dist = library_folder / 'daily'
+        elif self.build_info.branch == 'bforartists':
+            dist = library_folder / 'bforartists'
         else:
             dist = library_folder / 'experimental'
 
@@ -212,6 +214,7 @@ class DownloadWidget(BaseBuildWidget):
         self.build_info_reader.start()
 
     def download_rename(self, build_info):
+        # TODO Check for build_info = None
         self.state = DownloadState.RENAMING
         new_name = 'blender-{}+{}.{}'.format(
             build_info.subversion,

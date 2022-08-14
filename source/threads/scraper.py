@@ -96,8 +96,11 @@ class Scraper(QThread):
         pattern = re.compile(filter, re.IGNORECASE)
 
         for tag in soup.find_all(limit=None, href=pattern):
-            link = urljoin("https://github.com", tag['href']).rstrip('/')
-            print(link)
+            build_info = self.new_blender_build(
+                tag, "https://github.com", "bforartists")
+
+            if build_info is not None:
+                self.links.emit(build_info)
 
     def scrap_download_links(self, url, branch_type, _limit=None, stable=False):
         r = self.manager._request('GET', url)
@@ -138,14 +141,19 @@ class Scraper(QThread):
         commit_time = None
         build_hash = None
 
-        stem = Path(link).stem
-        match = re.findall(self.hash, stem)
+        if branch_type == 'bforartists':
+            # Get subversion from GitHub tag
+            match = re.search(r'\/v(.+)\/', link)
+            subversion = match.group(1)
+        else:
+            stem = Path(link).stem
+            match = re.findall(self.hash, stem)
 
-        if match:
-            build_hash = match[-1].replace('-', '')
+            if match:
+                build_hash = match[-1].replace('-', '')
 
-        match = re.search(self.subversion, stem)
-        subversion = match.group(0).replace('-', '')
+            match = re.search(self.subversion, stem)
+            subversion = match.group(0).replace('-', '')
 
         if branch_type == 'stable':
             branch = 'stable'
@@ -168,6 +176,8 @@ class Scraper(QThread):
             elif branch_type == 'daily':
                 branch = 'daily'
                 subversion = "{0} {1}".format(subversion, build_var)
+            elif branch_type == 'bforartists':
+                branch = 'bforartists'
 
         if commit_time is None:
             set_locale()
