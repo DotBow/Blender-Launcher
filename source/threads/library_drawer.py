@@ -10,7 +10,7 @@ class LibraryDrawer(QThread):
     finished = pyqtSignal()
     build_released = pyqtSignal()
 
-    def __init__(self, folders=['stable', 'daily', 'experimental', 'custom']):
+    def __init__(self, folders=['stable', 'daily', 'experimental', 'bforartists', 'custom']):
         QThread.__init__(self)
         self.folders = folders
         self.builds_count = 0
@@ -32,7 +32,7 @@ class LibraryDrawer(QThread):
 
             if path.is_dir():
                 for build in path.iterdir():
-                    if (path / build / blender_exe).is_file():
+                    if (path / build).is_dir():
                         self.builds_count = self.builds_count + 1
                         self.build_found.emit(folder / build)
 
