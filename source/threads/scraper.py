@@ -32,9 +32,9 @@ class Scraper(QThread):
         elif self.platform == 'macOS':
             filter = r'blender-.+(macOS|darwin).+dmg$'
 
-        self.b3d_link = re.compile(filter)
-        self.hash = re.compile(r'\w{12}')
-        self.subversion = re.compile(r'-\d\.[a-zA-Z0-9.]+-')
+        self.b3d_link = re.compile(filter, re.IGNORECASE)
+        self.hash = re.compile(r'\w{12}', re.IGNORECASE)
+        self.subversion = re.compile(r'-\d\.[a-zA-Z0-9.]+-', re.IGNORECASE)
 
     def run(self):
         self.get_download_links()
@@ -114,7 +114,7 @@ class Scraper(QThread):
 
         soup = BeautifulSoup(content, 'lxml', parse_only=soup_stainer)
 
-        for tag in soup.find_all(limit=_limit, href=re.compile(self.b3d_link)):
+        for tag in soup.find_all(limit=_limit, href=self.b3d_link):
             build_info = self.new_blender_build(tag, url, branch_type)
 
             if build_info is not None:
