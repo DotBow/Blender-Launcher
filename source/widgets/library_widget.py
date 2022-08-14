@@ -80,7 +80,7 @@ class LibraryWidget(BaseBuildWidget):
             if build_info is None:
                 self.infoLabel.setText(
                     ("Build *{0}* is damaged!").format(Path(self.link).name))
-                self.launchButton.setText("Delete")
+                self.launchButton._setText("Delete")
                 self.launchButton.clicked.connect(self.ask_remove_from_drive)
                 self.setEnabled(True)
                 self.is_damaged = True
