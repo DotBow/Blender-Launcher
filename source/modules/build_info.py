@@ -78,7 +78,9 @@ class BuildInfoReader(QThread):
     def read_blender_version(self, old_build_info=None):
         set_locale()
 
-        if self.platform == 'Windows':
+        if self.path.parent.name == 'bforartists':
+            blender_exe = "bforartists.exe"
+        elif self.platform == 'Windows':
             blender_exe = "blender.exe"
         elif self.platform == 'Linux':
             blender_exe = "blender"
@@ -103,6 +105,8 @@ class BuildInfoReader(QThread):
         else:
             name = self.archive_name
 
+        if subfolder == 'bforartists':
+            branch = "bforartists"
         if subfolder == 'daily':
             branch = "daily"
 
