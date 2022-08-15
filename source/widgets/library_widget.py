@@ -330,21 +330,26 @@ class LibraryWidget(BaseBuildWidget):
         blender_args = get_blender_startup_arguments()
 
         if platform == 'Windows':
+            # Run *.cmd file, used for context menu debug options
             if exe is not None:
                 b3d_exe = library_folder / self.link / exe
                 proc = _popen(['cmd /C', b3d_exe.as_posix()])
             else:
+                exe = "blender.exe"
+
+                if self.branch == 'bforartists':
+                    exe = "bforartists.exe"
+
                 if get_launch_blender_no_console():
+                    # Make sure blender-launcher.exe exists in this build
                     if Path.exists(library_folder / self.link / "blender-launcher.exe"):
-                        b3d_exe = library_folder / self.link / "blender-launcher.exe"
-                    else:
-                        b3d_exe = library_folder / self.link / "blender.exe"
-                else:
-                    b3d_exe = library_folder / self.link / "blender.exe"
+                        exe = "blender-launcher.exe"
+
+                b3d_exe = library_folder / self.link / exe
 
                 if blender_args == "":
                     proc = _popen(b3d_exe.as_posix())
-                else:
+                else:  # Add arguments
                     args = [b3d_exe.as_posix()]
                     args.extend(blender_args.split(' '))
                     proc = _popen(args)
