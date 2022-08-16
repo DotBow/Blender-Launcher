@@ -9,7 +9,7 @@ from modules._platform import get_cwd, get_platform
 from windows.main_window import BlenderLauncher
 from windows.update_window import BlenderLauncherUpdater
 
-version = "1.15.1"
+version = "1.16.0-dev"
 
 # Setup logging config
 _format = '%(asctime)s - %(message)s'
