@@ -182,6 +182,9 @@ class LibraryWidget(BaseBuildWidget):
         self.installTemplateAction = QAction("Install Template")
         self.installTemplateAction.triggered.connect(self.install_template)
 
+        self.makePortableAction = QAction("Make Portable")
+        self.makePortableAction.triggered.connect(self.make_portable)
+
         self.debugMenu = BaseMenuWidget("Debug")
         self.debugMenu.setFont(self.parent.font_10)
 
@@ -221,6 +224,7 @@ class LibraryWidget(BaseBuildWidget):
         self.menu.addAction(self.createShortcutAction)
         self.menu.addAction(self.createSymlinkAction)
         self.menu.addAction(self.installTemplateAction)
+        self.menu.addAction(self.makePortableAction)
         self.menu.addSeparator()
 
         if self.branch in "stable lts":
@@ -395,6 +399,12 @@ class LibraryWidget(BaseBuildWidget):
 
         if self.child_widget is not None:
             self.child_widget.observer_finished()
+
+    @QtCore.pyqtSlot()
+    def make_portable(self):
+        version = self.build_info.subversion.rsplit('.', 1)[0]
+        path = Path(self.link) / version / "config"
+        path.mkdir(parents=False, exist_ok=True)
 
     @QtCore.pyqtSlot()
     def rename_branch(self):
