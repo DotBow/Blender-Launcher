@@ -182,7 +182,10 @@ class LibraryWidget(BaseBuildWidget):
         self.installTemplateAction = QAction("Install Template")
         self.installTemplateAction.triggered.connect(self.install_template)
 
-        self.makePortableAction = QAction("Make Portable")
+        version = self.build_info.subversion.rsplit('.', 1)[0]
+        config_path = Path(self.link) / version / "config"
+        self.makePortableAction = QAction(
+            "Unmake Portable" if config_path.is_dir() else "Make Portable")
         self.makePortableAction.triggered.connect(self.make_portable)
 
         self.debugMenu = BaseMenuWidget("Debug")
@@ -403,8 +406,20 @@ class LibraryWidget(BaseBuildWidget):
     @QtCore.pyqtSlot()
     def make_portable(self):
         version = self.build_info.subversion.rsplit('.', 1)[0]
-        path = Path(self.link) / version / "config"
-        path.mkdir(parents=False, exist_ok=True)
+
+        config_path = Path(self.link) / version / "config"
+        _config_path = config_path.parent / "_config"
+
+        if config_path.is_dir():
+            config_path.rename(_config_path)
+            self.makePortableAction.setText("Make Portable")
+        else:
+            if _config_path.is_dir():
+                _config_path.rename(config_path)
+            else:
+                config_path.mkdir(parents=False, exist_ok=True)
+
+            self.makePortableAction.setText("Unmake Portable")
 
     @QtCore.pyqtSlot()
     def rename_branch(self):
