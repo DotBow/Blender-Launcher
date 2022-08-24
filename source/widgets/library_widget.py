@@ -230,7 +230,7 @@ class LibraryWidget(BaseBuildWidget):
         self.menu.addAction(self.makePortableAction)
         self.menu.addSeparator()
 
-        if self.branch in "stable lts":
+        if self.branch in {"stable", "lts", "daily"}:
             self.menu.addAction(self.showReleaseNotesAction)
         else:
             regexp = re.compile(r'D\d{5}')
