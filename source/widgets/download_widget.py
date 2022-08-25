@@ -110,7 +110,7 @@ class DownloadWidget(BaseBuildWidget):
 
         self.setLayout(self.main_hl)
 
-        if self.build_info.branch in "stable lts":
+        if self.build_info.branch in {"stable", "lts", "daily"}:
             self.menu.addAction(self.showReleaseNotesAction)
         else:
             regexp = re.compile(r'D\d{5}')
