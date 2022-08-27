@@ -362,10 +362,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         # Setup tray icon context Menu
         quit_action = QAction("Quit", self)
         quit_action.triggered.connect(self.quit)
-        hide_action = QAction("Hide", self)
-        hide_action.triggered.connect(self.close)
-        show_action = QAction("Show", self)
-        show_action.triggered.connect(self._show)
+        self.hide_action = QAction("Hide", self)
+        self.hide_action.triggered.connect(self.close)
+        self.show_action = QAction("Show", self)
+        self.show_action.triggered.connect(self._show)
         show_favorites_action = QAction(self.icon_favorite, "Favorites", self)
         show_favorites_action.triggered.connect(self.show_favorites)
         quick_launch_action = QAction(self.icon_quick_launch, "Blender", self)
@@ -375,8 +375,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.tray_menu.setFont(self.font_10)
         self.tray_menu.addAction(quick_launch_action)
         self.tray_menu.addAction(show_favorites_action)
-        self.tray_menu.addAction(show_action)
-        self.tray_menu.addAction(hide_action)
+        self.tray_menu.addAction(self.show_action)
+        self.tray_menu.addAction(self.hide_action)
         self.tray_menu.addAction(quit_action)
 
         # Setup tray icon
@@ -594,6 +594,13 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         elif reason == QSystemTrayIcon.MiddleClick:
             self.quick_launch()
         elif reason == QSystemTrayIcon.Context:
+            if self.isMinimized() or self.isHidden():
+                self.show_action.setVisible(True)
+                self.hide_action.setVisible(False)
+            else:
+                self.show_action.setVisible(False)
+                self.hide_action.setVisible(True)
+
             self.tray_menu._show()
 
     def _aboutToQuit(self):
