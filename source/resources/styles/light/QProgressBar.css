@@ -1,0 +1,10 @@
+QProgressBar {
+    color: #191919;
+    background-color: #D3D3D3;
+    border: 1px solid #A7A7A7;
+    height: 100%;
+}
+
+QProgressBar::chunk {
+    background: #5680C2;
+}

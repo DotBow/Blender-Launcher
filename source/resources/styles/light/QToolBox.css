@@ -1,0 +1,18 @@
+QToolBox {
+    border: none;
+}
+
+QToolBox::tab {
+    background-color: #BDBDBD;
+    color: #191919;
+}
+
+QToolBox::tab:hover {
+    background-color: #B0B0B0;
+    color: #191919;
+}
+
+QToolBox::tab:selected:hover {
+    background-color: #BDBDBD;
+    color: #191919;
+}

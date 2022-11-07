@@ -1,0 +1,31 @@
+QComboBox {
+    background-color: #E0E0E0;
+    color: #191919;
+    border: 1px solid #BBBBBB;
+    padding: 1px 1px 1px 3px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #E0E0E0;
+    color: #191919;
+    border: 1px solid #BBBBBB;
+    outline: 0;
+}
+
+QComboBox::item:selected {
+    background-color: #3B5689;
+    border: none;
+}
+
+QComboBox::indicator:checked {
+    image: url(:resources/icons/black/check.svg);
+}
+
+QComboBox::drop-down {
+    background-color: #E0E0E0;
+}
+
+QComboBox::down-arrow {
+    image: url(:resources/icons/black/drop_down_arrow.svg);
+    padding-right: 6px;
+}

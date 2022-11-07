@@ -1,28 +1,54 @@
 <RCC>
   <qresource prefix="resources">
     <file>icons/bl/bl.ico</file>
-    <file>icons/drop_down_arrow.svg</file>
-    <file>icons/info.svg</file>
-    <file>icons/exclamation.svg</file>
-    <file>icons/wiki.svg</file>
-    <file>icons/delete.svg</file>
-    <file>icons/folder.svg</file>
-    <file>icons/box_checked.svg</file>
-    <file>icons/box_unchecked.svg</file>
-    <file>icons/fake.svg</file>
-    <file>icons/favorite.svg</file>
-    <file>icons/page_closed.svg</file>
-    <file>icons/page_opened.svg</file>
-    <file>icons/close.svg</file>
-    <file>icons/minimize.svg</file>
-    <file>icons/settings.svg</file>
-    <file>icons/size_grip.svg</file>
-    <file>icons/check.svg</file>
-    <file>icons/filled_circle.svg</file>
-    <file>icons/quick_launch.svg</file>
-    <file>icons/download.svg</file>
-    <file>icons/file.svg</file>
-    <file>styles/global.qss</file>
+    <!-- White Icons -->
+    <file>icons/white/drop_down_arrow.svg</file>
+    <file>icons/white/info.svg</file>
+    <file>icons/white/exclamation.svg</file>
+    <file>icons/white/wiki.svg</file>
+    <file>icons/white/delete.svg</file>
+    <file>icons/white/folder.svg</file>
+    <file>icons/white/box_checked.svg</file>
+    <file>icons/white/box_unchecked.svg</file>
+    <file>icons/white/fake.svg</file>
+    <file>icons/white/favorite.svg</file>
+    <file>icons/white/page_closed.svg</file>
+    <file>icons/white/page_opened.svg</file>
+    <file>icons/white/close.svg</file>
+    <file>icons/white/minimize.svg</file>
+    <file>icons/white/settings.svg</file>
+    <file>icons/white/size_grip.svg</file>
+    <file>icons/white/check.svg</file>
+    <file>icons/white/filled_circle.svg</file>
+    <file>icons/white/quick_launch.svg</file>
+    <file>icons/white/download.svg</file>
+    <file>icons/white/file.svg</file>
+    <!-- Black Icons -->
+    <file>icons/black/drop_down_arrow.svg</file>
+    <file>icons/black/info.svg</file>
+    <file>icons/black/exclamation.svg</file>
+    <file>icons/black/wiki.svg</file>
+    <file>icons/black/delete.svg</file>
+    <file>icons/black/folder.svg</file>
+    <file>icons/black/box_checked.svg</file>
+    <file>icons/black/box_unchecked.svg</file>
+    <file>icons/black/fake.svg</file>
+    <file>icons/black/favorite.svg</file>
+    <file>icons/black/page_closed.svg</file>
+    <file>icons/black/page_opened.svg</file>
+    <file>icons/black/close.svg</file>
+    <file>icons/black/minimize.svg</file>
+    <file>icons/black/settings.svg</file>
+    <file>icons/black/size_grip.svg</file>
+    <file>icons/black/check.svg</file>
+    <file>icons/black/filled_circle.svg</file>
+    <file>icons/black/quick_launch.svg</file>
+    <file>icons/black/download.svg</file>
+    <file>icons/black/file.svg</file>
+    <!-- QSS Files -->
+    <file>styles/dark/global.qss</file>
+    <file>styles/light/global.qss</file>
+    <!-- Fonts -->
     <file>fonts/OpenSans-SemiBold.ttf</file>
   </qresource>
 </RCC>

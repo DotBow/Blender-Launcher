@@ -1,0 +1,18 @@
+QTreeView {
+    background-color: #D7D7D7;
+    color: #191919;
+    border: 1px solid #BBBBBB;
+    outline: 0;
+}
+
+QTreeView::item:hover {
+    background-color: #B0B0B0;
+}
+
+QTreeView::item:selected {
+    background-color: #3B5689;
+}
+
+QTreeView::item:selected:!active {
+    color: #191919;
+}

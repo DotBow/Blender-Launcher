@@ -1,0 +1,8 @@
+QWidget[ToolBoxWidget=true] {
+    background-color: #D7D7D7;
+}
+
+QWidget[FormLayout=true] {
+    background-color: #D7D7D7;
+    border: none;
+}

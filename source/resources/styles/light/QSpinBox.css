@@ -1,0 +1,14 @@
+QSpinBox {
+    background-color: #E0E0E0;
+    color: #191919;
+    border: 1px solid #BBBBBB;
+    padding: 1px;
+}
+
+QSpinBox:disabled {
+    color: #828282;
+}
+
+QSpinBox[text=\"\"] {
+    color: #191919;
+}

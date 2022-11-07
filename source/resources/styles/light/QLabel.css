@@ -1,0 +1,13 @@
+QLabel {
+    color: #191919;
+}
+
+QLabel[Header=true] {
+    background-color: #BDBDBD;
+    border-top: 2px solid #BDBDBD;
+    border-bottom: 2px solid #BDBDBD;
+}
+
+QLabel:disabled {
+    color: #828282;
+}

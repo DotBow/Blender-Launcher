@@ -4,10 +4,16 @@ import os
 
 cwd = Path.cwd()
 dist = Path(r'source/resources/styles')
-styles = (cwd / dist).glob('*.css')
+dark_styles = (cwd / dist / 'dark').glob('*.css')
+light_styles = (cwd / dist / 'light').glob('*.css')
 
-with open(dist / 'global.qss', 'w') as outfile:
-    for style in styles:
+with open(dist / 'dark/global.qss', 'w') as outfile:
+    for style in dark_styles:
+        outfile.write(style.read_text())
+        outfile.write("\n")
+
+with open(dist / 'light/global.qss', 'w') as outfile:
+    for style in light_styles:
         outfile.write(style.read_text())
         outfile.write("\n")
 

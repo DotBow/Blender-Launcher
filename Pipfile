@@ -21,6 +21,7 @@ pynput = "==1.7.6"
 lxml = "*"
 cchardet = "*"
 python-xlib = "*"
+darkdetect = "*"
 
 [scripts]
 start = "python source/main.py"

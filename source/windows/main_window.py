@@ -48,6 +48,8 @@ from windows.dialog_window import DialogIcon, DialogWindow
 from windows.file_dialog_window import FileDialogWindow
 from windows.settings_window import SettingsWindow
 
+from darkdetect import isDark
+
 if get_platform() == 'Windows':
     from PyQt5.QtWinExtras import QWinThumbnailToolBar, QWinThumbnailToolButton
 
@@ -101,18 +103,32 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.app.aboutToQuit.connect(self._aboutToQuit)
 
         # Icon cache
-        self.icon_settings = QIcon(":resources/icons/settings.svg")
-        self.icon_wiki = QIcon(":resources/icons/wiki.svg")
-        self.icon_minimize = QIcon(":resources/icons/minimize.svg")
-        self.icon_close = QIcon(":resources/icons/close.svg")
-        self.icon_folder = QIcon(":resources/icons/folder.svg")
-        self.icon_favorite = QIcon(":resources/icons/favorite.svg")
-        self.icon_fake = QIcon(":resources/icons/fake.svg")
-        self.icon_delete = QIcon(":resources/icons/delete.svg")
-        self.filled_circle = QIcon(":resources/icons/filled_circle.svg")
-        self.icon_quick_launch = QIcon(":resources/icons/quick_launch.svg")
-        self.icon_download = QIcon(":resources/icons/download.svg")
-        self.icon_file = QIcon(":resources/icons/file.svg")
+        if isDark():
+            self.icon_settings = QIcon(":resources/icons/white/settings.svg")
+            self.icon_wiki = QIcon(":resources/icons/white/wiki.svg")
+            self.icon_minimize = QIcon(":resources/icons/white/minimize.svg")
+            self.icon_close = QIcon(":resources/icons/white/close.svg")
+            self.icon_folder = QIcon(":resources/icons/white/folder.svg")
+            self.icon_favorite = QIcon(":resources/icons/white/favorite.svg")
+            self.icon_fake = QIcon(":resources/icons/white/fake.svg")
+            self.icon_delete = QIcon(":resources/icons/white/delete.svg")
+            self.filled_circle = QIcon(":resources/icons/white/filled_circle.svg")
+            self.icon_quick_launch = QIcon(":resources/icons/white/quick_launch.svg")
+            self.icon_download = QIcon(":resources/icons/white/download.svg")
+            self.icon_file = QIcon(":resources/icons/white/file.svg")
+        else:
+            self.icon_settings = QIcon(":resources/icons/black/settings.svg")
+            self.icon_wiki = QIcon(":resources/icons/black/wiki.svg")
+            self.icon_minimize = QIcon(":resources/icons/black/minimize.svg")
+            self.icon_close = QIcon(":resources/icons/black/close.svg")
+            self.icon_folder = QIcon(":resources/icons/black/folder.svg")
+            self.icon_favorite = QIcon(":resources/icons/black/favorite.svg")
+            self.icon_fake = QIcon(":resources/icons/black/fake.svg")
+            self.icon_delete = QIcon(":resources/icons/black/delete.svg")
+            self.filled_circle = QIcon(":resources/icons/black/filled_circle.svg")
+            self.icon_quick_launch = QIcon(":resources/icons/black/quick_launch.svg")
+            self.icon_download = QIcon(":resources/icons/black/download.svg")
+            self.icon_file = QIcon(":resources/icons/black/file.svg")
         self.icon_taskbar = QIcon(":resources/icons/bl/bl.ico")
 
         # Setup window

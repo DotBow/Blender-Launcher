@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QPushButton, QVBoxLayout,
 
 from widgets.base_list_widget import BaseListWidget
 
+from darkdetect import isDark
 
 class SortingType(Enum):
     DATETIME = 1
@@ -30,7 +31,10 @@ class BasePageWidget(QWidget):
         self.PlaceholderLayout = QVBoxLayout(self.PlaceholderWidget)
         self.PlaceholderLayout.setContentsMargins(0, 0, 0, 0)
 
-        self.InfoPixmap = QPixmap(":resources/icons/info.svg")
+        if isDark():
+            self.InfoPixmap = QPixmap(":resources/icons/white/info.svg")
+        else:
+            self.InfoPixmap = QPixmap(":resources/icons/black/info.svg")
         self.InfoPixmapLabel = QLabel()
         self.InfoPixmapLabel.setScaledContents(True)
         self.InfoPixmapLabel.setFixedSize(32, 32)

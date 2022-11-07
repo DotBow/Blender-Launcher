@@ -4,6 +4,8 @@ from PyQt5.QtCore import QFile, QPoint, Qt, QTextStream
 from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import QApplication, QWidget
 
+from darkdetect import isDark
+
 if get_enable_high_dpi_scaling():
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
@@ -33,9 +35,12 @@ class BaseWindow(QWidget):
             self.app.setFont(self.font_10)
 
             # Setup style
-            file = QFile(":/resources/styles/global.qss")
-            file.open(QFile.ReadOnly | QFile.Text)
-            self.style_sheet = QTextStream(file).readAll()
+            if isDark():
+                theme = QFile(":/resources/styles/dark/global.qss")
+            else:
+                theme = QFile(":/resources/styles/light/global.qss")
+            theme.open(QFile.ReadOnly | QFile.Text)
+            self.style_sheet = QTextStream(theme).readAll()
             self.app.setStyleSheet(self.style_sheet)
 
         self.setWindowFlags(Qt.FramelessWindowHint)

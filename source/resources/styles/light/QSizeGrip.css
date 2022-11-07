@@ -1,0 +1,5 @@
+QSizeGrip {
+    image: url(:resources/icons/black/size_grip.svg);
+    width: 16px;
+    height: 16px;
+}

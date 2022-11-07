@@ -1,0 +1,7 @@
+QStatusBar {
+    color: #191919;
+}
+
+QStatusBar::item {
+    border: none;
+}
