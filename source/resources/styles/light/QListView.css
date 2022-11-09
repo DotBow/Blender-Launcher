@@ -14,7 +14,7 @@ QListView::item:hover {
 }
 
 QListView::item:selected {
-    background-color: #3B5689;
+    background-color: #7190c8;
 }
 
 QListView::item:selected:!active {

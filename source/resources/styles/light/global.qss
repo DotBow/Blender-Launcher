@@ -102,7 +102,7 @@ QListView::item:hover {
 }
 
 QListView::item:selected {
-    background-color: #3B5689;
+    background-color: #7190c8;
 }
 
 QListView::item:selected:!active {
@@ -127,7 +127,7 @@ QListWidget::item:hover {
 }
 
 QListWidget::item:selected {
-    background-color: #3B5689;
+    background-color: #7190c8;
 }
 
 QListWidget::item:selected:hover {
@@ -443,7 +443,7 @@ QTreeView::item:hover {
 }
 
 QTreeView::item:selected {
-    background-color: #3B5689;
+    background-color: #7190c8;
 }
 
 QTreeView::item:selected:!active {
