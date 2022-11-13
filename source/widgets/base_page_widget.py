@@ -1,6 +1,7 @@
 from enum import Enum
 
-from modules.settings import get_list_sorting_type, set_list_sorting_type
+from modules.settings import (get_list_sorting_type, set_list_sorting_type, 
+                              get_theme)
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QPushButton, QVBoxLayout,
@@ -31,7 +32,15 @@ class BasePageWidget(QWidget):
         self.PlaceholderLayout = QVBoxLayout(self.PlaceholderWidget)
         self.PlaceholderLayout.setContentsMargins(0, 0, 0, 0)
 
-        if isLight():
+        # Theme
+        if get_theme() == 0:
+            self.isLight = isLight()
+        elif get_theme() == 1:
+            self.isLight = True
+        else:
+            self.isLight = False
+
+        if self.isLight:
             self.InfoPixmap = QPixmap(":resources/icons/black/info.svg")
         else:
             self.InfoPixmap = QPixmap(":resources/icons/white/info.svg")

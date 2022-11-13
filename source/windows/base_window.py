@@ -1,5 +1,5 @@
 from modules.connection_manager import ConnectionManager
-from modules.settings import get_enable_high_dpi_scaling
+from modules.settings import get_enable_high_dpi_scaling, get_theme
 from PyQt5.QtCore import QFile, QPoint, Qt, QTextStream
 from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import QApplication, QWidget
@@ -34,8 +34,16 @@ class BaseWindow(QWidget):
             self.font_8.setHintingPreference(QFont.PreferNoHinting)
             self.app.setFont(self.font_10)
 
+            # Theme
+            if get_theme() == 0:
+                self.isLight = isLight()
+            elif get_theme() == 1:
+                self.isLight = True
+            else:
+                self.isLight = False
+
             # Setup style
-            if isLight():
+            if self.isLight:
                 theme = QFile(":/resources/styles/light/global.qss")
             else:
                 theme = QFile(":/resources/styles/dark/global.qss")

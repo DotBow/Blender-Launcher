@@ -25,7 +25,8 @@ from modules.settings import (create_library_folders,
                               get_new_builds_check_frequency, get_proxy_type,
                               get_quick_launch_key_seq, get_show_tray_icon,
                               get_sync_library_and_downloads_pages,
-                              is_library_folder_valid, set_library_folder)
+                              is_library_folder_valid, set_library_folder,
+                              get_theme)
 from pynput import keyboard
 from PyQt5.QtCore import QSize, Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
@@ -102,8 +103,16 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         if self.platform == "macOS":
             self.app.aboutToQuit.connect(self._aboutToQuit)
 
+        # Theme
+        if get_theme() == 0:
+            self.isLight = isLight()
+        elif get_theme() == 1:
+            self.isLight = True
+        else:
+            self.isLight = False
+
         # Icon cache
-        if isLight():
+        if self.isLight:
             self.icon_settings = QIcon(":resources/icons/black/settings.svg")
             self.icon_wiki = QIcon(":resources/icons/black/wiki.svg")
             self.icon_minimize = QIcon(":resources/icons/black/minimize.svg")

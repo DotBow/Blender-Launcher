@@ -54,6 +54,13 @@ proxy_types = {
 }
 
 
+theme_modes = {
+    'Auto': 0,
+    'Light': 1,
+    'Dark': 2
+}
+
+
 def get_settings():
     return QSettings((get_cwd() / 'Blender Launcher.ini').as_posix(),
                      QSettings.IniFormat)
@@ -278,6 +285,19 @@ def get_enable_download_notifications():
 
 def set_enable_download_notifications(is_checked):
     get_settings().setValue('enable_download_notifications', is_checked)
+
+
+def get_theme():
+    settings = get_settings()
+
+    if settings.contains('theme'):
+        return settings.value('theme', type=int)
+    else:
+        return 0
+
+
+def set_theme(mode):
+    get_settings().setValue('theme', theme_modes[mode])
 
 
 def get_blender_startup_arguments():

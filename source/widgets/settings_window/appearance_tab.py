@@ -3,11 +3,13 @@ from modules.settings import (downloads_pages, get_default_downloads_page,
                               get_enable_download_notifications,
                               get_enable_new_builds_notifications,
                               get_sync_library_and_downloads_pages,
+                              get_theme,
                               library_pages, set_default_downloads_page,
                               set_default_library_page, set_default_tab,
                               set_enable_download_notifications,
                               set_enable_new_builds_notifications,
-                              set_sync_library_and_downloads_pages, tabs)
+                              set_sync_library_and_downloads_pages, tabs,
+                              set_theme, theme_modes)
 from PyQt5.QtWidgets import QCheckBox, QComboBox
 from widgets.settings_form_widget import SettingsFormWidget
 
@@ -59,6 +61,12 @@ class AppearanceTabWidget(SettingsFormWidget):
         self.EnableDownloadNotifications.setChecked(
             get_enable_download_notifications())
 
+        # Theme
+        self.ThemeComboBox = QComboBox()
+        self.ThemeComboBox.addItems(theme_modes.keys())
+        self.ThemeComboBox.setCurrentIndex(get_theme())
+        self.ThemeComboBox.activated[str].connect(self.change_theme)
+
         # Layout
         self._addRow(
             "Default Tab", self.DefaultTabComboBox)
@@ -73,6 +81,7 @@ class AppearanceTabWidget(SettingsFormWidget):
                      self.EnableNewBuildsNotifications)
         self._addRow("When Downloading Is Finished",
                      self.EnableDownloadNotifications)
+        self._addRow("Theme", self.ThemeComboBox)
 
     def change_default_tab(self, tab):
         set_default_tab(tab)
@@ -108,3 +117,6 @@ class AppearanceTabWidget(SettingsFormWidget):
 
     def toggle_enable_new_builds_notifications(self, is_checked):
         set_enable_new_builds_notifications(is_checked)
+
+    def change_theme(self, mode):
+        set_theme(mode)
