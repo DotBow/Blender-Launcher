@@ -7,7 +7,7 @@ from ui.dialog_window_ui import Ui_DialogWindow
 
 from windows.base_window import BaseWindow
 
-from darkdetect import isDark
+from darkdetect import isLight
 
 class DialogIcon(Enum):
     WARNING = 1
@@ -31,17 +31,17 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
         self.IconLabel.setFixedSize(48, 48)
 
         if icon == DialogIcon.WARNING:
-            if isDark():
-                self.IconLabel.setPixmap(
-                    QPixmap(":resources/icons/white/exclamation.svg"))
-            else:
+            if isLight():
                 self.IconLabel.setPixmap(
                     QPixmap(":resources/icons/black/exclamation.svg"))
-        elif icon == DialogIcon.INFO:
-            if isDark():
-                self.IconLabel.setPixmap(QPixmap(":resources/icons/white/info.svg"))
             else:
+                self.IconLabel.setPixmap(
+                    QPixmap(":resources/icons/white/exclamation.svg"))
+        elif icon == DialogIcon.INFO:
+            if isLight():
                 self.IconLabel.setPixmap(QPixmap(":resources/icons/black/info.svg"))
+            else:
+                self.IconLabel.setPixmap(QPixmap(":resources/icons/white/info.svg"))
 
         self.TextLabel = QLabel(text)
         self.TextLabel.setTextFormat(Qt.RichText)
