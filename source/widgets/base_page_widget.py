@@ -2,6 +2,7 @@ from enum import Enum
 
 from modules.settings import (get_list_sorting_type, set_list_sorting_type, 
                               get_theme)
+from modules.theme import Theme, theme
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QPushButton, QVBoxLayout,
@@ -31,23 +32,13 @@ class BasePageWidget(QWidget):
         self.PlaceholderWidget.setProperty("ToolBoxWidget", True)
         self.PlaceholderLayout = QVBoxLayout(self.PlaceholderWidget)
         self.PlaceholderLayout.setContentsMargins(0, 0, 0, 0)
-
-        # Theme
-        if get_theme() == 0:
-            self.isLight = isLight()
-        elif get_theme() == 1:
-            self.isLight = True
-        else:
-            self.isLight = False
-
-        if self.isLight:
-            self.InfoPixmap = QPixmap(":resources/icons/black/info.svg")
-        else:
-            self.InfoPixmap = QPixmap(":resources/icons/white/info.svg")
+        
         self.InfoPixmapLabel = QLabel()
         self.InfoPixmapLabel.setScaledContents(True)
         self.InfoPixmapLabel.setFixedSize(32, 32)
-        self.InfoPixmapLabel.setPixmap(self.InfoPixmap)
+
+        self.loadInfoPixmapIcon()
+        theme.changed.connect(self.loadInfoPixmapIcon)
 
         self.InfoLabelLayout = QHBoxLayout()
         self.InfoLabelLayout.setContentsMargins(0, 0, 0, 6)
@@ -148,3 +139,11 @@ class BasePageWidget(QWidget):
             self.subversionLabel.setChecked(True)
 
         set_list_sorting_type(self.name, sorting_type)
+
+    def loadInfoPixmapIcon(self):
+        if Theme.isLight():
+            self.InfoPixmap = QPixmap(":resources/icons/black/info.svg")
+        else:
+            self.InfoPixmap = QPixmap(":resources/icons/white/info.svg")
+        
+        self.InfoPixmapLabel.setPixmap(self.InfoPixmap)

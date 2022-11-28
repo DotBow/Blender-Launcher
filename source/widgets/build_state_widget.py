@@ -1,3 +1,4 @@
+from modules.theme import theme
 from PyQt5.QtCore import QEasingCurve, QPropertyAnimation, QRect, QSize
 from PyQt5.QtWidgets import QHBoxLayout, QPushButton, QWidget
 
@@ -26,6 +27,8 @@ class BuildStateWidget(QWidget):
 
         self.extractIcon = self.IconButton(self.parent.icon_file)
         self.extractIcon.hide()
+
+        theme.changed.connect(self.changeIcons)
 
         self.layout.addWidget(self.fakeIcon)
         self.layout.addWidget(self.countIcon)
@@ -145,3 +148,8 @@ class BuildStateWidget(QWidget):
                 return
 
         self.anim.start()
+    
+    def changeIcons(self):
+        self.newBuildIcon.setIcon(self.parent.filled_circle)
+        self.downloadIcon.setIcon(self.parent.icon_download)
+        self.extractIcon.setIcon(self.parent.icon_file)

@@ -12,6 +12,7 @@ from modules.settings import (get_check_for_new_builds_automatically,
                               set_library_folder,
                               set_new_builds_check_frequency,
                               set_show_tray_icon)
+from modules.theme import theme
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QCheckBox, QHBoxLayout, QLineEdit, QPushButton,
                              QSpinBox, QWidget)
@@ -42,6 +43,8 @@ class GeneralTabWidget(SettingsFormWidget):
 
         self.LibraryFolderLayout.addWidget(self.LibraryFolderLineEdit)
         self.LibraryFolderLayout.addWidget(self.SetLibraryFolderButton)
+
+        theme.changed.connect(self.changeLibraryFolderIcon)
 
         # Launch When System Starts
         self.LaunchWhenSystemStartsCheckBox = QCheckBox()
@@ -150,3 +153,6 @@ class GeneralTabWidget(SettingsFormWidget):
 
     def toggle_enable_high_dpi_scaling(self, is_checked):
         set_enable_high_dpi_scaling(is_checked)
+
+    def changeLibraryFolderIcon(self):
+        self.SetLibraryFolderButton.setIcon(self.parent.icon_folder)

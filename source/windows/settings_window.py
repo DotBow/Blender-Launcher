@@ -6,6 +6,7 @@ from modules.settings import (get_check_for_new_builds_automatically,
                               get_proxy_type, get_proxy_user,
                               get_quick_launch_key_seq,
                               get_use_custom_tls_certificates, proxy_types)
+from modules.theme import theme
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QMainWindow, QPushButton,
                              QTabWidget)
@@ -58,6 +59,8 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         self.HeaderLayout.addWidget(self.HeaderLabel, 1)
         self.HeaderLayout.addWidget(self.CloseButton, 0, Qt.AlignRight)
+
+        theme.changed.connect(self.changeCloseIcon)
 
         # Tab Layout
         self.TabWidget = QTabWidget()
@@ -189,3 +192,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
     def _destroy(self):
         self.parent.settings_window = None
         self.close()
+
+    def changeCloseIcon(self):
+        self.CloseButton.setIcon(self.parent.icon_close)

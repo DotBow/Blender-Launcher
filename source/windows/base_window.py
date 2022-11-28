@@ -1,10 +1,9 @@
 from modules.connection_manager import ConnectionManager
-from modules.settings import get_enable_high_dpi_scaling, get_theme
+from modules.settings import get_enable_high_dpi_scaling
+from modules.theme import Theme, theme
 from PyQt5.QtCore import QFile, QPoint, Qt, QTextStream
 from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import QApplication, QWidget
-
-from darkdetect import isLight
 
 if get_enable_high_dpi_scaling():
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
@@ -34,22 +33,8 @@ class BaseWindow(QWidget):
             self.font_8.setHintingPreference(QFont.PreferNoHinting)
             self.app.setFont(self.font_10)
 
-            # Theme
-            if get_theme() == 0:
-                self.isLight = isLight()
-            elif get_theme() == 1:
-                self.isLight = True
-            else:
-                self.isLight = False
-
-            # Setup style
-            if self.isLight:
-                theme = QFile(":/resources/styles/light/global.qss")
-            else:
-                theme = QFile(":/resources/styles/dark/global.qss")
-            theme.open(QFile.ReadOnly | QFile.Text)
-            self.style_sheet = QTextStream(theme).readAll()
-            self.app.setStyleSheet(self.style_sheet)
+            self.loadTheme()
+            theme.changed.connect(self.loadTheme)
 
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -105,3 +90,12 @@ class BaseWindow(QWidget):
     def _destroyed(self):
         if self.parent is not None:
             self.parent.windows.remove(self)
+
+    def loadTheme(self):
+        if Theme.isLight():
+            theme = QFile(":/resources/styles/light/global.qss")
+        else:
+            theme = QFile(":/resources/styles/dark/global.qss")
+        theme.open(QFile.ReadOnly | QFile.Text)
+        self.style_sheet = QTextStream(theme).readAll()
+        self.app.setStyleSheet(self.style_sheet)

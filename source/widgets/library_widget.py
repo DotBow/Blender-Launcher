@@ -11,6 +11,7 @@ from modules.settings import (get_bash_arguments,
                               get_launch_blender_no_console,
                               get_library_folder, get_mark_as_favorite,
                               set_favorite_path)
+from modules.theme import theme
 from modules.shortcut import create_shortcut
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
@@ -159,6 +160,8 @@ class LibraryWidget(BaseBuildWidget):
         self.removeFromFavoritesAction.setIcon(self.parent.icon_favorite)
         self.removeFromFavoritesAction.triggered.connect(
             self.remove_from_favorites)
+
+        theme.changed.connect(self.changeIcons)
 
         if self.parent_widget is not None:
             self.addToFavoritesAction.setVisible(False)
@@ -610,3 +613,22 @@ class LibraryWidget(BaseBuildWidget):
     def _destroyed(self):
         if self.parent.favorite == self:
             self.parent.favorite = None
+
+    def changeIcons(self):
+        self.deleteAction.setIcon(self.parent.icon_delete)
+        self.addToQuickLaunchAction.setIcon(self.parent.icon_quick_launch)
+        self.addToFavoritesAction.setIcon(self.parent.icon_favorite)
+        self.removeFromFavoritesAction.setIcon(self.parent.icon_favorite)
+
+        if self.addToQuickLaunchAction.isEnabled() == False:
+            self.launchButton.setIcon(self.parent.icon_quick_launch)
+
+        if self.parent_widget is not None:
+            if self.parent_widget.addToQuickLaunchAction.isEnabled() == False:
+                self.parent_widget.launchButton.setIcon(
+                    self.parent.icon_quick_launch)
+
+        if self.child_widget is not None:
+            if self.child_widget.addToQuickLaunchAction.isEnabled() == False:
+                self.child_widget.launchButton.setIcon(
+                    self.parent.icon_quick_launch)

@@ -1,6 +1,6 @@
 from enum import Enum
 
-from modules.settings import get_theme
+from modules.theme import Theme, theme
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QHBoxLayout, QLabel, QMainWindow, QPushButton
@@ -31,26 +31,8 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
         self.IconLabel.setScaledContents(True)
         self.IconLabel.setFixedSize(48, 48)
 
-        # Theme
-        if get_theme() == 0:
-            self.isLight = isLight()
-        elif get_theme() == 1:
-            self.isLight = True
-        else:
-            self.isLight = False
-
-        if icon == DialogIcon.WARNING:
-            if self.isLight:
-                self.IconLabel.setPixmap(
-                    QPixmap(":resources/icons/black/exclamation.svg"))
-            else:
-                self.IconLabel.setPixmap(
-                    QPixmap(":resources/icons/white/exclamation.svg"))
-        elif icon == DialogIcon.INFO:
-            if self.isLight:
-                self.IconLabel.setPixmap(QPixmap(":resources/icons/black/info.svg"))
-            else:
-                self.IconLabel.setPixmap(QPixmap(":resources/icons/white/info.svg"))
+        self.icon = icon
+        self.loadDialogIcon()
 
         self.TextLabel = QLabel(text)
         self.TextLabel.setTextFormat(Qt.RichText)
@@ -98,3 +80,17 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
     def cancel(self):
         self.cancelled.emit()
         self.close()
+
+    def loadDialogIcon(self):
+        if self.icon == DialogIcon.WARNING:
+            if Theme.isLight():
+                self.IconLabel.setPixmap(
+                    QPixmap(":resources/icons/black/exclamation.svg"))
+            else:
+                self.IconLabel.setPixmap(
+                    QPixmap(":resources/icons/white/exclamation.svg"))
+        elif self.icon == DialogIcon.INFO:
+            if Theme.isLight():
+                self.IconLabel.setPixmap(QPixmap(":resources/icons/black/info.svg"))
+            else:
+                self.IconLabel.setPixmap(QPixmap(":resources/icons/white/info.svg"))

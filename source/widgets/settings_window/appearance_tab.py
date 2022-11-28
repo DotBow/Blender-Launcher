@@ -10,6 +10,7 @@ from modules.settings import (downloads_pages, get_default_downloads_page,
                               set_enable_new_builds_notifications,
                               set_sync_library_and_downloads_pages, tabs,
                               set_theme, theme_modes)
+from modules.theme import theme
 from PyQt5.QtWidgets import QCheckBox, QComboBox
 from widgets.settings_form_widget import SettingsFormWidget
 
@@ -120,3 +121,5 @@ class AppearanceTabWidget(SettingsFormWidget):
 
     def change_theme(self, mode):
         set_theme(mode)
+        
+        theme.themeChanged()
