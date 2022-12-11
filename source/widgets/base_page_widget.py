@@ -1,7 +1,6 @@
 from enum import Enum
 
-from modules.settings import (get_list_sorting_type, set_list_sorting_type, 
-                              get_theme)
+from modules.settings import (get_list_sorting_type, set_list_sorting_type)
 from modules.theme import Theme, theme
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
@@ -10,7 +9,6 @@ from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QPushButton, QVBoxLayout,
 
 from widgets.base_list_widget import BaseListWidget
 
-from darkdetect import isLight
 
 class SortingType(Enum):
     DATETIME = 1

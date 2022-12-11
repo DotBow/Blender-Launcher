@@ -49,8 +49,6 @@ from windows.dialog_window import DialogIcon, DialogWindow
 from windows.file_dialog_window import FileDialogWindow
 from windows.settings_window import SettingsWindow
 
-from darkdetect import isLight
-
 if get_platform() == 'Windows':
     from PyQt5.QtWinExtras import QWinThumbnailToolBar, QWinThumbnailToolButton
 
