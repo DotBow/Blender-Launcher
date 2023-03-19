@@ -28,7 +28,7 @@ from modules.settings import (create_library_folders,
                               is_library_folder_valid, set_library_folder)
 from pynput import keyboard
 from PyQt6.QtCore import QSize, Qt, QThread, pyqtSignal, QTime
-from PyQt6.QtGui import QIcon, QAction
+from PyQt6.QtGui import QIcon, QAction, QPixmap, QColor, QPainter, QImage
 from PyQt6.QtNetwork import QLocalServer
 from PyQt6.QtWidgets import (QHBoxLayout, QLabel, QMainWindow,
                              QPushButton, QSystemTrayIcon, QTabWidget,
@@ -47,6 +47,8 @@ from windows.base_window import BaseWindow
 from windows.dialog_window import DialogIcon, DialogWindow
 from windows.file_dialog_window import FileDialogWindow
 from windows.settings_window import SettingsWindow
+
+from modules.icons import get_icons
 
 
 class AppState(Enum):
@@ -101,19 +103,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.app.aboutToQuit.connect(self._aboutToQuit)
 
         # Icon cache
-        self.icon_settings = QIcon(":resources/icons/settings.svg")
-        self.icon_wiki = QIcon(":resources/icons/wiki.svg")
-        self.icon_minimize = QIcon(":resources/icons/minimize.svg")
-        self.icon_close = QIcon(":resources/icons/close.svg")
-        self.icon_folder = QIcon(":resources/icons/folder.svg")
-        self.icon_favorite = QIcon(":resources/icons/favorite.svg")
-        self.icon_fake = QIcon(":resources/icons/fake.svg")
-        self.icon_delete = QIcon(":resources/icons/delete.svg")
-        self.filled_circle = QIcon(":resources/icons/filled_circle.svg")
-        self.icon_quick_launch = QIcon(":resources/icons/quick_launch.svg")
-        self.icon_download = QIcon(":resources/icons/download.svg")
-        self.icon_file = QIcon(":resources/icons/file.svg")
-        self.icon_taskbar = QIcon(":resources/icons/bl/bl.ico")
+        get_icons(self, QColor(255, 255, 255, 255))
 
         # Setup window
         self.setWindowTitle("Blender Launcher")
