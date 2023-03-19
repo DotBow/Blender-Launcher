@@ -161,19 +161,6 @@ def set_launch_minimized_to_tray(is_checked):
     get_settings().setValue('launch_minimized_to_tray', is_checked)
 
 
-def get_enable_high_dpi_scaling():
-    settings = get_settings()
-
-    if settings.contains('enable_high_dpi_scaling'):
-        return settings.value('enable_high_dpi_scaling', type=bool)
-    else:
-        return True
-
-
-def set_enable_high_dpi_scaling(is_checked):
-    get_settings().setValue('enable_high_dpi_scaling', is_checked)
-
-
 def get_sync_library_and_downloads_pages():
     settings = get_settings()
 

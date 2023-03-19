@@ -1,12 +1,10 @@
 from modules.settings import (get_check_for_new_builds_automatically,
-                              get_enable_high_dpi_scaling,
                               get_launch_minimized_to_tray,
                               get_launch_when_system_starts,
                               get_library_folder,
                               get_new_builds_check_frequency, get_platform,
                               get_show_tray_icon,
                               set_check_for_new_builds_automatically,
-                              set_enable_high_dpi_scaling,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
                               set_library_folder,
@@ -83,13 +81,6 @@ class GeneralTabWidget(SettingsFormWidget):
         self.NewBuildsCheckFrequency.editingFinished.connect(
             self.new_builds_check_frequency_changed)
 
-        # High Dpi Scaling
-        self.EnableHighDpiScalingCheckBox = QCheckBox()
-        self.EnableHighDpiScalingCheckBox.clicked.connect(
-            self.toggle_enable_high_dpi_scaling)
-        self.EnableHighDpiScalingCheckBox.setChecked(
-            get_enable_high_dpi_scaling())
-
         # Layout
         self._addRow("Library Folder",
                      self.LibraryFolderWidget, new_line=True)
@@ -110,8 +101,6 @@ class GeneralTabWidget(SettingsFormWidget):
         sub_layout.addWidget(self.CheckForNewBuildsAutomatically)
         sub_layout.addWidget(self.NewBuildsCheckFrequency)
         self._addRow("Check For New Builds Automatically", sub_layout)
-        self._addRow("Enable High DPI Scaling",
-                     self.EnableHighDpiScalingCheckBox)
 
     def set_library_folder(self):
         library_folder = str(get_library_folder())
@@ -147,6 +136,3 @@ class GeneralTabWidget(SettingsFormWidget):
     def new_builds_check_frequency_changed(self):
         set_new_builds_check_frequency(
             self.NewBuildsCheckFrequency.value() * 60)
-
-    def toggle_enable_high_dpi_scaling(self, is_checked):
-        set_enable_high_dpi_scaling(is_checked)

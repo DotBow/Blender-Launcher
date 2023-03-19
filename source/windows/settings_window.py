@@ -1,5 +1,4 @@
 from modules.settings import (get_check_for_new_builds_automatically,
-                              get_enable_high_dpi_scaling,
                               get_enable_quick_launch_key_seq,
                               get_new_builds_check_frequency, get_proxy_host,
                               get_proxy_password, get_proxy_port,
@@ -38,8 +37,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.old_check_for_new_builds_automatically = \
             get_check_for_new_builds_automatically()
         self.old_new_builds_check_frequency = get_new_builds_check_frequency()
-
-        self.old_enable_high_dpi_scaling = get_enable_high_dpi_scaling()
 
         # Header layout
         self.HeaderLayout = QHBoxLayout()
@@ -153,14 +150,6 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
                 self.old_new_builds_check_frequency != \
                 new_builds_check_frequency:
             self.parent.draw_library(clear=True)
-
-        """Update high DPI scaling"""
-        enable_high_dpi_scaling = get_enable_high_dpi_scaling()
-
-        if self.old_enable_high_dpi_scaling != enable_high_dpi_scaling:
-            self.pending_to_restart.append("High DPI Scaling: {}🠆{}".format(
-                "ON" if self.old_enable_high_dpi_scaling else "OFF",
-                "ON" if enable_high_dpi_scaling else "OFF"))
 
         """Ask for app restart if needed else destroy self"""
         if len(self.pending_to_restart) != 0:

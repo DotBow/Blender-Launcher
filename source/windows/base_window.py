@@ -1,14 +1,7 @@
 from modules.connection_manager import ConnectionManager
-from modules.settings import get_enable_high_dpi_scaling
 from PyQt6.QtCore import QFile, QPoint, Qt, QTextStream, QIODeviceBase, QIODevice
 from PyQt6.QtGui import QFont, QFontDatabase
 from PyQt6.QtWidgets import QApplication, QWidget
-
-if get_enable_high_dpi_scaling():
-    # Deprecated and enabled by default
-    # QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
-    # QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
-    pass
 
 
 class BaseWindow(QWidget):
