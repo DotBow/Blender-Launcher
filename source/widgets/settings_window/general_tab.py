@@ -2,20 +2,23 @@ from modules.settings import (get_check_for_new_builds_automatically,
                               get_launch_minimized_to_tray,
                               get_launch_when_system_starts,
                               get_library_folder,
-                              get_new_builds_check_frequency, get_platform,
+                              get_builds_check_time, get_platform,
                               get_show_tray_icon,
                               set_check_for_new_builds_automatically,
                               set_launch_minimized_to_tray,
                               set_launch_when_system_starts,
                               set_library_folder,
-                              set_new_builds_check_frequency,
+                              set_builds_check_time,
                               set_show_tray_icon)
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QTime
 from PyQt6.QtWidgets import (QCheckBox, QHBoxLayout, QLineEdit, QPushButton,
-                             QSpinBox, QWidget)
+                             QWidget, QDateTimeEdit)
 from widgets.settings_form_widget import SettingsFormWidget
 from windows.dialog_window import DialogWindow
 from windows.file_dialog_window import FileDialogWindow
+
+
+time_format = "h:mm AP"
 
 
 class GeneralTabWidget(SettingsFormWidget):
@@ -26,7 +29,8 @@ class GeneralTabWidget(SettingsFormWidget):
         # Library Folder
         self.LibraryFolderLineEdit = QLineEdit()
         self.LibraryFolderLineEdit.setText(str(get_library_folder()))
-        self.LibraryFolderLineEdit.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
+        self.LibraryFolderLineEdit.setContextMenuPolicy(
+            Qt.ContextMenuPolicy.NoContextMenu)
         self.LibraryFolderLineEdit.setReadOnly(True)
         self.LibraryFolderLineEdit.setCursorPosition(0)
 
@@ -67,19 +71,19 @@ class GeneralTabWidget(SettingsFormWidget):
         self.CheckForNewBuildsAutomatically.clicked.connect(
             self.toggle_check_for_new_builds_automatically)
 
-        self.NewBuildsCheckFrequency = QSpinBox()
-        self.NewBuildsCheckFrequency.setEnabled(
-            get_check_for_new_builds_automatically())
-        self.NewBuildsCheckFrequency.setContextMenuPolicy(
+        self.BuildsCheckTimePicker = QDateTimeEdit()
+        self.BuildsCheckTimePicker.setCurrentSection(
+            QDateTimeEdit.Section.AmPmSection)
+        self.BuildsCheckTimePicker.setDisplayFormat(time_format)
+        self.BuildsCheckTimePicker.setTimeSpec(Qt.TimeSpec.UTC)
+        self.BuildsCheckTimePicker.setContextMenuPolicy(
             Qt.ContextMenuPolicy.NoContextMenu)
-        self.NewBuildsCheckFrequency.setToolTip(
-            'Time in minutes between new builds check')
-        self.NewBuildsCheckFrequency.setMaximum(24 * 60)
-        self.NewBuildsCheckFrequency.setMinimum(10)
-        self.NewBuildsCheckFrequency.setValue(
-            get_new_builds_check_frequency() / 60)
-        self.NewBuildsCheckFrequency.editingFinished.connect(
-            self.new_builds_check_frequency_changed)
+        self.BuildsCheckTimePicker.setToolTip(
+            'Set the time of day to check for new builds')
+        self.BuildsCheckTimePicker.editingFinished.connect(
+            self.builds_check_time_changed)
+        self.BuildsCheckTimePicker.setTime(
+            QTime.fromString(get_builds_check_time(), time_format))
 
         # Layout
         self._addRow("Library Folder",
@@ -98,8 +102,7 @@ class GeneralTabWidget(SettingsFormWidget):
         self.LaunchMinimizedToTrayRow.setEnabled(get_show_tray_icon())
 
         sub_layout = QHBoxLayout()
-        sub_layout.addWidget(self.CheckForNewBuildsAutomatically)
-        sub_layout.addWidget(self.NewBuildsCheckFrequency)
+        sub_layout.addWidget(self.BuildsCheckTimePicker)
         self._addRow("Check For New Builds Automatically", sub_layout)
 
     def set_library_folder(self):
@@ -131,8 +134,8 @@ class GeneralTabWidget(SettingsFormWidget):
 
     def toggle_check_for_new_builds_automatically(self, is_checked):
         set_check_for_new_builds_automatically(is_checked)
-        self.NewBuildsCheckFrequency.setEnabled(is_checked)
+        self.BuildsCheckTimePicker.setEnabled(is_checked)
 
-    def new_builds_check_frequency_changed(self):
-        set_new_builds_check_frequency(
-            self.NewBuildsCheckFrequency.value() * 60)
+    def builds_check_time_changed(self):
+        set_builds_check_time(
+            self.BuildsCheckTimePicker.time().toString(time_format))

@@ -22,12 +22,12 @@ from modules.settings import (create_library_folders,
                               get_enable_new_builds_notifications,
                               get_enable_quick_launch_key_seq,
                               get_launch_minimized_to_tray, get_library_folder,
-                              get_new_builds_check_frequency, get_proxy_type,
+                              get_builds_check_time, get_proxy_type,
                               get_quick_launch_key_seq, get_show_tray_icon,
                               get_sync_library_and_downloads_pages,
                               is_library_folder_valid, set_library_folder)
 from pynput import keyboard
-from PyQt6.QtCore import QSize, Qt, pyqtSignal
+from PyQt6.QtCore import QSize, Qt, QThread, pyqtSignal, QTime
 from PyQt6.QtGui import QIcon, QAction
 from PyQt6.QtNetwork import QLocalServer
 from PyQt6.QtWidgets import (QHBoxLayout, QLabel, QMainWindow,
@@ -66,6 +66,10 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setAcceptDrops(True)
 
+        self.ui_th = threading.Thread(
+            target=self.builds_check_timer, args=(app,))
+        self.ui_th.start()
+
         # Server
         self.server = QLocalServer()
         self.server.listen("blender-launcher-server")
@@ -84,7 +88,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.cashed_builds = []
         self.notification_pool = []
         self.windows = [self]
-        self.timer = None
         self.started = True
         self.latest_tag = ""
         self.new_downloads = False
@@ -162,6 +165,17 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         else:
             self.app.quit()
 
+    def builds_check_timer(self, app):
+        builds_check_time = get_builds_check_time()
+
+        while True:
+            current_time = QTime.currentTime().toString("h:mm AP")
+
+            if get_check_for_new_builds_automatically() and (builds_check_time == current_time):
+                self.draw_downloads()
+
+            QThread.sleep(30)
+
     def draw(self, polish=False):
         self.HeaderLayout = QHBoxLayout()
         self.HeaderLayout.setContentsMargins(0, 0, 0, 0)
@@ -185,11 +199,15 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.HeaderLabel = QLabel("Blender Launcher")
         self.HeaderLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.HeaderLayout.addWidget(self.SettingsButton, 0, Qt.AlignmentFlag.AlignLeft)
-        self.HeaderLayout.addWidget(self.DocsButton, 0, Qt.AlignmentFlag.AlignLeft)
+        self.HeaderLayout.addWidget(
+            self.SettingsButton, 0, Qt.AlignmentFlag.AlignLeft)
+        self.HeaderLayout.addWidget(
+            self.DocsButton, 0, Qt.AlignmentFlag.AlignLeft)
         self.HeaderLayout.addWidget(self.HeaderLabel, 1)
-        self.HeaderLayout.addWidget(self.MinimizeButton, 0, Qt.AlignmentFlag.AlignRight)
-        self.HeaderLayout.addWidget(self.CloseButton, 0, Qt.AlignmentFlag.AlignRight)
+        self.HeaderLayout.addWidget(
+            self.MinimizeButton, 0, Qt.AlignmentFlag.AlignRight)
+        self.HeaderLayout.addWidget(
+            self.CloseButton, 0, Qt.AlignmentFlag.AlignRight)
 
         self.SettingsButton.setProperty("HeaderButton", True)
         self.DocsButton.setProperty("HeaderButton", True)
@@ -523,9 +541,11 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.showNormal()
 
         if self.platform == "Windows":
-            self.setWindowFlags(self.windowFlags() | Qt.WindowType.WindowStaysOnTopHint)
+            self.setWindowFlags(self.windowFlags() |
+                                Qt.WindowType.WindowStaysOnTopHint)
             self.show()
-            self.setWindowFlags(self.windowFlags() & ~Qt.WindowType.WindowStaysOnTopHint)
+            self.setWindowFlags(self.windowFlags() & ~
+                                Qt.WindowType.WindowStaysOnTopHint)
             self.show()
         elif self.platform in {"Linux", "macOS"}:
             self.show()
@@ -600,8 +620,8 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
     def destroy(self):
         self.quit_signal.emit()
 
-        if self.timer is not None:
-            self.timer.cancel()
+        if self.ui_th is not None:
+            self.ui_th.cancel()
 
         self.tray_icon.hide()
         self.app.quit()
@@ -615,9 +635,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.cm.setup()
             self.cm.error.connect(self.connection_error)
             self.manager = self.cm.manager
-
-            if self.timer is not None:
-                self.timer.cancel()
 
             self.scraper.quit()
             self.DownloadsStableListWidget._clear()
@@ -669,11 +686,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.set_status("Error: connection failed at " + utcnow)
         self.app_state = AppState.IDLE
 
-        if get_check_for_new_builds_automatically() is True:
-            self.timer = threading.Timer(
-                get_new_builds_check_frequency(), self.draw_downloads)
-            self.timer.start()
-
     def scraper_finished(self):
         if self.new_downloads and not self.started:
             self.show_message(
@@ -691,12 +703,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         for page in self.DownloadsToolBox.pages:
             page.set_info_label_text("No new builds available")
-
-        if get_check_for_new_builds_automatically() is True:
-            self.timer = threading.Timer(
-                get_new_builds_check_frequency(), self.draw_downloads)
-            self.timer.start()
-            self.started = False
 
         self.set_status("Last check at " + utcnow, True)
 

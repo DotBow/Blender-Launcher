@@ -439,16 +439,16 @@ def set_check_for_new_builds_automatically(is_checked):
     get_settings().setValue('check_for_new_builds_automatically', is_checked)
 
 
-def get_new_builds_check_frequency():
+def get_builds_check_time():
     '''Time in seconds'''
 
     settings = get_settings()
 
     if settings.contains('new_builds_check_frequency'):
-        return settings.value('new_builds_check_frequency', type=int)
+        return settings.value('new_builds_check_frequency')
     else:
-        return 600
+        return "12:00 AM"
 
 
-def set_new_builds_check_frequency(frequency):
+def set_builds_check_time(frequency):
     get_settings().setValue('new_builds_check_frequency', frequency)

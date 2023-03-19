@@ -1,6 +1,6 @@
 from modules.settings import (get_check_for_new_builds_automatically,
                               get_enable_quick_launch_key_seq,
-                              get_new_builds_check_frequency, get_proxy_host,
+                              get_builds_check_time, get_proxy_host,
                               get_proxy_password, get_proxy_port,
                               get_proxy_type, get_proxy_user,
                               get_quick_launch_key_seq,
@@ -36,7 +36,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
 
         self.old_check_for_new_builds_automatically = \
             get_check_for_new_builds_automatically()
-        self.old_new_builds_check_frequency = get_new_builds_check_frequency()
+        self.old_new_builds_check_frequency = get_builds_check_time()
 
         # Header layout
         self.HeaderLayout = QHBoxLayout()
@@ -142,7 +142,7 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         """Update build check frequency"""
         check_for_new_builds_automatically = \
             get_check_for_new_builds_automatically()
-        new_builds_check_frequency = get_new_builds_check_frequency()
+        new_builds_check_frequency = get_builds_check_time()
 
         # Restart scraper if any of the build check settings changed
         if self.old_check_for_new_builds_automatically != \
