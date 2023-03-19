@@ -102,6 +102,7 @@ class GeneralTabWidget(SettingsFormWidget):
         self.LaunchMinimizedToTrayRow.setEnabled(get_show_tray_icon())
 
         sub_layout = QHBoxLayout()
+        sub_layout.addWidget(self.CheckForNewBuildsAutomatically)
         sub_layout.addWidget(self.BuildsCheckTimePicker)
         self._addRow("Check For New Builds Automatically", sub_layout)
 
