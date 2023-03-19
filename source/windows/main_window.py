@@ -28,7 +28,7 @@ from modules.settings import (create_library_folders,
                               is_library_folder_valid, set_library_folder)
 from pynput import keyboard
 from PyQt6.QtCore import QSize, Qt, QThread, pyqtSignal, QTime
-from PyQt6.QtGui import QIcon, QAction, QPixmap, QColor, QPainter, QImage
+from PyQt6.QtGui import QIcon, QAction, QColor
 from PyQt6.QtNetwork import QLocalServer
 from PyQt6.QtWidgets import (QHBoxLayout, QLabel, QMainWindow,
                              QPushButton, QSystemTrayIcon, QTabWidget,
