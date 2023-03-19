@@ -1,6 +1,6 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFontMetrics
-from PyQt5.QtWidgets import QAbstractItemView, QListWidget
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QFontMetrics
+from PyQt6.QtWidgets import QAbstractItemView, QListWidget
 
 
 class BaseListWidget(QListWidget):
@@ -10,14 +10,14 @@ class BaseListWidget(QListWidget):
         self.widgets = set()
         self.metrics = QFontMetrics(self.font())
 
-        self.setFrameShape(QListWidget.NoFrame)
+        self.setFrameShape(QListWidget.Shape.NoFrame)
         self.setSortingEnabled(True)
         self.setAlternatingRowColors(True)
         self.setProperty("HideBorder", True)
-        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
 
         if extended_selection is True:
-            self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+            self.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
 
     def add_item(self, item, widget):
         item.setSizeHint(widget.sizeHint())

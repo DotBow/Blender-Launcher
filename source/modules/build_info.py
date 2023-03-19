@@ -4,7 +4,7 @@ import time
 from enum import Enum
 from pathlib import Path
 
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt6.QtCore import QThread, pyqtSignal
 
 from modules._platform import _check_output, get_platform, set_locale
 

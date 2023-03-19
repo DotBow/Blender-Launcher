@@ -8,7 +8,7 @@ from modules.settings import (downloads_pages, get_default_downloads_page,
                               set_enable_download_notifications,
                               set_enable_new_builds_notifications,
                               set_sync_library_and_downloads_pages, tabs)
-from PyQt5.QtWidgets import QCheckBox, QComboBox
+from PyQt6.QtWidgets import QCheckBox, QComboBox
 from widgets.settings_form_widget import SettingsFormWidget
 
 
@@ -21,7 +21,7 @@ class AppearanceTabWidget(SettingsFormWidget):
         self.DefaultTabComboBox = QComboBox()
         self.DefaultTabComboBox.addItems(tabs.keys())
         self.DefaultTabComboBox.setCurrentIndex(get_default_tab())
-        self.DefaultTabComboBox.activated[str].connect(self.change_default_tab)
+        self.DefaultTabComboBox.activated.connect(self.change_default_tab)
 
         # Sync Library and Downloads pages
         self.SyncLibraryAndDownloadsPages = QCheckBox()
@@ -35,7 +35,7 @@ class AppearanceTabWidget(SettingsFormWidget):
         self.DefaultLibraryPageComboBox.addItems(library_pages.keys())
         self.DefaultLibraryPageComboBox.setCurrentIndex(
             get_default_library_page())
-        self.DefaultLibraryPageComboBox.activated[str].connect(
+        self.DefaultLibraryPageComboBox.activated.connect(
             self.change_default_library_page)
 
         # Default Downloads Page
@@ -43,7 +43,7 @@ class AppearanceTabWidget(SettingsFormWidget):
         self.DefaultDownloadsPageComboBox.addItems(downloads_pages.keys())
         self.DefaultDownloadsPageComboBox.setCurrentIndex(
             get_default_downloads_page())
-        self.DefaultDownloadsPageComboBox.activated[str].connect(
+        self.DefaultDownloadsPageComboBox.activated.connect(
             self.change_default_downloads_page)
 
         # Notifications

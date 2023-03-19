@@ -12,9 +12,10 @@ from modules.settings import (get_bash_arguments,
                               get_library_folder, get_mark_as_favorite,
                               set_favorite_path)
 from modules.shortcut import create_shortcut
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QAction, QApplication, QHBoxLayout, QLabel
+from PyQt6 import QtCore
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QApplication, QHBoxLayout, QLabel
 from threads.observer import Observer
 from threads.register import Register
 from threads.remover import Remover
@@ -125,7 +126,8 @@ class LibraryWidget(BaseBuildWidget):
         if self.parent_widget is not None:
             self.lineEdit = BaseLineEdit()
             self.lineEdit.setMaxLength(256)
-            self.lineEdit.setContextMenuPolicy(Qt.NoContextMenu)
+            self.lineEdit.setContextMenuPolicy(
+                Qt.ContextMenuPolicy.NoContextMenu)
             self.lineEdit.escapePressed.connect(
                 self.rename_branch_rejected)
             self.lineEdit.returnPressed.connect(
@@ -137,7 +139,7 @@ class LibraryWidget(BaseBuildWidget):
         self.layout.addWidget(self.build_state_widget)
 
         self.launchButton.clicked.connect(lambda: self.launch(True))
-        self.launchButton.setCursor(Qt.PointingHandCursor)
+        self.launchButton.setCursor(Qt.CursorShape.PointingHandCursor)
 
         # Context menu
         self.menu_extended = BaseMenuWidget()
@@ -288,13 +290,13 @@ class LibraryWidget(BaseBuildWidget):
             self.launch()
 
     def mouseReleaseEvent(self, event):
-        if event.button == Qt.LeftButton:
+        if event.button == Qt.MouseButton.LeftButton:
             if self.show_new is True:
                 self.build_state_widget.setNewBuild(False)
                 self.show_new = False
 
             mod = QApplication.keyboardModifiers()
-            if not (mod == Qt.ShiftModifier or mod == Qt.ControlModifier):
+            if not (mod == Qt.KeyboardModifier.ShiftModifier or mod == Qt.KeyboardModifier.ControlModifier):
                 self.list_widget.clearSelection()
                 self.item.setSelected(True)
 
@@ -493,7 +495,7 @@ class LibraryWidget(BaseBuildWidget):
     def remover_started(self):
         self.launchButton._setText("Deleting")
         self.setEnabled(False)
-        self.item.setFlags(self.item.flags() & ~Qt.ItemIsSelectable)
+        self.item.setFlags(self.item.flags() & ~Qt.ItemFlag.ItemIsSelectable)
 
         if self.child_widget is not None:
             self.child_widget.remover_started()

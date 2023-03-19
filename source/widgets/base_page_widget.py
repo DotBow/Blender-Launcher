@@ -1,9 +1,9 @@
 from enum import Enum
 
 from modules.settings import get_list_sorting_type, set_list_sorting_type
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QPushButton, QVBoxLayout,
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPixmap
+from PyQt6.QtWidgets import (QHBoxLayout, QLabel, QPushButton, QVBoxLayout,
                              QWidget)
 
 from widgets.base_list_widget import BaseListWidget
@@ -97,7 +97,7 @@ class BasePageWidget(QWidget):
         self.subversionLabel.clicked.connect(
             lambda: self.set_sorting_type(SortingType.VERSION))
         self.branchLabel = QLabel("Branch")
-        self.branchLabel.setAlignment(Qt.AlignCenter)
+        self.branchLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.commitTimeLabel = QPushButton(time_label)
         self.commitTimeLabel.setFixedWidth(118)
         self.commitTimeLabel.setProperty("ListHeader", True)

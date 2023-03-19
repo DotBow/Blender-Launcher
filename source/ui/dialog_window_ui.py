@@ -1,14 +1,15 @@
-from PyQt5 import QtCore, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 
 
 class Ui_DialogWindow(object):
     def setupUi(self, DialogWindow):
         DialogWindow.setObjectName("DialogWindow")
-        DialogWindow.setWindowModality(QtCore.Qt.ApplicationModal)
+        DialogWindow.setWindowModality(
+            QtCore.Qt.WindowModality.ApplicationModal)
         DialogWindow.resize(160, 60)
         sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.MinimumExpanding,
-            QtWidgets.QSizePolicy.MinimumExpanding)
+            QtWidgets.QSizePolicy.Policy.MinimumExpanding,
+            QtWidgets.QSizePolicy.Policy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(

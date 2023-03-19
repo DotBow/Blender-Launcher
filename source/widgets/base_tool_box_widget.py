@@ -1,5 +1,5 @@
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import QTabWidget
+from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtWidgets import QTabWidget
 
 
 class BaseToolBoxWidget(QTabWidget):
@@ -12,7 +12,7 @@ class BaseToolBoxWidget(QTabWidget):
         self.list_widgets = set()
 
         self.setContentsMargins(0, 0, 0, 0)
-        self.setTabPosition(QTabWidget.West)
+        self.setTabPosition(QTabWidget.TabPosition.West)
         self.setProperty('West', True)
 
         self.currentChanged.connect(self.current_changed)

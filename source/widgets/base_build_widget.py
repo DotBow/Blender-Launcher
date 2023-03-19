@@ -2,9 +2,10 @@ import abc
 import re
 import webbrowser
 
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QAction, QWidget
+from PyQt6 import QtCore
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QWidget
 
 from widgets.base_menu_widget import BaseMenuWidget
 
@@ -14,7 +15,8 @@ class BaseBuildWidget(QWidget):
         super().__init__()
         self.parent = parent
 
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.setContextMenuPolicy(
+            Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self.context_menu)
 
         self.menu = BaseMenuWidget()

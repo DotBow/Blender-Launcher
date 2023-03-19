@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtWidgets import QProgressBar
+from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtWidgets import QProgressBar
 
 
 class BaseProgressBarWidget(QProgressBar):
@@ -8,7 +8,7 @@ class BaseProgressBarWidget(QProgressBar):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
 
-        self.setAlignment(Qt.AlignCenter)
+        self.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.setMinimum(0)
         self.set_progress(0, 0)
 

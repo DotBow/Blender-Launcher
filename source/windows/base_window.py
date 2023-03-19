@@ -1,12 +1,14 @@
 from modules.connection_manager import ConnectionManager
 from modules.settings import get_enable_high_dpi_scaling
-from PyQt5.QtCore import QFile, QPoint, Qt, QTextStream
-from PyQt5.QtGui import QFont, QFontDatabase
-from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt6.QtCore import QFile, QPoint, Qt, QTextStream, QIODeviceBase, QIODevice
+from PyQt6.QtGui import QFont, QFontDatabase
+from PyQt6.QtWidgets import QApplication, QWidget
 
 if get_enable_high_dpi_scaling():
-    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
-    QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
+    # Deprecated and enabled by default
+    # QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
+    # QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
+    pass
 
 
 class BaseWindow(QWidget):
@@ -27,19 +29,21 @@ class BaseWindow(QWidget):
             QFontDatabase.addApplicationFont(
                 ":/resources/fonts/OpenSans-SemiBold.ttf")
             self.font_10 = QFont("Open Sans SemiBold", 10)
-            self.font_10.setHintingPreference(QFont.PreferNoHinting)
+            self.font_10.setHintingPreference(
+                QFont.HintingPreference.PreferNoHinting)
             self.font_8 = QFont("Open Sans SemiBold", 8)
-            self.font_8.setHintingPreference(QFont.PreferNoHinting)
+            self.font_8.setHintingPreference(
+                QFont.HintingPreference.PreferNoHinting)
             self.app.setFont(self.font_10)
 
             # Setup style
             file = QFile(":/resources/styles/global.qss")
-            file.open(QFile.ReadOnly | QFile.Text)
+            file.open(QIODevice.OpenModeFlag.ReadOnly)
             self.style_sheet = QTextStream(file).readAll()
             self.app.setStyleSheet(self.style_sheet)
 
-        self.setWindowFlags(Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
 
         self.pos = self.pos()
         self.pressing = False
@@ -47,15 +51,15 @@ class BaseWindow(QWidget):
         self.destroyed.connect(lambda: self._destroyed())
 
     def mousePressEvent(self, event):
-        self.pos = event.globalPos()
+        self.pos = event.pos()
         self.pressing = True
-        self.setCursor(Qt.ClosedHandCursor)
+        self.setCursor(Qt.CursorShape.ClosedHandCursor)
 
     def mouseMoveEvent(self, event):
         if self.pressing:
-            delta = QPoint(event.globalPos() - self.pos)
+            delta = QPoint(event.pos() - self.pos)
             self.moveWindow(delta, True)
-            self.pos = event.globalPos()
+            self.pos = event.pos()
 
     def moveWindow(self, delta, chain=False):
         self.move(self.x() + delta.x(), self.y() + delta.y())
@@ -67,7 +71,7 @@ class BaseWindow(QWidget):
 
     def mouseReleaseEvent(self, QMouseEvent):
         self.pressing = False
-        self.setCursor(Qt.ArrowCursor)
+        self.setCursor(Qt.CursorShape.ArrowCursor)
 
     def showEvent(self, event):
         parent = self.parent
@@ -91,4 +95,5 @@ class BaseWindow(QWidget):
 
     def _destroyed(self):
         if self.parent is not None:
-            self.parent.windows.remove(self)
+            if (self in self.parent.windows):
+                self.parent.windows.remove(self)

@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QHBoxLayout, QLabel, QPushButton
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QHBoxLayout, QLabel, QPushButton
 
 
 class LeftIconButtonWidget(QPushButton):
@@ -15,8 +15,9 @@ class LeftIconButtonWidget(QPushButton):
 
         self.label = QLabel(text)
         self.label.setStyleSheet("padding-left: -4px;")
-        self.label.setAlignment(Qt.AlignCenter)
-        self.label.setAttribute(Qt.WA_TransparentForMouseEvents, True)
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label.setAttribute(
+            Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
 
         self.layout().addWidget(self.label)
 

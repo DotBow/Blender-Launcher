@@ -1,8 +1,8 @@
 from enum import Enum
 
-from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QHBoxLayout, QLabel, QMainWindow, QPushButton
+from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtGui import QPixmap
+from PyQt6.QtWidgets import QHBoxLayout, QLabel, QMainWindow, QPushButton
 from ui.dialog_window_ui import Ui_DialogWindow
 
 from windows.base_window import BaseWindow
@@ -36,8 +36,9 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
             self.IconLabel.setPixmap(QPixmap(":resources/icons/info.svg"))
 
         self.TextLabel = QLabel(text)
-        self.TextLabel.setTextFormat(Qt.RichText)
-        self.TextLabel.setTextInteractionFlags(Qt.NoTextInteraction)
+        self.TextLabel.setTextFormat(Qt.TextFormat.RichText)
+        self.TextLabel.setTextInteractionFlags(
+            Qt.TextInteractionFlag.NoTextInteraction)
         self.AcceptButton = QPushButton(accept_text)
         self.CancelButton = QPushButton(cancel_text)
 
@@ -66,7 +67,7 @@ class DialogWindow(QMainWindow, BaseWindow, Ui_DialogWindow):
         self.TextLayout.addSpacing(12)
         self.TextLayout.addWidget(self.TextLabel)
         self.ButtonsLayout.addWidget(
-            self.AcceptButton, alignment=Qt.AlignRight, stretch=1)
+            self.AcceptButton, alignment=Qt.AlignmentFlag.AlignRight, stretch=1)
         self.ButtonsLayout.addWidget(self.CancelButton)
 
         self.CentralLayout.addLayout(self.TextLayout)

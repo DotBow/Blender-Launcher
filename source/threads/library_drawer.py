@@ -2,7 +2,7 @@ from pathlib import Path
 
 from modules._platform import get_platform
 from modules.settings import get_library_folder
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt6.QtCore import QThread, pyqtSignal
 
 
 class LibraryDrawer(QThread):

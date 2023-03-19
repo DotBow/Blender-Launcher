@@ -1,5 +1,5 @@
-from PyQt5.QtCore import QEasingCurve, QPropertyAnimation, QRect, QSize
-from PyQt5.QtWidgets import QHBoxLayout, QPushButton, QWidget
+from PyQt6.QtCore import QEasingCurve, QPropertyAnimation, QRect, QSize
+from PyQt6.QtWidgets import QHBoxLayout, QPushButton, QWidget
 
 
 class BuildStateWidget(QWidget):

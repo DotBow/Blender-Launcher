@@ -2,7 +2,7 @@ from pathlib import Path
 from re import match
 from shutil import copytree
 
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt6.QtCore import QThread, pyqtSignal
 from modules.settings import get_library_folder
 
 

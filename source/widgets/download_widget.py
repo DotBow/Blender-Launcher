@@ -5,8 +5,8 @@ from pathlib import Path
 from modules.build_info import BuildInfoReader
 from modules.enums import MessageType
 from modules.settings import get_install_template, get_library_folder
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QHBoxLayout, QLabel, QPushButton, QVBoxLayout
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QHBoxLayout, QLabel, QPushButton, QVBoxLayout
 from threads.downloader import Downloader
 from threads.extractor import Extractor
 from threads.renamer import Renamer
@@ -48,13 +48,13 @@ class DownloadWidget(BaseBuildWidget):
         self.downloadButton.setFixedWidth(85)
         self.downloadButton.setProperty("LaunchButton", True)
         self.downloadButton.clicked.connect(self.init_downloader)
-        self.downloadButton.setCursor(Qt.PointingHandCursor)
+        self.downloadButton.setCursor(Qt.CursorShape.PointingHandCursor)
 
         self.cancelButton = QPushButton("Cancel")
         self.cancelButton.setFixedWidth(85)
         self.cancelButton.setProperty("CancelButton", True)
         self.cancelButton.clicked.connect(self.download_cancelled)
-        self.cancelButton.setCursor(Qt.PointingHandCursor)
+        self.cancelButton.setCursor(Qt.CursorShape.PointingHandCursor)
         self.cancelButton.hide()
 
         self.main_hl = QHBoxLayout()

@@ -1,6 +1,6 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFontMetrics
-from PyQt5.QtWidgets import QLabel
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QFontMetrics
+from PyQt6.QtWidgets import QLabel
 
 
 class ElidedTextLabel(QLabel):
@@ -14,7 +14,7 @@ class ElidedTextLabel(QLabel):
 
     def setElidedText(self):
         width = self.width()
-        elided_text = self.metrics.elidedText(self.text, Qt.ElideRight, width)
+        elided_text = self.metrics.elidedText(self.text, Qt.TextElideMode.ElideRight, width)
         self.setText(elided_text)
 
     def resizeEvent(self, event):

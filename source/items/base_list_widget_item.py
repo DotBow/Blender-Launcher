@@ -2,7 +2,7 @@ import re
 from time import strptime
 
 from modules._platform import set_locale
-from PyQt5.QtWidgets import QListWidgetItem
+from PyQt6.QtWidgets import QListWidgetItem
 
 
 class BaseListWidgetItem(QListWidgetItem):

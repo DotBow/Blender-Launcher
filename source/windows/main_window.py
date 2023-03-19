@@ -27,10 +27,10 @@ from modules.settings import (create_library_folders,
                               get_sync_library_and_downloads_pages,
                               is_library_folder_valid, set_library_folder)
 from pynput import keyboard
-from PyQt5.QtCore import QSize, Qt, pyqtSignal
-from PyQt5.QtGui import QIcon
-from PyQt5.QtNetwork import QLocalServer
-from PyQt5.QtWidgets import (QAction, QHBoxLayout, QLabel, QMainWindow,
+from PyQt6.QtCore import QSize, Qt, pyqtSignal
+from PyQt6.QtGui import QIcon, QAction
+from PyQt6.QtNetwork import QLocalServer
+from PyQt6.QtWidgets import (QHBoxLayout, QLabel, QMainWindow,
                              QPushButton, QSystemTrayIcon, QTabWidget,
                              QVBoxLayout, QWidget)
 from threads.library_drawer import LibraryDrawer
@@ -47,9 +47,6 @@ from windows.base_window import BaseWindow
 from windows.dialog_window import DialogIcon, DialogWindow
 from windows.file_dialog_window import FileDialogWindow
 from windows.settings_window import SettingsWindow
-
-if get_platform() == 'Windows':
-    from PyQt5.QtWinExtras import QWinThumbnailToolBar, QWinThumbnailToolButton
 
 
 class AppState(Enum):
@@ -186,13 +183,13 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         self.CloseButton.setIconSize(QSize(20, 20))
         self.CloseButton.setFixedSize(36, 32)
         self.HeaderLabel = QLabel("Blender Launcher")
-        self.HeaderLabel.setAlignment(Qt.AlignCenter)
+        self.HeaderLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.HeaderLayout.addWidget(self.SettingsButton, 0, Qt.AlignLeft)
-        self.HeaderLayout.addWidget(self.DocsButton, 0, Qt.AlignLeft)
+        self.HeaderLayout.addWidget(self.SettingsButton, 0, Qt.AlignmentFlag.AlignLeft)
+        self.HeaderLayout.addWidget(self.DocsButton, 0, Qt.AlignmentFlag.AlignLeft)
         self.HeaderLayout.addWidget(self.HeaderLabel, 1)
-        self.HeaderLayout.addWidget(self.MinimizeButton, 0, Qt.AlignRight)
-        self.HeaderLayout.addWidget(self.CloseButton, 0, Qt.AlignRight)
+        self.HeaderLayout.addWidget(self.MinimizeButton, 0, Qt.AlignmentFlag.AlignRight)
+        self.HeaderLayout.addWidget(self.CloseButton, 0, Qt.AlignmentFlag.AlignRight)
 
         self.SettingsButton.setProperty("HeaderButton", True)
         self.DocsButton.setProperty("HeaderButton", True)
@@ -526,9 +523,9 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.showNormal()
 
         if self.platform == "Windows":
-            self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
+            self.setWindowFlags(self.windowFlags() | Qt.WindowType.WindowStaysOnTopHint)
             self.show()
-            self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
+            self.setWindowFlags(self.windowFlags() & ~Qt.WindowType.WindowStaysOnTopHint)
             self.show()
         elif self.platform in {"Linux", "macOS"}:
             self.show()
@@ -536,25 +533,6 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
 
         self.set_status()
         self.show_signal.emit()
-
-        # Add custom toolbar icons
-        if self.platform == 'Windows':
-            self.thumbnail_toolbar = QWinThumbnailToolBar(self)
-            self.thumbnail_toolbar.setWindow(self.windowHandle())
-
-            self.toolbar_quick_launch_btn = QWinThumbnailToolButton(
-                self.thumbnail_toolbar)
-            self.toolbar_quick_launch_btn.setIcon(self.icon_quick_launch)
-            self.toolbar_quick_launch_btn.setToolTip("Quick Launch")
-            self.toolbar_quick_launch_btn.clicked.connect(self.quick_launch)
-            self.thumbnail_toolbar.addButton(self.toolbar_quick_launch_btn)
-
-            self.toolbar_quit_btn = QWinThumbnailToolButton(
-                self.thumbnail_toolbar)
-            self.toolbar_quit_btn.setIcon(self.icon_close)
-            self.toolbar_quit_btn.setToolTip("Quit")
-            self.toolbar_quit_btn.clicked.connect(self.quit)
-            self.thumbnail_toolbar.addButton(self.toolbar_quit_btn)
 
     def show_message(self, message, value=None, type=None):
         if (type == MessageType.DOWNLOADFINISHED and
@@ -589,11 +567,11 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             accept_text="OK", cancel_text=None, icon=DialogIcon.INFO)
 
     def tray_icon_activated(self, reason):
-        if reason == QSystemTrayIcon.Trigger:
+        if reason == QSystemTrayIcon.ActivationReason.Trigger:
             self._show()
-        elif reason == QSystemTrayIcon.MiddleClick:
+        elif reason == QSystemTrayIcon.ActivationReason.MiddleClick:
             self.quick_launch()
-        elif reason == QSystemTrayIcon.Context:
+        elif reason == QSystemTrayIcon.ActivationReason.Context:
             if self.isMinimized() or self.isHidden():
                 self.show_action.setVisible(True)
                 self.hide_action.setVisible(False)

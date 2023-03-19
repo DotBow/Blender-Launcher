@@ -3,7 +3,7 @@ import zipfile
 from pathlib import Path
 
 from modules._platform import _check_call
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt6.QtCore import QThread, pyqtSignal
 
 
 class Extractor(QThread):

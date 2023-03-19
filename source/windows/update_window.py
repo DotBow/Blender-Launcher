@@ -1,7 +1,7 @@
 import os
 
 from modules._platform import _popen, get_cwd, get_platform
-from PyQt5.QtWidgets import QMainWindow
+from PyQt6.QtWidgets import QMainWindow
 from threads.downloader import Downloader
 from threads.extractor import Extractor
 from ui.update_window_ui import UpdateWindowUI

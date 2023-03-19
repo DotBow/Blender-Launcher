@@ -12,8 +12,8 @@ from modules.settings import (get_check_for_new_builds_automatically,
                               set_library_folder,
                               set_new_builds_check_frequency,
                               set_show_tray_icon)
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QCheckBox, QHBoxLayout, QLineEdit, QPushButton,
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (QCheckBox, QHBoxLayout, QLineEdit, QPushButton,
                              QSpinBox, QWidget)
 from widgets.settings_form_widget import SettingsFormWidget
 from windows.dialog_window import DialogWindow
@@ -28,7 +28,7 @@ class GeneralTabWidget(SettingsFormWidget):
         # Library Folder
         self.LibraryFolderLineEdit = QLineEdit()
         self.LibraryFolderLineEdit.setText(str(get_library_folder()))
-        self.LibraryFolderLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
+        self.LibraryFolderLineEdit.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
         self.LibraryFolderLineEdit.setReadOnly(True)
         self.LibraryFolderLineEdit.setCursorPosition(0)
 
@@ -73,7 +73,7 @@ class GeneralTabWidget(SettingsFormWidget):
         self.NewBuildsCheckFrequency.setEnabled(
             get_check_for_new_builds_automatically())
         self.NewBuildsCheckFrequency.setContextMenuPolicy(
-            Qt.NoContextMenu)
+            Qt.ContextMenuPolicy.NoContextMenu)
         self.NewBuildsCheckFrequency.setToolTip(
             'Time in minutes between new builds check')
         self.NewBuildsCheckFrequency.setMaximum(24 * 60)

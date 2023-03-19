@@ -4,9 +4,9 @@ from modules.settings import (get_proxy_host, get_proxy_password,
                               set_proxy_host, set_proxy_password,
                               set_proxy_port, set_proxy_type, set_proxy_user,
                               set_use_custom_tls_certificates)
-from PyQt5 import QtGui
-from PyQt5.QtCore import QRegExp, Qt
-from PyQt5.QtWidgets import (QCheckBox, QComboBox, QHBoxLayout, QLabel,
+from PyQt6 import QtGui
+from PyQt6.QtCore import QRegularExpression, Qt
+from PyQt6.QtWidgets import (QCheckBox, QComboBox, QHBoxLayout, QLabel,
                              QLineEdit)
 from widgets.settings_form_widget import SettingsFormWidget
 
@@ -26,25 +26,27 @@ class ConnectionTabWidget(SettingsFormWidget):
         self.ProxyTypeComboBox = QComboBox()
         self.ProxyTypeComboBox.addItems(proxy_types.keys())
         self.ProxyTypeComboBox.setCurrentIndex(get_proxy_type())
-        self.ProxyTypeComboBox.activated[str].connect(self.change_proxy_type)
+        self.ProxyTypeComboBox.activated.connect(self.change_proxy_type)
 
         # Proxy URL
         # Host
         self.ProxyHostLineEdit = QLineEdit()
         self.ProxyHostLineEdit.setText(get_proxy_host())
-        self.ProxyHostLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
-        rx = QRegExp(
+        self.ProxyHostLineEdit.setContextMenuPolicy(
+            Qt.ContextMenuPolicy.NoContextMenu)
+        rx = QRegularExpression(
             r"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$")
-        self.host_validator = QtGui.QRegExpValidator(rx, self)
+        self.host_validator = QtGui.QRegularExpressionValidator(rx, self)
         self.ProxyHostLineEdit.setValidator(self.host_validator)
         self.ProxyHostLineEdit.editingFinished.connect(self.update_proxy_host)
 
         # Port
         self.ProxyPortLineEdit = QLineEdit()
         self.ProxyPortLineEdit.setText(get_proxy_port())
-        self.ProxyPortLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
-        rx = QRegExp(r"\d{2,5}")
-        self.port_validator = QtGui.QRegExpValidator(rx, self)
+        self.ProxyPortLineEdit.setContextMenuPolicy(
+            Qt.ContextMenuPolicy.NoContextMenu)
+        rx = QRegularExpression(r"\d{2,5}")
+        self.port_validator = QtGui.QRegularExpressionValidator(rx, self)
         self.ProxyPortLineEdit.setValidator(self.port_validator)
         self.ProxyPortLineEdit.editingFinished.connect(self.update_proxy_port)
 
@@ -52,14 +54,16 @@ class ConnectionTabWidget(SettingsFormWidget):
         # User
         self.ProxyUserLineEdit = QLineEdit()
         self.ProxyUserLineEdit.setText(get_proxy_user())
-        self.ProxyUserLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
+        self.ProxyUserLineEdit.setContextMenuPolicy(
+            Qt.ContextMenuPolicy.NoContextMenu)
         self.ProxyUserLineEdit.editingFinished.connect(self.update_proxy_user)
 
         # Password
         self.ProxyPasswordLineEdit = QLineEdit()
         self.ProxyPasswordLineEdit.setText(get_proxy_password())
-        self.ProxyPasswordLineEdit.setContextMenuPolicy(Qt.NoContextMenu)
-        self.ProxyPasswordLineEdit.setEchoMode(QLineEdit.Password)
+        self.ProxyPasswordLineEdit.setContextMenuPolicy(
+            Qt.ContextMenuPolicy.NoContextMenu)
+        self.ProxyPasswordLineEdit.setEchoMode(QLineEdit.EchoMode.Password)
         self.ProxyPasswordLineEdit.editingFinished.connect(
             self.update_proxy_password)
 

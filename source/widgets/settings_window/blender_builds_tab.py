@@ -10,9 +10,9 @@ from modules.settings import (favorite_pages, get_bash_arguments,
                               set_install_template,
                               set_launch_blender_no_console,
                               set_mark_as_favorite, set_quick_launch_key_seq)
-from PyQt5 import QtGui
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QCheckBox, QComboBox, QHBoxLayout, QLineEdit
+from PyQt6 import QtGui
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QCheckBox, QComboBox, QHBoxLayout, QLineEdit
 from widgets.settings_form_widget import SettingsFormWidget
 
 
@@ -25,14 +25,15 @@ class BlenderBuildsTabWidget(SettingsFormWidget):
         self.MarkAsFavorite.addItems(favorite_pages.keys())
         self.MarkAsFavorite.setCurrentIndex(
             get_mark_as_favorite())
-        self.MarkAsFavorite.activated[str].connect(
+        self.MarkAsFavorite.activated.connect(
             self.change_mark_as_favorite)
 
         # Blender Startup Arguments
         self.BlenderStartupArguments = QLineEdit()
         self.BlenderStartupArguments.setText(
             str(get_blender_startup_arguments()))
-        self.BlenderStartupArguments.setContextMenuPolicy(Qt.NoContextMenu)
+        self.BlenderStartupArguments.setContextMenuPolicy(
+            Qt.ContextMenuPolicy.NoContextMenu)
         self.BlenderStartupArguments.setCursorPosition(0)
         self.BlenderStartupArguments.editingFinished.connect(
             self.update_blender_startup_arguments)
@@ -41,7 +42,8 @@ class BlenderBuildsTabWidget(SettingsFormWidget):
         self.BashArguments = QLineEdit()
         self.BashArguments.setText(
             str(get_bash_arguments()))
-        self.BashArguments.setContextMenuPolicy(Qt.NoContextMenu)
+        self.BashArguments.setContextMenuPolicy(
+            Qt.ContextMenuPolicy.NoContextMenu)
         self.BashArguments.setCursorPosition(0)
         self.BashArguments.editingFinished.connect(
             self.update_bash_arguments)
@@ -69,7 +71,8 @@ class BlenderBuildsTabWidget(SettingsFormWidget):
         self.QuickLaunchKeySeq.keyPressEvent = self._keyPressEvent
         self.QuickLaunchKeySeq.setText(
             str(get_quick_launch_key_seq()))
-        self.QuickLaunchKeySeq.setContextMenuPolicy(Qt.NoContextMenu)
+        self.QuickLaunchKeySeq.setContextMenuPolicy(
+            Qt.ContextMenuPolicy.NoContextMenu)
         self.QuickLaunchKeySeq.setCursorPosition(0)
         self.QuickLaunchKeySeq.editingFinished.connect(
             self.update_quick_launch_key_seq)

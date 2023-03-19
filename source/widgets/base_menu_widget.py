@@ -1,6 +1,6 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QCursor
-from PyQt5.QtWidgets import QDesktopWidget, QMenu
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QCursor, QGuiApplication
+from PyQt6.QtWidgets import QMenu
 
 
 class BaseMenuWidget(QMenu):
@@ -8,9 +8,9 @@ class BaseMenuWidget(QMenu):
 
     def __init__(self, title=""):
         super().__init__(title=title)
-        self.setWindowFlags(self.windowFlags() | Qt.NoDropShadowWindowHint)
+        self.setWindowFlags(self.windowFlags() | Qt.WindowType.NoDropShadowWindowHint)
         self.action_height = BaseMenuWidget.action_height
-        self.screen_size = QDesktopWidget().screenGeometry()
+        self.screen_size = QGuiApplication.primaryScreen().availableGeometry()
         self.setToolTipsVisible(True)
 
     def _show(self):
@@ -49,4 +49,4 @@ class BaseMenuWidget(QMenu):
 
                 i = i + 1
 
-        self.exec_(cursor)
+        self.exec(cursor)

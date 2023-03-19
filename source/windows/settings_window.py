@@ -6,8 +6,8 @@ from modules.settings import (get_check_for_new_builds_automatically,
                               get_proxy_type, get_proxy_user,
                               get_quick_launch_key_seq,
                               get_use_custom_tls_certificates, proxy_types)
-from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QMainWindow, QPushButton,
+from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtWidgets import (QHBoxLayout, QLabel, QMainWindow, QPushButton,
                              QTabWidget)
 from ui.settings_window_ui import Ui_SettingsWindow
 from widgets.settings_window import (appearance_tab, blender_builds_tab,
@@ -54,10 +54,10 @@ class SettingsWindow(QMainWindow, BaseWindow, Ui_SettingsWindow):
         self.CloseButton.setProperty("CloseButton", True)
         self.CloseButton.clicked.connect(self._close)
         self.HeaderLabel = QLabel("Settings")
-        self.HeaderLabel.setAlignment(Qt.AlignCenter)
+        self.HeaderLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.HeaderLayout.addWidget(self.HeaderLabel, 1)
-        self.HeaderLayout.addWidget(self.CloseButton, 0, Qt.AlignRight)
+        self.HeaderLayout.addWidget(self.CloseButton, 0, Qt.AlignmentFlag.AlignRight)
 
         # Tab Layout
         self.TabWidget = QTabWidget()

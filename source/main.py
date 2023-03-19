@@ -1,9 +1,9 @@
 import logging
 import sys
 
-from PyQt5.QtCore import QByteArray
-from PyQt5.QtNetwork import QLocalSocket
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtCore import QByteArray
+from PyQt6.QtNetwork import QLocalSocket
+from PyQt6.QtWidgets import QApplication
 
 from modules._platform import get_cwd, get_platform
 from windows.main_window import BlenderLauncher
@@ -89,7 +89,7 @@ def main():
         socket.close()
         BlenderLauncher(app=app, version=version,
                         argv=sys.argv, logger=logger)
-        sys.exit(app.exec_())
+        sys.exit(app.exec())
     else:
         socket.write(QByteArray(version.encode()))
         socket.waitForBytesWritten()

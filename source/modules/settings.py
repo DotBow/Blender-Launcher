@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 
-from PyQt5.QtCore import QSettings
+from PyQt6.QtCore import QSettings
 
 from modules._platform import get_cwd, get_platform
 
@@ -56,7 +56,7 @@ proxy_types = {
 
 def get_settings():
     return QSettings((get_cwd() / 'Blender Launcher.ini').as_posix(),
-                     QSettings.IniFormat)
+                     QSettings.Format.IniFormat)
 
 
 def get_library_folder():
