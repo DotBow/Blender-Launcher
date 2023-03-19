@@ -1,6 +1,6 @@
 from modules.connection_manager import ConnectionManager
 from PyQt6.QtCore import QFile, QPoint, Qt, QTextStream, QIODeviceBase, QIODevice
-from PyQt6.QtGui import QFont, QFontDatabase
+from PyQt6.QtGui import QFont, QFontDatabase, QSinglePointEvent
 from PyQt6.QtWidgets import QApplication, QWidget
 
 
@@ -44,15 +44,15 @@ class BaseWindow(QWidget):
         self.destroyed.connect(lambda: self._destroyed())
 
     def mousePressEvent(self, event):
-        self.pos = event.pos()
+        self.pos = event.globalPosition().toPoint()
         self.pressing = True
         self.setCursor(Qt.CursorShape.ClosedHandCursor)
 
     def mouseMoveEvent(self, event):
         if self.pressing:
-            delta = QPoint(event.pos() - self.pos)
+            delta = QPoint(event.globalPosition().toPoint() - self.pos)
             self.moveWindow(delta, True)
-            self.pos = event.pos()
+            self.pos = event.globalPosition().toPoint()
 
     def moveWindow(self, delta, chain=False):
         self.move(self.x() + delta.x(), self.y() + delta.y())
