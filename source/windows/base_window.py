@@ -44,9 +44,13 @@ class BaseWindow(QWidget):
         self.destroyed.connect(lambda: self._destroyed())
 
     def mousePressEvent(self, event):
-        self.pos = event.globalPosition().toPoint()
         self.pressing = True
         self.setCursor(Qt.CursorShape.ClosedHandCursor)
+        self.pos = event.globalPosition().toPoint()
+
+    def mouseReleaseEvent(self, QMouseEvent):
+        self.pressing = False
+        self.setCursor(Qt.CursorShape.ArrowCursor)
 
     def mouseMoveEvent(self, event):
         if self.pressing:
@@ -55,16 +59,16 @@ class BaseWindow(QWidget):
             self.pos = event.globalPosition().toPoint()
 
     def moveWindow(self, delta, chain=False):
+        # Move main window
         self.move(self.x() + delta.x(), self.y() + delta.y())
 
-        if chain and self.parent is not None:
-            for window in self.parent.windows:
-                if window is not self:
-                    window.moveWindow(delta)
+        # Move child windows
+        if chain is False or self.parent is None:
+            return
 
-    def mouseReleaseEvent(self, QMouseEvent):
-        self.pressing = False
-        self.setCursor(Qt.CursorShape.ArrowCursor)
+        for window in self.parent.windows:
+            if window is not self:
+                window.moveWindow(delta)
 
     def showEvent(self, event):
         parent = self.parent
@@ -87,6 +91,9 @@ class BaseWindow(QWidget):
             event.accept()
 
     def _destroyed(self):
-        if self.parent is not None:
-            if (self in self.parent.windows):
-                self.parent.windows.remove(self)
+        if self.parent is None:
+            return
+
+        # Destroy all opened windows
+        if (self in self.parent.windows):
+            self.parent.windows.remove(self)
