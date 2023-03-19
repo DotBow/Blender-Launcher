@@ -184,7 +184,7 @@ def get_default_library_page():
 
 
 def set_default_library_page(page):
-    get_settings().setValue('default_library_page', library_pages[page])
+    get_settings().setValue('default_library_page', page)
 
 
 def get_mark_as_favorite():
@@ -197,7 +197,7 @@ def get_mark_as_favorite():
 
 
 def set_mark_as_favorite(page):
-    get_settings().setValue('mark_as_favorite', favorite_pages[page])
+    get_settings().setValue('mark_as_favorite', page)
 
 
 def get_default_downloads_page():
@@ -210,7 +210,7 @@ def get_default_downloads_page():
 
 
 def set_default_downloads_page(page):
-    get_settings().setValue('default_downloads_page', downloads_pages[page])
+    get_settings().setValue('default_downloads_page', page)
 
 
 def get_default_tab():
@@ -223,7 +223,7 @@ def get_default_tab():
 
 
 def set_default_tab(tab):
-    get_settings().setValue('default_tab', tabs[tab])
+    get_settings().setValue('default_tab', tab)
 
 
 def get_list_sorting_type(list_name):
@@ -358,7 +358,7 @@ def get_proxy_type():
 
 
 def set_proxy_type(type):
-    get_settings().setValue('proxy/type', proxy_types[type])
+    get_settings().setValue('proxy/type', type)
 
 
 def get_proxy_host():
