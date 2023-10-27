@@ -38,7 +38,9 @@ class Scraper(QThread):
 
     def run(self):
         self.get_download_links()
-        self.new_bl_version.emit(self.get_latest_tag())
+        latest_tag = self.get_latest_tag()
+        if latest_tag is not None:
+            self.new_bl_version.emit(self.get_latest_tag())
         self.manager.manager.clear()
         self.finished.emit()
         return
