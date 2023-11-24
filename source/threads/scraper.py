@@ -26,13 +26,15 @@ class Scraper(QThread):
         self.platform = get_platform()
 
         if self.platform == 'Windows':
-            filter = r'blender-[^\s\/]+-windows\.amd64-release\.zip'
+            filter = r'blender-.+win.+64.+zip$'
+            filter_experimental = r'blender-[^\s\/]+-windows\.amd64-release\.zip'
         elif self.platform == 'Linux':
             filter = r'blender-.+lin.+64.+tar+(?!.*sha256).*'
         elif self.platform == 'macOS':
             filter = r'blender-.+(macOS|darwin).+dmg$'
 
         self.b3d_link = re.compile(filter)
+        self.b3d_experimental_link = re.compile(filter_experimental)
         self.hash = re.compile(r'\w{12}')
         self.subversion = re.compile(r'-\d\.[a-zA-Z0-9.]+-')
 
@@ -81,11 +83,19 @@ class Scraper(QThread):
         soup_stainer = SoupStrainer('a', href=True)
         soup = BeautifulSoup(content, 'lxml', parse_only=soup_stainer)
 
-        for tag in soup.find_all(limit=_limit, href=re.compile(self.b3d_link)):
-            build_info = self.new_blender_build(tag, url, branch_type)
+        if stable is False:
+            for tag in soup.find_all(limit=_limit, href=re.compile(self.b3d_experimental_link)):
+                build_info = self.new_blender_build(tag, url, branch_type)
 
-            if build_info is not None:
-                self.links.emit(build_info)
+                if build_info is not None:
+                    self.links.emit(build_info)
+
+        if stable is True:
+            for tag in soup.find_all(limit=_limit, href=re.compile(self.b3d_link)):
+                build_info = self.new_blender_build(tag, url, branch_type)
+
+                if build_info is not None:
+                    self.links.emit(build_info)
 
         r.release_conn()
         r.close()
@@ -161,6 +171,7 @@ class Scraper(QThread):
         subversion = re.compile(r'\d+\.\d+')
 
         for release in soup.find_all(href=b3d_link):
+            print (release)
             href = release['href']
             match = re.search(subversion, href)
 
