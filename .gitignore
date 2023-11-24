@@ -108,3 +108,5 @@ docs/site
 
 # Application related settings
 Blender Launcher.ini
+log_file.txt
+Blender-Launcher.code-workspace
