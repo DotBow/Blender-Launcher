@@ -60,20 +60,17 @@ class Scraper(QThread):
 
     def get_download_links(self):
         # Stable Builds
-        # self.scrap_stable_releases()
+        self.scrap_stable_releases()
 
         # Daily Builds
         self.scrap_download_links(
             "https://builder.blender.org/download/daily/", 'daily')
 
         # Experimental Branches
-        # self.scrap_download_links(
-        #     "https://builder.blender.org/download/experimental", 'experimental')
+        self.scrap_download_links(
+            "https://builder.blender.org/download/experimental", 'experimental')
 
-        # self.scrap_download_links(
-        #     "https://builder.blender.org/download/patch", 'experimental')
-
-    def scrap_download_links(self, url, branch_type, _limit=None):
+    def scrap_download_links(self, url, branch_type, _limit=None, stable=False):
         r = self.manager._request('GET', url)
 
         if r is None:
@@ -92,7 +89,6 @@ class Scraper(QThread):
 
         r.release_conn()
         r.close()
-
 
     def new_blender_build(self, tag, url, branch_type):
         link = urljoin(url, tag['href']).rstrip('/')
