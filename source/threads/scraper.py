@@ -27,7 +27,7 @@ class Scraper(QThread):
 
         if self.platform == 'Windows':
             filter = r'blender-.+win.+64.+zip$'
-            filter_experimental = r'blender-[^\s\/]+-windows\.amd64-release\.zip'
+            filter_experimental = r'blender-[^\s\/]+-windows\.amd64-release\.zip$'
         elif self.platform == 'Linux':
             filter = r'blender-.+lin.+64.+tar+(?!.*sha256).*'
         elif self.platform == 'macOS':
@@ -171,7 +171,6 @@ class Scraper(QThread):
         subversion = re.compile(r'\d+\.\d+')
 
         for release in soup.find_all(href=b3d_link):
-            print (release)
             href = release['href']
             match = re.search(subversion, href)
 
