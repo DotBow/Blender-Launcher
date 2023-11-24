@@ -1,4 +1,4 @@
-# Discord link if you want to discus about this project: https://discord.gg/3jrTZFJkTd  
+## Discord link if you want to discus about this project: https://discord.gg/3jrTZFJkTd  
 
 # [Discussions](https://github.com/DotBow/Blender-Launcher/discussions) │ [Documentation](https://dotbow.github.io/Blender-Launcher) │ [Latest Release](https://github.com/DotBow/Blender-Launcher/releases/latest)
 
