@@ -175,7 +175,7 @@ class Scraper(QThread):
             href = release['href']
             match = re.search(subversion, href)
 
-            if (float(match.group(0)) >= 2.79):
+            if (float(match.group(0)) >= 3.0):
                 self.scrap_download_links(
                     urljoin(url, href), 'stable', stable=True)
 
