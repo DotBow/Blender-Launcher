@@ -4,7 +4,7 @@
 
 ## Installing Blender Launcher
 
-1. Download latest release for your OS from [releases page](https://github.com/DotBow/Blender-Launcher/releases/latest)
+1. Download latest release for your OS from [releases page](https://github.com/Victor-IX/Blender-Launcher/releases/latest)
 1. Unpack `Blender Launcher.exe` file and place it somewhere on your drive
 1. Run `Blender Launcher.exe` file
 1. If this is a first launch, program will ask for choosing [Library Folder](library_folder.md)
@@ -14,7 +14,7 @@
 
 ### Manual update
 
-1. Download latest release for your OS from [releases page](https://github.com/DotBow/Blender-Launcher/releases/latest)
+1. Download latest release for your OS from [releases page](https://github.com/Victor-IX/Blender-Launcher/releases/latest)
 1. Quit running instance of **Blender Launcher**
 1. Unpack `Blender Launcher.exe` file and replace existing one
 1. Enjoy!

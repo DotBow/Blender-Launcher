@@ -1,6 +1,6 @@
 ## Discord link if you want to discus about this project: https://discord.gg/3jrTZFJkTd  
 
-# [Discussions](https://github.com/DotBow/Blender-Launcher/discussions) │ [Documentation](https://dotbow.github.io/Blender-Launcher) │ [Latest Release](https://github.com/DotBow/Blender-Launcher/releases/latest)
+# [Discussions](https://github.com/Victor-IX/Blender-Launcher/discussions) │ [Documentation](https://Victor-IX.github.io/Blender-Launcher) │ [Latest Release](https://github.com/Victor-IX/Blender-Launcher/releases/latest)
 
 ![Blender Launcher Logo](docs/mkdocs/imgs/bl_logo.png)
 
@@ -31,7 +31,10 @@ The goal of Blender Launcher is to make it easier to stay up to date with the la
 
 ## What features does it have?
 
-Compared to its [predecessor](https://github.com/DotBow/Blender-Version-Manager) Blender Launcher introduces a number of major improvements:
+First program [version](https://github.com/DotBow/Blender-Version-Manager)
+Seconde program [version](https://github.com/DotBow/Blender-Launcher)
+
+Blender Launcher introduces a number of major improvements:
 
 * Rewritten from the ground up for better stability and extensibility
 * All official builds are available:
@@ -52,9 +55,9 @@ Core features:
 
 ## How to start using it?
 
-* :floppy_disk: Download [latest version](https://github.com/DotBow/Blender-Launcher/releases/latest) from [releases page](https://github.com/DotBow/Blender-Launcher/releases)
-* :rocket: Follow [Installation](https://dotbow.github.io/Blender-Launcher/installation/#installing-blender-launcher) instructions on [Documentation](https://dotbow.github.io/Blender-Launcher) site
-* :speech_balloon: Use Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client) to ask questions and make proposals
+* :floppy_disk: Download [latest version](https://github.com/Victor-IX/Blender-Launcher/releases/latest) from [releases page](https://github.com/Victor-IX/Blender-Launcher/releases)
+* :rocket: Follow [Installation](https://Victor-IX.github.io/Blender-Launcher/installation/#installing-blender-launcher) instructions on [Documentation](https://Victor-IX.github.io/Blender-Launcher) site
+* :speech_balloon: Use Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client) to ask questions and make proposals or [Discord](https://discord.gg/3jrTZFJkTd) 
 
 ## How to thank the developer?
 

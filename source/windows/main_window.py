@@ -312,7 +312,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
         # Connect buttons
         self.SettingsButton.clicked.connect(self.show_settings_window)
         self.DocsButton.clicked.connect(lambda: webbrowser.open(
-            "https://dotbow.github.io/Blender-Launcher"))
+            "https://Victor-IX.github.io/Blender-Launcher"))
         self.MinimizeButton.clicked.connect(self.showMinimized)
         self.CloseButton.clicked.connect(self.close)
 
@@ -423,7 +423,7 @@ class BlenderLauncher(QMainWindow, BaseWindow, Ui_MainWindow):
             self.quick_launch()
 
     def show_changelog(self):
-        url = "https://github.com/DotBow/Blender-Launcher/releases/tag/v{0}".format(
+        url = "https://github.com/Victor-IX/Blender-Launcher/releases/tag/v{0}".format(
             self.version)
         webbrowser.open(url)
 

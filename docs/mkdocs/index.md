@@ -4,9 +4,9 @@
 
 ![Blender Launcher Logo](imgs/bl_logo.png)
 
-[:fontawesome-brands-windows: Get for Windows](https://github.com/DotBow/Blender-Launcher/releases/download/v1.15.0/Blender_Launcher_v1.15.0_Windows_x64.zip){: .md-button .md-button--primary style="display: inline-block; float: left; width: 33%; text-align: center;"}
-[:fontawesome-brands-linux: Get for Linux](https://github.com/DotBow/Blender-Launcher/releases/download/v1.15.0/Blender_Launcher_v1.15.0_Linux_x64.zip){: .md-button .md-button--primary style="display: inline-block; float: left; margin-left: 0.5%; width: 33%; text-align: center;"}
-[:fontawesome-solid-download: All Releases](https://github.com/DotBow/Blender-Launcher/releases){: .md-button .md-button--primary style="display: inline-block; float: right; width: 33%; text-align: center;"}
+[:fontawesome-brands-windows: Get for Windows](https://github.com/Victor-IX/Blender-Launcher/releases/download/v1.15.0/Blender_Launcher_v1.15.0_Windows_x64.zip){: .md-button .md-button--primary style="display: inline-block; float: left; width: 33%; text-align: center;"}
+[:fontawesome-brands-linux: Get for Linux](https://github.com/Victor-IX/Blender-Launcher/releases/download/v1.15.0/Blender_Launcher_v1.15.0_Linux_x64.zip){: .md-button .md-button--primary style="display: inline-block; float: left; margin-left: 0.5%; width: 33%; text-align: center;"}
+[:fontawesome-solid-download: All Releases](https://github.com/Victor-IX/Blender-Launcher/releases){: .md-button .md-button--primary style="display: inline-block; float: right; width: 33%; text-align: center;"}
 
 <br/>
 
@@ -39,7 +39,7 @@ The goal of Blender Launcher is to make it easier to stay up to date with the la
 
 ## What features does it have?
 
-Compared to its [predecessor](https://github.com/DotBow/Blender-Version-Manager) Blender Launcher introduces a number of major improvements:
+Compared to its [predecessor](https://github.com/Victor-IX/Blender-Version-Manager) Blender Launcher introduces a number of major improvements:
 
 * Rewritten from the ground up for better stability and extensibility
 * All official builds are available:
@@ -60,7 +60,7 @@ Core features:
 
 ## How to start using it?
 
-* :fontawesome-solid-download: Download [latest version](https://github.com/DotBow/Blender-Launcher/releases/latest) from [releases page](https://github.com/DotBow/Blender-Launcher/releases)
+* :fontawesome-solid-download: Download [latest version](https://github.com/Victor-IX/Blender-Launcher/releases/latest) from [releases page](https://github.com/Victor-IX/Blender-Launcher/releases)
 * :fontawesome-solid-rocket: Follow [Installation](installation.md#installing-blender-launcher) instructions and notes
 * :fontawesome-solid-comment: Use Blender Artists Community [thread](https://blenderartists.org/t/blender-launcher-standalone-software-client) to ask questions and make proposals
 
