@@ -445,7 +445,7 @@ def get_check_for_new_builds_automatically():
     if settings.contains('check_for_new_builds_automatically'):
         return settings.value('check_for_new_builds_automatically', type=bool)
     else:
-        return True
+        return False
 
 
 def set_check_for_new_builds_automatically(is_checked):

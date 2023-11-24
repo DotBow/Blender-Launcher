@@ -64,8 +64,7 @@ class GeneralTabWidget(SettingsFormWidget):
 
         # New Builds Check Settings
         self.CheckForNewBuildsAutomatically = QCheckBox()
-        self.CheckForNewBuildsAutomatically.setChecked(
-            get_check_for_new_builds_automatically())
+        self.CheckForNewBuildsAutomatically.setChecked(False)
         self.CheckForNewBuildsAutomatically.clicked.connect(
             self.toggle_check_for_new_builds_automatically)
 
@@ -77,7 +76,7 @@ class GeneralTabWidget(SettingsFormWidget):
         self.NewBuildsCheckFrequency.setToolTip(
             'Time in minutes between new builds check')
         self.NewBuildsCheckFrequency.setMaximum(24 * 60)
-        self.NewBuildsCheckFrequency.setMinimum(10)
+        self.NewBuildsCheckFrequency.setMinimum(120)
         self.NewBuildsCheckFrequency.setValue(
             get_new_builds_check_frequency() / 60)
         self.NewBuildsCheckFrequency.editingFinished.connect(
