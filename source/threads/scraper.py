@@ -26,7 +26,7 @@ class Scraper(QThread):
         self.platform = get_platform()
 
         if self.platform == 'Windows':
-            filter = r'blender-.+win.+64.+zip$'
+            filter = r'blender-[^\s\/]+-windows\.amd64-release\.zip'
         elif self.platform == 'Linux':
             filter = r'blender-.+lin.+64.+tar+(?!.*sha256).*'
         elif self.platform == 'macOS':
@@ -60,20 +60,20 @@ class Scraper(QThread):
 
     def get_download_links(self):
         # Stable Builds
-        self.scrap_stable_releases()
+        # self.scrap_stable_releases()
 
         # Daily Builds
         self.scrap_download_links(
-            "https://builder.blender.org/download", 'daily')
+            "https://builder.blender.org/download/daily/", 'daily')
 
         # Experimental Branches
-        self.scrap_download_links(
-            "https://builder.blender.org/download/experimental", 'experimental')
+        # self.scrap_download_links(
+        #     "https://builder.blender.org/download/experimental", 'experimental')
 
-        self.scrap_download_links(
-            "https://builder.blender.org/download/patch", 'experimental')
+        # self.scrap_download_links(
+        #     "https://builder.blender.org/download/patch", 'experimental')
 
-    def scrap_download_links(self, url, branch_type, _limit=None, stable=False):
+    def scrap_download_links(self, url, branch_type, _limit=None):
         r = self.manager._request('GET', url)
 
         if r is None:
@@ -81,11 +81,7 @@ class Scraper(QThread):
 
         content = r.data
 
-        if stable is True:
-            soup_stainer = SoupStrainer('a', href=True)
-        else:
-            soup_stainer = SoupStrainer('a', attrs={'ga_cat': 'download'})
-
+        soup_stainer = SoupStrainer('a', href=True)
         soup = BeautifulSoup(content, 'lxml', parse_only=soup_stainer)
 
         for tag in soup.find_all(limit=_limit, href=re.compile(self.b3d_link)):
@@ -96,6 +92,7 @@ class Scraper(QThread):
 
         r.release_conn()
         r.close()
+
 
     def new_blender_build(self, tag, url, branch_type):
         link = urljoin(url, tag['href']).rstrip('/')

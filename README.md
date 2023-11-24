@@ -34,7 +34,7 @@ Compared to its [predecessor](https://github.com/DotBow/Blender-Version-Manager)
 * Rewritten from the ground up for better stability and extensibility
 * All official builds are available:
     * [Stable releases](https://download.blender.org/release/)
-    * [Daily builds](https://builder.blender.org/download/)
+    * [Daily builds](https://builder.blender.org/download/daily/)
     * [Experimental branches](https://builder.blender.org/download/branches/)
 * Faster starting times by caching data
 * Support for high DPI displays

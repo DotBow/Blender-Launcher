@@ -71,7 +71,7 @@ There is known issue related to Qt and some Linux distributions like Mint where 
 
 ### `daily`
 
-:   **daily** folder is used to store [daily builds](https://builder.blender.org/download/).
+:   **daily** folder is used to store [daily builds](https://builder.blender.org/download/daily/).
 
 ### `experimental`
 
