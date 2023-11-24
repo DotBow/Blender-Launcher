@@ -47,7 +47,7 @@ class Scraper(QThread):
 
     def get_latest_tag(self):
         r = self.manager._request(
-            'GET', 'https://github.com/DotBow/Blender-Launcher/releases/latest')
+            'GET', 'https://github.com/Victor-IX/Blender-Launcher/releases/latest')
 
         if r is None:
             return
