@@ -1,3 +1,5 @@
+# Blender Launcher v2 development (https://github.com/Victor-IX/Blender-Launcher-V2)
+
 # [Discussions](https://github.com/DotBow/Blender-Launcher/discussions) │ [Documentation](https://dotbow.github.io/Blender-Launcher) │ [Latest Release](https://github.com/DotBow/Blender-Launcher/releases/latest)
 
 ![Blender Launcher Logo](docs/mkdocs/imgs/bl_logo.png)
